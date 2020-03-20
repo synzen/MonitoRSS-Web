@@ -1,6 +1,7 @@
 process.env.TEST_ENV = true
 const fetch = require('node-fetch')
 const feedServices = require('../../../../services/feed.js')
+const configServices = require('../../../../services/config.js')
 const getFeed = require('../../../../controllers/api/feeds/getFeed.js')
 const createError = require('../../../../util/createError.js')
 const {
@@ -12,10 +13,12 @@ const {
 jest.mock('node-fetch')
 jest.mock('../../../../util/createError.js')
 jest.mock('../../../../services/feed.js')
+jest.mock('../../../../services/config.js')
 
 describe('Unit::controllers/api/feeds/getFeed', function () {
   afterEach(function () {
     feedServices.getFeedPlaceholders.mockReset()
+    configServices.getFeedConfig.mockReset()
   })
   it('returns the feeds and xml if it exists', async function () {
     const placeholders = '23w4ey5rthu'
@@ -115,12 +118,10 @@ describe('Unit::controllers/api/feeds/getFeed', function () {
       status: 200,
       text: jest.fn()
     }
-    const feedURL = 'wseatgrhy'
-    const config = {
-      feeds: {
-        a: 1
-      }
+    const feedsConfig = {
+      a: 1
     }
+    const feedURL = 'wseatgrhy'
     feedServices.getFeedPlaceholders
       .mockResolvedValue()
     fetch.mockResolvedValue(fetchResults)
@@ -128,10 +129,10 @@ describe('Unit::controllers/api/feeds/getFeed', function () {
     const res = createResponse()
     const next = createNext()
     req.params.url = feedURL
-    req.app.get.mockReturnValue(config)
+    configServices.getFeedConfig.mockResolvedValue(feedsConfig)
     await getFeed()(req, res, next)
     expect(feedServices.getFeedPlaceholders)
-      .toHaveBeenCalledWith(feedURL, config.feeds)
+      .toHaveBeenCalledWith(feedURL, feedsConfig)
   })
   it('calls feed service with profile', async function () {
     const fetchResults = {

@@ -1,6 +1,7 @@
 process.env.TEST_ENV = true
 const getFeedPlaceholders = require('../../../../../controllers/api/guilds/feeds/getFeedPlaceholders.js')
 const feedServices = require('../../../../../services/feed.js')
+const configServices = require('../../../../../services/config.js')
 const createError = require('../../../../../util/createError.js')
 const {
   createResponse,
@@ -8,19 +9,18 @@ const {
 } = require('../../../../mocks/express.js')
 
 jest.mock('../../../../../services/feed.js')
+jest.mock('../../../../../services/config.js')
 jest.mock('../../../../../util/createError.js')
 
 describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
   afterEach(function () {
     feedServices.getFeedPlaceholders.mockReset()
+    configServices.getFeedConfig.mockReset()
   })
   it('returns the placeholders', async function () {
     const req = {
       feed: {},
-      guildData: {},
-      app: {
-        get: jest.fn(() => ({}))
-      }
+      guildData: {}
     }
     const res = createResponse()
     const data = {
@@ -35,10 +35,7 @@ describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
   it('returns 500 if service fails', async function () {
     const req = {
       feed: {},
-      guildData: {},
-      app: {
-        get: jest.fn(() => ({}))
-      }
+      guildData: {}
     }
     const json = jest.fn()
     const res = {
@@ -63,9 +60,6 @@ describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
         profile: {
           a: 1
         }
-      },
-      app: {
-        get: jest.fn(() => ({}))
       }
     }
     const res = createResponse()
@@ -80,24 +74,18 @@ describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
       feed: {
         url: '2wq34ety6rh'
       },
-      guildData: {},
-      app: {
-        get: jest.fn(() => ({
-          feeds: {
-            a: 1,
-            b: 2
-          }
-        }))
-      }
+      guildData: {}
+    }
+    const feedConfig = {
+      a: 1,
+      b: 2
     }
     const res = createResponse()
-    feedServices.getFeedPlaceholders.mockResolvedValue()
     const next = createNext()
+    feedServices.getFeedPlaceholders.mockResolvedValue()
+    configServices.getFeedConfig.mockResolvedValue(feedConfig)
     await getFeedPlaceholders(req, res, next)
     expect(feedServices.getFeedPlaceholders)
-      .toHaveBeenCalledWith(req.feed.url, {
-        a: 1,
-        b: 2
-      })
+      .toHaveBeenCalledWith(req.feed.url, feedConfig)
   })
 })

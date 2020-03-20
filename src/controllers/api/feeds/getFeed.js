@@ -1,4 +1,5 @@
 const fetch = require('node-fetch')
+const configServices = require('../../../services/config.js')
 const feedServices = require('../../../services/feed.js')
 const createError = require('../../../util/createError.js')
 
@@ -8,12 +9,12 @@ function getFeed (profile) {
    * @param {import('express').Response} res
    */
   async function controller (req, res) {
-    const config = req.app.get('config')
     const feedUrl = req.params.url
     let allPlaceholders = []
     let xmlStr = ''
     if (!profile) {
-      profile = config.feeds
+      const feedConfig = await configServices.getFeedConfig()
+      profile = feedConfig
     }
     try {
       allPlaceholders = await feedServices.getFeedPlaceholders(feedUrl, profile)
