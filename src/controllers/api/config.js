@@ -1,11 +1,9 @@
-const configGetter = require('../../config.js').get
-
 /**
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
 function getConfig (req, res) {
-  const config = configGetter()
+  const config = req.app.get('config')
   res.json(config.feeds)
 }
 

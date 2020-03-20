@@ -1,4 +1,3 @@
-const getConfig = require('../../../config.js').get
 const userServices = require('../../../services/user.js')
 const createError = require('../../../util/createError.js')
 
@@ -8,7 +7,7 @@ const createError = require('../../../util/createError.js')
  * @param {import('express').NextFunction} next
  */
 async function getBot (req, res, next) {
-  const config = getConfig()
+  const config = req.app.get('config')
   try {
     const userCached = await userServices.getUser(config.web.clientID)
     if (userCached) {
