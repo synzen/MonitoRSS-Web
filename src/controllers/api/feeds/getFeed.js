@@ -8,10 +8,13 @@ function getFeed (profile) {
    * @param {import('express').Response} res
    */
   async function controller (req, res) {
+    const config = req.app.get('config')
     const feedUrl = req.params.url
     let allPlaceholders = []
     let xmlStr = ''
-
+    if (!profile) {
+      profile = config.feeds
+    }
     try {
       allPlaceholders = await feedServices.getFeedPlaceholders(feedUrl, profile)
     } catch (err) {

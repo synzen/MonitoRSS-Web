@@ -6,9 +6,10 @@ const createError = require('../../../../util/createError.js')
  * @param {import('express').Response} res
  */
 async function getFeedPlaceholders (req, res) {
+  const config = req.app.get('config')
   /** @type {import('../../../../../structs/db/Feed.js')} */
   const feed = req.feed
-  const profile = req.guildData.profile || undefined
+  const profile = req.guildData.profile || config.feeds
   try {
     const data = await feedServices.getFeedPlaceholders(feed.url, profile)
     res.json(data)

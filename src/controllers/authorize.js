@@ -11,7 +11,8 @@ const log = createLogger('W')
 async function authorize (req, res) {
   try {
     const oauthClient = req.app.get('oauth2')
-    const session = await authServices.createAuthToken(req.query.code, oauthClient)
+    const config = req.app.get('config')
+    const session = await authServices.createAuthToken(req.query.code, oauthClient, config)
     req.session.token = session.token
     req.session.identity = session.identity
     log.info(`${req.session.identity.id}, ${req.session.identity.username} logged in`)

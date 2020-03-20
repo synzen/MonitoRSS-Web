@@ -4,17 +4,12 @@ const FeedFetcher = DiscordRSS.FeedFetcher
 const FailRecord = DiscordRSS.FailRecord
 const Feed = DiscordRSS.Feed
 const ArticleModel = DiscordRSS.models.Article.model
-const getConfig = require('../config.js').get
 
 /**
  * @param {string} url
  * @param {Object<string, any>} profile
  */
 async function getFeedPlaceholders (url, profile) {
-  if (!profile) {
-    const config = getConfig()
-    profile = config.feeds
-  }
   const { articleList } = await FeedFetcher.fetchFeed(url)
   const allPlaceholders = []
   if (articleList.length === 0) {

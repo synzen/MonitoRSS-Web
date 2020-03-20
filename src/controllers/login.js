@@ -7,7 +7,8 @@ const authServices = require('../services/auth.js')
  */
 function login (req, res, next) {
   const oauthClient = req.app.get('oauth2')
-  const url = authServices.getAuthorizationURL(oauthClient)
+  const config = req.app.get('config')
+  const url = authServices.getAuthorizationURL(oauthClient, config)
   res.redirect(url)
 }
 

@@ -6,7 +6,6 @@ const RedisUser = require('../../structs/db/Redis/User.js')
 const RedisGuildMember = require('../../structs/db/Redis/GuildMember.js')
 const createLogger = require('../util/logger/create.js')
 const WebCache = require('../models/WebCache.js').model
-const getConfig = require('../config.js').get
 const log = createLogger('W')
 const MANAGE_CHANNEL_PERMISSION = 16
 
@@ -83,8 +82,7 @@ async function getGuildsByAPI (id, accessToken, skipCache) {
  * @param {Object<string, any>} guild - User guild data from API
  * @returns {Promise<boolean>}
  */
-async function hasGuildPermission (guild) {
-  const config = getConfig()
+async function hasGuildPermission (guild, config) {
   // User permission
   const isOwner = guild.owner
   const managesChannel = (guild.permissions & MANAGE_CHANNEL_PERMISSION) === MANAGE_CHANNEL_PERMISSION
@@ -115,9 +113,8 @@ async function getMemberOfGuild (userID, guildID) {
  * @param {string} userID
  * @param {string} guildID
  */
-async function isManagerOfGuild (userID, guildID) {
+async function isManagerOfGuild (userID, guildID, config) {
   const member = await getMemberOfGuild(userID, guildID)
-  const config = getConfig()
   const isBotOwner = config.bot.ownerIDs.includes(userID)
   const isManager = member && member.isManager
   if (isBotOwner || isManager) {

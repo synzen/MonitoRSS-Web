@@ -8,11 +8,12 @@ const guildServices = require('../../../services/guild.js')
  */
 async function getMeGuilds (req, res, next) {
   const { identity, token } = req.session
+  const config = req.app.get('config')
   try {
     const userGuilds = await userServices.getGuildsByAPI(identity.id, token.access_token)
     const guilds = []
     for (const guild of userGuilds) {
-      const hasPerm = await userServices.hasGuildPermission(guild)
+      const hasPerm = await userServices.hasGuildPermission(guild, config)
       if (!hasPerm) {
         continue
       }
