@@ -27,7 +27,6 @@ const flushDatabase = async () => {
     }
     return new Promise((resolve, reject) => multi.exec((err, res) => err ? reject(err) : resolve(res)))
   }
-  // return promisify(storage.redisClient.flushdb).bind(storage.redisClient)()
 }
 
 module.exports = {

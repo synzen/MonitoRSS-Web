@@ -42,15 +42,14 @@ class Role extends Base {
         }
       },
       JSON_KEYS: ['id', 'guildID', 'name', 'hexColor', 'position'],
-      recognize: async role => {
-        if (!this.clientExists) return
+      recognize: async (redisClient, role) => {
         if (!(role instanceof Discord.Role)) throw new TypeError('Role is not instance of Discord.Role')
         const toStore = {}
         this.utils.JSON_KEYS.forEach(key => {
           toStore[key] = key === 'guildID' ? role.guild.id : role[key] === undefined ? '' : role[key] // Check of undefined explicitly since a falsy check will erroneously trigger for a value of 0 for role.position
         })
         return new Promise((resolve, reject) => {
-          this.client.multi()
+          redisClient.multi()
             .sadd(this.utils.REDIS_KEYS.rolesOfGuild(role.guild.id), role.id)
             .sadd(this.utils.REDIS_KEYS.managerRolesOfGuild(role.guild.id), role.id)
             .hmset(this.utils.REDIS_KEYS.role(role.id), toStore)
@@ -58,7 +57,6 @@ class Role extends Base {
         })
       },
       recognizeTransaction: (multi, role) => {
-        if (!this.clientExists) return
         if (!(role instanceof Discord.Role)) throw new TypeError('Role is not instance of Discord.Role')
         const toStore = {}
         this.utils.JSON_KEYS.forEach(key => {
@@ -69,10 +67,9 @@ class Role extends Base {
           .sadd(this.utils.REDIS_KEYS.managerRolesOfGuild(role.guild.id), role.id)
           .hmset(this.utils.REDIS_KEYS.role(role.id), toStore)
       },
-      update: async (oldRole, newRole) => {
-        if (!this.clientExists) return
+      update: async (redisClient, oldRole, newRole) => {
         if (!(oldRole instanceof Discord.Role) || !(newRole instanceof Discord.Role)) throw new TypeError('Role is not instance of Discord.Role')
-        const exists = await promisify(this.client.exists).bind(this.client)(this.utils.REDIS_KEYS.role(newRole.id))
+        const exists = await promisify(redisClient.exists).bind(redisClient)(this.utils.REDIS_KEYS.role(newRole.id))
         if (!exists) return this.utils.recognize(newRole)
         const toStore = {}
         let u = 0
@@ -83,62 +80,53 @@ class Role extends Base {
           }
         })
         if (u === 0) return 0
-        return promisify(this.client.hmset).bind(this.client)(this.utils.REDIS_KEYS.role(newRole.id), toStore)
+        return promisify(redisClient.hmset).bind(redisClient)(this.utils.REDIS_KEYS.role(newRole.id), toStore)
       },
-      forget: async role => {
-        if (!this.clientExists) return
+      forget: async (redisClient, role) => {
         if (!(role instanceof Discord.Role)) throw new TypeError('Role is not instance of Discord.Role')
         return new Promise((resolve, reject) => {
-          this.client.multi()
+          redisClient.multi()
             .srem(this.utils.REDIS_KEYS.rolesOfGuild(role.guild.id), role.id)
             .srem(this.utils.REDIS_KEYS.managerRolesOfGuild(role.guild.id), role.id)
             .del(this.utils.REDIS_KEYS.role(role.id))
             .exec((err, res) => err ? reject(err) : resolve(res))
         })
       },
-      recognizeManager: async role => {
-        if (!this.clientExists) return
+      recognizeManager: async (redisClient, role) => {
         if (!(role instanceof Discord.Role)) throw new TypeError('Role is not instance of Discord.Role')
-        return promisify(this.client.sadd).bind(this.client)(this.utils.REDIS_KEYS.managerRolesOfGuild(role.guild.id), role.id)
+        return promisify(redisClient.sadd).bind(redisClient)(this.utils.REDIS_KEYS.managerRolesOfGuild(role.guild.id), role.id)
       },
-      forgetManager: async role => {
-        if (!this.clientExists) return
+      forgetManager: async (redisClient, role) => {
         if (!(role instanceof Discord.Role)) throw new TypeError('Role is not instance of Discord.Role')
-        return promisify(this.client.srem).bind(this.client)(this.utils.REDIS_KEYS.managerRolesOfGuild(role.guild.id), role.id)
+        return promisify(redisClient.srem).bind(redisClient)(this.utils.REDIS_KEYS.managerRolesOfGuild(role.guild.id), role.id)
       },
       forgetTransaction: (multi, role) => {
-        if (!this.clientExists) return
         if (!(role instanceof Discord.Role)) throw new TypeError('Member is not instance of Discord.Role')
         multi
           .srem(this.utils.REDIS_KEYS.rolesOfGuild(role.guild.id), role.id)
           .srem(this.utils.REDIS_KEYS.managerRolesOfGuild(role.guild.id), role.id)
           .del(this.utils.REDIS_KEYS.role(role.id))
       },
-      isRoleOfGuild: async (roleID, guildID) => {
-        if (!this.clientExists) return
+      isRoleOfGuild: async (redisClient, roleID, guildID) => {
         if (!roleID || !guildID) throw new TypeError('Role or guild ID is not defined')
-        return promisify(this.client.sismember).bind(this.client)(this.utils.REDIS_KEYS.rolesOfGuild(guildID), roleID)
+        return promisify(redisClient.sismember).bind(redisClient)(this.utils.REDIS_KEYS.rolesOfGuild(guildID), roleID)
       },
-      isManagerOfGuild: async (roleID, guildID) => {
-        if (!this.clientExists) return
+      isManagerOfGuild: async (redisClient, roleID, guildID) => {
         if (!roleID || !guildID) throw new TypeError('Role or guild ID is not defined')
-        return promisify(this.client.sismember).bind(this.client)(this.utils.REDIS_KEYS.managerRolesOfGuild(guildID), roleID)
+        return promisify(redisClient.sismember).bind(redisClient)(this.utils.REDIS_KEYS.managerRolesOfGuild(guildID), roleID)
       },
-      get: async roleID => {
-        if (!this.clientExists) return
+      get: async (redisClient, roleID) => {
         if (!roleID || typeof roleID !== 'string') throw new TypeError('roleID not a valid string')
-        return promisify(this.client.hgetall).bind(this.client)(this.utils.REDIS_KEYS.role(roleID))
+        return promisify(redisClient.hgetall).bind(redisClient)(this.utils.REDIS_KEYS.role(roleID))
       },
-      getValue: async (roleID, key) => {
-        if (!this.clientExists) return
+      getValue: async (redisClient, roleID, key) => {
         if (!this.utils.JSON_KEYS.includes(key)) throw new Error('Unknown key for role:', key)
         if (!roleID || !key) throw new TypeError('roleID or key is undefined')
-        return promisify(this.client.hget).bind(this.client)(this.utils.REDIS_KEYS.role(roleID), key)
+        return promisify(redisClient.hget).bind(redisClient)(this.utils.REDIS_KEYS.role(roleID), key)
       },
-      getRolesOfGuild: async guildID => {
-        if (!this.clientExists) return
+      getRolesOfGuild: async (redisClient, guildID) => {
         if (!guildID) throw new TypeError('Guild ID is not defined')
-        return promisify(this.client.smembers).bind(this.client)(this.utils.REDIS_KEYS.rolesOfGuild(guildID))
+        return promisify(redisClient.smembers).bind(redisClient)(this.utils.REDIS_KEYS.rolesOfGuild(guildID))
       }
     }
   }

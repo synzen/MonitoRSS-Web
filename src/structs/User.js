@@ -29,8 +29,7 @@ class User extends Base {
         }
       },
       JSON_KEYS: ['username', 'displayAvatarURL', 'discriminator', 'id'],
-      recognize: async user => {
-        if (!this.clientExists) return
+      recognize: async (redisClient, user) => {
         if (!(user instanceof Discord.User)) throw new TypeError('User is not instance of Discord.User')
         const toStore = {}
         this.utils.JSON_KEYS.forEach(key => {
@@ -41,12 +40,11 @@ class User extends Base {
             toStore[key] = user[key] || ''
           }
         })
-        return promisify(this.client.hmset).bind(this.client)(this.utils.REDIS_KEYS.user(user.id), toStore)
+        return promisify(redisClient.hmset).bind(redisClient)(this.utils.REDIS_KEYS.user(user.id), toStore)
       },
-      update: async (oldUser, newUser) => {
-        if (!this.clientExists) return
+      update: async (redisClient, oldUser, newUser) => {
         if (!(oldUser instanceof Discord.User) || !(newUser instanceof Discord.User)) throw new TypeError('User is not instance of Discord.User')
-        const exists = await promisify(this.client.exists).bind(this.client)(this.utils.REDIS_KEYS.user(newUser.id))
+        const exists = await promisify(redisClient.exists).bind(redisClient)(this.utils.REDIS_KEYS.user(newUser.id))
         if (!exists) return exports.guilds.recognize(newUser)
         const toStore = {}
         this.utils.JSON_KEYS.forEach(key => {
@@ -66,20 +64,18 @@ class User extends Base {
         const promises = []
         for (const key in toStore) {
           const val = toStore[key]
-          promises.push(promisify(this.client.hset).bind(this.client)(this.utils.REDIS_KEYS.user(newUser.id), key, val))
+          promises.push(promisify(redisClient.hset).bind(redisClient)(this.utils.REDIS_KEYS.user(newUser.id), key, val))
         }
         await Promise.all(promises)
       },
-      get: async userId => {
-        if (!this.clientExists) return
+      get: async (redisClient, userId) => {
         if (!userId || typeof userId !== 'string') throw new TypeError('userId not a valid string')
-        return promisify(this.client.hgetall).bind(this.client)(this.utils.REDIS_KEYS.user(userId))
+        return promisify(redisClient.hgetall).bind(redisClient)(this.utils.REDIS_KEYS.user(userId))
       },
-      getValue: async (userId, key) => {
-        if (!this.clientExists) return
+      getValue: async (redisClient, userId, key) => {
         if (!this.utils.JSON_KEYS.includes(key)) throw new Error('Unknown key for role:', key)
         if (!userId || !key) throw new TypeError('userId or key is undefined')
-        return promisify(this.client.hget).bind(this.client)(this.utils.REDIS_KEYS.user(userId), key)
+        return promisify(redisClient.hget).bind(redisClient)(this.utils.REDIS_KEYS.user(userId), key)
       }
     }
   }

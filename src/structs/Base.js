@@ -1,5 +1,3 @@
-const storage = require('../../../util/storage.js')
-
 class Base {
   constructor (data = '', keysToFetch = []) {
     if (typeof data === 'string') {
@@ -17,14 +15,6 @@ class Base {
 
   async retrieve () {
     throw new Error('fetch must be implemented in subclasses')
-  }
-
-  static get clientExists () {
-    return !!(storage.redisClient)
-  }
-
-  static get client () {
-    return storage.redisClient
   }
 
   toJSON () {

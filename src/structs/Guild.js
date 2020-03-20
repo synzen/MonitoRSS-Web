@@ -51,10 +51,9 @@ class Guild extends Base {
         }
       },
       JSON_KEYS: [ 'name', 'iconURL', 'ownerID', 'shard' ],
-      recognize: async guild => {
-        if (!this.clientExists) return
+      recognize: async (redisClient, guild) => {
         if (!(guild instanceof Discord.Guild)) throw new TypeError('Guild is not instance of Discord.Guild')
-        const multi = this.client.multi()
+        const multi = redisClient.multi()
         const toStore = {}
         this.utils.JSON_KEYS.forEach(key => {
           // MUST be a flat structure
@@ -72,10 +71,9 @@ class Guild extends Base {
         guild.roles.cache.forEach(role => Role.utils.recognizeTransaction(multi, role))
         return new Promise((resolve, reject) => multi.exec((err, res) => err ? reject(err) : resolve(res)))
       },
-      update: async (oldGuild, newGuild) => {
-        if (!this.clientExists) return
+      update: async (redisClient, oldGuild, newGuild) => {
         if (!(oldGuild instanceof Discord.Guild) || !(newGuild instanceof Discord.Guild)) throw new TypeError('Guild is not instance of Discord.Guild')
-        const exists = await promisify(this.client.exists).bind(this.client)(this.utils.REDIS_KEYS.guilds(newGuild.id))
+        const exists = await promisify(redisClient.exists).bind(redisClient)(this.utils.REDIS_KEYS.guilds(newGuild.id))
         if (!exists) return Guild.utils.recognize(newGuild)
         const toStore = {}
         let u = 0
@@ -86,33 +84,29 @@ class Guild extends Base {
           }
         })
         if (u === 0) return 0
-        return promisify(this.client.hmset).bind(this.client)(this.utils.REDIS_KEYS.guilds(newGuild.id), toStore)
+        return promisify(redisClient.hmset).bind(redisClient)(this.utils.REDIS_KEYS.guilds(newGuild.id), toStore)
       },
-      forget: async guild => {
-        if (!this.clientExists) return
+      forget: async (redisClient, guild) => {
         if (!(guild instanceof Discord.Guild)) throw new TypeError('Guild is not instance of Discord.Guild')
-        const multi = this.client.multi()
+        const multi = redisClient.multi()
         multi.del(this.utils.REDIS_KEYS.guilds(guild.id))
         guild.members.cache.forEach(member => GuildMember.utils.forgetTransaction(multi, member))
         guild.channels.cache.forEach(channel => Channel.utils.forgetTransaction(multi, channel))
         guild.roles.cache.forEach(role => Role.utils.forgetTransaction(multi, role))
         return new Promise((resolve, reject) => multi.exec((err, res) => err ? reject(err) : resolve(res)))
       },
-      get: async guildID => {
-        if (!this.clientExists) return
+      get: async (redisClient, guildID) => {
         if (!guildID || typeof guildID !== 'string') throw new TypeError('guildID not a valid string')
-        return promisify(this.client.hgetall).bind(this.client)(this.utils.REDIS_KEYS.guilds(guildID))
+        return promisify(redisClient.hgetall).bind(redisClient)(this.utils.REDIS_KEYS.guilds(guildID))
       },
-      getValue: async (guildID, key) => {
-        if (!this.clientExists) return
+      getValue: async (redisClient, guildID, key) => {
         if (!this.utils.JSON_KEYS.includes(key)) throw new Error('Unknown key for guild:', key)
         if (!guildID || !key) throw new TypeError('guildID or key is undefined')
-        return promisify(this.client.hget).bind(this.client)(this.utils.REDIS_KEYS.guilds(guildID), key)
+        return promisify(redisClient.hget).bind(redisClient)(this.utils.REDIS_KEYS.guilds(guildID), key)
       },
-      exists: async guildID => {
-        if (!this.clientExists) return
+      exists: async (redisClient, guildID) => {
         if (!guildID || typeof guildID !== 'string') throw new TypeError('guildID not a valid string')
-        return promisify(this.client.exists).bind(this.client)(this.utils.REDIS_KEYS.guilds(guildID))
+        return promisify(redisClient.exists).bind(redisClient)(this.utils.REDIS_KEYS.guilds(guildID))
       }
     }
   }
