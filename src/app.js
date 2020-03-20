@@ -85,6 +85,7 @@ module.exports = () => {
 
   // Application-specific variables
   app.set('oauth2', oauth2)
+  app.set('config', config)
 
   // Routes
   app.use(routes)
