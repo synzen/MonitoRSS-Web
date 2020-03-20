@@ -7,6 +7,7 @@
   "dependencies": {
     "axios": "^0.18.1",
     "feedparser": "^2.2.9",
+    "fomantic-ui": "^2.8.4",
     "highlight.js": "^9.18.1",
     "immutability-helper": "^2.9.1",
     "js-file-download": "^0.4.9",
@@ -68,7 +69,6 @@
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-standard": "^4.0.0",
     "gulp-help": "^1.6.1",
-    "node-sass-tilde-importer": "^1.0.2",
-    "semantic-ui": "^2.4.2"
+    "node-sass-tilde-importer": "^1.0.2"
   }
 }
