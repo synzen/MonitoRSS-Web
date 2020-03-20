@@ -32,6 +32,7 @@
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
+    "@types/jest": "^25.1.4",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.18.2",
