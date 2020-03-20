@@ -2,8 +2,8 @@ const fetch = require('node-fetch')
 const discordAPIConstants = require('../constants/discordAPI.js')
 const discordAPIHeaders = require('../constants/discordAPIHeaders.js')
 const roleServices = require('./role.js')
-const RedisUser = require('../../structs/db/Redis/User.js')
-const RedisGuildMember = require('../../structs/db/Redis/GuildMember.js')
+const RedisUser = require('../structs/User.js')
+const RedisGuildMember = require('../structs/GuildMember.js')
 const createLogger = require('../util/logger/create.js')
 const WebCache = require('../models/WebCache.js').model
 const log = createLogger('W')
@@ -58,8 +58,8 @@ async function getUserByAPI (id, accessToken, skipCache) {
   return data
 }
 
-async function getUser (id) {
-  const user = await RedisUser.fetch(id)
+async function getUser (id, redisClient) {
+  const user = await RedisUser.fetch(redisClient, id)
   return user ? user.toJSON() : null
 }
 
@@ -100,9 +100,10 @@ async function hasGuildPermission (guild, config) {
 /**
  * @param {string} userID
  * @param {string} guildID
+ * @param {import('redis').RedisClient} redisClient
  */
-async function getMemberOfGuild (userID, guildID) {
-  const member = await RedisGuildMember.fetch({
+async function getMemberOfGuild (userID, guildID, redisClient) {
+  const member = await RedisGuildMember.fetch(redisClient, {
     id: userID,
     guildID
   })
@@ -112,9 +113,10 @@ async function getMemberOfGuild (userID, guildID) {
 /**
  * @param {string} userID
  * @param {string} guildID
+ * @param {import('redis').RedisClient} redisClient
  */
-async function isManagerOfGuild (userID, guildID, config) {
-  const member = await getMemberOfGuild(userID, guildID)
+async function isManagerOfGuild (userID, guildID, config, redisClient) {
+  const member = await getMemberOfGuild(userID, guildID, redisClient)
   const isBotOwner = config.bot.ownerIDs.includes(userID)
   const isManager = member && member.isManager
   if (isBotOwner || isManager) {
@@ -124,34 +126,35 @@ async function isManagerOfGuild (userID, guildID, config) {
     return false
   }
   // At this point, the member is not cached - so check the API
-  return isManagerOfGuildByAPI(userID, guildID)
+  return isManagerOfGuildByAPI(userID, guildID, redisClient)
 }
 
 /**
  * @param {string} userID
  * @param {string} guildID
+ * @param {import('redis').RedisClient}
  */
-async function isManagerOfGuildByAPI (userID, guildID) {
+async function isManagerOfGuildByAPI (userID, guildID, redisClient) {
   log.general.info(`[1 DISCORD API REQUEST] [BOT] MIDDLEWARE /api/guilds/:guildId/members/:userId`)
   const res = await fetch(`${discordAPIConstants.apiHost}/guilds/${guildID}/members/${userID}`, discordAPIHeaders.bot())
   if (res.status === 200) {
     const user = await res.json()
     const roles = user.roles
     for (const id of roles) {
-      const isManager = await roleServices.isManagerOfGuild(id, guildID)
+      const isManager = await roleServices.isManagerOfGuild(id, guildID, redisClient)
       if (isManager) {
         // Store the user as manager member
-        await RedisGuildMember.utils.recognizeManagerManual(userID, guildID)
+        await RedisGuildMember.utils.recognizeManagerManual(redisClient, userID, guildID)
         return true
       }
     }
     // Store the user as member
-    await RedisGuildMember.utils.recognizeManual(userID, guildID)
+    await RedisGuildMember.utils.recognizeManual(redisClient, userID, guildID)
     return false
   }
   if (res.status === 403 || res.status === 401) {
     // Store the user as non-member
-    await RedisGuildMember.utils.recognizeNonMember(userID, guildID)
+    await RedisGuildMember.utils.recognizeNonMember(redisClient, userID, guildID)
     return false
   }
   throw new Error(`Bad Discord status code (${res.status})`)

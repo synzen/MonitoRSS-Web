@@ -10,8 +10,8 @@ class User extends Base {
     this.discriminator = ''
   }
 
-  async retrieve () {
-    const data = await User.utils.get(this.id)
+  async retrieve (redisClient) {
+    const data = await User.utils.get(redisClient, this.id)
     this._fetched = true
     if (!data) return
     this.exists = true

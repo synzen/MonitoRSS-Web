@@ -6,21 +6,9 @@ const Role = require('./Role.js')
 const User = require('./User.js')
 const promisify = require('util').promisify
 
-const events = {
-  NAMES: {
-    DRSS_PROFILE_UPDATE: 'DRSS_PROFILE_UPDATE'
-  },
-  emitUpdatedProfile: guildId => {
-    if (!Channel.clientExists) return
-    if (!guildId) throw new TypeError(`Guild ID is not defined`)
-    Channel.client.publish(events.NAMES.DRSS_PROFILE_UPDATE, guildId)
-  }
-}
-
-const flushDatabase = async () => {
-  if (!Channel.clientExists) return
-  const keys = await promisify(Channel.client.keys).bind(Channel.client)('drss*')
-  const multi = Channel.client.multi()
+const flushDatabase = async (redisClient) => {
+  const keys = await promisify(redisClient.keys).bind(redisClient)('drss*')
+  const multi = redisClient.multi()
   if (keys && keys.length > 0) {
     for (const key of keys) {
       multi.del(key)
@@ -36,6 +24,5 @@ module.exports = {
   GuildMember,
   Role,
   User,
-  events,
   flushDatabase
 }

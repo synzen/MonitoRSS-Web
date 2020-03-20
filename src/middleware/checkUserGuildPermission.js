@@ -9,14 +9,15 @@ const createError = require('../util/createError.js')
  * @param {import('express').NextFunction} next
  */
 async function checkUserGuildPermission (req, res, next) {
+  const redisClient = req.app.get('redisClient')
   const config = req.app.get('config')
   try {
     var guildID = req.params.guildID
     var userID = req.session.identity.id
     const [ guild, guildData, isManager ] = await Promise.all([
-      guildServices.getCachedGuild(guildID),
+      guildServices.getCachedGuild(guildID, redisClient),
       guildServices.getAppData(guildID),
-      userServices.isManagerOfGuild(userID, guildID, config)
+      userServices.isManagerOfGuild(userID, guildID, config, redisClient)
     ])
     if (!guild) {
       const error = createError(404, 'Unknown guild')

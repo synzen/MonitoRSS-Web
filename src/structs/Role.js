@@ -12,8 +12,8 @@ class Role extends Base {
     this.isManager = false
   }
 
-  async retrieve () {
-    const data = await Role.utils.get(this.id)
+  async retrieve (redisClient) {
+    const data = await Role.utils.get(redisClient, this.id)
     this._fetched = true
     if (!data) return
     this.exists = true
@@ -21,7 +21,7 @@ class Role extends Base {
     this.hexColor = data.hexColor
     this.position = +data.position // Convert to number
     this.guildID = data.guildID
-    const isManager = await Role.utils.isManagerOfGuild(this.id, this.guildID)
+    const isManager = await Role.utils.isManagerOfGuild(redisClient, this.id, this.guildID)
     this.isManager = isManager
   }
 

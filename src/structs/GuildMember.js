@@ -11,8 +11,11 @@ class GuildMember extends Base {
     this.isManager = false
   }
 
-  async retrieve () {
-    const [ isMember, isManager ] = await Promise.all([ GuildMember.utils.isMemberOfGuild(this.id, this.guildID), GuildMember.utils.isManagerOfGuild(this.id, this.guildID) ])
+  async retrieve (redisClient) {
+    const [ isMember, isManager ] = await Promise.all([
+      GuildMember.utils.isMemberOfGuild(redisClient, this.id, this.guildID),
+      GuildMember.utils.isManagerOfGuild(redisClient, this.id, this.guildID)
+    ])
     this._fetched = true
     if (!isMember) return
     this.exists = true

@@ -1,6 +1,6 @@
 const DiscordRSS = require('discord.rss')
-const RedisGuild = require('../../structs/db/Redis/Guild.js')
-const RedisChannel = require('../../structs/db/Redis/Channel.js')
+const RedisGuild = require('../structs/Guild.js')
+const RedisChannel = require('../structs/Channel.js')
 const GuildData = DiscordRSS.GuildData
 const Profile = DiscordRSS.Profile
 
@@ -13,8 +13,8 @@ async function getAppData (guildID) {
   }
 }
 
-async function getCachedGuild (guildID) {
-  const guild = await RedisGuild.fetch(guildID)
+async function getCachedGuild (guildID, redisClient) {
+  const guild = await RedisGuild.fetch(redisClient, guildID)
   if (guild) {
     return guild.toJSON()
   } else {
@@ -64,9 +64,10 @@ async function updateProfile (guildID, guildName, data) {
 /**
  * @param {string} guildID
  * @param {string} channelID
+ * @param {import('redis').RedisClient} redisClient
  */
-async function guildHasChannel (guildID, channelID) {
-  const channel = await RedisChannel.fetch(channelID)
+async function guildHasChannel (guildID, channelID, redisClient) {
+  const channel = await RedisChannel.fetch(redisClient, channelID)
   if (!channel) {
     return false
   }

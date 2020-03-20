@@ -7,11 +7,12 @@ const createError = require('../util/createError.js')
  * @param {import('express').NextFunction} next
  */
 async function guildHasChannel (req, res, next) {
+  const redisClient = req.app.get('redisClient')
   const guildID = req.params.guildID
   const channelID = req.body.channel
 
   try {
-    const has = await guildServices.guildHasChannel(guildID, channelID)
+    const has = await guildServices.guildHasChannel(guildID, channelID, redisClient)
     if (!has) {
       const createdError = createError(404, 'Unknown channel')
       res.status(404).json(createdError)

@@ -1,10 +1,11 @@
-const RedisRole = require('../../structs/db/Redis/Role.js')
+const RedisRole = require('../structs/Role.js')
 
 /**
  * @param {string} roleID
+ * @param {import('redis').RedisClient}
  */
-async function getRole (roleID) {
-  const role = await RedisRole.fetch(roleID)
+async function getRole (roleID, redisClient) {
+  const role = await RedisRole.fetch(redisClient, roleID)
   return role ? formatRole(role.toJSON()) : null
 }
 
@@ -20,9 +21,10 @@ async function formatRole (roleData) {
 
 /**
  * @param {string[]} roleIDs
+ * @param {import('redis').RedisClient} redisClient
  */
-async function getRoles (roleIDs) {
-  const resolved = await Promise.all(roleIDs.map(id => getRole(id)))
+async function getRoles (roleIDs, redisClient) {
+  const resolved = await Promise.all(roleIDs.map(id => getRole(id, redisClient)))
   return resolved.map(formatRole)
     .sort((a, b) => b.position - a.position)
 }
@@ -30,17 +32,19 @@ async function getRoles (roleIDs) {
 /**
  * @param {string} roleID
  * @param {string} guildID
+ * @param {import('redis').RedisClient} redisClient
  */
-async function isManagerOfGuild (roleID, guildID) {
-  return RedisRole.utils.isManagerOfGuild(roleID, guildID)
+async function isManagerOfGuild (roleID, guildID, redisClient) {
+  return RedisRole.utils.isManagerOfGuild(redisClient, roleID, guildID)
 }
 
 /**
  * @param {string} roleID
  * @param {string} guildID
+ * @param {import('redis').RedisClient} redisClient
  */
-async function isRoleOfGuild (roleID, guildID) {
-  const role = await getRole(roleID)
+async function isRoleOfGuild (roleID, guildID, redisClient) {
+  const role = await getRole(roleID, redisClient)
   if (!role) {
     return false
   }
@@ -49,10 +53,11 @@ async function isRoleOfGuild (roleID, guildID) {
 
 /**
  * @param {string} guildID
+ * @param {import('redis').RedisClient}
  */
-async function getRolesOfGuild (guildID) {
-  const roleIDs = await RedisRole.utils.getRolesOfGuild(guildID)
-  const roles = await Promise.all(roleIDs.map(roleID => getRole(roleID)))
+async function getRolesOfGuild (guildID, redisClient) {
+  const roleIDs = await RedisRole.utils.getRolesOfGuild(redisClient, guildID)
+  const roles = await Promise.all(roleIDs.map(roleID => getRole(roleID, redisClient)))
   return roles.filter(r => r)
 }
 

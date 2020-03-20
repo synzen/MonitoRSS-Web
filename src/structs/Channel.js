@@ -9,8 +9,8 @@ class Channel extends Base {
     this.guildID = ''
   }
 
-  async retrieve () {
-    const data = await Channel.utils.get(this.id)
+  async retrieve (redisClient) {
+    const data = await Channel.utils.get(redisClient, this.id)
     this._fetched = true
     if (!data) return
     this.exists = true

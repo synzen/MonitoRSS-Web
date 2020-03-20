@@ -9,6 +9,7 @@ const createError = require('../../../../../util/createError.js')
  * @param {import('express').NextFunction} next
  */
 async function createSubscriber (req, res, next) {
+  const redisClient = req.app.get('redisClient')
   const guildID = req.params.guildID
   const data = {
     feed: req.params.feedID,
@@ -18,13 +19,13 @@ async function createSubscriber (req, res, next) {
   }
   try {
     if (data.type === 'role') {
-      const valid = await roleServices.isRoleOfGuild(data.id, guildID)
+      const valid = await roleServices.isRoleOfGuild(data.id, guildID, redisClient)
       if (!valid) {
         const createdError = createError(403, `Role is not part of guild`)
         return res.status(403).json(createdError)
       }
     } else {
-      const exists = await userServices.getMemberOfGuild(data.id, guildID)
+      const exists = await userServices.getMemberOfGuild(data.id, guildID, redisClient)
       if (!exists) {
         const createdError = createError(403, `User is not member of guild`)
         return res.status(403).json(createdError)

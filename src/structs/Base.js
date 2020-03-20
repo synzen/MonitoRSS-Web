@@ -27,9 +27,9 @@ class Base {
     return obj
   }
 
-  static async fetch (data) {
+  static async fetch (redisClient, data) {
     const subclass = new this(data)
-    await subclass.retrieve()
+    await subclass.retrieve(redisClient)
     if (!subclass._fetched) throw new Error('fetched field was not set to true after retrieve function called')
     return subclass.exists ? subclass : null
   }

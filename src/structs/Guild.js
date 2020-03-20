@@ -16,12 +16,12 @@ class Guild extends Base {
     this.roles = []
   }
 
-  async retrieve () {
+  async retrieve (redisClient) {
     const fetchChannels = this._toFetch.includes('channels') || this._fetchAll
     const fetchRoles = this._toFetch.includes('roles') || this._fetchAll
-    const promiseArr = [ Guild.utils.get(this.id) ]
-    if (fetchChannels) promiseArr.push(Channel.utils.getChannelsOfGuild(this.id))
-    if (fetchRoles) promiseArr.push(Role.utils.getRolesOfGuild(this.id))
+    const promiseArr = [ Guild.utils.get(redisClient, this.id) ]
+    if (fetchChannels) promiseArr.push(Channel.utils.getChannelsOfGuild(redisClient, this.id))
+    if (fetchRoles) promiseArr.push(Role.utils.getRolesOfGuild(redisClient, this.id))
     const [ data, channels, roles ] = await Promise.all(promiseArr)
     this._fetched = true
     if (!data) return

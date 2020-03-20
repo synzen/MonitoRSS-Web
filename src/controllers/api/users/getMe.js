@@ -7,8 +7,9 @@ const userServices = require('../../../services/user.js')
  */
 async function getMe (req, res, next) {
   const { identity, token } = req.session
+  const redisClient = req.app.get('redisClient')
   try {
-    const userCached = await userServices.getUser(identity.id)
+    const userCached = await userServices.getUser(identity.id, redisClient)
     if (userCached) {
       return res.json(userCached)
     }
