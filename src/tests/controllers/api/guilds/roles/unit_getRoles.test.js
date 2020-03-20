@@ -7,13 +7,16 @@ const {
 
 jest.mock('../../../../../services/role.js')
 
-describe('Unit::controllers/api/guilds/channels/getRoles', function () {
+describe('Unit::controllers/api/guilds/roles/getRoles', function () {
   afterEach(function () {
     roleServices.getRolesOfGuild.mockReset()
   })
-  it('returns the channels', async function () {
+  it('returns the roles', async function () {
     const req = {
-      params: {}
+      params: {},
+      app: {
+        get: jest.fn()
+      }
     }
     const res = createResponse()
     const data = [1, 2, 3]
@@ -25,7 +28,10 @@ describe('Unit::controllers/api/guilds/channels/getRoles', function () {
   })
   it('calls next if service fails', async function () {
     const req = {
-      params: {}
+      params: {},
+      app: {
+        get: jest.fn()
+      }
     }
     const res = createResponse()
     const error = new Error('wsetgd')
@@ -35,9 +41,15 @@ describe('Unit::controllers/api/guilds/channels/getRoles', function () {
     expect(next).toHaveBeenCalledWith(error)
   })
   it('calls service with right arg', async function () {
+    const redisClient = {
+      a: 55
+    }
     const req = {
       params: {
         guildID: '3q12e5tw4ry'
+      },
+      app: {
+        get: () => redisClient
       }
     }
     const res = createResponse()
@@ -45,6 +57,6 @@ describe('Unit::controllers/api/guilds/channels/getRoles', function () {
     const next = createNext()
     await getRoles(req, res, next)
     expect(roleServices.getRolesOfGuild)
-      .toHaveBeenCalledWith(req.params.guildID)
+      .toHaveBeenCalledWith(req.params.guildID, redisClient)
   })
 })

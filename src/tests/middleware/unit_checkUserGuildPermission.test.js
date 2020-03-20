@@ -10,7 +10,6 @@ const {
 jest.mock('../../services/guild.js')
 jest.mock('../../services/user.js')
 jest.mock('../../util/createError.js')
-jest.mock('../../../config.js')
 
 const createRequest = () => ({
   params: {
@@ -20,6 +19,9 @@ const createRequest = () => ({
     identity: {
       id: 123
     }
+  },
+  app: {
+    get: jest.fn()
   }
 })
 

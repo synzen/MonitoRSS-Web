@@ -34,6 +34,7 @@ describe('Unit::controllers/api/feeds/getFeed', function () {
       placeholders,
       xml
     }
+    req.app.get.mockReturnValue({})
     await getFeed()(req, res, next)
     expect(next).not.toHaveBeenCalled()
     expect(res.json).toHaveBeenCalledWith(expected)
@@ -49,6 +50,7 @@ describe('Unit::controllers/api/feeds/getFeed', function () {
       status: jest.fn(() => ({ json }))
     }
     const next = createNext()
+    req.app.get.mockReturnValue({})
     await getFeed()(req, res, next)
     expect(next).not.toHaveBeenCalled()
     expect(res.status).toHaveBeenCalledWith(400)
@@ -64,6 +66,7 @@ describe('Unit::controllers/api/feeds/getFeed', function () {
       status: jest.fn(() => ({ json }))
     }
     const next = createNext()
+    req.app.get.mockReturnValue({})
     await getFeed()(req, res, next)
     expect(next).not.toHaveBeenCalled()
     expect(res.status).toHaveBeenCalledWith(500)
@@ -80,12 +83,13 @@ describe('Unit::controllers/api/feeds/getFeed', function () {
       status: jest.fn(() => ({ json }))
     }
     const next = createNext()
+    req.app.get.mockReturnValue({})
     await getFeed()(req, res, next)
     expect(next).not.toHaveBeenCalled()
     expect(res.status).toHaveBeenCalledWith(500)
     expect(json).toHaveBeenCalledWith(createdError)
   })
-  it('returns 500 if fetch gives bad status code', async function () {
+  it('returns 500 if text parse fails on fetched data', async function () {
     const fetched = {
       status: 200,
       text: jest.fn().mockRejectedValue(new Error())
@@ -100,9 +104,54 @@ describe('Unit::controllers/api/feeds/getFeed', function () {
       status: jest.fn(() => ({ json }))
     }
     const next = createNext()
+    req.app.get.mockReturnValue({})
     await getFeed()(req, res, next)
     expect(next).not.toHaveBeenCalled()
     expect(res.status).toHaveBeenCalledWith(500)
     expect(json).toHaveBeenCalledWith(createdError)
+  })
+  it('calls feed service with config if no profile', async function () {
+    const fetchResults = {
+      status: 200,
+      text: jest.fn()
+    }
+    const feedURL = 'wseatgrhy'
+    const config = {
+      feeds: {
+        a: 1
+      }
+    }
+    feedServices.getFeedPlaceholders
+      .mockResolvedValue()
+    fetch.mockResolvedValue(fetchResults)
+    const req = createRequest()
+    const res = createResponse()
+    const next = createNext()
+    req.params.url = feedURL
+    req.app.get.mockReturnValue(config)
+    await getFeed()(req, res, next)
+    expect(feedServices.getFeedPlaceholders)
+      .toHaveBeenCalledWith(feedURL, config.feeds)
+  })
+  it('calls feed service with profile', async function () {
+    const fetchResults = {
+      status: 200,
+      text: jest.fn()
+    }
+    const feedURL = 'wseatgrhy'
+    const profile = {
+      a: 5,
+      b: 'rf'
+    }
+    feedServices.getFeedPlaceholders
+      .mockResolvedValue()
+    fetch.mockResolvedValue(fetchResults)
+    const req = createRequest()
+    const res = createResponse()
+    const next = createNext()
+    req.params.url = feedURL
+    await getFeed(profile)(req, res, next)
+    expect(feedServices.getFeedPlaceholders)
+      .toHaveBeenCalledWith(feedURL, profile)
   })
 })

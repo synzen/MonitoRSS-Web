@@ -9,7 +9,6 @@ const {
 
 jest.mock('../../../../services/user.js')
 jest.mock('../../../../services/guild.js')
-jest.mock('../../../../../config.js')
 
 const createRequest = () => ({
   session: {
@@ -19,6 +18,9 @@ const createRequest = () => ({
     token: {
       access_token: 'aesgr'
     }
+  },
+  app: {
+    get: jest.fn()
   }
 })
 
@@ -57,18 +59,22 @@ describe('Unit::controllers/api/users/getMeGuilds', function () {
     const guildData = {
       hello: 'world'
     }
+    const config = {
+      b: 2
+    }
     userServices.getGuildsByAPI.mockResolvedValue(userGuilds)
     userServices.hasGuildPermission.mockResolvedValueOnce(true)
     guildServices.getGuild.mockResolvedValue(guildData)
     const req = createRequest()
     const res = createResponse()
     const next = createNext()
+    req.app.get.mockReturnValue(config)
     await getMeGuilds(req, res, next)
     expect(next).not.toHaveBeenCalled()
     expect(userServices.getGuildsByAPI)
       .toHaveBeenCalledWith(123, 'aesgr')
     expect(userServices.hasGuildPermission)
-      .toHaveBeenCalledWith(userGuilds[0])
+      .toHaveBeenCalledWith(userGuilds[0], config)
     expect(guildServices.getGuild)
       .toHaveBeenCalledWith(userGuilds[0].id)
   })

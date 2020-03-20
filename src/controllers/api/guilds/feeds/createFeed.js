@@ -1,7 +1,8 @@
+const DiscordRSS = require('discord.rss')
 const feedServices = require('../../../../services/feed.js')
 const createError = require('../../../../util/createError.js')
-const FeedParserError = require('../../../../../structs/errors/FeedParserError.js')
-const RequestError = require('../../../../../structs/errors/RequestError.js')
+const FeedParserError = DiscordRSS.errors.FeedParserError
+const RequestError = DiscordRSS.errors.RequestError
 
 /**
  * @param {import('express').Request} req

@@ -9,7 +9,6 @@ const {
 
 jest.mock('../../services/feed.js')
 jest.mock('../../util/createError.js')
-jest.mock('../../../config.js')
 
 const createRequest = () => ({
   params: {

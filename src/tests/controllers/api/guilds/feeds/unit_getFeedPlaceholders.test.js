@@ -9,7 +9,6 @@ const {
 
 jest.mock('../../../../../services/feed.js')
 jest.mock('../../../../../util/createError.js')
-jest.mock('../../../../../../config.js')
 
 describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
   afterEach(function () {
@@ -18,7 +17,10 @@ describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
   it('returns the placeholders', async function () {
     const req = {
       feed: {},
-      guildData: {}
+      guildData: {},
+      app: {
+        get: jest.fn(() => ({}))
+      }
     }
     const res = createResponse()
     const data = {
@@ -33,7 +35,10 @@ describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
   it('returns 500 if service fails', async function () {
     const req = {
       feed: {},
-      guildData: {}
+      guildData: {},
+      app: {
+        get: jest.fn(() => ({}))
+      }
     }
     const json = jest.fn()
     const res = {
@@ -58,6 +63,9 @@ describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
         profile: {
           a: 1
         }
+      },
+      app: {
+        get: jest.fn(() => ({}))
       }
     }
     const res = createResponse()
@@ -66,5 +74,30 @@ describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
     await getFeedPlaceholders(req, res, next)
     expect(feedServices.getFeedPlaceholders)
       .toHaveBeenCalledWith(req.feed.url, req.guildData.profile)
+  })
+  it('calls the service with config feeds if no guild profile', async function () {
+    const req = {
+      feed: {
+        url: '2wq34ety6rh'
+      },
+      guildData: {},
+      app: {
+        get: jest.fn(() => ({
+          feeds: {
+            a: 1,
+            b: 2
+          }
+        }))
+      }
+    }
+    const res = createResponse()
+    feedServices.getFeedPlaceholders.mockResolvedValue()
+    const next = createNext()
+    await getFeedPlaceholders(req, res, next)
+    expect(feedServices.getFeedPlaceholders)
+      .toHaveBeenCalledWith(req.feed.url, {
+        a: 1,
+        b: 2
+      })
   })
 })

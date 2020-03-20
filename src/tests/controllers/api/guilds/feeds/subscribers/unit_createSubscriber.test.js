@@ -13,7 +13,6 @@ jest.mock('../../../../../../services/role.js')
 jest.mock('../../../../../../services/user.js')
 jest.mock('../../../../../../services/subscriber.js')
 jest.mock('../../../../../../util/createError.js')
-jest.mock('../../../../../../../config.js')
 
 describe('Unit::controllers/api/guilds/feeds/subscribers/createSubscriber', function () {
   afterEach(function () {
@@ -26,6 +25,9 @@ describe('Unit::controllers/api/guilds/feeds/subscribers/createSubscriber', func
       params: {},
       body: {
         type: 'user'
+      },
+      app: {
+        get: jest.fn()
       }
     }
     const json = jest.fn()
@@ -46,6 +48,9 @@ describe('Unit::controllers/api/guilds/feeds/subscribers/createSubscriber', func
       params: {},
       body: {
         type: 'role'
+      },
+      app: {
+        get: jest.fn()
       }
     }
     const json = jest.fn()
@@ -66,6 +71,9 @@ describe('Unit::controllers/api/guilds/feeds/subscribers/createSubscriber', func
       params: {},
       body: {
         type: 'role'
+      },
+      app: {
+        get: jest.fn()
       }
     }
     const json = jest.fn()
@@ -83,6 +91,9 @@ describe('Unit::controllers/api/guilds/feeds/subscribers/createSubscriber', func
       params: {},
       body: {
         type: 'user'
+      },
+      app: {
+        get: jest.fn()
       }
     }
     const res = createResponse()
@@ -92,11 +103,14 @@ describe('Unit::controllers/api/guilds/feeds/subscribers/createSubscriber', func
     await createSubscriber(req, res, next)
     expect(next).toHaveBeenCalledWith(error)
   })
-  it('calls next with error if subscriber service fails fail', async function () {
+  it('calls next with error if subscriber service fails', async function () {
     const req = {
       params: {},
       body: {
         type: 'role'
+      },
+      app: {
+        get: jest.fn()
       }
     }
     const res = createResponse()
@@ -108,6 +122,9 @@ describe('Unit::controllers/api/guilds/feeds/subscribers/createSubscriber', func
     expect(next).toHaveBeenCalledWith(error)
   })
   it('calls user services with the right args', async function () {
+    const redisClient = {
+      a: 1
+    }
     const req = {
       params: {
         guildID: 'w4try5',
@@ -119,6 +136,9 @@ describe('Unit::controllers/api/guilds/feeds/subscribers/createSubscriber', func
         filters: {
           a: ['a']
         }
+      },
+      app: {
+        get: () => redisClient
       }
     }
     const res = createResponse()
@@ -127,9 +147,12 @@ describe('Unit::controllers/api/guilds/feeds/subscribers/createSubscriber', func
     const next = createNext()
     await createSubscriber(req, res, next)
     expect(userServices.getMemberOfGuild)
-      .toHaveBeenCalledWith(req.body.id, req.params.guildID)
+      .toHaveBeenCalledWith(req.body.id, req.params.guildID, redisClient)
   })
   it('calls role services with the right args', async function () {
+    const redisClient = {
+      a: 1
+    }
     const req = {
       params: {
         guildID: 'w4try5',
@@ -141,6 +164,9 @@ describe('Unit::controllers/api/guilds/feeds/subscribers/createSubscriber', func
         filters: {
           a: ['a']
         }
+      },
+      app: {
+        get: () => redisClient
       }
     }
     const res = createResponse()
@@ -149,7 +175,7 @@ describe('Unit::controllers/api/guilds/feeds/subscribers/createSubscriber', func
     const next = createNext()
     await createSubscriber(req, res, next)
     expect(roleServices.isRoleOfGuild)
-      .toHaveBeenCalledWith(req.body.id, req.params.guildID)
+      .toHaveBeenCalledWith(req.body.id, req.params.guildID, redisClient)
   })
   it('calls subscriber services with the right args', async function () {
     const req = {
@@ -163,6 +189,9 @@ describe('Unit::controllers/api/guilds/feeds/subscribers/createSubscriber', func
         filters: {
           a: ['a']
         }
+      },
+      app: {
+        get: jest.fn()
       }
     }
     const res = createResponse()
@@ -186,11 +215,14 @@ describe('Unit::controllers/api/guilds/feeds/subscribers/createSubscriber', func
         feed: req.params.feedID
       })
   })
-  it('returns 403 when is not role of guild', async function () {
+  it('returns 403 when not role of guild', async function () {
     const req = {
       params: {},
       body: {
         type: 'role'
+      },
+      app: {
+        get: jest.fn()
       }
     }
     const json = jest.fn()
@@ -205,11 +237,14 @@ describe('Unit::controllers/api/guilds/feeds/subscribers/createSubscriber', func
     expect(res.status).toHaveBeenCalledWith(403)
     expect(json).toHaveBeenCalledWith(createdError)
   })
-  it('returns 403 when is not user of guild', async function () {
+  it('returns 403 when not user of guild', async function () {
     const req = {
       params: {},
       body: {
         type: 'user'
+      },
+      app: {
+        get: jest.fn()
       }
     }
     const json = jest.fn()

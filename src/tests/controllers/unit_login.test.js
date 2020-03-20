@@ -8,7 +8,7 @@ const {
 } = require('../mocks/express.js')
 
 jest.mock('../../services/auth.js')
-jest.mock('../../../config.js')
+jest.mock('../../config.js')
 
 describe('Unit::controllers/login', function () {
   it('redirects the user to the auth url', function () {

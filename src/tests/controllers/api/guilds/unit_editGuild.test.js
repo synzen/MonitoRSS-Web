@@ -7,7 +7,6 @@ const {
 } = require('../../../mocks/express.js')
 
 jest.mock('../../../../services/guild.js')
-jest.mock('../../../../../config.js')
 
 describe('Unit::controllers/api/guilds', function () {
   afterEach(function () {

@@ -7,7 +7,6 @@ const {
 } = require('../../../mocks/express.js')
 
 jest.mock('../../../../services/feed.js')
-jest.mock('../../../../../config.js')
 
 describe('Unit::controllers/api/guilds/getFailRecords', function () {
   it('returns the fail records of urls', async function () {

@@ -7,7 +7,6 @@ const {
 } = require('../../../mocks/express.js')
 
 jest.mock('../../../../services/user.js')
-jest.mock('../../../../../config.js')
 
 const createRequest = () => ({
   session: {
@@ -17,6 +16,9 @@ const createRequest = () => ({
     token: {
       access_token: 'aesgr'
     }
+  },
+  app: {
+    get: jest.fn()
   }
 })
 
@@ -41,11 +43,15 @@ describe('Unit::controllers/api/users/getMe', function () {
     const req = createRequest()
     const res = createResponse()
     const next = createNext()
+    const redisClient = {
+      a: 1
+    }
+    req.app.get.mockReturnValue(redisClient)
     await getMe(req, res, next)
     expect(userServices.getUser)
       .toHaveBeenCalledTimes(1)
     expect(userServices.getUser)
-      .toHaveBeenCalledWith(req.session.identity.id)
+      .toHaveBeenCalledWith(req.session.identity.id, redisClient)
   })
   it('calls getUserByAPI correctly', async function () {
     userServices.getUser.mockResolvedValue(null)

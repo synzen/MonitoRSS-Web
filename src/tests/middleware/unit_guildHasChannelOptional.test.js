@@ -6,7 +6,6 @@ const {
 } = require('../mocks/express.js')
 
 jest.mock('../../middleware/guildHasChannel.js')
-jest.mock('../../../config.js')
 
 describe('Unit::middleware/guildHasChannelOptional', function () {
   afterEach(function () {

@@ -7,7 +7,6 @@ const {
 } = require('../../../../../mocks/express.js')
 
 jest.mock('../../../../../../services/subscriber.js')
-jest.mock('../../../../../../../config.js')
 
 describe('Unit::controllers/api/guilds/feeds/subscribers/editSubscriber', function () {
   afterEach(function () {

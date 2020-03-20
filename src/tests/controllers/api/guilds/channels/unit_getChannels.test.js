@@ -13,7 +13,10 @@ describe('Unit::controllers/api/guilds/channels/getChannels', function () {
   })
   it('returns the channels', async function () {
     const req = {
-      params: {}
+      params: {},
+      app: {
+        get: jest.fn()
+      }
     }
     const res = createResponse()
     const data = [1, 2, 3]
@@ -25,7 +28,10 @@ describe('Unit::controllers/api/guilds/channels/getChannels', function () {
   })
   it('calls next if service fails', async function () {
     const req = {
-      params: {}
+      params: {},
+      app: {
+        get: jest.fn()
+      }
     }
     const res = createResponse()
     const error = new Error('wsetgd')
@@ -38,13 +44,20 @@ describe('Unit::controllers/api/guilds/channels/getChannels', function () {
     const req = {
       params: {
         guildID: '3q12e5tw4ry'
+      },
+      app: {
+        get: jest.fn()
       }
     }
+    const redisClient = {
+      a: 1
+    }
+    req.app.get.mockReturnValue(redisClient)
     const res = createResponse()
     channelServices.getGuildChannels.mockResolvedValue([])
     const next = createNext()
     await getChannels(req, res, next)
     expect(channelServices.getGuildChannels)
-      .toHaveBeenCalledWith(req.params.guildID)
+      .toHaveBeenCalledWith(req.params.guildID, redisClient)
   })
 })

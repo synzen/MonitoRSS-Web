@@ -7,7 +7,6 @@ const {
 } = require('../../../../mocks/express.js')
 
 jest.mock('../../../../../services/feed.js')
-jest.mock('../../../../../../config.js')
 
 describe('Unit::controllers/api/guilds/feeds/getDatabaseArticles', function () {
   afterEach(function () {

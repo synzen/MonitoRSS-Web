@@ -1,7 +1,8 @@
 process.env.TEST_ENV = true
+const DiscordRSS = require('discord.rss')
+const FeedParserError = DiscordRSS.errors.FeedParserError
+const RequestError = DiscordRSS.errors.RequestError
 const createFeed = require('../../../../../controllers/api/guilds/feeds/createFeed.js')
-const FeedParserError = require('../../../../../../structs/errors/FeedParserError.js')
-const RequestError = require('../../../../../../structs/errors/RequestError.js')
 const feedServices = require('../../../../../services/feed.js')
 const createError = require('../../../../../util/createError.js')
 const {
@@ -11,7 +12,6 @@ const {
 
 jest.mock('../../../../../services/feed.js')
 jest.mock('../../../../../util/createError.js')
-jest.mock('../../../../../../config.js')
 
 describe('Unit::controllers/api/guilds/feeds/createFeed', function () {
   afterEach(function () {

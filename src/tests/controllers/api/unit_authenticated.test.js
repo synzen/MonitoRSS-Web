@@ -7,7 +7,6 @@ const {
 } = require('../../mocks/express.js')
 
 jest.mock('../../../services/auth.js')
-jest.mock('../../../../config.js')
 
 describe('Unit::controllers/api/authenticated', function () {
   beforeEach(function () {

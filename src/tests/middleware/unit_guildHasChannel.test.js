@@ -9,7 +9,6 @@ const {
 
 jest.mock('../../services/guild.js')
 jest.mock('../../util/createError.js')
-jest.mock('../../../config.js')
 
 const createRequest = () => ({
   params: {
@@ -17,6 +16,9 @@ const createRequest = () => ({
   },
   body: {
     channel: '2346'
+  },
+  app: {
+    get: jest.fn()
   }
 })
 
@@ -58,12 +60,16 @@ describe('Unit::middleware/guildHasChannel', function () {
     expect(next).toHaveBeenCalledWith(error)
   })
   it('calls guildHasChannel correctly', async function () {
+    const redisClient = {
+      a: 1
+    }
     guildServices.guildHasChannel.mockResolvedValue(true)
     const req = createRequest()
     const res = createResponse()
     const next = createNext()
+    req.app.get.mockReturnValue(redisClient)
     await guildHasChannel(req, res, next)
     expect(guildServices.guildHasChannel)
-      .toHaveBeenCalledWith('1243qr5', '2346')
+      .toHaveBeenCalledWith('1243qr5', '2346', redisClient)
   })
 })

@@ -1,7 +1,7 @@
 const requestIp = require('request-ip')
 const authServices = require('../services/auth.js')
 const routingServices = require('../services/routing.js')
-const createLogger = require('../../util/logger/create.js')
+const createLogger = require('../util/logger/create.js')
 const log = createLogger('W')
 
 /**
