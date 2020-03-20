@@ -1,6 +1,4 @@
 const getConfig = require('./config.js').get
-const TEST_ENV = process.env.NODE_ENV === 'test'
-if (!TEST_ENV) process.env.NODE_ENV = 'production'
 const morgan = require('morgan')
 const express = require('express')
 const session = require('express-session')
@@ -8,13 +6,12 @@ const compression = require('compression')
 const RedisStore = require('connect-redis')(session)
 const discordAPIConstants = require('./constants/discordAPI.js')
 const routes = require('./routes/index.js')
-const storage = require('../util/storage.js')
 const requestIp = require('request-ip')
 const createLogger = require('./util/logger/create.js')
 const log = createLogger('W')
 const app = express()
 
-module.exports = () => {
+module.exports = (redisClient) => {
   const config = getConfig()
   const credentials = {
     client: {
@@ -51,20 +48,17 @@ module.exports = () => {
     cookie: { secure: false }, // Set secure to true for HTTPS - otherwise sessions will not be saved
     maxAge: 1 * 24 * 60 * 60, // 1 day
     store: new RedisStore({
-      client: storage.redisClient // Recycle connection
+      client: redisClient // Recycle connection
     })
   })
   app.use(session)
 
-  if (!TEST_ENV) {
+  if (process.env.NODE_ENV !== 'test') {
     // Logging
     app.use(morgan(function (tokens, req, res) {
       const custom = []
       if (req.session && req.session.identity) {
         custom.push(`(U: ${req.session.identity.id}, ${req.session.identity.username})`)
-      }
-      if (req.guildRss) {
-        custom.push(`(G: ${req.guildRss.id}, ${req.guildRss.name})`)
       }
       const arr = [
         requestIp.getClientIp(req),
@@ -86,6 +80,7 @@ module.exports = () => {
   // Application-specific variables
   app.set('oauth2', oauth2)
   app.set('config', config)
+  app.set('redisClient', redisClient)
 
   // Routes
   app.use(routes)
