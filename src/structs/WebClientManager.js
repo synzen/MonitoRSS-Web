@@ -45,7 +45,7 @@ class WebClientManager {
       privateKey,
       certificate,
       chain
-    } = config.web.https
+    } = config.https
     const key = fs.readFileSync(privateKey, 'utf8')
     const cert = fs.readFileSync(certificate, 'utf8')
     const ca = fs.readFileSync(chain, 'utf8')
@@ -69,7 +69,7 @@ class WebClientManager {
     })
 
     // Create HTTPS Server
-    if (config.web.https.enabled === true) {
+    if (config.https.enabled === true) {
       this.startHttps(app)
     }
   }
@@ -78,7 +78,7 @@ class WebClientManager {
     const config = this.config
     const {
       port: httpsPort
-    } = config.web.https
+    } = config.https
     const httpsFiles = this.readHttpsFiles()
     const https = require('https').Server(httpsFiles, app)
     https.listen(httpsPort, () => {

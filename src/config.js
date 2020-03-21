@@ -40,12 +40,12 @@ exports.set = (override) => {
   web.sessionSecret = process.env.DRSS_WEB_SESSIONSECRET || webOverride.sessionSecret || web.sessionSecret
   web.port = Number(process.env.PORT) || Number(process.env.DRSS_WEB_PORT) || webOverride.port || web.port
 
-  // WEB HTTPS
+  // HTTPS
   if (!override.web.https) {
     override.web.https = {}
   }
-  const https = config.web.https
-  const httpsOverride = override.web.https
+  const https = config.https
+  const httpsOverride = override.https
   https.enabled = Boolean(process.env.DRSS_WEB_HTTPS_ENABLED) || httpsOverride.enabled === undefined ? https.enabled : httpsOverride.enabled
   https.privateKey = process.env.DRSS_WEB_HTTPS_PRIVATEKEY || httpsOverride.privateKey || https.privateKey
   https.certificate = process.env.DRSS_WEB_HTTPS_CERTIFICATE || httpsOverride.certificate || https.certificate

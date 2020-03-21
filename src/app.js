@@ -16,7 +16,7 @@ module.exports = (redisClient) => {
   const credentials = {
     client: {
       id: config.bot.clientID,
-      secret: config.web.clientSecret
+      secret: config.bot.clientSecret
     },
     auth: discordAPIConstants.auth
   }
@@ -27,7 +27,7 @@ module.exports = (redisClient) => {
   }
 
   // Redirect from HTTP to HTTPS if HTTPS enabled
-  if (config.web.https.enabled) {
+  if (config.https.enabled) {
     app.use(function (req, res, next) {
       if (!req.secure) {
         res.redirect('https://' + req.headers.host + req.url)
