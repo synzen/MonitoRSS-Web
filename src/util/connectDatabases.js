@@ -25,7 +25,7 @@ function onDatabaseError (type, error, tag) {
 }
 
 module.exports = async (config, tag) => {
-  const userOptions = config.database.connection
+  const userOptions = config.database.connection || {}
   const connOptions = {
     ...userOptions,
     ...readDatabaseFiles(userOptions)
