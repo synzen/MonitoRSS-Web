@@ -32,25 +32,12 @@ const httpsSchema = Joi.object({
 })
 
 const webSchema = Joi.object({
-  enabled: Joi.bool().strict().default(false),
   trustProxy: Joi.bool().strict().default(false),
   port: Joi.number().strict().default(8081),
-  sessionSecret: Joi.string().allow('').default('').when('enabled', {
-    is: true,
-    then: Joi.string().disallow('').required()
-  }),
-  redirectURI: Joi.string().allow('').default('').when('enabled', {
-    is: true,
-    then: Joi.string().disallow('').required()
-  }),
-  clientID: Joi.string().allow('').default('').when('enabled', {
-    is: true,
-    then: Joi.string().disallow('').required()
-  }),
-  clientSecret: Joi.string().allow('').default('').when('enabled', {
-    is: true,
-    then: Joi.string().disallow('').required()
-  }),
+  sessionSecret: Joi.string().disallow('').required(),
+  redirectURI: Joi.string().disallow('').required(),
+  clientID: Joi.string().disallow('').required(),
+  clientSecret: Joi.string().disallow('').required(),
   https: httpsSchema.default(httpsSchema.validate({}).value)
 })
 
