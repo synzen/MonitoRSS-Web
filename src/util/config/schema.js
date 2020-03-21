@@ -42,7 +42,7 @@ const httpSchema = Joi.object({
 
 const schema = Joi.object({
   log: logSchema.default(logSchema.validate({}).value),
-  bot: botSchema,
+  bot: botSchema.default(botSchema.validate({}).value),
   database: databaseSchema.default(databaseSchema.validate({}).value),
   http: httpSchema.default(httpSchema.validate({}).value),
   https: httpsSchema.default(httpsSchema.validate({}).value)

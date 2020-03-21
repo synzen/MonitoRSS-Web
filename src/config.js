@@ -35,7 +35,6 @@ exports.set = (override) => {
   }
   const http = config.http
   const webOverride = override.http
-  http.enabled = Boolean(process.env.DRSS_WEB_ENABLED) || webOverride.enabled === undefined ? http.enabled : webOverride.enabled
   http.trustProxy = Boolean(process.env.DRSS_WEB_TRUSTPROXY) || webOverride.trustProxy === undefined ? http.trustProxy : webOverride.trustProxy
   http.sessionSecret = process.env.DRSS_WEB_SESSIONSECRET || webOverride.sessionSecret || http.sessionSecret
   http.port = Number(process.env.PORT) || Number(process.env.DRSS_WEB_PORT) || webOverride.port || http.port
