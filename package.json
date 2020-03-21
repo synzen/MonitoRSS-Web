@@ -1,7 +1,7 @@
 {
-  "name": "discord.rss-webs",
+  "name": "discord.rss-web",
   "version": "0.0.1",
-  "description": "Website and API for Discord.RSS",
+  "description": "Website for Discord.RSS",
   "main": "index.js",
   "jest": {
     "testEnvironment": "node"
@@ -19,7 +19,6 @@
     "express-session": "^1.16.2",
     "express-socket.io-session": "^1.3.5",
     "express-ws": "^4.0.0",
-    "fast-deep-equal": "^3.1.1",
     "moment": "^2.24.0",
     "mongoose": "^5.9.5",
     "morgan": "^1.9.1",
@@ -28,8 +27,7 @@
     "pino-pretty": "^3.6.1",
     "redis": "^2.8.0",
     "request-ip": "^2.1.3",
-    "simple-oauth2": "^2.4.0",
-    "socket.io": "^2.2.0"
+    "simple-oauth2": "^2.4.0"
   },
   "devDependencies": {
     "@types/jest": "^25.1.4",
