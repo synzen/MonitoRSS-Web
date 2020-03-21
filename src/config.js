@@ -40,19 +40,19 @@ exports.set = (override) => {
   config.database.redis = process.env.REDIS_URL || process.env.DRSS_DATABASE_REDIS || override.database.redis || config.database.redis
   config.database.connection = override.database.connection || config.database.connection
 
-  // WEB
-  if (!override.web) {
-    override.web = {}
+  // HTTP
+  if (!override.http) {
+    override.http = {}
   }
   const http = config.http
-  const webOverride = override.http
-  http.trustProxy = Boolean(process.env.DRSS_HTTP_TRUSTPROXY) || webOverride.trustProxy === undefined ? http.trustProxy : webOverride.trustProxy
-  http.sessionSecret = process.env.DRSS_HTTP_SESSIONSECRET || webOverride.sessionSecret || http.sessionSecret
-  http.port = Number(process.env.PORT) || Number(process.env.DRSS_HTTP_PORT) || webOverride.port || http.port
+  const httpOverride = override.http
+  http.trustProxy = Boolean(process.env.DRSS_HTTP_TRUSTPROXY) || httpOverride.trustProxy === undefined ? http.trustProxy : httpOverride.trustProxy
+  http.sessionSecret = process.env.DRSS_HTTP_SESSIONSECRET || httpOverride.sessionSecret || http.sessionSecret
+  http.port = Number(process.env.PORT) || Number(process.env.DRSS_HTTP_PORT) || httpOverride.port || http.port
 
   // HTTPS
-  if (!override.web.https) {
-    override.web.https = {}
+  if (!override.https) {
+    override.https = {}
   }
   const https = config.https
   const httpsOverride = override.https
