@@ -25,16 +25,13 @@
 			"description": "Discord BOT token. Get it here: https://discordapp.com/developers/applications/."
 		},
 		"DRSS_BOT_REDIRECTURI": {
-			"description": "Insert the domain name appending /authorize. Example on heroku: https://APPNAME.herokuapp.com/authorize. Make sure the exact url is also set set under the application OAuth2 tab under redirects.",
-			"required": false
+			"description": "Insert the domain name appending /authorize. Example on heroku: https://APPNAME.herokuapp.com/authorize. Make sure the exact url is also set set under the application OAuth2 tab under redirects."
 		},
 		"DRSS_BOT_CLIENTID": {
-			"description": "App ID that can be found on the general information page at https://discordapp.com/developers/applications/. This should only contain numbers.",
-			"required": false
+			"description": "App ID that can be found on the general information page at https://discordapp.com/developers/applications/. This should only contain numbers."
 		},
 		"DRSS_BOT_CLIENTSECRET": {
-			"description": "Found on your app page at Discord Developers at https://discordapp.com/developers/applications/",
-			"required": false
+			"description": "Found on your app page at Discord Developers at https://discordapp.com/developers/applications/"
 		},
 		"NODE_ENV": {
 			"description": "Node environment",
