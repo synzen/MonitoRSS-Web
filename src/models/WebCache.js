@@ -13,7 +13,7 @@ const schema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    expires: 60 * 10 // 10 minutes
+    expires: 60 * 15 // 15 minutes
   }
 })
 
