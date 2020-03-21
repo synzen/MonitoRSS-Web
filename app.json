@@ -10,12 +10,8 @@
 		"feed"
 	],
 	"addons": [{
-			"plan": "mongolab:sandbox"
-		},
-		{
-			"plan": "heroku-redis:hobby-dev"
-		}
-	],
+		"plan": "heroku-redis:hobby-dev"
+	}],
 	"env": {
 		"DRSS_ADMINIDS": {
 			"description": "Admin ID(s), separate multiple with commas.",
@@ -32,6 +28,9 @@
 		},
 		"DRSS_BOT_CLIENTSECRET": {
 			"description": "Found on your app page at Discord Developers at https://discordapp.com/developers/applications/"
+		},
+		"DRSS_DATABASE_URI": {
+			"description": "Database URI of the Discord.RSS bot application. Must match URIs for the control panel to have access to the same data as the bot."
 		},
 		"NODE_ENV": {
 			"description": "Node environment",
