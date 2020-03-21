@@ -1,4 +1,3 @@
-const getConfig = require('./config.js').get
 const morgan = require('morgan')
 const express = require('express')
 const session = require('express-session')
@@ -11,8 +10,7 @@ const createLogger = require('./util/logger/create.js')
 const log = createLogger('W')
 const app = express()
 
-module.exports = (redisClient) => {
-  const config = getConfig()
+module.exports = (redisClient, config) => {
   const credentials = {
     client: {
       id: config.bot.clientID,

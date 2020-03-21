@@ -21,7 +21,9 @@ class WebClientManager {
     this.manager = new Discord.ShardingManager(path.join(__dirname, '..', '..', 'shard.js'), {
       token: this.config.bot.token
     })
-    process.on('message', message => this.onMessage(message))
+    this.manager.on('shardCreate', (shard) => {
+      shard.on('message', message => this.onMessage(message))
+    })
   }
 
   async start () {
@@ -36,7 +38,7 @@ class WebClientManager {
     if (++this.shardsSpawned < this.manager.totalShards) {
       return
     }
-    this.startWeb()
+    this.startHttp()
   }
 
   readHttpsFiles () {
@@ -57,7 +59,7 @@ class WebClientManager {
   }
 
   startHttp () {
-    const app = expressApp(this.redisClient)
+    const app = expressApp(this.redisClient, this.config)
     const config = this.config
     // Check variables
     const { port: httpPort } = config.http
