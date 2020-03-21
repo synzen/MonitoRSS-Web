@@ -5,13 +5,11 @@ const setConfig = require('../config.js').set
 const expressApp = require('../app.js')
 const createLogger = require('../util/logger/create.js')
 const connectDatabases = require('../util/connectDatabases.js')
-const validateConfig = require('../util/config/schema.js').validate
 
 class WebClientManager {
   constructor (config) {
     this.shardsSpawned = 0
     // This can throw
-    validateConfig(config)
     this.log = createLogger('W')
     this.config = setConfig(config)
     process.env.DRSS_CONFIG = JSON.stringify(config)

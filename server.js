@@ -1,7 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 const WebClientManager = require('./src/bot/WebClientManager.js')
-const config = JSON.parse(fs.readFileSync(path.join(__dirname, 'settings', 'config.json')))
+const configPath = path.join(__dirname, 'settings', 'config.json')
+const config = fs.existsSync(configPath) ? JSON.parse(fs.readFileSync(configPath)) : {}
 const createLogger = require('./src/util/logger/create.js')
 
 const manager = new WebClientManager(config)
