@@ -1,0 +1,26 @@
+version: "3.5"
+services:
+  drss-redis:
+    container_name: drss-redis
+    image: redis:alpine
+    # Uncomment below to hide redis logs
+    # logging:
+    #   driver: none
+    networks:
+      - drss-network
+  drss-web:
+    container_name: drss-web-container
+    restart: on-failure:10
+    build: .
+    ports:
+      - "8081:8081"
+    networks:
+      - drss-network
+    environment:
+      - DRSS_BOT_TOKEN=drss_docker_token
+      - DRSS_DATABASE_URI=mongodb://mongo:27017/rss
+      - DRSS_DATABASE_REDIS=redis://redis:6379
+
+networks:
+  drss-network:
+    name: drss-network
