@@ -80,9 +80,10 @@ async function getGuildsByAPI (id, accessToken, skipCache) {
 
 /**
  * @param {Object<string, any>} guild - User guild data from API
+ * @param {import('redis').RedisClient} redisClient
  * @returns {Promise<boolean>}
  */
-async function hasGuildPermission (guild, config) {
+async function hasGuildPermission (guild, config, redisClient) {
   // User permission
   const isOwner = guild.owner
   const managesChannel = (guild.permissions & MANAGE_CHANNEL_PERMISSION) === MANAGE_CHANNEL_PERMISSION
@@ -90,7 +91,7 @@ async function hasGuildPermission (guild, config) {
     return false
   }
   // Bot permission - just has to be in guild
-  const member = await getMemberOfGuild(config.bot.clientID, guild.id)
+  const member = await getMemberOfGuild(config.bot.clientID, guild.id, redisClient)
   if (!member) {
     return false
   }

@@ -9,15 +9,16 @@ const guildServices = require('../../../services/guild.js')
 async function getMeGuilds (req, res, next) {
   const { identity, token } = req.session
   const config = req.app.get('config')
+  const redisClient = req.app.get('redisClient')
   try {
     const userGuilds = await userServices.getGuildsByAPI(identity.id, token.access_token)
     const guilds = []
     for (const guild of userGuilds) {
-      const hasPerm = await userServices.hasGuildPermission(guild, config)
+      const hasPerm = await userServices.hasGuildPermission(guild, config, redisClient)
       if (!hasPerm) {
         continue
       }
-      const guildData = await guildServices.getGuild(guild.id)
+      const guildData = await guildServices.getGuild(guild.id, redisClient)
       guilds.push(guildData)
     }
     res.json(guilds)

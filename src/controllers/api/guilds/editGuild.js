@@ -22,6 +22,7 @@ const keys = [
  * @param {import('express').NextFunction} next
  */
 async function editGuild (req, res, next) {
+  const redisClient = req.app.get('redisClient')
   const guild = req.guild
   /** @type {GuildUpdate} */
   const body = req.body
@@ -40,7 +41,7 @@ async function editGuild (req, res, next) {
   try {
     await guildServices
       .updateProfile(guild.id, guild.name, toUpdate)
-    const updatedData = await guildServices.getGuild(guild.id)
+    const updatedData = await guildServices.getGuild(guild.id, redisClient)
     res.json(updatedData)
   } catch (err) {
     next(err)

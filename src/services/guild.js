@@ -26,13 +26,18 @@ async function getFeedLimit (guildID) {
   return Profile.getFeedLimit(guildID)
 }
 
-async function getGuild (guildID) {
+/**
+ *
+ * @param {string} guildID
+ * @param {import('redis').RedisClient} redisClient
+ */
+async function getGuild (guildID, redisClient) {
   const [
     cached,
     profile,
     limit
   ] = await Promise.all([
-    getCachedGuild(guildID),
+    getCachedGuild(guildID, redisClient),
     Profile.get(guildID),
     getFeedLimit(guildID)
   ])
