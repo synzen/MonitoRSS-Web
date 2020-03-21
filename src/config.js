@@ -33,12 +33,12 @@ exports.set = (override) => {
   if (!override.web) {
     override.web = {}
   }
-  const web = config.web
-  const webOverride = override.web
-  web.enabled = Boolean(process.env.DRSS_WEB_ENABLED) || webOverride.enabled === undefined ? web.enabled : webOverride.enabled
-  web.trustProxy = Boolean(process.env.DRSS_WEB_TRUSTPROXY) || webOverride.trustProxy === undefined ? web.trustProxy : webOverride.trustProxy
-  web.sessionSecret = process.env.DRSS_WEB_SESSIONSECRET || webOverride.sessionSecret || web.sessionSecret
-  web.port = Number(process.env.PORT) || Number(process.env.DRSS_WEB_PORT) || webOverride.port || web.port
+  const http = config.http
+  const webOverride = override.http
+  http.enabled = Boolean(process.env.DRSS_WEB_ENABLED) || webOverride.enabled === undefined ? http.enabled : webOverride.enabled
+  http.trustProxy = Boolean(process.env.DRSS_WEB_TRUSTPROXY) || webOverride.trustProxy === undefined ? http.trustProxy : webOverride.trustProxy
+  http.sessionSecret = process.env.DRSS_WEB_SESSIONSECRET || webOverride.sessionSecret || http.sessionSecret
+  http.port = Number(process.env.PORT) || Number(process.env.DRSS_WEB_PORT) || webOverride.port || http.port
 
   // HTTPS
   if (!override.web.https) {

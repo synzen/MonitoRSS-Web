@@ -34,17 +34,17 @@ const httpsSchema = Joi.object({
   port: Joi.number().strict().default(443)
 })
 
-const webSchema = Joi.object({
+const httpSchema = Joi.object({
   trustProxy: Joi.bool().strict().default(false),
   port: Joi.number().strict().default(8081),
-  sessionSecret: Joi.string().disallow('').required()
+  sessionSecret: Joi.string().disallow('').default('keyboard cat')
 })
 
 const schema = Joi.object({
   log: logSchema.default(logSchema.validate({}).value),
-  bot: botSchema.default(botSchema.validate({}).value),
+  bot: botSchema,
   database: databaseSchema.default(databaseSchema.validate({}).value),
-  web: webSchema.default(webSchema.validate({}).value),
+  http: httpSchema.default(httpSchema.validate({}).value),
   https: httpsSchema.default(httpsSchema.validate({}).value)
 })
 

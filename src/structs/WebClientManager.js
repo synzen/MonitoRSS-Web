@@ -60,7 +60,7 @@ class WebClientManager {
     const app = expressApp(this.redisClient)
     const config = this.config
     // Check variables
-    const { port: httpPort } = config.web
+    const { port: httpPort } = config.http
 
     // Create HTTP Server
     const http = require('http').Server(app)

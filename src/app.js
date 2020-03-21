@@ -22,7 +22,7 @@ module.exports = (redisClient) => {
   }
   const oauth2 = require('simple-oauth2').create(credentials)
 
-  if (config.web.trustProxy) {
+  if (config.http.trustProxy) {
     app.enable('trust proxy')
   }
 
@@ -42,7 +42,7 @@ module.exports = (redisClient) => {
 
   // Sessions
   const session = require('express-session')({
-    secret: config.web.sessionSecret,
+    secret: config.http.sessionSecret,
     resave: false,
     saveUninitialized: false,
     cookie: { secure: false }, // Set secure to true for HTTPS - otherwise sessions will not be saved
