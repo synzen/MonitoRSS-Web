@@ -1,0 +1,55 @@
+{
+	"name": "Discord.RSS Web UI",
+	"description": "Web UI for Discord.RSS",
+	"website": "https://github.com/synzen/Discord.RSS-Web",
+	"logo": "https://discordapp.com/assets/d36b33903dafb0107bb067b55bdd9cbc.svg",
+	"keywords": [
+		"discord",
+		"bot",
+		"rss",
+		"feed"
+	],
+	"addons": [{
+			"plan": "mongolab:sandbox"
+		},
+		{
+			"plan": "heroku-redis:hobby-dev"
+		}
+	],
+	"env": {
+		"DRSS_ADMINIDS": {
+			"description": "Admin ID(s), separate multiple with commas.",
+			"required": false
+		},
+		"DRSS_BOT_TOKEN": {
+			"description": "Discord BOT token. Get it here: https://discordapp.com/developers/applications/."
+		},
+		"DRSS_BOT_REDIRECTURI": {
+			"description": "Insert the domain name appending /authorize. Example on heroku: https://APPNAME.herokuapp.com/authorize. Make sure the exact url is also set set under the application OAuth2 tab under redirects.",
+			"required": false
+		},
+		"DRSS_BOT_CLIENTID": {
+			"description": "App ID that can be found on the general information page at https://discordapp.com/developers/applications/. This should only contain numbers.",
+			"required": false
+		},
+		"DRSS_BOT_CLIENTSECRET": {
+			"description": "Found on your app page at Discord Developers at https://discordapp.com/developers/applications/",
+			"required": false
+		},
+		"NODE_ENV": {
+			"description": "Node environment",
+			"value": "production",
+			"required": false
+		}
+	},
+	"formation": {
+		"web": {
+			"quantity": 0,
+			"size": "free"
+		},
+		"bot": {
+			"quantity": 1,
+			"size": "free"
+		}
+	}
+}
