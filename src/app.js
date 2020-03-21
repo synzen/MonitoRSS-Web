@@ -43,7 +43,7 @@ module.exports = (redisClient, config) => {
     secret: config.http.sessionSecret,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }, // Set secure to true for HTTPS - otherwise sessions will not be saved
+    cookie: { secure: config.https.enabled }, // Set secure to true for HTTPS - otherwise sessions will not be saved
     maxAge: 1 * 24 * 60 * 60, // 1 day
     store: new RedisStore({
       client: redisClient // Recycle connection
