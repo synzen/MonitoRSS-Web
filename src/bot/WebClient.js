@@ -1,8 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 const Discord = require('discord.js')
-const RedisGuild = require('./Guild.js')
-const RedisUser = require('./User.js')
+const RedisGuild = require('./structs/Guild.js')
+const RedisUser = require('./structs/User.js')
 const getConfig = require('../config.js').get
 const connectDatabases = require('../util/connectDatabases.js')
 const createLogger = require('../util/logger/create.js')
@@ -36,7 +36,7 @@ class WebClient {
 
   registerListeners () {
     const redisClient = this.redisClient
-    const folderPath = path.join(__dirname, '..', 'events')
+    const folderPath = path.join(__dirname, 'events')
     const files = fs.readdirSync(folderPath)
     for (const name of files) {
       const event = name.replace('.js', '')

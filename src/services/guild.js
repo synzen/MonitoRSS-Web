@@ -1,6 +1,6 @@
 const DiscordRSS = require('discord.rss')
-const RedisGuild = require('../structs/Guild.js')
-const RedisChannel = require('../structs/Channel.js')
+const RedisGuild = require('../bot/structs/Guild.js')
+const RedisChannel = require('../bot/structs/Channel.js')
 const GuildData = DiscordRSS.GuildData
 const Profile = DiscordRSS.Profile
 

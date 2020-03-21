@@ -2,10 +2,10 @@ const fetch = require('node-fetch')
 const discordAPIConstants = require('../constants/discordAPI.js')
 const discordAPIHeaders = require('../constants/discordAPIHeaders.js')
 const roleServices = require('./role.js')
-const RedisUser = require('../structs/User.js')
-const RedisGuildMember = require('../structs/GuildMember.js')
-const createLogger = require('../util/logger/create.js')
+const RedisUser = require('../bot/structs/User.js')
+const RedisGuildMember = require('../bot/structs/GuildMember.js')
 const WebCache = require('../models/WebCache.js').model
+const createLogger = require('../util/logger/create.js')
 const log = createLogger('W')
 const MANAGE_CHANNEL_PERMISSION = 16
 

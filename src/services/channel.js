@@ -1,4 +1,4 @@
-const RedisChannel = require('../structs/Channel.js')
+const RedisChannel = require('../bot/structs/Channel.js')
 
 /**
  * @param {string} channelID

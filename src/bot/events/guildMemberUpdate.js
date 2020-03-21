@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
-const MANAGE_CHANNELS_PERM = Discord.Permissions.FLAGS.MANAGE_CHANNELS
-const createLogger = require('../util/logger/create.js')
 const RedisGuildMember = require('../structs/GuildMember.js')
+const createLogger = require('../../util/logger/create.js')
+const MANAGE_CHANNELS_PERM = Discord.Permissions.FLAGS.MANAGE_CHANNELS
 
 module.exports = (redisClient) => (oldMember, newMember) => {
   const oldMemberHas = oldMember.permissions.has(MANAGE_CHANNELS_PERM)

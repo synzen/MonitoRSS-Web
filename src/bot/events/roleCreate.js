@@ -1,5 +1,5 @@
-const createLogger = require('../util/logger/create.js')
 const RedisRole = require('../structs/Role.js')
+const createLogger = require('../../util/logger/create.js')
 
 module.exports = (redisClient) => (role) => {
   RedisRole.utils.recognize(redisClient, role)

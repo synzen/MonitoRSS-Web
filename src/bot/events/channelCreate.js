@@ -1,6 +1,6 @@
 const Discord = require('discord.js')
 const RedisChannel = require('../structs/Channel.js')
-const createLogger = require('../util/logger/create.js')
+const createLogger = require('../../util/logger/create.js')
 
 module.exports = (redisClient) => (channel) => {
   if (channel instanceof Discord.GuildChannel) {

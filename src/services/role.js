@@ -1,4 +1,4 @@
-const RedisRole = require('../structs/Role.js')
+const RedisRole = require('../bot/structs/Role.js')
 
 /**
  * @param {string} roleID

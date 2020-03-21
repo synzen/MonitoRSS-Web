@@ -1,4 +1,4 @@
-const WebClient = require('./src/structs/WebClient.js')
+const WebClient = require('./src/bot/WebClient.js')
 const passedConfig = JSON.parse(process.env.DRSS_CONFIG)
 const config = require('./src/config.js').set(passedConfig)
 

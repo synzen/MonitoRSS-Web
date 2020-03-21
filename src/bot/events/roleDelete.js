@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
 const RedisRole = require('../structs/Role.js')
 const RedisGuildMember = require('../structs/GuildMember.js')
-const createLogger = require('../util/logger/create.js')
+const createLogger = require('../../util/logger/create.js')
 const MANAGE_CHANNELS_PERM = Discord.Permissions.FLAGS.MANAGE_CHANNELS
 
 module.exports = (redisClient) => (role) => {

@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const WebClientManager = require('./src/structs/WebClientManager.js')
+const WebClientManager = require('./src/bot/WebClientManager.js')
 const config = JSON.parse(fs.readFileSync(path.join(__dirname, 'settings', 'config.json')))
 const createLogger = require('./src/util/logger/create.js')
 

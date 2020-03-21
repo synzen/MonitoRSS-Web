@@ -1,5 +1,5 @@
-const createLogger = require('../util/logger/create.js')
 const RedisGuildMember = require('../structs/GuildMember.js')
+const createLogger = require('../../util/logger/create.js')
 
 module.exports = (redisClient) => (member) => {
   RedisGuildMember.utils.recognize(redisClient, member)

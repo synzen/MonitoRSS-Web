@@ -1,5 +1,5 @@
 const RedisUser = require('../structs/User.js')
-const createLogger = require('../util/logger/create.js')
+const createLogger = require('../../util/logger/create.js')
 
 module.exports = (redisClient) => (oldUser, newUser) => {
   RedisUser.utils.update(redisClient, oldUser, newUser)
