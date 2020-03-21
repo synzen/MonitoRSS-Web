@@ -19,7 +19,7 @@ class WebClientManager {
      * @type {import('redis').RedisClient}
      */
     this.redisClient = null
-    this.manager = new Discord.ShardingManager(path.join(__dirname, '..', '..', 'shard.js'), {
+    this.manager = new Discord.ShardingManager(path.join(__dirname, 'shard.js'), {
       token: this.config.bot.token
     })
     this.manager.on('shardCreate', (shard) => {
