@@ -12,7 +12,7 @@ class WebClientManager {
     this.shardsSpawned = 0
     // This can throw
     validateConfig(config)
-    this.log = createLogger('WM')
+    this.log = createLogger('W')
     this.config = setConfig(config)
     process.env.DRSS_CONFIG = JSON.stringify(config)
     /**
