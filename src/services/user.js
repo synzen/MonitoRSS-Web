@@ -114,11 +114,12 @@ async function getMemberOfGuild (userID, guildID, redisClient) {
 /**
  * @param {string} userID
  * @param {string} guildID
+ * @param {Object<string, any>} config
  * @param {import('redis').RedisClient} redisClient
  */
 async function isManagerOfGuild (userID, guildID, config, redisClient) {
   const member = await getMemberOfGuild(userID, guildID, redisClient)
-  const isBotOwner = config.bot.ownerIDs.includes(userID)
+  const isBotOwner = config.adminIDs.includes(userID)
   const isManager = member && member.isManager
   if (isBotOwner || isManager) {
     return true

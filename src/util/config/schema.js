@@ -41,6 +41,7 @@ const httpSchema = Joi.object({
 })
 
 const schema = Joi.object({
+  adminIDs: Joi.array().items(Joi.string().strict()).default([]),
   log: logSchema.default(logSchema.validate({}).value),
   bot: botSchema.default(botSchema.validate({}).value),
   database: databaseSchema.default(databaseSchema.validate({}).value),

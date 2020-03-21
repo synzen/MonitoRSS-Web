@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const Discord = require('discord.js')
+const setConfig = require('../config.js').set
 const expressApp = require('../app.js')
 const createLogger = require('../util/logger/create.js')
 const connectDatabases = require('../util/connectDatabases.js')
@@ -12,7 +13,7 @@ class WebClientManager {
     // This can throw
     validateConfig(config)
     this.log = createLogger('WM')
-    this.config = config
+    this.config = setConfig(config)
     process.env.DRSS_CONFIG = JSON.stringify(config)
     /**
      * @type {import('redis').RedisClient}
