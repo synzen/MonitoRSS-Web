@@ -23,8 +23,11 @@ class WebClient {
       this.client = new Discord.Client()
       await this.client.login(token)
       this.log = createLogger(this.client.shard.ids[0])
+      this.log.info('Logged in')
       this.registerListeners()
+      this.log.info('Listeners registered')
       await this.initialize()
+      this.log.info('Redis initialized')
       this.client.shard.send('complete')
     } catch (err) {
       throw err
