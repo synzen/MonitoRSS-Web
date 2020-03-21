@@ -28,9 +28,9 @@ exports.set = (override) => {
   const bot = config.bot
   const botOverride = override.bot
   bot.token = process.env.DRSS_BOT_TOKEN || botOverride.token || bot.token
-  bot.redirectURI = process.env.DRSS_WEB_REDIRECTURI || botOverride.redirectURI || bot.redirectURI
-  bot.clientID = process.env.DRSS_WEB_CLIENTID || botOverride.clientID || bot.clientID
-  bot.clientSecret = process.env.DRSS_WEB_CLIENTSECRET || botOverride.clientSecret || bot.clientSecret
+  bot.redirectURI = process.env.DRSS_BOT_REDIRECTURI || botOverride.redirectURI || bot.redirectURI
+  bot.clientID = process.env.DRSS_BOT_CLIENTID || botOverride.clientID || bot.clientID
+  bot.clientSecret = process.env.DRSS_BOT_CLIENTSECRET || botOverride.clientSecret || bot.clientSecret
 
   // DATABASE
   if (!override.database) {
@@ -46,9 +46,9 @@ exports.set = (override) => {
   }
   const http = config.http
   const webOverride = override.http
-  http.trustProxy = Boolean(process.env.DRSS_WEB_TRUSTPROXY) || webOverride.trustProxy === undefined ? http.trustProxy : webOverride.trustProxy
-  http.sessionSecret = process.env.DRSS_WEB_SESSIONSECRET || webOverride.sessionSecret || http.sessionSecret
-  http.port = Number(process.env.PORT) || Number(process.env.DRSS_WEB_PORT) || webOverride.port || http.port
+  http.trustProxy = Boolean(process.env.DRSS_HTTP_TRUSTPROXY) || webOverride.trustProxy === undefined ? http.trustProxy : webOverride.trustProxy
+  http.sessionSecret = process.env.DRSS_HTTP_SESSIONSECRET || webOverride.sessionSecret || http.sessionSecret
+  http.port = Number(process.env.PORT) || Number(process.env.DRSS_HTTP_PORT) || webOverride.port || http.port
 
   // HTTPS
   if (!override.web.https) {
@@ -56,11 +56,11 @@ exports.set = (override) => {
   }
   const https = config.https
   const httpsOverride = override.https
-  https.enabled = Boolean(process.env.DRSS_WEB_HTTPS_ENABLED) || httpsOverride.enabled === undefined ? https.enabled : httpsOverride.enabled
-  https.privateKey = process.env.DRSS_WEB_HTTPS_PRIVATEKEY || httpsOverride.privateKey || https.privateKey
-  https.certificate = process.env.DRSS_WEB_HTTPS_CERTIFICATE || httpsOverride.certificate || https.certificate
-  https.chain = process.env.DRSS_WEB_HTTPS_CHAIN || httpsOverride.chain || https.chain
-  https.port = Number(process.env.DRSS_WEB_HTTPS_PORT) || httpsOverride.port || https.port
+  https.enabled = Boolean(process.env.DRSS_HTTPS_ENABLED) || httpsOverride.enabled === undefined ? https.enabled : httpsOverride.enabled
+  https.privateKey = process.env.DRSS_HTTPS_PRIVATEKEY || httpsOverride.privateKey || https.privateKey
+  https.certificate = process.env.DRSS_HTTPS_CERTIFICATE || httpsOverride.certificate || https.certificate
+  https.chain = process.env.DRSS_HTTPS_CHAIN || httpsOverride.chain || https.chain
+  https.port = Number(process.env.DRSS_HTTPS_PORT) || httpsOverride.port || https.port
 
   if (process.env.NODE_ENV !== 'test') {
     schema.validate(config)
