@@ -21,6 +21,9 @@ describe('Unit::controllers/api/guilds', function () {
       },
       body: {
         prefix: 1
+      },
+      app: {
+        get: jest.fn()
       }
     }
     const res = createResponse()
@@ -42,6 +45,9 @@ describe('Unit::controllers/api/guilds', function () {
         dateFormat: '',
         locale: 5,
         timezone: 6
+      },
+      app: {
+        get: jest.fn()
       }
     }
     const res = createResponse()
@@ -66,6 +72,9 @@ describe('Unit::controllers/api/guilds', function () {
       guild: {},
       body: {
         prefix: 1
+      },
+      app: {
+        get: jest.fn()
       }
     }
     const res = createResponse()
@@ -81,6 +90,9 @@ describe('Unit::controllers/api/guilds', function () {
       guild: {},
       body: {
         prefix: 1
+      },
+      app: {
+        get: jest.fn()
       }
     }
     const res = createResponse()
@@ -88,7 +100,7 @@ describe('Unit::controllers/api/guilds', function () {
     await editGuild(req, res, next)
     expect(next).toHaveBeenCalledWith(error)
   })
-  it('calls next ig getGuild fails', async function () {
+  it('calls next if getGuild fails', async function () {
     const error = new Error('heloz')
     guildServices.updateProfile.mockResolvedValue()
     guildServices.getGuild.mockRejectedValue(error)
@@ -96,6 +108,9 @@ describe('Unit::controllers/api/guilds', function () {
       guild: {},
       body: {
         prefix: 1
+      },
+      app: {
+        get: jest.fn()
       }
     }
     const res = createResponse()
@@ -110,6 +125,9 @@ describe('Unit::controllers/api/guilds', function () {
       body: {
         prefixxx: 1,
         whatever: 2
+      },
+      app: {
+        get: jest.fn()
       }
     }
     const end = jest.fn()
@@ -121,5 +139,27 @@ describe('Unit::controllers/api/guilds', function () {
     expect(res.status).toHaveBeenCalledWith(304)
     expect(end).toHaveBeenCalled()
     expect(next).not.toHaveBeenCalled()
+  })
+  it('calls the service function correctly', async function () {
+    const redisClient = {
+      a: 999
+    }
+    const req = {
+      guild: {
+        id: 123,
+        name: 'aedg'
+      },
+      body: {
+        prefix: 1
+      },
+      app: {
+        get: () => redisClient
+      }
+    }
+    const res = createResponse()
+    const next = createNext()
+    await editGuild(req, res, next)
+    expect(guildServices.getGuild)
+      .toHaveBeenCalledWith(req.guild.id, redisClient)
   })
 })

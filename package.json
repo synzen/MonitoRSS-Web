@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "description": "Website for Discord.RSS",
   "main": "server.js",
-  "jest": {
-    "testEnvironment": "node"
-  },
   "dependencies": {
     "@hapi/joi": "^17.1.0",
     "compression": "^1.7.4",

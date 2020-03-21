@@ -62,20 +62,29 @@ describe('Unit::controllers/api/users/getMeGuilds', function () {
     const config = {
       b: 2
     }
+    const redisClient = {
+      a: 99
+    }
     userServices.getGuildsByAPI.mockResolvedValue(userGuilds)
     userServices.hasGuildPermission.mockResolvedValueOnce(true)
     guildServices.getGuild.mockResolvedValue(guildData)
     const req = createRequest()
     const res = createResponse()
     const next = createNext()
-    req.app.get.mockReturnValue(config)
+    req.app.get.mockImplementation((key) => {
+      if (key === 'config') {
+        return config
+      } else if (key === 'redisClient') {
+        return redisClient
+      }
+    })
     await getMeGuilds(req, res, next)
     expect(next).not.toHaveBeenCalled()
     expect(userServices.getGuildsByAPI)
       .toHaveBeenCalledWith(123, 'aesgr')
     expect(userServices.hasGuildPermission)
-      .toHaveBeenCalledWith(userGuilds[0], config)
+      .toHaveBeenCalledWith(userGuilds[0], config, redisClient)
     expect(guildServices.getGuild)
-      .toHaveBeenCalledWith(userGuilds[0].id)
+      .toHaveBeenCalledWith(userGuilds[0].id, redisClient)
   })
 })

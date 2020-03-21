@@ -24,7 +24,7 @@ describe('Unit::controllers/api/users/getBot', function () {
     req.app.get.mockImplementation((key) => {
       if (key === 'config') {
         return {
-          web: {}
+          bot: {}
         }
       }
     })
@@ -71,7 +71,7 @@ describe('Unit::controllers/api/users/getBot', function () {
     req.app.get.mockImplementation((key) => {
       if (key === 'config') {
         return {
-          web: {}
+          bot: {}
         }
       }
     })
@@ -88,7 +88,7 @@ describe('Unit::controllers/api/users/getBot', function () {
     req.app.get.mockImplementation((key) => {
       if (key === 'config') {
         return {
-          web: {}
+          bot: {}
         }
       }
     })
