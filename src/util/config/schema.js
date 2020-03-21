@@ -1,8 +1,7 @@
 const Joi = require('@hapi/joi')
 
 const logSchema = Joi.object({
-  destination: Joi.string().allow('').default(''),
-  linkErrs: Joi.bool().strict().default(true)
+  destination: Joi.string().allow('').default('')
 })
 
 const botSchema = Joi.object({

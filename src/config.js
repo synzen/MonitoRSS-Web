@@ -24,6 +24,7 @@ exports.set = (override) => {
   }
   config.database.uri = process.env.MONGODB_URI || process.env.DRSS_DATABASE_URI || override.database.uri || config.database.uri
   config.database.redis = process.env.REDIS_URL || process.env.DRSS_DATABASE_REDIS || override.database.redis || config.database.redis
+  config.database.connection = override.database.connection || config.database.connection
 
   // WEB
   if (!override.web) {
