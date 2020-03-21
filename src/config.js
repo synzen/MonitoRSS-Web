@@ -1,7 +1,18 @@
 const schema = require('./util/config/schema.js')
 const config = schema.defaults
 
+function envArray (name) {
+  const value = process.env[name]
+  if (!value) {
+    return null
+  }
+  return value.split(',').map(s => s.trim())
+}
+
 exports.set = (override) => {
+  // ADMIN IDS
+  config.adminIDs = envArray('DRSS_ADMINIDS') || override.adminIDs || config.adminIDs
+
   // LOG
   if (!override.log) {
     override.log = {}
