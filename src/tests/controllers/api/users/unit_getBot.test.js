@@ -38,7 +38,7 @@ describe('Unit::controllers/api/users/getBot', function () {
     const res = createResponse()
     const next = createNext()
     const config = {
-      web: {
+      bot: {
         clientID: 55
       }
     }
@@ -56,7 +56,7 @@ describe('Unit::controllers/api/users/getBot', function () {
     expect(userServices.getUser)
       .toHaveBeenCalledTimes(1)
     expect(userServices.getUser)
-      .toHaveBeenCalledWith(config.web.clientID, redisClient)
+      .toHaveBeenCalledWith(config.bot.clientID, redisClient)
   })
   it('sends the right response if bot not found', async function () {
     userServices.getUser.mockResolvedValue(null)

@@ -15,7 +15,7 @@ module.exports = (redisClient) => {
   const config = getConfig()
   const credentials = {
     client: {
-      id: config.web.clientID,
+      id: config.bot.clientID,
       secret: config.web.clientSecret
     },
     auth: discordAPIConstants.auth

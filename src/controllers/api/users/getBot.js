@@ -10,7 +10,7 @@ async function getBot (req, res, next) {
   const config = req.app.get('config')
   const redisClient = req.app.get('redisClient')
   try {
-    const userCached = await userServices.getUser(config.web.clientID, redisClient)
+    const userCached = await userServices.getUser(config.bot.clientID, redisClient)
     if (userCached) {
       return res.json(userCached)
     }

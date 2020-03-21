@@ -17,6 +17,9 @@ exports.set = (override) => {
   const bot = config.bot
   const botOverride = override.bot
   bot.token = process.env.DRSS_BOT_TOKEN || botOverride.token || bot.token
+  bot.redirectURI = process.env.DRSS_WEB_REDIRECTURI || botOverride.redirectURI || bot.redirectURI
+  bot.clientID = process.env.DRSS_WEB_CLIENTID || botOverride.clientID || bot.clientID
+  bot.clientSecret = process.env.DRSS_WEB_CLIENTSECRET || botOverride.clientSecret || bot.clientSecret
 
   // DATABASE
   if (!override.database) {
@@ -36,9 +39,6 @@ exports.set = (override) => {
   web.trustProxy = Boolean(process.env.DRSS_WEB_TRUSTPROXY) || webOverride.trustProxy === undefined ? web.trustProxy : webOverride.trustProxy
   web.sessionSecret = process.env.DRSS_WEB_SESSIONSECRET || webOverride.sessionSecret || web.sessionSecret
   web.port = Number(process.env.PORT) || Number(process.env.DRSS_WEB_PORT) || webOverride.port || web.port
-  web.redirectURI = process.env.DRSS_WEB_REDIRECTURI || webOverride.redirectURI || web.redirectURI
-  web.clientID = process.env.DRSS_WEB_CLIENTID || webOverride.clientID || web.clientID
-  web.clientSecret = process.env.DRSS_WEB_CLIENTSECRET || webOverride.clientSecret || web.clientSecret
 
   // WEB HTTPS
   if (!override.web.https) {

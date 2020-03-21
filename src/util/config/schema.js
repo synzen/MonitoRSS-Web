@@ -5,7 +5,10 @@ const logSchema = Joi.object({
 })
 
 const botSchema = Joi.object({
-  token: Joi.string().strict().default('')
+  token: Joi.string().strict().required(),
+  redirectURI: Joi.string().disallow('').required(),
+  clientID: Joi.string().disallow('').required(),
+  clientSecret: Joi.string().disallow('').required()
 })
 
 const databaseSchema = Joi.object({
@@ -35,9 +38,6 @@ const webSchema = Joi.object({
   trustProxy: Joi.bool().strict().default(false),
   port: Joi.number().strict().default(8081),
   sessionSecret: Joi.string().disallow('').required(),
-  redirectURI: Joi.string().disallow('').required(),
-  clientID: Joi.string().disallow('').required(),
-  clientSecret: Joi.string().disallow('').required(),
   https: httpsSchema.default(httpsSchema.validate({}).value)
 })
 
