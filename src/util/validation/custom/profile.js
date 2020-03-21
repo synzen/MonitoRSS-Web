@@ -1,7 +1,8 @@
+const DiscordRSS = require('discord.rss')
 const Joi = require('@hapi/joi')
 const moment = require('moment-timezone')
-const Translator = require('../../../../structs/Translator.js')
-const getConfig = require('../../../../config.js').get
+const Translator = DiscordRSS.Translator
+const getConfig = require('../../../config.js').get
 
 module.exports = Joi.extend(joi => {
   const config = getConfig()
@@ -10,8 +11,8 @@ module.exports = Joi.extend(joi => {
     type: 'profile',
     messages: {
       timezone: 'needs to be a valid timezone',
-      locale: `needs to be a supported locale (${Translator.getLocales().join(',')})`,
-      dateLanguage: `needs to be a supported date language (${config.feeds.dateLanguageList.join(',')})`
+      locale: `needs to be a supported locale (${Translator.getLocales().join(',')})`// ,
+      // dateLanguage: `needs to be a supported date language (${config.feeds.dateLanguageList.join(',')})`
     },
     rules: {
       isTimezone: {
@@ -29,16 +30,16 @@ module.exports = Joi.extend(joi => {
           }
           return value
         }
-      },
-      isDateLanguage: {
-        validate (value, helpers) {
-          const list = config.feeds.dateLanguageList
-          if (!list.includes(value)) {
-            return helpers.error('dateLanguage')
-          }
-          return value
-        }
-      }
+      }// ,
+      // isDateLanguage: {
+      //   validate (value, helpers) {
+      //     const list = config.feeds.dateLanguageList
+      //     if (!list.includes(value)) {
+      //       return helpers.error('dateLanguage')
+      //     }
+      //     return value
+      //   }
+      // }
     }
   }
 })
