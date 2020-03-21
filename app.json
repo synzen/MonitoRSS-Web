@@ -41,10 +41,6 @@
 	},
 	"formation": {
 		"web": {
-			"quantity": 0,
-			"size": "free"
-		},
-		"bot": {
 			"quantity": 1,
 			"size": "free"
 		}
