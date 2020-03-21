@@ -1,9 +1,12 @@
 const fs = require('fs')
 const path = require('path')
 const Discord = require('discord.js')
+const RedisGuild = require('./Guild.js')
+const RedisUser = require('./User.js')
 const getConfig = require('../config.js').get
 const connectDatabases = require('../util/connectDatabases.js')
 const createLogger = require('../util/logger/create.js')
+const promisify = require('util').promisify
 
 class WebClient {
   constructor () {
@@ -39,8 +42,29 @@ class WebClient {
     }
   }
 
-  async initialize () {
+  async flushRedis () {
+    const redisClient = this.redisClient
+    const keys = await promisify(redisClient.keys)
+      .bind(redisClient)('drss*')
+    const multi = redisClient.multi()
+    if (keys && keys.length > 0) {
+      for (const key of keys) {
+        multi.del(key)
+      }
+      return new Promise((resolve, reject) => multi.exec((err, res) => err ? reject(err) : resolve(res)))
+    }
+  }
 
+  async initialize () {
+    await this.flushRedis()
+    // This will recognize all guild info, members, channels and roles
+    const recognizeGuilds = this.client.guilds.cache.map((guild) => {
+      return RedisGuild.utils.recognize(this.redisClient, guild)
+    })
+    const recognizeUsers = this.client.users.cache.map((user) => {
+      return RedisUser.utils.recognize(this.redisClient, user)
+    })
+    await Promise.all(recognizeGuilds.concat(recognizeUsers))
   }
 }
 
