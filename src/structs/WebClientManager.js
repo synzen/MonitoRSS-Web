@@ -1,30 +1,32 @@
 const fs = require('fs')
 const path = require('path')
 const Discord = require('discord.js')
-const DiscordRSS = require('discord.rss')
 const expressApp = require('../app.js')
 const createLogger = require('../util/logger/create.js')
 const connectDatabases = require('../util/connectDatabases.js')
+const validateConfig = require('../util/config/schema.js').validate
 
 class WebClientManager {
   constructor (config) {
     this.shardsSpawned = 0
     // This can throw
-    DiscordRSS.validateConfig(config)
+    validateConfig(config)
     this.log = createLogger('WM')
     this.config = config
-    process.env.DRSS_CONFIG = config
+    process.env.DRSS_CONFIG = JSON.stringify(config)
     /**
      * @type {import('redis').RedisClient}
      */
     this.redisClient = null
-    this.manager = new Discord.ShardingManager(path.join(__dirname, '..', '..', 'shard.js'))
+    this.manager = new Discord.ShardingManager(path.join(__dirname, '..', '..', 'shard.js'), {
+      token: this.config.bot.token
+    })
     process.on('message', message => this.onMessage(message))
   }
 
   async start () {
     this.redisClient = await connectDatabases(this.config, 'WM')
-    this.manager.spawn()
+    await this.manager.spawn()
   }
 
   onMessage (message) {
