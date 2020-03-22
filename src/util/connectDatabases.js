@@ -25,6 +25,7 @@ function onDatabaseError (type, error, tag) {
 }
 
 module.exports = async (config, tag) => {
+  const log = createLogger(tag)
   const userOptions = config.database.connection || {}
   const connOptions = {
     ...userOptions,
@@ -36,12 +37,16 @@ module.exports = async (config, tag) => {
     useUnifiedTopology: true,
     ...connOptions
   })
+  log.info('Connected to MongoDB')
   mongoose.connection.on('error', (err) => {
     onDatabaseError('MongoDB', err, tag)
   })
   const redisClient = redis.createClient(config.database.redis)
   return new Promise((resolve, reject) => {
-    redisClient.once('ready', () => resolve(redisClient))
+    redisClient.once('ready', () => {
+      log.info('Connected to Redis')
+      resolve(redisClient)
+    })
     redisClient.on('error', (err) => {
       onDatabaseError('Redis', err, tag)
     })
