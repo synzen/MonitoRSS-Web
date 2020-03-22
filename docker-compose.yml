@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   drss-redis:
-    container_name: drss-redis
+    container_name: drss-redis-container
     image: redis:alpine
     # Uncomment below to hide redis logs
     # logging:
@@ -18,8 +18,8 @@ services:
       - drss-network
     environment:
       - DRSS_BOT_TOKEN=drss_docker_token
-      - DRSS_DATABASE_URI=mongodb://mongo:27017/rss
-      - DRSS_DATABASE_REDIS=redis://redis:6379
+      - DRSS_DATABASE_URI=mongodb://drss-mongo:27017/rss
+      - DRSS_DATABASE_REDIS=redis://drss-redis:6379
 
 networks:
   drss-network:
