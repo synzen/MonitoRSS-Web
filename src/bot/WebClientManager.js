@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const Discord = require('discord.js')
+const DiscordRSS = require('discord.rss')
 const setConfig = require('../config.js').set
 const expressApp = require('../app.js')
 const createLogger = require('../util/logger/create.js')
@@ -27,6 +28,7 @@ class WebClientManager {
 
   async start () {
     this.log.info('Attempting to connect to databases...')
+    await this.ensureDRSSDatabaseConnection()
     this.redisClient = await connectDatabases(this.config, 'WM')
     this.log.info('Databases connected. Spawning shards...')
     const token = this.config.bot.token
@@ -34,6 +36,12 @@ class WebClientManager {
       throw new Error('No bot token defined')
     }
     await this.manager.spawn()
+  }
+
+  async ensureDRSSDatabaseConnection () {
+    const uri = this.config.database.uri
+    const options = this.config.database.connection
+    await DiscordRSS.ensureDatabaseConnection(uri, options)
   }
 
   onMessage (message) {
