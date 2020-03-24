@@ -43,7 +43,10 @@ class WebClientManager {
     if (++this.shardsSpawned < this.manager.totalShards) {
       return
     }
-    this.startHttp()
+    this.startHttp().catch(err => {
+      this.log.fatal(err)
+      process.exit(1)
+    })
   }
 
   readHttpsFiles () {
@@ -63,8 +66,8 @@ class WebClientManager {
     }
   }
 
-  startHttp () {
-    const app = expressApp(this.redisClient, this.config)
+  async startHttp () {
+    const app = await expressApp(this.redisClient, this.config)
     const config = this.config
     // Check variables
     const { port: httpPort } = config.http
