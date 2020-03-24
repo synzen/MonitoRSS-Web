@@ -40,6 +40,9 @@
     "node-mocks-http": "^1.7.6",
     "supertest": "^4.0.2"
   },
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "start": "node server.js",
     "test": "jest --detectOpenHandles",
