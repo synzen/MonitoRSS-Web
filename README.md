@@ -6,6 +6,8 @@ A web server for https://github.com/synzen/Discord.RSS to manage your feeds. The
 
 **For the bot repository to clone for personal non-programmatic use, see https://github.com/synzen/Discord.RSS-Clone** 
 
+All documentation can be found at https://docs.discordrss.xyz/.
+
 # Preview
 
 Mobile responsive UI, built according to Discord's theme with Discord's blessing
