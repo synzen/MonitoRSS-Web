@@ -45,6 +45,8 @@
   },
   "scripts": {
     "start": "node server.js",
+    "postinstall": "npm run pull-dev",
+    "pull-dev": "npm update discord.rss --no-save",
     "test": "jest --detectOpenHandles",
     "test-watch": "jest --detectOpenHandles --watch",
     "eslint": "eslint --fix ."
