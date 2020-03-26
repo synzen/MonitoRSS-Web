@@ -30,7 +30,7 @@ class WebClientManager {
 
   async start () {
     this.log.info('Attempting to connect to databases...')
-    await this.ensureDRSSDatabaseConnection()
+    await this.setupDiscordRSS()
     this.mongoConnection = await connectMongo(this.config, 'WM')
     this.redisClient = await connectRedis(this.config, 'WM')
     setupModels(this.mongoConnection)
@@ -42,10 +42,10 @@ class WebClientManager {
     await this.manager.spawn()
   }
 
-  async ensureDRSSDatabaseConnection () {
+  async setupDiscordRSS () {
     const uri = this.config.database.uri
     const options = this.config.database.connection
-    await DiscordRSS.ensureDatabaseConnection(uri, options)
+    await DiscordRSS.setupModels(uri, options)
   }
 
   onMessage (message) {
