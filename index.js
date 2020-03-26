@@ -1,1 +1,1 @@
-exports.WebClientManager = require('./src/structs/WebClientManager.js')
+exports.WebClientManager = require('./src/bot/WebClientManager.js')
