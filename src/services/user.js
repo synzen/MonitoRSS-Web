@@ -4,27 +4,27 @@ const discordAPIHeaders = require('../constants/discordAPIHeaders.js')
 const roleServices = require('./role.js')
 const RedisUser = require('../bot/structs/User.js')
 const RedisGuildMember = require('../bot/structs/GuildMember.js')
-const WebCache = require('../models/WebCache.js').model
+const WebCache = require('../models/WebCache.js')
 const createLogger = require('../util/logger/create.js')
 const log = createLogger('W')
 const MANAGE_CHANNEL_PERMISSION = 16
 
 async function getCachedUser (id) {
-  return WebCache.findOne({
+  return WebCache.Model.findOne({
     id,
     type: 'user'
   }).lean().exec()
 }
 
 async function getCachedUserGuilds (id) {
-  return WebCache.findOne({
+  return WebCache.Model.findOne({
     id,
     type: 'guilds'
   }).lean().exec()
 }
 
 async function storeCachedUser (id, data) {
-  const cached = new WebCache({
+  const cached = new WebCache.Model({
     id,
     type: 'user',
     data
@@ -34,7 +34,7 @@ async function storeCachedUser (id, data) {
 }
 
 async function storeCachedUserGuilds (id, data) {
-  const cached = new WebCache({
+  const cached = new WebCache.Model({
     id,
     type: 'guilds',
     data

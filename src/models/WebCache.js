@@ -17,7 +17,6 @@ const schema = new mongoose.Schema({
   }
 })
 
-const model = mongoose.model('Web Cache', schema)
-
 exports.schema = schema
-exports.model = model
+/** @type {import('mongoose').Model} */
+exports.Model = null

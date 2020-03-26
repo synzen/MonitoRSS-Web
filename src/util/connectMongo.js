@@ -1,6 +1,5 @@
 const fs = require('fs')
 const mongoose = require('mongoose')
-const redis = require('redis')
 const createLogger = require('./logger/create.js')
 
 function readDatabaseFiles (config) {
@@ -31,24 +30,15 @@ module.exports = async (config, tag) => {
     ...userOptions,
     ...readDatabaseFiles(userOptions)
   }
-  await mongoose.connect(config.database.uri, {
+  const con = await mongoose.createConnection(config.database.uri, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
     ...connOptions
   })
   log.info('Connected to MongoDB')
-  mongoose.connection.on('error', (err) => {
+  con.on('error', (err) => {
     onDatabaseError('MongoDB', err, tag)
   })
-  const redisClient = redis.createClient(config.database.redis)
-  return new Promise((resolve, reject) => {
-    redisClient.once('ready', () => {
-      log.info('Connected to Redis')
-      resolve(redisClient)
-    })
-    redisClient.on('error', (err) => {
-      onDatabaseError('Redis', err, tag)
-    })
-  })
+  return con
 }

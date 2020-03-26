@@ -4,7 +4,7 @@ const Discord = require('discord.js')
 const RedisGuild = require('./structs/Guild.js')
 const RedisUser = require('./structs/User.js')
 const getConfig = require('../config.js').get
-const connectDatabases = require('../util/connectDatabases.js')
+const connectRedis = require('../util/connectRedis.js')
 const createLogger = require('../util/logger/create.js')
 const promisify = require('util').promisify
 
@@ -19,7 +19,7 @@ class WebClient {
   }
   async login (token) {
     try {
-      this.redisClient = await connectDatabases(this.config, '-')
+      this.redisClient = await connectRedis(this.config, '-')
       this.client = new Discord.Client()
       await this.client.login(token)
       this.log = createLogger(this.client.shard.ids[0])

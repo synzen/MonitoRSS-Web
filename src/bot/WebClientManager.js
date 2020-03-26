@@ -5,7 +5,9 @@ const DiscordRSS = require('discord.rss')
 const setConfig = require('../config.js').set
 const expressApp = require('../app.js')
 const createLogger = require('../util/logger/create.js')
-const connectDatabases = require('../util/connectDatabases.js')
+const connectMongo = require('../util/connectMongo.js')
+const connectRedis = require('../util/connectRedis.js')
+const setupModels = require('../util/setupModels.js')
 
 class WebClientManager {
   constructor (config) {
@@ -29,7 +31,9 @@ class WebClientManager {
   async start () {
     this.log.info('Attempting to connect to databases...')
     await this.ensureDRSSDatabaseConnection()
-    this.redisClient = await connectDatabases(this.config, 'WM')
+    this.mongoConnection = await connectMongo(this.config, 'WM')
+    this.redisClient = await connectRedis(this.config, 'WM')
+    setupModels(this.mongoConnection)
     this.log.info('Databases connected. Spawning shards...')
     const token = this.config.bot.token
     if (!token || token === 'drss_docker_token') {
