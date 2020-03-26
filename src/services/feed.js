@@ -3,7 +3,6 @@ const Article = DiscordRSS.Article
 const FeedFetcher = DiscordRSS.FeedFetcher
 const FailRecord = DiscordRSS.FailRecord
 const Feed = DiscordRSS.Feed
-const ArticleModel = DiscordRSS.models.Article.model
 
 /**
  * @param {string} url
@@ -74,7 +73,7 @@ async function deleteFeed (feedID) {
 async function getDatabaseArticles (feed, shardID) {
   // Schedule name must be determined
   const schedule = await feed.determineSchedule()
-  const data = await ArticleModel.find({
+  const data = await DiscordRSS.models.Article.Model.find({
     scheduleName: schedule.name,
     feedURL: feed.url,
     shardID

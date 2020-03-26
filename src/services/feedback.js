@@ -1,8 +1,7 @@
 const DiscordRSS = require('discord.rss')
-const Feedback = DiscordRSS.models.Feedback.model
 
 async function createFeedback (userID, username, content) {
-  const feedback = new Feedback({
+  const feedback = new DiscordRSS.models.Feedback.Model({
     type: 'web',
     userID,
     username,
