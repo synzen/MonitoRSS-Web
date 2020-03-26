@@ -98,14 +98,14 @@ function Message () {
     <FullArea>
       <SettingsArea ref={scrollReference}>
         <PageHeader >
-          <h2>Message/Embed Customization</h2>
-          <p>Set a custom message and/or embed for your feed.</p>
+          <h2>Text/Embed Customization</h2>
+          <p>Set a custom text and/or embed for your feed.</p>
         </PageHeader>
         <Divider />
         <SectionTitle heading='Placeholders' subheading='Below are the available placeholders for the selected article.' />
         <Placeholders updateArticleID={articleID => setArticleID(articleID)} />
         <Divider />
-        <SectionTitle heading='Message' subheading={
+        <SectionTitle heading='Text' subheading={
           <span>
             <span>Remember that you can use the placeholders listed above. A special placeholder, {`{empty}`} can be used to create an empty message, but only if an embed is used. Regular formatting such as bold and etc. is also available.</span>
             { !hasSubscribers

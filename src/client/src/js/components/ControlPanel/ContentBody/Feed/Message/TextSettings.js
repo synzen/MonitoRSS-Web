@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { Button } from 'semantic-ui-react'
 import styled from 'styled-components'
@@ -26,8 +27,12 @@ function TextSetting (props) {
   const feed = useSelector(feedSelectors.activeFeed)
   const editing = useSelector(feedSelectors.feedEditing)
   const dispatch = useDispatch()
-  const noChanges = value === null || value === originalMessage || (!feed.text && !value)
-  const textAreaVal = value || value === '' ? value : ''
+  const noChanges = value === originalMessage || value === undefined
+  const textAreaVal = value || value === '' ? value : originalMessage
+
+  useEffect(() => {
+    onUpdate()
+  }, [feed])
 
   const save = () => {
     if (value === null || value === originalMessage) {
@@ -51,11 +56,16 @@ function TextSetting (props) {
     <MessageArea>
       <TextArea onChange={e => onUpdate(e.target.value)} placeholder={originalMessage} value={textAreaVal} lineCount={textAreaVal ? textAreaVal.split('\n').length : 0} />
       <ActionButtons>
-        <PopInButton content='Reset' basic inverted onClick={e => onUpdate(null)} pose={editing ? 'exit' : noChanges ? 'exit' : 'enter'} />
+        <PopInButton content='Reset' basic inverted onClick={e => onUpdate()} pose={editing ? 'exit' : noChanges ? 'exit' : 'enter'} />
         <Button disabled={editing || noChanges} content='Save' color='green' onClick={save} />
       </ActionButtons>
     </MessageArea>
   )
+}
+
+TextSetting.propTypes = {
+  originalMessage: PropTypes.string,
+  onUpdate: PropTypes.func
 }
 
 export default TextSetting
