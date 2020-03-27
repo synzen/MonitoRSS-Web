@@ -148,7 +148,9 @@ function EmbedSettings (props) {
   const [embeds, embedsDispatch] = useReducer(embedsReducer, originalEmbeds)
 
   useEffect(() => {
-    discardChanges()
+    if (!unsaved) {
+      discardChanges()
+    }
   }, [feed, originalEmbeds])
 
   useEffect(() => {
