@@ -13,23 +13,23 @@
 		"plan": "heroku-redis:hobby-dev"
 	}],
 	"env": {
-		"DRSS_ADMINIDS": {
+		"DRSSWEB_ADMINIDS": {
 			"description": "Admin ID(s), separate multiple with commas.",
 			"required": false
 		},
-		"DRSS_BOT_TOKEN": {
+		"DRSSWEB_BOT_TOKEN": {
 			"description": "Discord BOT token. Get it here: https://discordapp.com/developers/applications/."
 		},
-		"DRSS_BOT_REDIRECTURI": {
+		"DRSSWEB_BOT_REDIRECTURI": {
 			"description": "Insert the domain name appending /authorize. Example on heroku: https://APPNAME.herokuapp.com/authorize. Make sure the exact url is also set set under the application OAuth2 tab under redirects."
 		},
-		"DRSS_BOT_CLIENTID": {
+		"DRSSWEB_BOT_CLIENTID": {
 			"description": "App ID that can be found on the general information page at https://discordapp.com/developers/applications/. This should only contain numbers."
 		},
-		"DRSS_BOT_CLIENTSECRET": {
+		"DRSSWEB_BOT_CLIENTSECRET": {
 			"description": "Found on your app page at Discord Developers at https://discordapp.com/developers/applications/"
 		},
-		"DRSS_DATABASE_URI": {
+		"DRSSWEB_DATABASE_URI": {
 			"description": "Database URI of the Discord.RSS bot application. Must match URIs for the control panel to have access to the same data as the bot."
 		},
 		"NODE_ENV": {

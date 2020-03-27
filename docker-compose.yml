@@ -17,9 +17,9 @@ services:
     networks:
       - drss-network
     environment:
-      - DRSS_BOT_TOKEN=drss_docker_token
-      - DRSS_DATABASE_URI=mongodb://drss-mongo:27017/rss
-      - DRSS_DATABASE_REDIS=redis://drss-redis:6379
+      - DRSSWEB_BOT_TOKEN=drss_docker_token
+      - DRSSWEB_DATABASE_URI=mongodb://drss-mongo:27017/rss
+      - DRSSWEB_DATABASE_REDIS=redis://drss-redis:6379
 
 networks:
   drss-network:

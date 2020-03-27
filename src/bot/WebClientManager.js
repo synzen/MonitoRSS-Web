@@ -15,7 +15,7 @@ class WebClientManager {
     // This can throw
     this.log = createLogger('W')
     this.config = setConfig(config)
-    process.env.DRSS_CONFIG = JSON.stringify(config)
+    process.env.DRSSWEB_CONFIG = JSON.stringify(config)
     /**
      * @type {import('redis').RedisClient}
      */
@@ -36,7 +36,7 @@ class WebClientManager {
     setupModels(this.mongoConnection)
     this.log.info('Databases connected. Spawning shards...')
     const token = this.config.bot.token
-    if (!token || token === 'drss_docker_token') {
+    if (!token || token === 'DRSSWEB_docker_token') {
       throw new Error('No bot token defined')
     }
     await this.manager.spawn()
