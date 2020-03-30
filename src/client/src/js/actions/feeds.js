@@ -49,6 +49,7 @@ export function addGuildFeed (guildID, feedData) {
       const { data } = await axios.post(`/api/guilds/${guildID}/feeds`, feedData)
       toast.success(`Successfully added feed!`)
       dispatch(addFeedSuccess(data))
+      dispatch(fetchGuildFeedSchedule(guildID, data._id))
     } catch (err) {
       dispatch(addFeedFailure(err))
     }

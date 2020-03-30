@@ -73,12 +73,6 @@ function SideBar (props) {
     setInputTitle('')
   }, [selectedFeed])
 
-  useEffect(() => {
-    if (guildID && selectedFeed && !refreshRate) {
-      dispatch(fetchGuildFeedSchedule(guildID, selectedFeed._id))
-    }
-  }, [refreshRate, selectedFeed, guildID])
-
   if (!activeGuild || !selectedFeed) {
     return <div />
   }
