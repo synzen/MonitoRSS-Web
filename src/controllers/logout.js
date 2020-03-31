@@ -10,6 +10,7 @@ async function logout (req, res, next) {
   const session = req.session
   try {
     await authServices.logout(oauthClient, session)
+    res.redirect('/')
   } catch (err) {
     next(err)
   }
