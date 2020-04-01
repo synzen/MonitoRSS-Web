@@ -36,7 +36,7 @@ class User extends Base {
           // MUST be a flat structure
           if (key === 'displayAvatarURL') {
             toStore[key] = user[key]({
-              format: 'jpg'
+              format: 'png'
             }) || ''
           } else {
             toStore[key] = user[key] || ''
@@ -52,10 +52,10 @@ class User extends Base {
         this.utils.JSON_KEYS.forEach(key => {
           if (key === 'displayAvatarURL') {
             const oldAvatar = oldUser[key]({
-              format: 'jpg'
+              format: 'png'
             })
             const newAvatar = newUser[key]({
-              format: 'jpg'
+              format: 'png'
             })
             if (oldAvatar !== newAvatar) {
               toStore[key] = newAvatar
