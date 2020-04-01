@@ -60,7 +60,9 @@ class Guild extends Base {
           if (key === 'shard') {
             toStore[key] = guild.shardID === undefined ? '' : guild.shardID
           } else if (key === 'iconURL') {
-            toStore[key] = guild.iconURL() || ''
+            toStore[key] = guild.iconURL({
+              format: 'jpg'
+            }) || ''
           } else {
             toStore[key] = guild[key] || ''
           }
