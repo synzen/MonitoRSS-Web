@@ -45,7 +45,7 @@ class User extends Base {
       update: async (redisClient, oldUser, newUser) => {
         if (!(oldUser instanceof Discord.User) || !(newUser instanceof Discord.User)) throw new TypeError('User is not instance of Discord.User')
         const exists = await promisify(redisClient.exists).bind(redisClient)(this.utils.REDIS_KEYS.user(newUser.id))
-        if (!exists) return exports.guilds.recognize(newUser)
+        if (!exists) return User.utils.recognize(newUser)
         const toStore = {}
         this.utils.JSON_KEYS.forEach(key => {
           if (key === 'displayAvatarURL') {
