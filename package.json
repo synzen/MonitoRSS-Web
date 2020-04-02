@@ -41,7 +41,7 @@
     "supertest": "^4.0.2"
   },
   "engines": {
-    "node": "12.x"
+    "node": "12.16"
   },
   "scripts": {
     "start": "node server.js",
