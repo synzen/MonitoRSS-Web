@@ -35,7 +35,9 @@ class User extends Base {
         this.utils.JSON_KEYS.forEach(key => {
           // MUST be a flat structure
           if (key === 'displayAvatarURL') {
-            toStore[key] = user[key]() || ''
+            toStore[key] = user[key]({
+              format: 'png'
+            }) || ''
           } else {
             toStore[key] = user[key] || ''
           }
@@ -49,8 +51,12 @@ class User extends Base {
         const toStore = {}
         this.utils.JSON_KEYS.forEach(key => {
           if (key === 'displayAvatarURL') {
-            const oldAvatar = oldUser[key]()
-            const newAvatar = newUser[key]()
+            const oldAvatar = oldUser[key]({
+              format: 'png'
+            })
+            const newAvatar = newUser[key]({
+              format: 'png'
+            })
             if (oldAvatar !== newAvatar) {
               toStore[key] = newAvatar
             }
