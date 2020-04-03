@@ -10,6 +10,7 @@ COPY package*.json ./
 USER node
 # If package.json hasn't changed, Docker uses same image layer, and npm install will be skipped
 # since Docker assumes output is the same as before
+RUN npm install synzen/discord.rss#dev
 RUN npm install
 # Copy the application from host machine directory argument of docker build to virtual machine
 COPY . .
