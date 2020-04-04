@@ -18,7 +18,7 @@ function cp (req, res) {
 
   const html = htmlConstants.indexFile
     .replace('__OG_TITLE__', 'Control Panel')
-    .replace('__OG_DESCRIPTION__', `Customizing your feeds in multiple servers has never been easier!.\n\nThis site is under construction.`)
+    .replace('__OG_DESCRIPTION__', 'Customizing your feeds in multiple servers has never been easier!.\n\nThis site is under construction.')
   return res
     .type('text/html')
     .send(html)

@@ -48,7 +48,7 @@ async function getUserByAPI (id, accessToken, skipCache) {
   if (cachedUser) {
     return cachedUser.data
   }
-  log.info(`[1 DISCORD API REQUEST] [USER] GET /api/users/@me`)
+  log.info('[1 DISCORD API REQUEST] [USER] GET /api/users/@me')
   const results = await fetch(`${discordAPIConstants.apiHost}/users/@me`, discordAPIHeaders.user(accessToken))
   if (results.status !== 200) {
     throw new Error(`Bad Discord status code (${results.status})`)
@@ -68,7 +68,7 @@ async function getGuildsByAPI (id, accessToken, skipCache) {
   if (cachedUserGuilds) {
     return cachedUserGuilds.data
   }
-  log.info(`[1 DISCORD API REQUEST] [USER] GET /api/users/@me/guilds`)
+  log.info('[1 DISCORD API REQUEST] [USER] GET /api/users/@me/guilds')
   const res = await fetch(`${discordAPIConstants.apiHost}/users/@me/guilds`, discordAPIHeaders.user(accessToken))
   if (res.status !== 200) {
     throw new Error(`Bad Discord status code (${res.status})`)
@@ -137,7 +137,7 @@ async function isManagerOfGuild (userID, guildID, config, redisClient) {
  * @param {import('redis').RedisClient}
  */
 async function isManagerOfGuildByAPI (userID, guildID, redisClient) {
-  log.general.info(`[1 DISCORD API REQUEST] [BOT] MIDDLEWARE /api/guilds/:guildId/members/:userId`)
+  log.general.info('[1 DISCORD API REQUEST] [BOT] MIDDLEWARE /api/guilds/:guildId/members/:userId')
   const res = await fetch(`${discordAPIConstants.apiHost}/guilds/${guildID}/members/${userID}`, discordAPIHeaders.bot())
   if (res.status === 200) {
     const user = await res.json()

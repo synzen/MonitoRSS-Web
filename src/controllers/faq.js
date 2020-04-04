@@ -1,7 +1,7 @@
 const htmlConstants = require('../constants/html.js')
 const fs = require('fs')
 const path = require('path')
-const faq = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'client', `src`, 'js', 'constants', 'faq.json')))
+const faq = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'client', 'src', 'js', 'constants', 'faq.json')))
 
 /**
  * @param {import('express').Request} req

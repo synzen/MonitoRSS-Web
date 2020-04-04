@@ -14,7 +14,7 @@ async function checkUserGuildPermission (req, res, next) {
   try {
     var guildID = req.params.guildID
     var userID = req.session.identity.id
-    const [ guild, guildData, isManager ] = await Promise.all([
+    const [guild, guildData, isManager] = await Promise.all([
       guildServices.getCachedGuild(guildID, redisClient),
       guildServices.getAppData(guildID),
       userServices.isManagerOfGuild(userID, guildID, config, redisClient)

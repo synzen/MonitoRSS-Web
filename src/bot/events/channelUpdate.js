@@ -10,7 +10,7 @@ module.exports = (redisClient) => (oldChannel, newChannel) => {
     RedisChannel.utils.update(redisClient, oldChannel, newChannel)
       .catch(err => {
         const log = createLogger(oldChannel.guild.shard.id)
-        log.error(err, `Redis failed to update name after channelUpdate event`)
+        log.error(err, 'Redis failed to update name after channelUpdate event')
       })
   }
 }

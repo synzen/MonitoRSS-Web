@@ -6,7 +6,7 @@ function createLogger (shardID) {
   const config = getConfig()
   let prettyPrint = {
     translateTime: 'yyyy-mm-dd HH:MM:ss',
-    messageFormat: `[{shardID}] \x1b[0m{msg}`,
+    messageFormat: '[{shardID}] \x1b[0m{msg}',
     ignore: 'hostname,shardID'
   }
 

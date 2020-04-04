@@ -17,21 +17,18 @@ class WebClient {
      */
     this.redisClient = null
   }
+
   async login (token) {
-    try {
-      this.redisClient = await connectRedis(this.config, '-')
-      this.client = new Discord.Client()
-      await this.client.login(token)
-      this.log = createLogger(this.client.shard.ids[0])
-      this.log.info('Logged in')
-      this.registerListeners()
-      this.log.info('Listeners registered')
-      await this.initialize()
-      this.log.info('Redis initialized')
-      this.client.shard.send('complete')
-    } catch (err) {
-      throw err
-    }
+    this.redisClient = await connectRedis(this.config, '-')
+    this.client = new Discord.Client()
+    await this.client.login(token)
+    this.log = createLogger(this.client.shard.ids[0])
+    this.log.info('Logged in')
+    this.registerListeners()
+    this.log.info('Listeners registered')
+    await this.initialize()
+    this.log.info('Redis initialized')
+    this.client.shard.send('complete')
   }
 
   registerListeners () {

@@ -26,11 +26,11 @@ class Channel extends Base {
           return `drss_channel_${channelID}`
         },
         channelsOfGuild: guildID => { // This is a SET. Channels of a guild that have been checked and cached
-          if (!guildID) throw new TypeError(`Guild ID must be provided`)
+          if (!guildID) throw new TypeError('Guild ID must be provided')
           return `drss_guild_${guildID}_channels`
         }
       },
-      JSON_KEYS: [ 'name', 'guildID' ],
+      JSON_KEYS: ['name', 'guildID'],
       recognize: async (redisClient, channel) => {
         if (!(channel instanceof Discord.GuildChannel)) throw new TypeError('Channel is not instance of Discord.GuildChannel')
         if (channel.type !== 'text') return

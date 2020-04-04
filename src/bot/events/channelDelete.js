@@ -9,6 +9,6 @@ module.exports = (redisClient) => (channel) => {
   RedisChannel.utils.forget(redisClient, channel)
     .catch(err => {
       const log = createLogger(channel.guild.shard.id)
-      log.error(err, `Redis failed to forget after channelDelete event`)
+      log.error(err, 'Redis failed to forget after channelDelete event')
     })
 }
