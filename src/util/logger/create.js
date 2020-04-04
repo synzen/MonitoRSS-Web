@@ -2,24 +2,18 @@ const pino = require('pino')
 const serializers = require('./serializers.js')
 const getConfig = require('../../config.js').get
 
-function createLogger (shardID) {
+function createLogger (tag, base = {}) {
   const config = getConfig()
-  let prettyPrint = {
+  const prettyPrint = {
     translateTime: 'yyyy-mm-dd HH:MM:ss',
-    messageFormat: '[{shardID}] \x1b[0m{msg}',
-    ignore: 'hostname,shardID'
+    messageFormat: '[{tag}] \x1b[0m{msg}',
+    ignore: 'hostname,tag'
   }
 
-  let destination
-
-  if (process.env.NODE_ENV !== 'test' && config.log.destination) {
-    destination = pino.destination(config.log.destination)
-    prettyPrint = false
-  }
-
-  return pino({
+  const pinoConfig = {
     base: {
-      shardID: String(shardID)
+      tag: String(tag),
+      ...base
     },
     customLevels: {
       owner: 35
@@ -30,10 +24,20 @@ function createLogger (shardID) {
       channel: serializers.channel,
       role: serializers.channel,
       user: serializers.user,
+      message: serializers.message,
       error: pino.stdSerializers.err
     },
-    enabled: !process.env.TEST_ENV
-  }, destination)
+    enabled: process.env.NODE_ENV !== 'test'
+  }
+
+  let destination
+  if (pinoConfig.enabled) {
+    destination = config.log.destination || undefined
+    pinoConfig.level = config.log.level
+    pinoConfig.prettyPrint = !destination ? prettyPrint : false
+  }
+
+  return pino(pinoConfig, pino.destination(destination))
 }
 
 module.exports = createLogger
