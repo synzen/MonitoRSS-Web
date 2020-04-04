@@ -38,7 +38,6 @@
     "eslint-plugin-standard": "^4.0.1",
     "jest": "^25.2.7",
     "jest-cli": "^25.2.7",
-    "nock": "^10.0.6",
     "node-mocks-http": "^1.8.1",
     "supertest": "^4.0.2"
   },
