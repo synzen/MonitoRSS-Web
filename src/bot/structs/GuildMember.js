@@ -12,7 +12,7 @@ class GuildMember extends Base {
   }
 
   async retrieve (redisClient) {
-    const [ isMember, isManager ] = await Promise.all([
+    const [isMember, isManager] = await Promise.all([
       GuildMember.utils.isMemberOfGuild(redisClient, this.id, this.guildID),
       GuildMember.utils.isManagerOfGuild(redisClient, this.id, this.guildID)
     ])
@@ -34,11 +34,11 @@ class GuildMember extends Base {
           return `drss_guild_${guildID}_nonmembers`
         },
         managersOfGuild: guildID => { // This is a SET. Members that have been checked and cached and have permissions
-          if (!guildID) throw new TypeError(`Guild ID must be provided`)
+          if (!guildID) throw new TypeError('Guild ID must be provided')
           return `drss_guild_${guildID}_managers`
         }
       },
-      JSON_KEYS: [ 'guildID', 'isManager' ],
+      JSON_KEYS: ['guildID', 'isManager'],
       recognize: async (redisClient, member) => {
         if (!(member instanceof Discord.GuildMember)) throw new TypeError('Member is not instance of Discord.GuildMember')
         await promisify(redisClient.sadd).bind(redisClient)(this.utils.REDIS_KEYS.membersOfGuild(member.guild.id), member.id)

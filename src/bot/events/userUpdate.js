@@ -5,6 +5,6 @@ module.exports = (redisClient) => (oldUser, newUser) => {
   RedisUser.utils.update(redisClient, oldUser, newUser)
     .catch(err => {
       const log = createLogger(newUser.client.shard.ids[0])
-      log.error(err, `Redis failed to update after userUpdate event`)
+      log.error(err, 'Redis failed to update after userUpdate event')
     })
 }

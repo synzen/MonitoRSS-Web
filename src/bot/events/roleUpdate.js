@@ -13,19 +13,19 @@ module.exports = (redisClient) => (oldRole, newRole) => {
     if (!newRoleHas) {
       newRoleMembers.forEach(member => {
         RedisGuildMember.utils.forgetManager(redisClient, member)
-          .catch(err => log.error(err, `Redis failed to members.forgetManager after roleUpdate event`))
+          .catch(err => log.error(err, 'Redis failed to members.forgetManager after roleUpdate event'))
       })
       RedisRole.utils.forgetManager(redisClient, newRole)
-        .catch(err => log.error(err, `Redis failed to roles.forgetManager after roleUpdate event`))
+        .catch(err => log.error(err, 'Redis failed to roles.forgetManager after roleUpdate event'))
     } else {
       newRoleMembers.forEach(member => {
         RedisGuildMember.utils.recognizeManager(redisClient, member)
-          .catch(err => log.error(err, `Redis failed to members.recognizeManager after roleUpdate event`))
+          .catch(err => log.error(err, 'Redis failed to members.recognizeManager after roleUpdate event'))
       })
       RedisRole.utils.recognizeManager(redisClient, newRole)
-        .catch(err => log.error(err, `Redis failed to roles.forgetManager after roleUpdate event`))
+        .catch(err => log.error(err, 'Redis failed to roles.forgetManager after roleUpdate event'))
     }
   }
   RedisRole.utils.update(redisClient, oldRole, newRole)
-    .catch(err => log.error(err, `Redis failed to update role after roleUpdate event`))
+    .catch(err => log.error(err, 'Redis failed to update role after roleUpdate event'))
 }

@@ -1,21 +1,21 @@
 module.exports = {
-  '401': {
+  401: {
     code: 401,
     message: 'Unauthorized'
   },
-  '404': {
+  404: {
     code: 404,
     message: 'Not Found'
   },
-  '400': {
+  400: {
     code: 400,
     message: 'Bad Request'
   },
-  '304': {
+  304: {
     code: 304,
     message: 'Not Modified'
   },
-  '500': {
+  500: {
     code: 500,
     message: 'Internal Server Error'
   },

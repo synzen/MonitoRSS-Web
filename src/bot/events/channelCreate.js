@@ -9,7 +9,7 @@ module.exports = (redisClient) => (channel) => {
         const log = createLogger(channel.guild.shard.id)
         log.error({
           error: err
-        }, `Redis failed to recognize after channelCreate event`)
+        }, 'Redis failed to recognize after channelCreate event')
       })
   }
 }

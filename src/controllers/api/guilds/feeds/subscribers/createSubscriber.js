@@ -21,13 +21,13 @@ async function createSubscriber (req, res, next) {
     if (data.type === 'role') {
       const valid = await roleServices.isRoleOfGuild(data.id, guildID, redisClient)
       if (!valid) {
-        const createdError = createError(403, `Role is not part of guild`)
+        const createdError = createError(403, 'Role is not part of guild')
         return res.status(403).json(createdError)
       }
     } else {
       const exists = await userServices.getMemberOfGuild(data.id, guildID, redisClient)
       if (!exists) {
-        const createdError = createError(403, `User is not member of guild`)
+        const createdError = createError(403, 'User is not member of guild')
         return res.status(403).json(createdError)
       }
     }

@@ -11,7 +11,7 @@ exports.user = accessToken => {
   return {
     headers: {
       ...exports.common.headers,
-      'Authorization': `Bearer ${accessToken}`
+      Authorization: `Bearer ${accessToken}`
     }
   }
 }
@@ -21,7 +21,7 @@ exports.bot = () => {
   return {
     headers: {
       ...exports.common.headers,
-      'Authorization': `Bot ${config.bot.token}`
+      Authorization: `Bot ${config.bot.token}`
     }
   }
 }

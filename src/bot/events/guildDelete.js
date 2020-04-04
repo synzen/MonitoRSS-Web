@@ -4,5 +4,5 @@ const createLogger = require('../../util/logger/create.js')
 module.exports = (redisClient) => (guild) => {
   const log = createLogger(guild.shard.id)
   RedisGuild.utils.forget(redisClient, guild)
-    .catch(err => log.error(err, `Redis failed to forget after guildDelete event`))
+    .catch(err => log.error(err, 'Redis failed to forget after guildDelete event'))
 }

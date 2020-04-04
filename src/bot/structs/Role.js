@@ -29,15 +29,15 @@ class Role extends Base {
     return {
       REDIS_KEYS: {
         role: roleID => {
-          if (!roleID) throw new TypeError(`Role ID must be provided`)
+          if (!roleID) throw new TypeError('Role ID must be provided')
           return `drss_role_${roleID}`
         },
         rolesOfGuild: guildID => { // This is a SET.
-          if (!guildID) throw new TypeError(`Guild ID must be provided`)
+          if (!guildID) throw new TypeError('Guild ID must be provided')
           return `drss_guild_${guildID}_roles`
         },
         managerRolesOfGuild: guildID => {
-          if (!guildID) throw new TypeError(`Guild ID must be provided`)
+          if (!guildID) throw new TypeError('Guild ID must be provided')
           return `drss_guild_${guildID}_roles_managers`
         }
       },

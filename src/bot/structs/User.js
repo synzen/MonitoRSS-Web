@@ -24,7 +24,7 @@ class User extends Base {
     return {
       REDIS_KEYS: {
         user: userId => { // This is a HASH. Users with their data that have been cached.
-          if (!userId) throw new TypeError(`User ID must be provided`)
+          if (!userId) throw new TypeError('User ID must be provided')
           return `drss_user_${userId}`
         }
       },

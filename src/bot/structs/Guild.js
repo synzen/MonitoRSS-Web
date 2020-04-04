@@ -19,10 +19,10 @@ class Guild extends Base {
   async retrieve (redisClient) {
     const fetchChannels = this._toFetch.includes('channels') || this._fetchAll
     const fetchRoles = this._toFetch.includes('roles') || this._fetchAll
-    const promiseArr = [ Guild.utils.get(redisClient, this.id) ]
+    const promiseArr = [Guild.utils.get(redisClient, this.id)]
     if (fetchChannels) promiseArr.push(Channel.utils.getChannelsOfGuild(redisClient, this.id))
     if (fetchRoles) promiseArr.push(Role.utils.getRolesOfGuild(redisClient, this.id))
-    const [ data, channels, roles ] = await Promise.all(promiseArr)
+    const [data, channels, roles] = await Promise.all(promiseArr)
     this._fetched = true
     if (!data) return
     this.exists = true
@@ -46,11 +46,11 @@ class Guild extends Base {
     return {
       REDIS_KEYS: {
         guilds: guildID => { // This is a HASH. Guilds with their data that have been cached.
-          if (!guildID) throw new TypeError(`Guild data and ID must be provided`)
+          if (!guildID) throw new TypeError('Guild data and ID must be provided')
           return `drss_guild_${guildID}`
         }
       },
-      JSON_KEYS: [ 'name', 'iconURL', 'ownerID', 'shard' ],
+      JSON_KEYS: ['name', 'iconURL', 'ownerID', 'shard'],
       recognize: async (redisClient, guild) => {
         if (!(guild instanceof Discord.Guild)) throw new TypeError('Guild is not instance of Discord.Guild')
         const multi = redisClient.multi()

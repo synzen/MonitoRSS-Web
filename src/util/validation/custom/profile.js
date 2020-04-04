@@ -2,10 +2,10 @@ const DiscordRSS = require('discord.rss')
 const Joi = require('@hapi/joi')
 const moment = require('moment-timezone')
 const Translator = DiscordRSS.Translator
-const getConfig = require('../../../config.js').get
+// const getConfig = require('../../../config.js').get
 
 module.exports = Joi.extend(joi => {
-  const config = getConfig()
+  // const config = getConfig()
   return {
     base: joi.string().allow('').trim(),
     type: 'profile',

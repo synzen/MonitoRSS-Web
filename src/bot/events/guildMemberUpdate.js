@@ -11,13 +11,13 @@ module.exports = (redisClient) => (oldMember, newMember) => {
       RedisGuildMember.utils.forgetManager(redisClient, newMember)
         .catch(err => {
           const log = createLogger(oldMember.guild.shard.id)
-          log.error(err, `Redis failed to forgetManager after guildMemberUpdate event`)
+          log.error(err, 'Redis failed to forgetManager after guildMemberUpdate event')
         })
     } else {
       RedisGuildMember.utils.recognizeManager(redisClient, newMember)
         .catch(err => {
           const log = createLogger(oldMember.guild.shard.id)
-          log.error(err, `Redis failed to recognizeManager after guildMemberUpdate event`)
+          log.error(err, 'Redis failed to recognizeManager after guildMemberUpdate event')
         })
     }
   }
