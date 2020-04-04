@@ -19,6 +19,7 @@ exports.set = (override) => {
   }
   const log = config.log
   const logOverride = override.log
+  log.level = process.env.DRSSWEB_LOG_LEVEL || logOverride.level || log.level
   log.destination = process.env.DRSSWEB_LOG_DESTINATION || logOverride.destination || log.destination
 
   // BOT

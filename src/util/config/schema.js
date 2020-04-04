@@ -1,6 +1,7 @@
 const Joi = require('@hapi/joi')
 
 const logSchema = Joi.object({
+  level: Joi.string().strict().valid('silent', 'trace', 'debug', 'info', 'warn', 'error', 'fatal').default('info'),
   destination: Joi.string().allow('').default('')
 })
 
