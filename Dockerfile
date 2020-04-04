@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /usr/src
 COPY package*.json ./
 USER node
-RUN npm install
+RUN npm install synzen/discord.rss#dev && \
+    npm install
 
 
 FROM node:12-alpine
