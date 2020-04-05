@@ -74,7 +74,7 @@ async function storeCachedUserGuilds (id, data) {
  * @param {import('redis').RedisClient} redisClient
  */
 async function getMemberOfGuild (userID, guildID, redisClient) {
-  const member = await RedisGuildMember.fetch(redisClient, {
+  const cachedMember = await RedisGuildMember.fetch(redisClient, {
     id: userID,
     guildID
   })
@@ -82,21 +82,21 @@ async function getMemberOfGuild (userID, guildID, redisClient) {
     function: 'getMemberOfGuild',
     userID,
     guildID,
-    member
+    cachedMember
   })
-  log.trace('Fetched member from Redis')
-  return member ? member.toJSON() : null
+  log.trace('Fetched cached member from Redis')
+  return cachedMember ? cachedMember.toJSON() : null
 }
 
 async function getUser (userID, redisClient) {
-  const user = await RedisUser.fetch(redisClient, userID)
+  const cachedUser = await RedisUser.fetch(redisClient, userID)
   const log = createLogger({
     function: 'getMemberOfGuild',
     userID,
-    user
+    cachedUser
   })
-  log.trace('Fetched user from Redis')
-  return user ? user.toJSON() : null
+  log.trace('Fetched cached user from Redis')
+  return cachedUser ? cachedUser.toJSON() : null
 }
 
 async function getUserByAPI (id, accessToken, skipCache) {
