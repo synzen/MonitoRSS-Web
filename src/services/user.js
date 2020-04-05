@@ -172,7 +172,7 @@ async function hasGuildPermission (guild, config, redisClient) {
   guildLog.debug('Fetching bot member from Redis to determine bot permissions')
   const member = await getMemberOfGuild(config.bot.clientID, guild.id, redisClient)
   if (!member) {
-    guildLog.debug('Bot has insufficient permissions. Not in guild.')
+    guildLog.debug(`Fetched user has sufficient permissions (${guild.permissions}), but bot has insufficient permissions (not in guild).`)
     return false
   }
   guildLog.debug(`Both user and bot has sufficient permissions (${guild.permissions}) for guild`)
