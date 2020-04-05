@@ -13,8 +13,8 @@ class WebClientManager {
   constructor (config) {
     this.shardsSpawned = 0
     // This can throw
-    this.log = createLogger('W')
     this.config = setConfig(config)
+    this.log = createLogger('W')
     process.env.DRSSWEB_CONFIG = JSON.stringify(config)
     /**
      * @type {import('redis').RedisClient}

@@ -7,10 +7,10 @@ const discordAPIConstants = require('./constants/discordAPI.js')
 const routes = require('./routes/index.js')
 const requestIp = require('request-ip')
 const createLogger = require('./util/logger/create.js')
-const log = createLogger('W')
 const app = express()
 
 module.exports = async (redisClient, config) => {
+  const log = createLogger('W')
   const credentials = {
     client: {
       id: config.bot.clientID,
