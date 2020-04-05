@@ -68,8 +68,6 @@ class Guild extends Base {
           }
         })
         multi.hmset(this.utils.REDIS_KEYS.guilds(guild.id), toStore)
-        const myself = await guild.members.fetch(guild.client.user)
-        GuildMember.utils.recognizeTransaction(multi, myself)
         guild.members.cache.forEach(member => GuildMember.utils.recognizeTransaction(multi, member))
         guild.channels.cache.forEach(channel => Channel.utils.recognizeTransaction(multi, channel))
         guild.roles.cache.forEach(role => Role.utils.recognizeTransaction(multi, role))
