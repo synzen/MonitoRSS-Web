@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
 const Base = require('./Base.js')
 const promisify = require('util').promisify
-const MANAGE_CHANNELS_PERM = 'MANAGE_CHANNELS'
+const MANAGE_CHANNELS_PERM = Discord.Permissions.FLAGS.MANAGE_CHANNELS
 
 class GuildMember extends Base {
   constructor (data, keysToFetch) {
