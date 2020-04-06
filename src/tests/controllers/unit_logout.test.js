@@ -13,15 +13,12 @@ describe('Unit::controllers/logout', function () {
   beforeEach(function () {
     authServices.logout.mockRestore()
   })
-  it('calls authServices logout', async function () {
+  it('calls next authServices logout succeeds', async function () {
     const req = createRequest()
     const next = createNext()
-    const oauthClient = 1243
-    req.app.get.mockReturnValue(oauthClient)
-    req.session = 'abc'
     await controller(req, {}, next)
-    expect(authServices.logout)
-      .toHaveBeenCalledWith(oauthClient, req.session)
+    authServices.logout.mockResolvedValue()
+    expect(next).toHaveBeenCalled()
   })
   it('calls next if logout errors', async function () {
     const req = createRequest()

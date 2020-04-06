@@ -1,6 +1,7 @@
 process.env.TEST_ENV = true
 const controller = require('../../controllers/authorize.js')
 const authServices = require('../../services/auth.js')
+const userServices = require('../../services/user.js')
 const routingServices = require('../../services/routing.js')
 const {
   createRequest,
@@ -8,21 +9,26 @@ const {
 } = require('../mocks/express.js')
 
 jest.mock('../../services/auth.js')
+jest.mock('../../services/user.js')
 jest.mock('../../services/routing.js')
 jest.mock('request-ip')
 
 describe('Unit::controllers/authorize', function () {
   it('injects the token and identity into session', async function () {
-    const session = {
-      token: 1,
-      identity: 2
+    const token = {
+      foo: 1
+    }
+    const identity = {
+      bar: 2
     }
     const req = createRequest()
     const res = createResponse()
-    authServices.createAuthToken.mockResolvedValue({ ...session })
+    authServices.createAuthToken.mockResolvedValue(token)
+    userServices.getUserByAPI.mockResolvedValue(identity)
+
     await controller(req, res)
-    expect(req.session.token).toEqual(session.token)
-    expect(req.session.identity).toEqual(session.identity)
+    expect(req.session.token).toEqual(token)
+    expect(req.session.identity).toEqual(identity)
   })
   it('redirects to the previously saved route if it exists', async function () {
     const req = createRequest()

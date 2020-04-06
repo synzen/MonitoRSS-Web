@@ -6,10 +6,10 @@ const authServices = require('../services/auth.js')
  * @param {import('express').NextFunction} next
  */
 async function logout (req, res, next) {
-  const oauthClient = req.app.get('oauth2')
+  const config = req.app.get('config')
   const session = req.session
   try {
-    await authServices.logout(oauthClient, session)
+    await authServices.logout(session, config)
     res.redirect('/')
   } catch (err) {
     next(err)

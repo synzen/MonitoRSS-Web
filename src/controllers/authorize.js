@@ -1,5 +1,6 @@
 const requestIp = require('request-ip')
 const authServices = require('../services/auth.js')
+const userServices = require('../services/user.js')
 const routingServices = require('../services/routing.js')
 const createLogger = require('../util/logger/create.js')
 const log = createLogger('W')
@@ -10,11 +11,11 @@ const log = createLogger('W')
  */
 async function authorize (req, res) {
   try {
-    const oauthClient = req.app.get('oauth2')
     const config = req.app.get('config')
-    const session = await authServices.createAuthToken(req.query.code, oauthClient, config)
-    req.session.token = session.token
-    req.session.identity = session.identity
+    const authToken = await authServices.createAuthToken(req.query.code, config)
+    const identity = await userServices.getUserByAPI(null, authToken.access_token)
+    req.session.token = authToken
+    req.session.identity = identity
     log.info(`${req.session.identity.id}, ${req.session.identity.username} logged in`)
     const ip = requestIp.getClientIp(req)
     res.redirect(routingServices.getPath(ip) || '/cp')
