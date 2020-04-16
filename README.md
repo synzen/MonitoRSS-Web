@@ -1,12 +1,11 @@
 # Discord.RSS Web
 
-A web server for https://github.com/synzen/Discord.RSS to manage your feeds. The backend is built with Express with server-side sessions, and a RESTful API. The front end is built with create-react-app (in ./client folder), with Redux and React Router. User authentication is done via Discord's OAuth2.
-
-**For the main npm bot repository, see https://github.com/synzen/Discord.RSS**
-
-**For the bot repository to clone for personal non-programmatic use, see https://github.com/synzen/Discord.RSS-Clone** 
+A web app for https://github.com/synzen/Discord.RSS to manage your feeds. The backend is built with Express with server-side sessions, and a RESTful API. The front end is built with create-react-app (in ./client folder), with Redux and React Router. User authentication is done via Discord's OAuth2.
 
 All documentation can be found at https://docs.discordrss.xyz/.
+
+This repo is for the development of the app, and the maintenance of the Docker image. For the main npm bot repository, see https://github.com/synzen/Discord.RSS. For personal non-programmatic use via cloning, use the repo at https://github.com/synzen/Discord.RSS-Clone.
+
 
 # Preview
 
@@ -14,36 +13,15 @@ Mobile responsive UI, built according to Discord's theme with Discord's blessing
 
 ![UI Screenshot](https://i.imgur.com/CD8mbRh.png)
 
-### Deploy to Heroku
-
-You can deploy the bot in a simple way to Heroku using the button below. [Click here for detailed instructions](https://github.com/synzen/Discord.RSS/issues/45).
-
-<!-- [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy) -->
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?button-url=https://github.com/synzen/Discord.RSS-Web&template=https://github.com/synzen/Discord.RSS-Web/tree/dev)
-
-*If you want to deploy manually you can [follow this guide](https://github.com/synzen/Discord.RSS/issues/95).*
-
-### Hosting on Glitch
-
-Click the button below to import the code to Glitch. Wait for the importing process to complete, make your project private and fill in the [Configuration](https://github.com/synzen/Discord.RSS/wiki/Configuration). Use a tool like [Uptime Robot](https://uptimerobot.com/) to prevent the bot from going offline.
-
-[![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/synzen/Discord.RSS-Web)
-
-You can use [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) for the MongoDB database and [Redis Labs](https://redislabs.com/) for the Redis database.
-
-The web port for Glitch is 3000.
-
-
 # Development:
 
 ### Backend
 
 1. `npm install` in this directory to install backend requisites
 2. Set up variables under web configuration in config.json
+   - `config.bot.token` (Bot token)
    - `config.bot.clientID` (Bot Client ID)
    - `config.bot.clientSecret` (Bot Client Secret)
-   - `config.bot.sessionSecret` (Set to some random string)
    - `config.bot.redirectURI` (Discord OAuth2 Redirect URI - set to http://domain.xyz/authorize - replace domain what whatever yours is)
 3. Start the bot normally (`node server`)
 
