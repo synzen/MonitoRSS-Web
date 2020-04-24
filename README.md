@@ -2,9 +2,15 @@
 
 A web app for https://github.com/synzen/Discord.RSS to manage your feeds. The backend is built with Express with server-side sessions, and a RESTful API. The front end is built with create-react-app (in ./client folder), with Redux and React Router. User authentication is done via Discord's OAuth2.
 
+
+
+### Usage
+
 All documentation can be found at https://docs.discordrss.xyz/.
 
-This repo is for the development of the app, and the maintenance of the Docker image. For the main npm bot repository, see https://github.com/synzen/Discord.RSS. For personal non-programmatic use via cloning, use the repo at https://github.com/synzen/Discord.RSS-Clone.
+This repo is for the development of the app, and the maintenance of the Docker image. For the main npm bot repository, see https://github.com/synzen/Discord.RSS. 
+
+For personal non-programmatic use via cloning, use the repo at https://github.com/synzen/Discord.RSS-Clone.
 
 
 # Preview
