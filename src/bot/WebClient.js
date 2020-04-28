@@ -7,6 +7,7 @@ const getConfig = require('../config.js').get
 const connectRedis = require('../util/connectRedis.js')
 const createLogger = require('../util/logger/create.js')
 const promisify = require('util').promisify
+const { once } = require('events')
 
 class WebClient {
   constructor () {
@@ -24,11 +25,8 @@ class WebClient {
     await this.client.login(token)
     this.log.info('Logged in')
     this.log = createLogger(this.client.shard.ids[0])
-    return new Promise((resolve, reject) => {
-      this.client.once('ready', () => {
-        this.onReady().then(resolve).catch(reject)
-      })
-    })
+    await once(this.client, 'ready')
+    await this.onReady()
   }
 
   async onReady () {
