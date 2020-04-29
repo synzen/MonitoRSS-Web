@@ -50,11 +50,15 @@ class WebClientManager {
 
   onMessage (message) {
     if (message !== 'complete') {
+      this.log.debug('Ignoring non-complete message')
       return
     }
-    if (++this.shardsSpawned < this.manager.totalShards) {
+    ++this.shardsSpawned
+    this.log.debug(`Got complete message, progress: ${this.shardsSpawned}/${this.manager.totalShards}`)
+    if (this.shardsSpawned < this.manager.totalShards) {
       return
     }
+    this.log.debug('Starting HTTP server')
     this.startHttp().catch(err => {
       this.log.fatal(err)
       process.exit(1)
@@ -79,7 +83,7 @@ class WebClientManager {
   }
 
   async startHttp () {
-    const app = await expressApp(this.redisClient, this.config)
+    const app = expressApp(this.redisClient, this.config)
     const config = this.config
     // Check variables
     const { port: httpPort } = config.http

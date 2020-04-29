@@ -25,7 +25,9 @@ class WebClient {
     await this.client.login(token)
     this.log.info('Logged in')
     this.log = createLogger(this.client.shard.ids[0])
+    this.log.debug('Waiting for client to be ready...')
     await once(this.client, 'ready')
+    this.log.debug('Client is ready, registering listeners...')
     await this.onReady()
   }
 
@@ -41,10 +43,14 @@ class WebClient {
     const redisClient = this.redisClient
     const folderPath = path.join(__dirname, 'events')
     const files = fs.readdirSync(folderPath)
+    this.log.debug({
+      files
+    }, 'Registering listeners found files')
     for (const name of files) {
       const event = name.replace('.js', '')
       const filePath = path.join(folderPath, name)
       this.client.on(event, require(filePath)(redisClient))
+      this.log.debug(`Registered listener for event ${event}`)
     }
   }
 
@@ -62,7 +68,9 @@ class WebClient {
   }
 
   async initialize () {
+    this.log.debug('Flushing redis...')
     await this.flushRedis()
+    this.log.debug('Redis successfully flushed')
     // This will recognize all guild info, members, channels and roles
     const recognizeGuilds = this.client.guilds.cache.map((guild) => {
       return RedisGuild.utils.recognize(this.redisClient, guild)
@@ -70,7 +78,9 @@ class WebClient {
     const recognizeUsers = this.client.users.cache.map((user) => {
       return RedisUser.utils.recognize(this.redisClient, user)
     })
+    this.log.debug('Recognizing guilds and users...')
     await Promise.all(recognizeGuilds.concat(recognizeUsers))
+    this.log.debug('Guilds and users successfully recognized')
   }
 }
 

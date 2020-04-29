@@ -8,7 +8,7 @@ const requestIp = require('request-ip')
 const createLogger = require('./util/logger/create.js')
 const app = express()
 
-module.exports = async (redisClient, config) => {
+module.exports = (redisClient, config) => {
   const log = createLogger('W')
   if (config.http.trustProxy) {
     app.enable('trust proxy')
