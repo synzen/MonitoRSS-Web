@@ -27,6 +27,7 @@ class WebClient {
     this.log = createLogger(this.client.shard.ids[0])
     this.log.debug('Waiting for client to be ready...')
     await once(this.client, 'ready')
+    this.client.on('debug', message => this.log.debug(message))
     this.log.debug('Client is ready, registering listeners...')
     await this.onReady()
   }
