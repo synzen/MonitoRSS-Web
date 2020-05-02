@@ -9,6 +9,7 @@ export default function testFilters (filters, article) {
     title: article._fullTitle
   }
   let passed = false
+  let negated = false
   const filterResults = new FilterResults()
   if (Object.keys(filters).length === 0) {
     passed = true
@@ -25,15 +26,21 @@ export default function testFilters (filters, article) {
 
       // Filters can either be an array of words or a string (regex)
       if (Array.isArray(userFilters)) {
+        console.log(userFilters)
         // Array
         for (const word of userFilters) {
           const filter = new Filter(word)
-          passed = passed || filter.passes(reference)
+          const filterPassed = filter.passes(reference)
           if (filter.inverted) {
             invertedMatches.push(word)
+            if (!filterPassed) {
+              negated = true
+            }
           } else {
             matches.push(word)
           }
+          // If a inverted filter does not pass, always block regardless of any other filter
+          passed = negated ? false : passed || filterPassed
         }
       } else {
         // String
