@@ -1,7 +1,0 @@
-.git
-.gitignore
-.dockerignore
-Dockerfile
-node_modules
-src/client/node_modules
-npm-debug.log
