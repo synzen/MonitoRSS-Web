@@ -8,7 +8,7 @@
     "axios": "^0.19.2",
     "feedparser": "^2.2.9",
     "fomantic-ui": "^2.8.4",
-    "highlight.js": "^9.18.1",
+    "highlight.js": "^10.0.3",
     "js-file-download": "^0.4.9",
     "keyword-extractor": "0.0.19",
     "moment": "^2.24.0",
