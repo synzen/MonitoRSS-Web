@@ -1,4 +1,4 @@
-const names = [ '_fullDescription', '_fullTitle', '_fullSummary', '_id', '_fullDate' ]
+const names = ['_fullDescription', '_fullTitle', '_fullSummary', '_id', '_fullDate']
 
 const properties = new Set()
 for (const name of names) {

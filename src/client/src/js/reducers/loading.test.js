@@ -5,14 +5,13 @@ const BEGIN_ACTION = `${PREFIX}_BEGIN`
 const FAILURE_ACTION = `${PREFIX}_FAILURE`
 const SUCCESS_ACTION = `${PREFIX}_SUCCESS`
 
-
 describe('loadingReducer', function () {
   it('sets loading on _BEGIN action', function () {
     const action = {
       type: BEGIN_ACTION
     }
     const initialState = {}
-    const returned = loadingReducer({...initialState}, action)
+    const returned = loadingReducer({ ...initialState }, action)
     expect(returned).toEqual({
       [BEGIN_ACTION]: true
     })
@@ -24,7 +23,7 @@ describe('loadingReducer', function () {
     const initialState = {
       [BEGIN_ACTION]: true
     }
-    const returned = loadingReducer({...initialState}, action)
+    const returned = loadingReducer({ ...initialState }, action)
     expect(returned).toEqual({})
   })
   it('unsets loading on _FAILURE action', function () {
@@ -34,7 +33,7 @@ describe('loadingReducer', function () {
     const initialState = {
       [BEGIN_ACTION]: true
     }
-    const returned = loadingReducer({...initialState}, action)
+    const returned = loadingReducer({ ...initialState }, action)
     expect(returned).toEqual({})
   })
   it('does nothing on irrelevant action', function () {
@@ -44,7 +43,7 @@ describe('loadingReducer', function () {
     const initialState = {
       [BEGIN_ACTION]: true
     }
-    const returned = loadingReducer({...initialState}, action)
+    const returned = loadingReducer({ ...initialState }, action)
     expect(returned).toEqual(initialState)
   })
 })

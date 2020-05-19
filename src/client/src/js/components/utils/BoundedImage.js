@@ -37,7 +37,8 @@ function BoundedImage (props) {
       height={useHeight}
       onLoad={onLoad}
       alt={alt}
-      src={src} />
+      src={src}
+    />
   )
 }
 

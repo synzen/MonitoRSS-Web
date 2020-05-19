@@ -220,7 +220,7 @@ function FeedBrowser () {
 
   const elems = (!sortBy || !searchCategories.includes(sortBy)
     ? articleList
-    : [ ...articleList ].sort((a, b) => {
+    : [...articleList].sort((a, b) => {
       const result = a[sortBy] > b[sortBy] ? 1 : -1
       return sortDescending ? result : result * -1
     })
@@ -249,13 +249,15 @@ function FeedBrowser () {
         const val = placeholders[placeholder]
         if (searchCategoriesHasImages && placeholder.includes('image') && !uniqueImages.has(val) && !placeholder.startsWith('raw')) {
           uniqueImages.add(val)
-          images.push(<Popup
-            key={val}
-            on='hover'
-            inverted
-            hideOnScroll
-            trigger={<a rel='noopener noreferrer' href={val} target='_blank'><Image src={val} key={val} /></a>}
-            content={`{${placeholder}}`} />)
+          images.push(
+            <Popup
+              key={val}
+              on='hover'
+              inverted
+              hideOnScroll
+              trigger={<a rel='noopener noreferrer' href={val} target='_blank'><Image src={val} key={val} /></a>}
+              content={`{${placeholder}}`}
+            />)
         } else if (searchCategoriesHasAnchors && placeholder.includes('anchor')) {
           anchors.push(
             <div key={val + 'genned'}>
@@ -279,36 +281,34 @@ function FeedBrowser () {
     return (
       <PosedDiv key={placeholders._id} className='hodunk'>
         <Wrapper>
-          { searchCategoriesHasDate
+          {searchCategoriesHasDate
             ? placeholders.date
               ? <Popup position='left center' hideOnScroll trigger={<SectionSubtitleDescription>{placeholders.date + timezoneGuess}</SectionSubtitleDescription>} on='focus' inverted content='{date}' />
               : null
-            : null
-          }
-          { searchCategoriesHasTitle
+            : null}
+          {searchCategoriesHasTitle
             ? placeholders.title
               ? <Popup position='left center' hideOnScroll trigger={<SectionItemTitle>{parser.parseAllowLinks(placeholders.title)}</SectionItemTitle>} on='focus' inverted content='{title}' />
               : <SectionItemTitle>No Title Available</SectionItemTitle>
-            : null
-          }
-          { searchCategoriesHasDescription
+            : null}
+          {searchCategoriesHasDescription
             ? placeholders.description
               ? <Popup position='left center' hideOnScroll trigger={<p>{parser.parseAllowLinks(placeholders.description || placeholders.summary)}</p>} inverted content='{summary}' on='focus' />
               : null
-            : null
-          }
+            : null}
           {singleLineElements.length > 0 ? <Divider /> : null}
           {singleLineElements}
-          { anchors }
-          { images.length > 0
-            ? <div>
-              <PlaceholderTitle>Images</PlaceholderTitle>
-              <ArticleImages>
-                {images}
-              </ArticleImages>
-            </div>
-            : null
-          }
+          {anchors}
+          {images.length > 0
+            ? (
+              <div>
+                <PlaceholderTitle>Images</PlaceholderTitle>
+                <ArticleImages>
+                  {images}
+                </ArticleImages>
+              </div>
+            )
+            : null}
         </Wrapper>
         <Divider />
       </PosedDiv>
@@ -450,18 +450,18 @@ function FeedBrowser () {
               </ViewOptions>
             </ArticlesHeaderContainer>
           </OpacityTransition>
-          { error
+          {error
             ? <StatusMessage><SectionSubtitleDescription style={{ color: colors.discord.red }} fontSize='20px'>{error}</SectionSubtitleDescription></StatusMessage>
             : loading || articleList.length === 0 || loadingXML
               ? (loading || loadingXML)
-                ? <StatusMessage>
-                  <Loader active inverted size='massive' content={<SectionSubtitleDescription fontSize='20px'>Fetching...</SectionSubtitleDescription>} />
-                </StatusMessage>
+                ? (
+                  <StatusMessage>
+                    <Loader active inverted size='massive' content={<SectionSubtitleDescription fontSize='20px'>Fetching...</SectionSubtitleDescription>} />
+                  </StatusMessage>)
                 : prevUrl
                   ? <StatusMessage><SectionSubtitleDescription fontSize='20px'>No articles were found :(</SectionSubtitleDescription></StatusMessage>
                   : null
-              : null
-          }
+              : null}
           <PoseGroup animateOnMount>
             {loading || loadingXML
               ? []
@@ -471,8 +471,7 @@ function FeedBrowser () {
                     <code dangerouslySetInnerHTML={{ __html: hljs.highlight('xml', xmlText).value }} />
                   </XMLWrapper>
                 ]
-                : elems
-            }
+                : elems}
           </PoseGroup>
         </ArticlesSectionInner>
       </ArticlesSection>

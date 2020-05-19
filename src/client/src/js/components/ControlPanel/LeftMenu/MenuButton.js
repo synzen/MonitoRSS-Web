@@ -45,17 +45,23 @@ const ButtonBlank = styled.a`
 
 function MenuButton (props) {
   return props.nonmenu
-    ? <ButtonBlank {...props} onClick={props.onClick} padding={props.padding}>
-      {props.children}
-    </ButtonBlank>
-    : !props.disabled && !props.unsupported
-      ? <ButtonBlank {...props} to={props.to} onClick={props.onClick} as={RouterLink} padding={props.padding}>
+    ? (
+      <ButtonBlank {...props} onClick={props.onClick} padding={props.padding}>
         {props.children}
-      </ButtonBlank>
-      : <Popup content={props.disabled ? 'You must select a feed first!' : 'Not yet implemented, sorry!'} inverted position='top left' trigger={
-        <ButtonBlank {...props} onClick={props.onClick} padding={props.padding}>
+      </ButtonBlank>)
+    : !props.disabled && !props.unsupported
+      ? (
+        <ButtonBlank {...props} to={props.to} onClick={props.onClick} as={RouterLink} padding={props.padding}>
           {props.children}
-        </ButtonBlank>} />
+        </ButtonBlank>)
+      : (
+        <Popup
+          content={props.disabled ? 'You must select a feed first!' : 'Not yet implemented, sorry!'} inverted position='top left' trigger={
+            <ButtonBlank {...props} onClick={props.onClick} padding={props.padding}>
+              {props.children}
+            </ButtonBlank>
+          }
+        />)
 }
 
 MenuButton.propTypes = {

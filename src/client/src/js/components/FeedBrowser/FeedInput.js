@@ -13,26 +13,26 @@ class FeedInput extends Component {
     }
   }
 
-  getArticles = () => this.props.getArticles(this.state.url)
+  handleGetArticles = () => this.props.getArticles(this.state.url)
 
   render () {
-
     return (
       <Input
         fluid
         placeholder='Enter a feed URL!'
         disabled={this.props.loading}
-        action={<Button disabled={!this.state.url} content='Get' onClick={this.getArticles} />}
-        onKeyPress={e => e.key === 'Enter' ? this.getArticles() : null}
+        action={<Button disabled={!this.state.url} content='Get' onClick={this.handleGetArticles} />}
+        onKeyPress={e => e.key === 'Enter' ? this.handleGetArticles() : null}
         onChange={e => this.setState({ url: e.target.value })}
-        value={this.state.url} />
+        value={this.state.url}
+      />
     )
   }
 }
 
 FeedInput.propTypes = {
   match: PropTypes.object,
-  location: PropTypes.object,
+  loading: PropTypes.bool,
   getArticles: PropTypes.func
 }
 

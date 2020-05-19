@@ -1,5 +1,5 @@
 class FetchStatusActions {
-  constructor(BASE_ACTION) {
+  constructor (BASE_ACTION) {
     if (!BASE_ACTION) {
       throw new TypeError('BASE_ACTION is missing for FetchStatusActions')
     }
@@ -15,14 +15,14 @@ class FetchStatusActions {
       payload: data
     }
   }
-  
+
   failure = (error) => {
     return {
       type: this.BASE_ACTION.FAILURE,
       payload: error
     }
   }
-  
+
   begin = () => {
     return {
       type: this.BASE_ACTION.BEGIN

@@ -111,7 +111,7 @@ function Home (props) {
     const iconURL = guild.iconURL ? `${guild.iconURL}?size=256` : ''
     serverButtons.push(
       <div key={thisGuildId}>
-        <ServerButton nonmenu padding='15px' selected={selectedGuildID === thisGuildId} onClick={e => setSelectedGuildID(thisGuildId)} >
+        <ServerButton nonmenu padding='15px' selected={selectedGuildID === thisGuildId} onClick={e => setSelectedGuildID(thisGuildId)}>
           <ServerButtonInner>
             <DiscordAvatar src={iconURL} width='48px' onClick={e => setSelectedGuildID(thisGuildId)} />
             <div>
@@ -159,25 +159,28 @@ function Home (props) {
 
       <Divider />
       <SectionTitle heading='Servers' subheading='Select a server to start seeing its feeds. Only servers where you have Manage Channel permissions, and the bot is a member will be shown. You can also change your active server in the left menu.' />
-      { serverButtons.length > 0
+      {serverButtons.length > 0
         ? serverButtons
-        : <NoServers>
-          <h4>NO ELIGIBLE SERVERS</h4>
-          <span>Make sure Discord.RSS is in the right servers where you have MANAGE CHANNEL permissions</span>
-        </NoServers>
-      }
+        : (
+          <NoServers>
+            <h4>NO ELIGIBLE SERVERS</h4>
+            <span>Make sure Discord.RSS is in the right servers where you have MANAGE CHANNEL permissions</span>
+          </NoServers>)}
 
       <Divider />
       {/* <SectionTitle heading='Rating'/>
       <Rating size='massive' maxRating={5} />
       <Divider /> */}
-      <SectionTitle heading='Feedback' subheading={
-        <span>
-          Help make this a better experience for all and provide some feedback! ;) Any and all comments, suggestions, critiques and opinions are welcome. Bug reports are also welcome.
-          <br />
-          <br />
-          <span style={{ color: colors.discord.red }}>Please note that this is not for submitting requests for support.</span> See the home page for a link to the discord support server.
-        </span>} />
+      <SectionTitle
+        heading='Feedback' subheading={
+          <span>
+            Help make this a better experience for all and provide some feedback! ;) Any and all comments, suggestions, critiques and opinions are welcome. Bug reports are also welcome.
+            <br />
+            <br />
+            <span style={{ color: colors.discord.red }}>Please note that this is not for submitting requests for support.</span> See the home page for a link to the discord support server.
+          </span>
+        }
+      />
       <FeedbackForm>
         <Form.Field>
           <label>Feedback</label>

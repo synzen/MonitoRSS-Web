@@ -119,11 +119,11 @@ function pruneEmbeds (embeds) {
 function convertEmbedToPayload (payload) {
   // Take care of fields
   if (payload.fields) {
-    const fields = [ ...payload.fields ]
+    const fields = [...payload.fields]
     for (let i = fields.length - 1; i >= 0; --i) {
       const field = fields[i]
       if (!field.name || !field.value) {
-        toast.error(`Each embed field must have the name and value specified!`)
+        toast.error('Each embed field must have the name and value specified!')
         return null
       } else if (field.name && field.value && fields[i].inline === false) {
         // Embed fields are false by default, so delete the key
@@ -256,19 +256,22 @@ function EmbedSettings (props) {
 
   return (
     <div>
-      <SectionTitle heading='Embeds' subheading='Embeds are fancy boxes that can be shown under your message. Placeholders may also be used here.' sideComponent={
-        <Button.Group>
-          <Button disabled={index === 0 || unsaved} icon='chevron left' onClick={prevIndex} size='large' />
-          <Button.Or text={`${index + 1}/${index >= originalEmbeds.length - 1 ? originalEmbeds.length : index + 2}`} />
-          {!hasWebhooks
-            ? <Popup
-              inverted
-              content='Only feeds with webhooks attached may use more embeds'
-              trigger={<span><Button disabled icon='add' circular size='large' /></span>}
-            />
-            : <Button disabled={index >= 8 || index >= originalEmbeds.length} icon={index >= originalEmbeds.length - 1 ? 'add' : 'chevron right'} onClick={nextIndex} size='large' />
-          }
-        </Button.Group>} />
+      <SectionTitle
+        heading='Embeds' subheading='Embeds are fancy boxes that can be shown under your message. Placeholders may also be used here.' sideComponent={
+          <Button.Group>
+            <Button disabled={index === 0 || unsaved} icon='chevron left' onClick={prevIndex} size='large' />
+            <Button.Or text={`${index + 1}/${index >= originalEmbeds.length - 1 ? originalEmbeds.length : index + 2}`} />
+            {!hasWebhooks
+              ? (
+                <Popup
+                  inverted
+                  content='Only feeds with webhooks attached may use more embeds'
+                  trigger={<span><Button disabled icon='add' circular size='large' /></span>}
+                />)
+              : <Button disabled={index >= 8 || index >= originalEmbeds.length} icon={index >= originalEmbeds.length - 1 ? 'add' : 'chevron right'} onClick={nextIndex} size='large' />}
+          </Button.Group>
+        }
+      />
       <Section
         name='Author'
         inputs={[

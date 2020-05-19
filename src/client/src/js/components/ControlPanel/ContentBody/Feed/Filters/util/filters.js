@@ -60,7 +60,7 @@ function findFilterWords (filterType, content) {
           } else results.push({ passed: false, inverted: invertedFilter })
         } else { // Specific filters, for phrases/words with spaces around them
           searchTerm = searchTerm.startsWith('\\~') ? searchTerm.slice(1, searchTerm.length) : searchTerm.startsWith('\\!') ? searchTerm.slice(1, searchTerm.length) : searchTerm // A \~ or \! will just read as a ~ or !
-          let expression = new RegExp(`(\\s|^)${escapeRegExp(searchTerm)}(\\s|$)`, 'gi')
+          const expression = new RegExp(`(\\s|^)${escapeRegExp(searchTerm)}(\\s|$)`, 'gi')
           if (content.search(expression) !== -1) {
             if (!invertedFilter) matches.push(filterType[word])
             else if (invertedFilter) invertedMatches.push(filterType[word])

@@ -15,7 +15,6 @@ import moment from 'moment-timezone'
 import { Scrollbars } from 'react-custom-scrollbars'
 import feedSelectors from 'js/selectors/feeds'
 import { setActiveFeed, fetchDeleteFeed, fetchEditFeed } from 'js/actions/feeds'
-import { fetchGuildFeedSchedule } from 'js/actions/schedules'
 
 const EditField = styled.div`
   margin-top: 1em;
@@ -118,46 +117,51 @@ function SideBar (props) {
   return (
     <Scrollbars>
       <Content>
-        <PageHeader heading='Feed Details' subheading={'Select a feed'} />
+        <PageHeader heading='Feed Details' subheading='Select a feed' />
         <Divider />
         <PosedDiv pose={selectedFeed ? 'show' : 'hide'}>
           <SectionTitle heading='Info' />
           <SectionSubtitle>Status</SectionSubtitle>
-          { !selectedFeed
+          {!selectedFeed
             ? '\u200b'
             : disabled
               ? <span style={{ color: colors.discord.yellow }}>Disabled ({selectedFeed.disabled})</span>
               : hasFailed
                 ? <span style={{ color: colors.discord.red }}>Failed ({moment(selectedFailRecord.failedAt).format('DD MMMM Y')})</span>
-                : <div><span style={{ color: colors.discord.green }}>Normal ({calculateHealth(selectedFailRecord, botConfig.hoursUntilFail)}% health)</span></div>
-          }
+                : <div><span style={{ color: colors.discord.green }}>Normal ({calculateHealth(selectedFailRecord, botConfig.hoursUntilFail)}% health)</span></div>}
           <EditField>
             <SectionSubtitle>Refresh Rate</SectionSubtitle>
-            { hasFailed || disabled ? 'None ' : !selectedFeed ? '\u200b' : !refreshRate ? 'Determining... ' : refreshRate < 1 ? `${refreshRate * 60} seconds      ` : `${refreshRate} minutes      `}{ selectedFailRecord ? null : <a href='https://www.patreon.com/discordrss' target='_blank' rel='noopener noreferrer'>－</a> }
+            {hasFailed || disabled ? 'None ' : !selectedFeed ? '\u200b' : !refreshRate ? 'Determining... ' : refreshRate < 1 ? `${refreshRate * 60} seconds      ` : `${refreshRate} minutes      `}{selectedFailRecord ? null : <a href='https://www.patreon.com/discordrss' target='_blank' rel='noopener noreferrer'>－</a>}
           </EditField>
           <EditField>
             <SectionSubtitle>Added At</SectionSubtitle>
-            { !selectedFeed ? '\u200b' : !selectedFeed.addedAt ? 'Unknown' : moment(selectedFeed.addedAt).locale(dateLanguage).tz(dateTimezone).format(dateFormat)}
+            {!selectedFeed ? '\u200b' : !selectedFeed.addedAt ? 'Unknown' : moment(selectedFeed.addedAt).locale(dateLanguage).tz(dateTimezone).format(dateFormat)}
           </EditField>
           <Divider />
           <SectionTitle heading='Edit' />
           <EditField>
             <SectionSubtitle>Title</SectionSubtitle>
-            <Input value={inputTitle || (selectedFeed ? selectedFeed.title : '')} fluid disabled={!selectedFeed} onChange={e => {
-              setInputTitle(e.target.value)
-            }} />
+            <Input
+              value={inputTitle || (selectedFeed ? selectedFeed.title : '')} fluid disabled={!selectedFeed} onChange={e => {
+                setInputTitle(e.target.value)
+              }}
+            />
           </EditField>
           <EditField>
             <SectionSubtitle>Channel</SectionSubtitle>
-            <Dropdown value={inputChannel || (selectedFeed ? selectedFeed.channel : '')} options={channelDropdownOptions} disabled={!selectedFeed || channelDropdownOptions.length === 0} search={!isMobile} selection fluid onChange={(e, data) => {
-              setInputChannel(data.value)
-            }} />
+            <Dropdown
+              value={inputChannel || (selectedFeed ? selectedFeed.channel : '')} options={channelDropdownOptions} disabled={!selectedFeed || channelDropdownOptions.length === 0} search={!isMobile} selection fluid onChange={(e, data) => {
+                setInputChannel(data.value)
+              }}
+            />
           </EditField>
           <ApplyField>
-            <PopInButton basic inverted content='Reset' disabled={feedEditing || !differentFromDefault} pose={differentFromDefault ? 'enter' : 'exit'} onClick={e => {
-              setInputTitle('')
-              setInputChannel('')
-            }} />
+            <PopInButton
+              basic inverted content='Reset' disabled={feedEditing || !differentFromDefault} pose={differentFromDefault ? 'enter' : 'exit'} onClick={e => {
+                setInputTitle('')
+                setInputChannel('')
+              }}
+            />
             <Button content='Save' color='green' disabled={!differentFromDefault} onClick={edit} />
           </ApplyField>
           <Divider />

@@ -359,47 +359,50 @@ function Preview (props) {
         <EmbedContainer key={`embed_preview${i}`}>
           <EmbedWrapper pillColor={properties[embedProperties.color]} hasThumbnail={hasThumbnail}>
             <EmbedGrid hasThumbnail={hasThumbnail}>
-              { properties[embedProperties.authorName]
-                ? <Author>
-                  { properties[embedProperties.authorIconUrl] || properties[embedProperties.authorIconURL] ? <img alt='Embed Author Icon' src={parsedProperties[embedProperties.authorIconURL]} /> : null }
-                  { parsedProperties[embedProperties.authorUrl] || parsedProperties[embedProperties.authorURL] ? <a target='_blank' rel='noopener noreferrer' href={parsedProperties[embedProperties.authorURL]}>{parsedProperties[embedProperties.authorName]}</a> : <span>{parsedProperties[embedProperties.authorName]}</span> }
-                </Author>
-                : undefined }
+              {properties[embedProperties.authorName]
+                ? (
+                  <Author>
+                    {properties[embedProperties.authorIconUrl] || properties[embedProperties.authorIconURL] ? <img alt='Embed Author Icon' src={parsedProperties[embedProperties.authorIconURL]} /> : null}
+                    {parsedProperties[embedProperties.authorUrl] || parsedProperties[embedProperties.authorURL] ? <a target='_blank' rel='noopener noreferrer' href={parsedProperties[embedProperties.authorURL]}>{parsedProperties[embedProperties.authorName]}</a> : <span>{parsedProperties[embedProperties.authorName]}</span>}
+                  </Author>)
+                : undefined}
 
               {parsedProperties[embedProperties.title]
-                ? <Title as={properties[embedProperties.url] ? 'a' : 'div'} href={parsedProperties[embedProperties.url]} target='_blank' >
-                  {parser.parseEmbedTitle(parsedProperties[embedProperties.title])}
-                </Title>
-                : null
-              }
+                ? (
+                  <Title as={properties[embedProperties.url] ? 'a' : 'div'} href={parsedProperties[embedProperties.url]} target='_blank'>
+                    {parser.parseEmbedTitle(parsedProperties[embedProperties.title])}
+                  </Title>)
+                : null}
 
               {parsedProperties[embedProperties.description]
                 ? <Description>{parser.parseAllowLinks(parsedProperties[embedProperties.description])}</Description>
-                : null
-              }
+                : null}
 
-              { fieldElements.length > 0
+              {fieldElements.length > 0
                 ? <EmbedFields>{fieldElements}</EmbedFields>
-                : [] }
+                : []}
 
-              { properties[embedProperties.imageURL]
-                ? <Image href={parsedProperties[embedProperties.imageURL]} target='_blank' hasThumbnail={hasThumbnail} >
-                  <BoundedImage width={400} height={300} src={parsedProperties[embedProperties.imageURL]} alt='Embed MainImage' />
-                </Image>
-                : undefined }
+              {properties[embedProperties.imageURL]
+                ? (
+                  <Image href={parsedProperties[embedProperties.imageURL]} target='_blank' hasThumbnail={hasThumbnail}>
+                    <BoundedImage width={400} height={300} src={parsedProperties[embedProperties.imageURL]} alt='Embed MainImage' />
+                  </Image>)
+                : undefined}
 
-              { properties[embedProperties.thumbnailURL]
-                ? <Thumbnail href={parsedProperties[embedProperties.thumbnailURL]} target='_blank'>
-                  <BoundedImage width={80} height={80} src={parsedProperties[embedProperties.thumbnailURL]} alt='Embed Thumbnail' />
-                </Thumbnail>
-                : undefined }
+              {properties[embedProperties.thumbnailURL]
+                ? (
+                  <Thumbnail href={parsedProperties[embedProperties.thumbnailURL]} target='_blank'>
+                    <BoundedImage width={80} height={80} src={parsedProperties[embedProperties.thumbnailURL]} alt='Embed Thumbnail' />
+                  </Thumbnail>)
+                : undefined}
 
-              { properties[embedProperties.footerText] || (parsedProperties[embedProperties.timestamp] && parsedProperties[embedProperties.timestamp] !== 'none')
-                ? <Footer hasThumbnail={hasThumbnail}>
-                  { parsedProperties[embedProperties.footerIconURL] ? <img src={parsedProperties[embedProperties.footerIconURL]} alt='Embed Footer Icon' /> : null }
-                  <span>{properties[embedProperties.footerText] || properties[embedProperties.footerText]}{(parsedProperties[embedProperties.timestamp] && parsedProperties[embedProperties.timestamp] !== 'none') ? `${parsedProperties[embedProperties.footerText] ? ' • ' : ''}[${parsedProperties[embedProperties.timestamp] === 'article' ? 'ARTICLE TIMESTAMP' : 'NOW TIMESTAMP'}]` : '' }</span>
-                </Footer>
-                : undefined }
+              {properties[embedProperties.footerText] || (parsedProperties[embedProperties.timestamp] && parsedProperties[embedProperties.timestamp] !== 'none')
+                ? (
+                  <Footer hasThumbnail={hasThumbnail}>
+                    {parsedProperties[embedProperties.footerIconURL] ? <img src={parsedProperties[embedProperties.footerIconURL]} alt='Embed Footer Icon' /> : null}
+                    <span>{properties[embedProperties.footerText] || properties[embedProperties.footerText]}{(parsedProperties[embedProperties.timestamp] && parsedProperties[embedProperties.timestamp] !== 'none') ? `${parsedProperties[embedProperties.footerText] ? ' • ' : ''}[${parsedProperties[embedProperties.timestamp] === 'article' ? 'ARTICLE TIMESTAMP' : 'NOW TIMESTAMP'}]` : ''}</span>
+                  </Footer>)
+                : undefined}
             </EmbedGrid>
           </EmbedWrapper>
         </EmbedContainer>
@@ -409,7 +412,7 @@ function Preview (props) {
 
   return (
     <Wrapper>
-      <UserInfo avatar={bot ? bot.displayAvatarURL : ''} >
+      <UserInfo avatar={bot ? bot.displayAvatarURL : ''}>
         <div />
         <h2>
           <Username>{bot ? bot.username : 'Unknown'}</Username>
@@ -418,12 +421,11 @@ function Preview (props) {
         </h2>
       </UserInfo>
       <Content>
-        { (message || botConfig.defaultText) === '{empty}' && hasEmbeds
+        {(message || botConfig.defaultText) === '{empty}' && hasEmbeds
           ? ''
           : article
             ? parser.parse(convertKeywords(message || botConfig.defaultText || '').trim(), true, {}, parser.jumboify)
-            : parser.parse((message || botConfig.defaultText || '').trim(), true, {}, parser.jumboify)
-        }
+            : parser.parse((message || botConfig.defaultText || '').trim(), true, {}, parser.jumboify)}
         {embedElements}
       </Content>
     </Wrapper>

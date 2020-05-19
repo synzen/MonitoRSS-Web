@@ -281,7 +281,7 @@ function Subscribers () {
   const feedSubscribers = subscribers.filter(s => s.feed === feed._id)
   const subscribersArr = []
   let selectedSubscriber = {}
-  let selectedSubscriberFilterItems = []
+  const selectedSubscriberFilterItems = []
 
   const existingSubscribers = new Set()
   if (feedSubscribers.length > 0) {
@@ -318,7 +318,8 @@ function Subscribers () {
     <SubscriberTag
       onClick={e => setSelectedSubscriberID(subscriber.id)}
       key={subscriber.id}
-      color={subscriber.hexColor}>
+      color={subscriber.hexColor}
+    >
       {subscriber.name}
     </SubscriberTag>))
 
@@ -410,13 +411,15 @@ function Subscribers () {
           <PopInButton
             pose={selectedSubscriberChosen ? 'enter' : 'exit'}
             content={showSubscriberFilters ? 'Hide Filters' : 'Show Filters'}
-            onClick={e => setShowSubscriberFilters(!showSubscriberFilters)} />
+            onClick={e => setShowSubscriberFilters(!showSubscriberFilters)}
+          />
           <PopInButton
             pose={selectedSubscriberChosen ? 'enter' : 'exit'}
             icon='trash'
             color='red'
             onClick={deleteSubscriber}
-            disabled={deleting} />
+            disabled={deleting}
+          />
         </div>
       </SubscriberBox>
       <SubscriberInfo pose={showSubscriberFilters && selectedSubscriberChosen ? 'enter' : 'exit'} color={selectedSubscriber.hexColor}>
@@ -443,37 +446,41 @@ function Subscribers () {
           }}
         />
         {addType === 'role'
-          ? <Dropdown
-            selection
-            search={(options, query) => options.filter((option) => option.subname.includes(query.toLowerCase()))}
-            placeholder='Select a Role'
-            options={addSubscriberList.map(subscriber => ({
-              subname: subscriber.name,
-              text: <span style={{ color: subscriber.hexColor }}>{subscriber.name}</span>,
-              value: subscriber.id }))
-            }
-            onChange={(e, data) => setAddInput(data.value)} value={addInput}
-            onKeyPress={e => e.key === 'Enter' ? addSubscriber() : null}
-          />
-          : <Input
-            value={addInput}
-            disabled
-            placeholder='Currently unsupported on this interface'
-            onChange={e => isNaN(e.target.value) ? null : setAddInput(e.target.value)}
-            onKeyPress={e => e.key === 'Enter' ? addSubscriber() : null} />
-        }
+          ? (
+            <Dropdown
+              selection
+              search={(options, query) => options.filter((option) => option.subname.includes(query.toLowerCase()))}
+              placeholder='Select a Role'
+              options={addSubscriberList.map(subscriber => ({
+                subname: subscriber.name,
+                text: <span style={{ color: subscriber.hexColor }}>{subscriber.name}</span>,
+                value: subscriber.id
+              }))}
+              onChange={(e, data) => setAddInput(data.value)} value={addInput}
+              onKeyPress={e => e.key === 'Enter' ? addSubscriber() : null}
+            />)
+          : (
+            <Input
+              value={addInput}
+              disabled
+              placeholder='Currently unsupported on this interface'
+              onChange={e => isNaN(e.target.value) ? null : setAddInput(e.target.value)}
+              onKeyPress={e => e.key === 'Enter' ? addSubscriber() : null}
+            />)}
       </AddSubscribersInputs>
       <AddSubscriberButtonContainer>
         <Button
           color='green'
           content='Add'
           disabled={!addInput || !addType || adding}
-          onClick={addSubscriber} />
+          onClick={addSubscriber}
+        />
       </AddSubscriberButtonContainer>
       <Divider />
       <SectionTitle
         heading='Preview'
-        subheading='See what users or roles will get mentioned for all current articles. Click an article to see exactly who will get mentioned.' />
+        subheading='See what users or roles will get mentioned for all current articles. Click an article to see exactly who will get mentioned.'
+      />
       <ArticleTable
         onClickArticle={article => {
           const matched = []
@@ -507,14 +514,14 @@ function Subscribers () {
         ]}
       />
       {selectedArticleSubscribers.length > 0
-        ? <ArticleSubscribers>
-          <SectionSubtitle>Subscribers Mentioned</SectionSubtitle>
-          <PoseGroup animateOnMount>
-            {selectedArticleSubscribers}
-          </PoseGroup>
-        </ArticleSubscribers>
-        : null
-      }
+        ? (
+          <ArticleSubscribers>
+            <SectionSubtitle>Subscribers Mentioned</SectionSubtitle>
+            <PoseGroup animateOnMount>
+              {selectedArticleSubscribers}
+            </PoseGroup>
+          </ArticleSubscribers>)
+        : null}
       <Divider />
     </Container>
   )

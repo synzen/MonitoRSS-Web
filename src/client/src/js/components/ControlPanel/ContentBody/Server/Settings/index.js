@@ -5,7 +5,7 @@ import colors from 'js/constants/colors'
 import SectionSubtitle from 'js/components/utils/SectionSubtitle'
 import PopInButton from '../../../utils/PopInButton'
 import SectionTitle from 'js/components/utils/SectionTitle'
-import { Dropdown, Input, Divider, Button } from 'semantic-ui-react'
+import { Input, Divider, Button } from 'semantic-ui-react'
 import styled from 'styled-components'
 import moment from 'moment-timezone'
 import fileDownload from 'js-file-download'
@@ -146,7 +146,7 @@ function ServerSettings () {
   const prefixValue = updatedValues.prefix === undefined ? getOriginalPropertyValue('prefix') : updatedValues.prefix
   const timezoneValue = updatedValues.timezone === undefined ? getOriginalPropertyValue('timezone') : updatedValues.timezone
   const dateFormatValue = updatedValues.dateFormat === undefined ? getOriginalPropertyValue('dateFormat') : updatedValues.dateFormat
-  const dateLanguageValue = updatedValues.dateLanguage === undefined ? getOriginalPropertyValue('dateLanguage') : updatedValues.dateLanguage
+  // const dateLanguageValue = updatedValues.dateLanguage === undefined ? getOriginalPropertyValue('dateLanguage') : updatedValues.dateLanguage
 
   return (
     <Container>
@@ -159,7 +159,7 @@ function ServerSettings () {
       <br />
       <SectionSubtitle>Timezone</SectionSubtitle>
       <Input fluid onChange={e => setValue('timezone', e.target.value)} error={invalidTimezone} value={timezoneValue} placeholder={getOriginalPropertyValue('timezone')} />
-      <InputDescription>This will change the timezone of the {`{date}`} placeholder to the one you specify. <a href='https://en.wikipedia.org/wiki/List_of_tz_database_time_zones' target='_blank' rel='noopener noreferrer'>See here for a list of valid timezones under the "TZ database name" column.</a></InputDescription>
+      <InputDescription>This will change the timezone of the {'{date}'} placeholder to the one you specify. <a href='https://en.wikipedia.org/wiki/List_of_tz_database_time_zones' target='_blank' rel='noopener noreferrer'>See here for a list of valid timezones under the "TZ database name" column.</a></InputDescription>
       <br />
       {/* <SectionSubtitle>Date Language</SectionSubtitle>
       <Dropdown selection fluid options={botConfig.dateLanguageList.map(lang => { return { text: lang, value: lang } })} value={dateLanguageValue} onChange={(e, data) => setValue('dateLanguage', data.value)} />
@@ -167,7 +167,7 @@ function ServerSettings () {
       <br /> */}
       <SectionSubtitle>Date Format</SectionSubtitle>
       <Input fluid value={dateFormatValue} onChange={e => setValue('dateFormat', e.target.value)} placeholder={getOriginalPropertyValue('dateFormat')} />
-      <InputDescription>This will dictate how the {`{date}`} placeholder will be formatted. <a href='https://momentjs.com/docs/#/displaying/' target='_blank' rel='noopener noreferrer'>See here on how to customize your date formats.</a>.</InputDescription>
+      <InputDescription>This will dictate how the {'{date}'} placeholder will be formatted. <a href='https://momentjs.com/docs/#/displaying/' target='_blank' rel='noopener noreferrer'>See here on how to customize your date formats.</a>.</InputDescription>
       <LargeDivider />
       <SectionTitle heading='Command Prefix' subheading='If specified, this prefix will replace the default prefix used before all commands. This setting can only be configured through Discord commands at this time.' />
       <Input fluid onChange={e => setValue('prefix', e.target.value)} value={prefixValue} disabled />

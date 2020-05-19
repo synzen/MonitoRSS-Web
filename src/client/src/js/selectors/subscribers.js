@@ -1,4 +1,4 @@
-import { ADD_SUBSCRIBER, DELETE_SUBSCRIBER, EDIT_SUBSCRIBER } from "js/constants/actions/subscribers";
+import { ADD_SUBSCRIBER, DELETE_SUBSCRIBER, EDIT_SUBSCRIBER } from 'js/constants/actions/subscribers'
 
 function adding (state) {
   return state.loading[ADD_SUBSCRIBER.BEGIN]

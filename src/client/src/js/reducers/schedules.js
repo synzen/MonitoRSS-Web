@@ -14,5 +14,4 @@ function schedulesReducer (state = initialState, action) {
   }
 }
 
-
 export default schedulesReducer

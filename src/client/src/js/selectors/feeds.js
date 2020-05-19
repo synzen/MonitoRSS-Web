@@ -1,4 +1,4 @@
-import { GET_ARTICLES, DELETE_FEED, EDIT_FEED, GET_FEEDS, ADD_FEED } from "js/constants/actions/feeds"
+import { GET_ARTICLES, DELETE_FEED, EDIT_FEED, GET_FEEDS, ADD_FEED } from 'js/constants/actions/feeds'
 
 function activeFeed (state) {
   const feeds = state.feeds

@@ -8,7 +8,7 @@ function guildsReducer (state = initialState, action) {
   switch (action.type) {
     case GET_GUILDS.SUCCESS:
       return action.payload
-    case EDIT_GUILD.SUCCESS:
+    case EDIT_GUILD.SUCCESS: {
       const clone = [...state]
       const updated = action.payload
       clone.forEach((guild, index) => {
@@ -17,6 +17,7 @@ function guildsReducer (state = initialState, action) {
         }
       })
       return clone
+    }
     default:
       return state
   }

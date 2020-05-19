@@ -171,10 +171,11 @@ const ModalFooter = styled.div`
 `
 
 const modalProps = {
-  footer: <ModalFooter>
-    <a target='_blank' rel='noopener noreferrer' href='https://discordapp.com/oauth2/authorize?client_id=268478587651358721&scope=bot&permissions=19456' onClick={e => modal.hide()}><Button fluid>With Role</Button></a>
-    <a target='_blank' rel='noopener noreferrer' href='https://discordapp.com/oauth2/authorize?client_id=268478587651358721&scope=bot' onClick={e => modal.hide()}><Button fluid>Without Role</Button></a>
-  </ModalFooter>
+  footer: (
+    <ModalFooter>
+      <a target='_blank' rel='noopener noreferrer' href='https://discordapp.com/oauth2/authorize?client_id=268478587651358721&scope=bot&permissions=19456' onClick={e => modal.hide()}><Button fluid>With Role</Button></a>
+      <a target='_blank' rel='noopener noreferrer' href='https://discordapp.com/oauth2/authorize?client_id=268478587651358721&scope=bot' onClick={e => modal.hide()}><Button fluid>Without Role</Button></a>
+    </ModalFooter>)
 }
 
 const modalChildren = <ModalBody>You can choose whether you want a role attached to the me by default.</ModalBody>

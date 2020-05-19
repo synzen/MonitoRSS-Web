@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import PaginatedTable from './PaginatedTable'
 import { Dropdown, Loader } from 'semantic-ui-react'
@@ -102,7 +103,7 @@ function ArticleTable (props) {
   }
   const classificationsItems = articleList
   const classificationsDropdownOptions = []
-  let added = {}
+  const added = {}
   for (const article of articleList) {
     for (const placeholder in article) {
       if (added[placeholder]) continue
@@ -126,17 +127,17 @@ function ArticleTable (props) {
     const positive = positiveNegativeRowFunc ? positiveNegativeRowFunc(data) : null
     const id = data._id
     return (
-    <StyledRow
-      clickable={(!!props.onClickArticle).toString()}
-      onClick={e => onClickArticle(data, id)}
-      active={selectedArticleID === id}
-      key={id}
-      positive={positive === true ? true : false}
-      negative={positive === false ? true : false}
-    >
-      { addedCellFuncs.map((func, i) => <PaginatedTable.Cell collapsing={collapsingCells[i]} key={`cfun${i}`}>{func(data)}</PaginatedTable.Cell>) }
-      <PaginatedTable.Cell>{data[articleProperty]}</PaginatedTable.Cell>
-    </StyledRow>
+      <StyledRow
+        clickable={(!!props.onClickArticle).toString()}
+        onClick={e => onClickArticle(data, id)}
+        active={selectedArticleID === id}
+        key={id}
+        positive={positive === true}
+        negative={positive === false}
+      >
+        {addedCellFuncs.map((func, i) => <PaginatedTable.Cell collapsing={collapsingCells[i]} key={`cfun${i}`}>{func(data)}</PaginatedTable.Cell>)}
+        <PaginatedTable.Cell>{data[articleProperty]}</PaginatedTable.Cell>
+      </StyledRow>
     )
   }
 
@@ -152,9 +153,15 @@ function ArticleTable (props) {
       headers={addedHeaders.concat([articleProperty.replace('regex:', '')])}
       itemFunc={classificationsTableRowFunc}
       searchFunc={classificationsTableSearchFunc}
-      button={<Dropdown selection options={classificationsDropdownOptions} onChange={(e, data) => setArticleProperty(data.value)} value={articleProperty}  />}
+      button={<Dropdown selection options={classificationsDropdownOptions} onChange={(e, data) => setArticleProperty(data.value)} value={articleProperty} />}
     />
   )
+}
+
+ArticleTable.propTypes = {
+  onClickArticle: PropTypes.func,
+  positiveNegativeRowFunc: PropTypes.func,
+  addColumns: PropTypes.array
 }
 
 export default ArticleTable

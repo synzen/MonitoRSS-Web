@@ -18,7 +18,7 @@ export default {
       ...options,
       autoClose: 2500,
       transition: DiscordAnim,
-      className: `discord-alert-success`
+      className: 'discord-alert-success'
     })
   },
   error: (message, options) => {

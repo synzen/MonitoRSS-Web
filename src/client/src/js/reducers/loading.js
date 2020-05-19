@@ -1,12 +1,12 @@
-const initialState = {};
+const initialState = {}
 
 /**
- * @param {Object} state 
+ * @param {Object} state
  * @param {Object} action
  * @param {string} action.type
  * @param {*} action.payload
  */
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   if (!action.type) {
     return state
   }

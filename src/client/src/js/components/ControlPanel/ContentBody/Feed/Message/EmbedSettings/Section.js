@@ -94,9 +94,11 @@ function ColorPicker (props) {
           on='click'
           trigger={<Button icon='eyedropper' />}
         >
-          <DiscordColorPicker color={numberToColour(props.value)} onChange={(color, event) => {
-            props.onUpdate(props.variable, ((color.rgb.r << 16) + (color.rgb.g << 8) + color.rgb.b).toString()) // Convert to integer, then to string
-          }} />
+          <DiscordColorPicker
+            color={numberToColour(props.value)} onChange={(color, event) => {
+              props.onUpdate(props.variable, ((color.rgb.r << 16) + (color.rgb.g << 8) + color.rgb.b).toString()) // Convert to integer, then to string
+            }}
+          />
         </Popup>
         <Button icon='x' disabled={!props.value} onClick={e => props.onUpdate(props.variable, '')} />
       </Button.Group>
@@ -116,14 +118,13 @@ function Section (props) {
       body.push(
         <Form.Field key={i}>
           <label>{input.label}</label>
-          { input.textarea
+          {input.textarea
             ? <textarea value={input.value} onChange={e => onUpdate(input.variable, e.target.value)} disabled={disabled} />
             : input.dropdown
               ? <Dropdown selection fluid options={input.options} onChange={(e, data) => onUpdate(input.variable, data.value)} value={input.value || 'none'} disabled={disabled} />
               : input.color
                 ? <ColorPicker value={input.value} onUpdate={onUpdate} variable={input.variable} />
-                : <input value={input.value} onChange={e => onUpdate(input.variable, e.target.value)} disabled={disabled} />
-          }
+                : <input value={input.value} onChange={e => onUpdate(input.variable, e.target.value)} disabled={disabled} />}
         </Form.Field>
       )
     }
@@ -133,7 +134,8 @@ function Section (props) {
       <SettingSectionHead onClick={e => {
         setOverflow('hidden')
         setVisible(!visible)
-      }}>
+      }}
+      >
         <Button size='mini' icon={visible ? 'caret up' : 'caret down'} />
         <SectionItemTitle>{name}</SectionItemTitle>
       </SettingSectionHead>
@@ -157,7 +159,7 @@ ColorPicker.propTypes = {
     PropTypes.number
   ]),
   onUpdate: PropTypes.func,
-  variable: PropTypes.string,
+  variable: PropTypes.string
 }
 
 export default Section

@@ -111,21 +111,23 @@ class DiscordModal extends React.PureComponent {
     return (
       <PoseGroup>
         {this.props.open && [
-          <StyledShade key='shade' onClick={e => {
-            if (e.target === e.currentTarget && this.props.onClose) this.props.onClose()
-          }}>
+          <StyledShade
+            key='shade' onClick={e => {
+              if (e.target === e.currentTarget && this.props.onClose) this.props.onClose()
+            }}
+          >
             <StyledModal key='dialog' isImage={this.props.isImage} fullWidth={this.props.fullWidth}>
               {props.header
                 ? <ModalHeader>{props.header}</ModalHeader>
                 : props.title || props.subtitle
                   ? <ModalHeader><ModalHeaderWrapper><h4>{props.title}</h4><p>{props.subtitle}</p></ModalHeaderWrapper></ModalHeader>
                   : null}
-                  {/* <Scrollbars> */}
+              {/* <Scrollbars> */}
               <ModalBody isImage={this.props.isImage} transparent={props.transparentBody} hasHeader={!!props.header || !!props.title || !!props.subtitle} hasFooter={!!props.footer}><div>{props.children}</div></ModalBody>
               {/* </Scrollbars> */}
               {props.footer ? <ModalFooter transparent={props.transparentFooter} fullWidth={this.props.fullWidth}>{props.footer}</ModalFooter> : undefined}
             </StyledModal>
-          </StyledShade>,
+          </StyledShade>
         ]}
       </PoseGroup>
     )
@@ -137,12 +139,13 @@ DiscordModal.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool,
   isImage: PropTypes.bool,
-  header: PropTypes.oneOfType([ PropTypes.string, PropTypes.node ]),
+  header: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   title: PropTypes.string,
   subtitle: PropTypes.string,
   children: PropTypes.node,
   transparentBody: PropTypes.bool,
-  footer: PropTypes.oneOfType([ PropTypes.node ])
+  transparentFooter: PropTypes.bool,
+  footer: PropTypes.oneOfType([PropTypes.node])
 }
 
 export default DiscordModal

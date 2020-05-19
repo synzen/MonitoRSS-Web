@@ -10,8 +10,8 @@ import Subscribers from './Feed/Subscribers/index'
 import MiscOptions from './Feed/MiscOptions/index'
 // import Debugger from './Feed/Debugger/index'
 import { useDispatch } from 'react-redux'
-import pages from '../../../constants/pages';
-import { Scrollbars } from 'react-custom-scrollbars';
+import pages from '../../../constants/pages'
+import { Scrollbars } from 'react-custom-scrollbars'
 import { changePage } from 'js/actions/page'
 
 const Body = styled.div`
@@ -21,7 +21,6 @@ const Body = styled.div`
   /* overflow-y: auto; */
   /* scrollbar-width: thin; */
 `
-
 
 function ContentBody () {
   const history = useHistory()
@@ -37,7 +36,7 @@ function ContentBody () {
       {/* <Notice>Hello!</Notice> */}
       <Scrollbars>
         <Switch>
-          <Route exact path={pages.DASHBOARD} render={routerProps => <Home redirect={redirect} {...routerProps} />}/>
+          <Route exact path={pages.DASHBOARD} render={routerProps => <Home redirect={redirect} {...routerProps} />} />
           <Route exact path={pages.FEEDS} render={routerProps => <Feeds redirect={redirect} {...routerProps} />} />
           <Route exact path={pages.SERVER_SETTINGS} render={routerProps => <Settings {...routerProps} />} />
           <Route exact path={pages.MESSAGE} render={routerProps => <Message {...routerProps} />} />

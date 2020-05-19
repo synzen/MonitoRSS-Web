@@ -97,7 +97,7 @@ function Message () {
   return (
     <FullArea>
       <SettingsArea ref={scrollReference}>
-        <PageHeader >
+        <PageHeader>
           <h2>Text/Embed Customization</h2>
           <p>Set a custom text and/or embed for your feed.</p>
         </PageHeader>
@@ -105,57 +105,59 @@ function Message () {
         <SectionTitle heading='Placeholders' subheading='Below are the available placeholders for the selected article.' />
         <Placeholders updateArticleID={articleID => setArticleID(articleID)} />
         <Divider />
-        <SectionTitle heading='Text' subheading={
-          <span>
-            <span>Remember that you can use the placeholders listed above. A special placeholder, {`{empty}`} can be used to create an empty message, but only if an embed is used. Regular formatting such as bold and etc. is also available.</span>
-            { !hasSubscribers
-              ? null
-              : messageToDisplay === '' || messageToDisplay.includes('{subscriptions}') ? '' : <span style={{ color: colors.discord.yellow }}> Note that because the placeholder {`{subscriptions}`} is not in your message, feed subscribers will not be mentioned.</span> }
-          </span>
+        <SectionTitle
+          heading='Text' subheading={
+            <span>
+              <span>Remember that you can use the placeholders listed above. A special placeholder, {'{empty}'} can be used to create an empty message, but only if an embed is used. Regular formatting such as bold and etc. is also available.</span>
+              {!hasSubscribers
+                ? null
+                : messageToDisplay === '' || messageToDisplay.includes('{subscriptions}') ? '' : <span style={{ color: colors.discord.yellow }}> Note that because the placeholder {'{subscriptions}'} is not in your message, feed subscribers will not be mentioned.</span>}
+            </span>
 
-        } />
+          }
+        />
         <MessageSettings originalMessage={originalMessage} onUpdate={onMessageUpdate} />
         <Divider />
         <EmbedSettings onUpdate={onEmbedsUpdate} />
         <Divider />
         {windowWidth >= MAX_VIEWPORT_WIDTH_STICKY
           ? null
-          : <div>
+          : (
             <div>
-              <SectionTitle heading='Preview' subheading='I can preview my settings right here?! Wow!' />
-            </div>
-            <ButtonGroup fluid>
-              <Button content='Old' onClick={e => setPreviewNew(false)} disabled={!previewNew} />
-              <Button content='New' onClick={e => setPreviewNew(true)} disabled={previewNew} />
-            </ButtonGroup>
-            <div style={{ marginTop: '20px' }}>
-              <Preview embeds={previewNew ? inputEmbeds : feed.embeds} message={previewNew ? messageToDisplay : originalMessage} articleID={articleID} />
-            </div>
-            <Divider />
-          </div>
-        }
-      </SettingsArea>
-      {windowWidth < MAX_VIEWPORT_WIDTH_STICKY
-        ? null
-        : <Sticky context={scrollReference} offset={55}>
-          <PreviewArea stickied>
-            <PreviewHeader>
-              <PageHeader heading='Preview' />
-            </PreviewHeader>
-            <div style={{ marginTop: '1em' }}>
+              <div>
+                <SectionTitle heading='Preview' subheading='I can preview my settings right here?! Wow!' />
+              </div>
               <ButtonGroup fluid>
                 <Button content='Old' onClick={e => setPreviewNew(false)} disabled={!previewNew} />
                 <Button content='New' onClick={e => setPreviewNew(true)} disabled={previewNew} />
               </ButtonGroup>
-            </div>
-            <div style={{ height: windowHeight - 55 - 70 - 150, marginTop: '20px' }}> { /* 55 is the topbar, 70 is the margin/padding, 150 is the rest of the space to leave */ }
-              <Scrollbars>
+              <div style={{ marginTop: '20px' }}>
                 <Preview embeds={previewNew ? inputEmbeds : feed.embeds} message={previewNew ? messageToDisplay : originalMessage} articleID={articleID} />
-              </Scrollbars>
-            </div>
-          </PreviewArea>
-        </Sticky>
-      }
+              </div>
+              <Divider />
+            </div>)}
+      </SettingsArea>
+      {windowWidth < MAX_VIEWPORT_WIDTH_STICKY
+        ? null
+        : (
+          <Sticky context={scrollReference} offset={55}>
+            <PreviewArea stickied>
+              <PreviewHeader>
+                <PageHeader heading='Preview' />
+              </PreviewHeader>
+              <div style={{ marginTop: '1em' }}>
+                <ButtonGroup fluid>
+                  <Button content='Old' onClick={e => setPreviewNew(false)} disabled={!previewNew} />
+                  <Button content='New' onClick={e => setPreviewNew(true)} disabled={previewNew} />
+                </ButtonGroup>
+              </div>
+              <div style={{ height: windowHeight - 55 - 70 - 150, marginTop: '20px' }}> {/* 55 is the topbar, 70 is the margin/padding, 150 is the rest of the space to leave */}
+                <Scrollbars>
+                  <Preview embeds={previewNew ? inputEmbeds : feed.embeds} message={previewNew ? messageToDisplay : originalMessage} articleID={articleID} />
+                </Scrollbars>
+              </div>
+            </PreviewArea>
+          </Sticky>)}
     </FullArea>
   )
 }

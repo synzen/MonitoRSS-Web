@@ -2,7 +2,7 @@ import axios from 'axios'
 import { GET_BOT_CONFIG } from 'js/constants/actions/botConfig'
 import FetchStatusActions from './utils/FetchStatusActions'
 
-export const {  
+export const {
   begin: getBotConfigBegin,
   success: getBotConfigSuccess,
   failure: getBotConfigFailure
@@ -12,10 +12,10 @@ export function fetchBotConfig () {
   return async dispatch => {
     try {
       dispatch(getBotConfigBegin())
-      const { data } = await axios.get(`/api/config`)
+      const { data } = await axios.get('/api/config')
       dispatch(getBotConfigSuccess(data))
     } catch (err) {
-      dispatch(getBotConfigFailure(err)) 
+      dispatch(getBotConfigFailure(err))
     }
   }
 }

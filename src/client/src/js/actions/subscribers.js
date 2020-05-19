@@ -44,7 +44,7 @@ export function fetchAddSubscriber (guildID, feedID, subscriber) {
     try {
       dispatch(addSubscriberBegin())
       const { data } = await axios.post(`/api/guilds/${guildID}/feeds/${feedID}/subscribers`, subscriber)
-      toast.success(`New subscriber added!`)
+      toast.success('New subscriber added!')
       dispatch(addSubscriberSuccess(data))
     } catch (err) {
       dispatch(addSubscriberFailure(err))
@@ -57,7 +57,7 @@ export function fetchDeleteSubscriber (guildID, feedID, subscriberID) {
     try {
       dispatch(deleteSubscriberBegin())
       await axios.delete(`/api/guilds/${guildID}/feeds/${feedID}/subscribers/${subscriberID}`)
-      toast.success(`Subscriber successfully deleted`)
+      toast.success('Subscriber successfully deleted')
       dispatch(deleteSubscriberSuccess(subscriberID))
     } catch (err) {
       dispatch(deleteSubscriberFailure(err))
@@ -70,7 +70,7 @@ export function fetchEditSubscriber (guildID, feedID, subscriberID, newData) {
     try {
       dispatch(editSubscriberBegin())
       const { data } = await axios.patch(`/api/guilds/${guildID}/feeds/${feedID}/subscribers/${subscriberID}`, newData)
-      toast.success(`Subscriber data updated`)
+      toast.success('Subscriber data updated')
       dispatch(editSubscriberSuccess(data))
     } catch (err) {
       dispatch(editSubscriberFailure(err))

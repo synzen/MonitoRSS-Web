@@ -12,7 +12,7 @@ export function fetchAuthentication () {
   return async dispatch => {
     try {
       dispatch(checkAuthBegin())
-      const { data } = await axios.get(`/api/authenticated`)
+      const { data } = await axios.get('/api/authenticated')
       dispatch(checkAuthSuccess(data.authenticated))
     } catch (err) {
       dispatch(checkAuthFailure(err))

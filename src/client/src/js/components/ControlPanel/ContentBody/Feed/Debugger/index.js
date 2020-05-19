@@ -117,9 +117,9 @@ function Debugger (props) {
   const articlesFetching = useSelector(feedSelector.articlesFetching)
   const botConfig = useSelector(state => state.botConfig)
   const dispatch = useDispatch()
-  const [ loadingState, setLoadingState ] = useState(autoFetch) // 0 = await user start, 1 = waiting for request and article fetch, 2 = fetched feed data OR articles, 3 = fetched all data
-  const [ loadError, setLoadError ] = useState()
-  const [ feedData, setFeedData ] = useState()
+  const [loadingState, setLoadingState] = useState(autoFetch) // 0 = await user start, 1 = waiting for request and article fetch, 2 = fetched feed data OR articles, 3 = fetched all data
+  const [loadError, setLoadError] = useState()
+  const [feedData, setFeedData] = useState()
   const articleListById = {}
   for (const article of articleList) {
     articleListById[article._id] = article
@@ -144,7 +144,7 @@ function Debugger (props) {
     if (!articlesFetching && (loadingState === 2 || loadingState === 3)) {
       setLoadingState(loadingState + 1)
     }
-  }, [ feed, articlesFetching, loadingState ])
+  }, [feed, articlesFetching, loadingState])
 
   useEffect(() => {
     if (loadingState !== 1 || !feed) return
@@ -160,14 +160,14 @@ function Debugger (props) {
         console.log(errMessage)
         setLoadError(errMessage)
       })
-  }, [ loadingState, feed ])
+  }, [loadingState, feed])
 
   // When the feed changes and articles are being fetched, set loading state to 1 to fetch feed data again
   useEffect(() => {
     if (feed && articlesFetching && loadingState >= 3) {
       setLoadingState(1)
     }
-  }, [ feed, articlesFetching, loadingState ])
+  }, [feed, articlesFetching, loadingState])
 
   if (!feed) {
     dispatch(changePage(pages.DASHBOARD))
@@ -268,12 +268,11 @@ function Debugger (props) {
     return (
       <li key={article._id}>
         <div>
-          { symbolType === 1
+          {symbolType === 1
             ? <Icon name='ellipsis horizontal' style={{ color: colors.discord.yellow, fontSize: '16px' }} />
             : symbolType === 2
               ? <Icon name='x' style={{ color: colors.discord.red, fontSize: '16px' }} />
-              : <Icon name='check' style={{ color: colors.discord.green, fontSize: '16px' }} />
-          }
+              : <Icon name='check' style={{ color: colors.discord.green, fontSize: '16px' }} />}
           <SectionSubtitle>ID -</SectionSubtitle>{article._id + '149r5237ut859ujti835498yth35yt3598h'}
           <span style={{ color: colors.discord.subtext }}>{article.date ? ` (${getDiff(article.date)} ago)` : ''}</span>
         </div>
@@ -285,7 +284,7 @@ function Debugger (props) {
 
   let etaAvailable = null
   if (feed && (newArticlesToBeSent.length > 0 || passedCustomComparisons.length > 0)) {
-    const toBeDelivered = [ ...newArticlesToBeSent, ...passedCustomComparisons ]
+    const toBeDelivered = [...newArticlesToBeSent, ...passedCustomComparisons]
     let earliestArticleMoment
     for (const articleID of toBeDelivered) {
       const article = articleListById[articleID]
@@ -344,18 +343,18 @@ function Debugger (props) {
       <InfoRowBox>
         <div>
           <SectionSubtitle>URL</SectionSubtitle>
-          <span>{ feed ? <a href={feed.link} target='_blank' rel='noopener noreferrer'>{feed.url}</a> : null }</span>
+          <span>{feed ? <a href={feed.link} target='_blank' rel='noopener noreferrer'>{feed.url}</a> : null}</span>
         </div>
         <div>
           <SectionSubtitle>Added At</SectionSubtitle>
-          <span>{ feed && feed.addedAt ? moment(feed.addedAt).tz(tz).format('ddd, D MMMM YYYY, h:mm A z') : null }</span>
+          <span>{feed && feed.addedAt ? moment(feed.addedAt).tz(tz).format('ddd, D MMMM YYYY, h:mm A z') : null}</span>
         </div>
       </InfoRowBox>
       <br />
       <InfoRowBox>
         <div>
           <SectionSubtitle>Channel</SectionSubtitle>
-          <span>{ channel ? `#${channel.name}` : <span style={{ color: colors.discord.red }}>Missing</span> }</span>
+          <span>{channel ? `#${channel.name}` : <span style={{ color: colors.discord.red }}>Missing</span>}</span>
         </div>
         <div>
           <SectionSubtitle>Refresh Rate</SectionSubtitle>
@@ -371,14 +370,14 @@ function Debugger (props) {
             <SectionSubtitle>Database Articles</SectionSubtitle>
             <Popup inverted basic content='Number of articles stored by the as reference' trigger={<Icon name='question circle' style={{ fontSize: '.9em' }} />} />
           </div>
-          <span>{ feedData ? feedData.length : '-' }</span>
+          <span>{feedData ? feedData.length : '-'}</span>
         </div>
         <div>
           <div>
             <SectionSubtitle>Feed Articles</SectionSubtitle>
             <Popup inverted basic content='Number of articles currently in the feed itself' trigger={<Icon name='question circle' style={{ fontSize: '.9em' }} />} />
           </div>
-          <span>{ articleList.length }</span>
+          <span>{articleList.length}</span>
         </div>
       </InfoRowBox>
       <br />
@@ -386,58 +385,57 @@ function Debugger (props) {
       {/* <SectionSubtitle>Last Article Delivered At</SectionSubtitle>
       <span>{ feedData ? moment(feedData[feedData.length - 1].date).tz(tz).format('ddd, D MMMM YYYY, h:mm A z') : null}</span> */}
 
-      { !allArticlesHaveDates && checkDate ? <AlertBox warn>Date checking is turned on but some articles in this feed have missing dates. Date checking will cause such articles to never be delivered - be sure to turn it off in Misc Options.</AlertBox> : null }
+      {!allArticlesHaveDates && checkDate ? <AlertBox warn>Date checking is turned on but some articles in this feed have missing dates. Date checking will cause such articles to never be delivered - be sure to turn it off in Misc Options.</AlertBox> : null}
       <Divider />
       <SectionTitle heading='Details' subheading={<span>Note that these are predictions, and may not be indicative of actual behavior. New articles are defined as new if they are added to the feed <b>past the time of addition</b>.</span>} />
 
       <SectionSubtitle>Default Algorithm</SectionSubtitle>
       <DetailButton title='New Articles' number={newArticles.length} numberColor={newArticles.length > 0 ? colors.discord.yellow : null}>
-        <ul>{ articleListView(newArticles, 1) }</ul>
+        <ul>{articleListView(newArticles, 1)}</ul>
       </DetailButton>
       <br />
       <DetailButton disabled={!checkDate} popupText={!checkDate ? 'Date checks are not enabled for this feed' : ''} title='Blocked by Date Checks' number={blockedByDateChecks.length * -1} numberColor={blockedByDateChecks.length > 0 ? colors.discord.red : null}>
-        <ul>{ articleListView(blockedByDateChecks, 2) }</ul>
+        <ul>{articleListView(blockedByDateChecks, 2)}</ul>
       </DetailButton>
       <DetailButton disabled={!checkTitle} popupText={!checkTitle ? 'Title checks are not enabled for this feed' : ''} title='Blocked by Title Checks' number={blockedByTitleChecks.length * -1} numberColor={blockedByTitleChecks.length > 0 ? colors.discord.red : null}>
-        <ul>{ articleListView(blockedByTitleChecks, 2) }</ul>
+        <ul>{articleListView(blockedByTitleChecks, 2)}</ul>
       </DetailButton>
       <DetailButton disabled={!feed || !feed.filters} popupText={!feed || !feed.filters ? 'There are no filters set for this feed.' : ''} title='Blocked by Filters' number={blockedByFilters.length * -1} numberColor={blockedByFilters.length > 0 ? colors.discord.red : null}>
-        <ul>{ articleListView(blockedByFilters, 2) }</ul>
+        <ul>{articleListView(blockedByFilters, 2)}</ul>
       </DetailButton>
       <br />
       <DetailButton title='Pending Article Deliveries' number={newArticlesToBeSent.length} numberColor={newArticlesToBeSent.length > 0 ? colors.discord.green : null}>
-        <ul>{ articleListView(newArticlesToBeSent, 3) }</ul>
+        <ul>{articleListView(newArticlesToBeSent, 3)}</ul>
       </DetailButton>
       <br /><br />
 
       <SectionSubtitle>Custom Comparisons Algorithm</SectionSubtitle>
       <DetailButton disabled={!customComparisonsEnabled} popupText={!customComparisonsEnabled ? 'Custom comparisons are not enabled for this feed' : ''} title='Pending Article Deliveries' number={passedCustomComparisons.length} numberColor={passedCustomComparisons.length > 0 ? colors.discord.green : null}>
-        <ul>{ articleListView(passedCustomComparisons, 3) }</ul>
+        <ul>{articleListView(passedCustomComparisons, 3)}</ul>
       </DetailButton>
       <Divider />
       <SectionTitle heading='Summary' />
       <p style={{ fontSize: '16px' }}>
-        { newArticles.length === 0 && passedCustomComparisons.length === 0
-          ? `No new articles detected at this time.${latestArticleMoment ? ` The newest article currently in the feed was posted ${getDiff(latestArticleMoment)} ago.` : ``}${latestDatabaseMoment ? ` The date at which the latest article was recognized by the bot was ${getDiff(latestDatabaseMoment)} ago.` : ``} ${latestDatabaseMoment && latestArticleMoment && latestDatabaseMoment < latestArticleMoment ? `There appears to be a problem. No new articles were recognized by the algorithm, but there appears to be new articles in the current feed.` : `Once new articles are found, please wait at least ${waitDuration} for them to be delivered.`}`
+        {newArticles.length === 0 && passedCustomComparisons.length === 0
+          ? `No new articles detected at this time.${latestArticleMoment ? ` The newest article currently in the feed was posted ${getDiff(latestArticleMoment)} ago.` : ''}${latestDatabaseMoment ? ` The date at which the latest article was recognized by the bot was ${getDiff(latestDatabaseMoment)} ago.` : ''} ${latestDatabaseMoment && latestArticleMoment && latestDatabaseMoment < latestArticleMoment ? 'There appears to be a problem. No new articles were recognized by the algorithm, but there appears to be new articles in the current feed.' : `Once new articles are found, please wait at least ${waitDuration} for them to be delivered.`}`
           : newArticles.length === 0 && passedCustomComparisons.length > 0
             ? `New articles were found through custom comparisons (while none were found through the default algorithm). Please wait at least ${waitDuration} for them to be delivered.`
             : newArticles.length > 0 && passedCustomComparisons.length > 0
               ? `New articles were found through both the default algorithm and custom comparisons. Please wait at least ${waitDuration} for them to be delivered.`
               : newArticlesToBeSent.length < newArticles.length
                 ? newArticlesToBeSent.length === 0
-                  ? `New articles were found, but they were all blocked by one of the following conditions above.`
+                  ? 'New articles were found, but they were all blocked by one of the following conditions above.'
                   : `New articles were found. Not all of them will be delivered since some of them were blocked by the above conditions. Please wait at least ${waitDuration} for delivery.`
-                : `New articles were found. Please wait at least ${waitDuration} for delivery.`
-        }
+                : `New articles were found. Please wait at least ${waitDuration} for delivery.`}
       </p>
-      { etaAvailable
-        ? <div>
-          <br />
-          <SectionSubtitle>Rough ETA</SectionSubtitle>
-          {etaAvailable}
-        </div>
-        : ''
-      }
+      {etaAvailable
+        ? (
+          <div>
+            <br />
+            <SectionSubtitle>Rough ETA</SectionSubtitle>
+            {etaAvailable}
+          </div>)
+        : ''}
       {/* <br /><br /> */}
       {/* <SectionSubtitle>New Articles</SectionSubtitle> */}
       {/* <SectionSubtitleDescription>Articles stored in the database are used as reference to determine whether articles are old or new.</SectionSubtitleDescription> */}
@@ -453,16 +451,19 @@ function Debugger (props) {
       <PageHeader heading='Debugger' subheading='Understand why your feed may not be working as expected.' />
       <Divider />
 
-      { feed && feed.disabled
-        ? <AlertBox warn >This feed has been disabled for the following reason: <strong>{feed.disabled || 'No reason specified'}</strong></AlertBox>
+      {feed && feed.disabled
+        ? <AlertBox warn>This feed has been disabled for the following reason: <strong>{feed.disabled || 'No reason specified'}</strong></AlertBox>
         : articlesError
           ? <ErrorWrapper><h1>Failed to load feed articles</h1><h3>{articlesError}</h3></ErrorWrapper>
           : loadError
             ? <ErrorWrapper><h1>Failed to fetch debug data</h1><h3>{loadError}</h3></ErrorWrapper>
             : loadingState === 0
-              ? <Button size='huge' fluid color='black' content='Begin Debugging' onClick={e => {
-                setLoadingState(1)
-              }} />
+              ? (
+                <Button
+                  size='huge' fluid color='black' content='Begin Debugging' onClick={e => {
+                    setLoadingState(1)
+                  }}
+                />)
               : loadingState === 1 || loadingState === 2
                 ? <LoaderWrapper><Loader active content='Loading' /></LoaderWrapper>
                 : mainBody}

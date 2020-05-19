@@ -73,11 +73,11 @@ class PaginatedTable extends Component {
         curPage.push(itemFunc(item))
       } else {
         pages.push(curPage)
-        curPage = [ itemFunc(item) ]
+        curPage = [itemFunc(item)]
       }
     }
     if (curPage.length > 0) pages.push(curPage)
-    
+
     const frontPageLen = pages[this.state.page] ? pages[this.state.page].length : 0
     const fillerRows = []
     if (frontPageLen < maxPerPage) {
@@ -94,20 +94,21 @@ class PaginatedTable extends Component {
     return (
       <div>
         <TableTop growInput={!this.props.button}>
-          <Input icon='search' iconPosition='left' placeholder='Search...' onChange={e => this.setState({ search: e.target.value })} style={ inputStyle || {} } />
-          { this.props.button }
+          <Input icon='search' iconPosition='left' placeholder='Search...' onChange={e => this.setState({ search: e.target.value })} style={inputStyle || {}} />
+          {this.props.button}
         </TableTop>
-        <div style={{overflowX: 'auto'}}>
-        <Table celled selectable fixed={false} singleLine compact={compact} unstackable={unstackable} collapsing={collapsing} basic={basic} striped>
-          <Table.Header>
-            <Row>
-              {this.props.headers.map(name => <Table.HeaderCell key={name}>{name}</Table.HeaderCell>  )}
-            </Row>
-          </Table.Header>
-          <Table.Body>
-            {pages[this.state.page] ? pages[this.state.page].concat(fillerRows) : fillerRows}
-          </Table.Body>
-        </Table></div>
+        <div style={{ overflowX: 'auto' }}>
+          <Table celled selectable fixed={false} singleLine compact={compact} unstackable={unstackable} collapsing={collapsing} basic={basic} striped>
+            <Table.Header>
+              <Row>
+                {this.props.headers.map(name => <Table.HeaderCell key={name}>{name}</Table.HeaderCell>)}
+              </Row>
+            </Table.Header>
+            <Table.Body>
+              {pages[this.state.page] ? pages[this.state.page].concat(fillerRows) : fillerRows}
+            </Table.Body>
+          </Table>
+        </div>
         <Footer>
           {pages.reduce((acc, cv) => acc + cv.length, 0)} total
           <div>
@@ -126,11 +127,18 @@ PaginatedTable.propTypes = {
   items: PropTypes.array,
   searchFunc: PropTypes.func,
   itemFunc: PropTypes.func,
-  maxPerPage: PropTypes.number
+  maxPerPage: PropTypes.number,
+  headers: PropTypes.array,
+  button: PropTypes.node,
+  compact: PropTypes.bool,
+  inputStyle: PropTypes.object,
+  unstackable: PropTypes.bool,
+  collapsing: PropTypes.bool,
+  basic: PropTypes.bool
 }
 
 export default {
   Cell: Table.Cell,
   Table: PaginatedTable,
-  Row: Table.Row,
+  Row: Table.Row
 }

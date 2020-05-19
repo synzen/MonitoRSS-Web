@@ -29,7 +29,7 @@ const ButtonBlank = styled.a`
   background-color: ${props => props.disabled ? 'transparent' : props.selected ? '#40444B' : 'transparent'};
   border-style: solid;
   border-width: 1px;
-  border-color: ${darken(0.5, `rgba(34,36,38,.15)`)};
+  border-color: ${darken(0.5, 'rgba(34,36,38,.15)')};
   /* width: 100%; */
   user-select: none;
   cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'} !important;
@@ -86,21 +86,21 @@ const Expandable = styled(WrapperDark)`
 
 function DetailButton (props) {
   const { numberColor, number, title, disabled, popupText } = props
-  const [ show, setShow ] = useState(false)
+  const [show, setShow] = useState(false)
   const button = (
     <ButtonBlank onClick={e => number !== 0 ? setShow(!show) : null} selected={show} disabled={disabled}>
       <div>
         <Icon name={disabled ? 'x' : show ? 'caret up' : 'caret down'} />
         <span>{title}</span>
       </div>
-      <span style={numberColor ? { color: numberColor } : null}>{ number }</span>
+      <span style={numberColor ? { color: numberColor } : null}>{number}</span>
     </ButtonBlank>
   )
   const mainBody = (
     <div className='detail-button-body'>
-      { popupText
+      {popupText
         ? <Popup inverted trigger={button} content={popupText} position='bottom center' />
-        : button }
+        : button}
 
       <Expandable expanded={show} className='expandable'>
         <Scrollbars autoHeight autoHeightMin={0} autoHeightMax={420}>
@@ -109,7 +109,6 @@ function DetailButton (props) {
           </div>
         </Scrollbars>
       </Expandable>
-      
 
       {/* </Scrollbars> */}
     </div>

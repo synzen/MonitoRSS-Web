@@ -83,7 +83,7 @@ function Filters () {
   const feedFilters = feed.filters
 
   const removeFilter = async (filterType, filterWord) => {
-    let filters = [ ...feedFilters[filterType] ]
+    let filters = [...feedFilters[filterType]]
     filters.splice(filters.indexOf(filterWord), 1)
     if (filters.length === 0) {
       filters = ''
@@ -97,7 +97,7 @@ function Filters () {
   }
 
   const addFilter = async (filterType, filterWord) => {
-    const filters = feedFilters[filterType] ? [ ...feedFilters[filterType] ] : []
+    const filters = feedFilters[filterType] ? [...feedFilters[filterType]] : []
     if (filters.includes(filterWord)) {
       return toast.error(`The ${filterType} filter "${filterWord}" already exists!`)
     }
@@ -183,19 +183,19 @@ function Filters () {
       {
         !selectedArticleFilterResults
           ? null
-          : <FilterDetails>
-            <SectionSubtitle>Filter Result Explanation</SectionSubtitle>
-            <FilterExplanation>
-              {!selectedArticleFilterResults.passed
-                ? Object.keys(selectedArticleFilterResults.invertedMatches).length === 0
-                  ? <p>This article would not have been sent to Discord because there were no matching filters.</p>
-                  : <p>This article would not have been sent to Discord because the following negated filters blocked it: {<FilterTagContainer>{invertedFilterTags}</FilterTagContainer>}</p>
-                : Object.keys(selectedArticleFilterResults.matches).length === 0
-                  ? <p>This article would have been sent because there are no filters to negate it.</p>
-                  : <p>This article would have been sent because the following filters were matched, with no negated filters: {<FilterTagContainer>{regularFilterTags}</FilterTagContainer>}</p>
-              }
-            </FilterExplanation>
-          </FilterDetails>
+          : (
+            <FilterDetails>
+              <SectionSubtitle>Filter Result Explanation</SectionSubtitle>
+              <FilterExplanation>
+                {!selectedArticleFilterResults.passed
+                  ? Object.keys(selectedArticleFilterResults.invertedMatches).length === 0
+                    ? <p>This article would not have been sent to Discord because there were no matching filters.</p>
+                    : <p>This article would not have been sent to Discord because the following negated filters blocked it: <FilterTagContainer>{invertedFilterTags}</FilterTagContainer></p>
+                  : Object.keys(selectedArticleFilterResults.matches).length === 0
+                    ? <p>This article would have been sent because there are no filters to negate it.</p>
+                    : <p>This article would have been sent because the following filters were matched, with no negated filters: <FilterTagContainer>{regularFilterTags}</FilterTagContainer></p>}
+              </FilterExplanation>
+            </FilterDetails>)
       }
       <Divider />
     </Container>

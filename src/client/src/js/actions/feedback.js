@@ -13,7 +13,7 @@ export function fetchCreateFeedback (content) {
   return async dispatch => {
     try {
       dispatch(createFeedbackBegin())
-      const { data } = await axios.post(`/api/feedback`, {
+      const { data } = await axios.post('/api/feedback', {
         content
       })
       toast.success('Thank you, your feedback will be carefully reviewed!')

@@ -17,7 +17,7 @@ import ControlPanel from './js/components/ControlPanel/index'
 import { connect, useSelector } from 'react-redux'
 import DiscordModal from './js/components/utils/DiscordModal'
 import modal from './js/components/utils/modal'
-import { Scrollbars } from 'react-custom-scrollbars';
+import { Scrollbars } from 'react-custom-scrollbars'
 
 const mapStateToProps = state => {
   return {
@@ -49,8 +49,8 @@ const Wrapper = styled.div`
 `
 
 function App (props) {
-  const [ errorMessage ] = useState('')
-  const [ scrollbarRef, setScrollbarRef ] = useState()
+  const [errorMessage] = useState('')
+  const [scrollbarRef, setScrollbarRef] = useState()
   const reduxModal = useSelector(state => state.modal)
   if (errorMessage) {
     return (
@@ -67,7 +67,7 @@ function App (props) {
 
   return (
     <div className='App'>
-      <DiscordModal onClose={modal.hide} open={reduxModal.open} { ...reduxModal.props }>{reduxModal.children}</DiscordModal>
+      <DiscordModal onClose={() => modal.hide()} open={reduxModal.open} {...reduxModal.props}>{reduxModal.children}</DiscordModal>
       <Switch>
         <Route path={pages.DASHBOARD} component={ControlPanel} />
         <Route render={() => (
@@ -77,12 +77,18 @@ function App (props) {
             </Wrapper>
             <Switch>
               <Route path={`${pages.FEED_BROWSER}/:url?`} component={FeedBrowser} />
-              <Route path={`${pages.FAQ}/:question?`} render={props => <FAQ {...props} scrollbar={scrollbarRef} />} />
+              <Route
+                path={`${pages.FAQ}/:question?`} render={props => {
+                  // eslint-disable-next-line react/jsx-pascal-case
+                  return <FAQ {...props} scrollbar={scrollbarRef} />
+                }}
+              />
               <Route path='/' component={routerProps => <Home {...routerProps} />} />
               <Route render={() => <Redirect to='/' />} />
             </Switch>
           </Scrollbars>
-        )} />
+        )}
+        />
       </Switch>
     </div>
   )

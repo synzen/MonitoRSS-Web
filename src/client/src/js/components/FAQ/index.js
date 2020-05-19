@@ -135,7 +135,7 @@ const FadeTextStyles = styled.p`
 
 const FadeText = posed(FadeTextStyles)({
   enter: { opacity: 1, transition: { duration: 150 } },
-  exit: { opacity: 0, transition: { duration: 150 } },
+  exit: { opacity: 0, transition: { duration: 150 } }
 })
 
 const allTags = new Set()
@@ -162,39 +162,40 @@ faq.forEach((item, index) => {
 // `
 
 function FAQ (props) {
-  const [ searchTerm, setSearch ] = useState('')
-  const [ topOffsets, setTopOffsets ] = useState({})
+  const [searchTerm, setSearch] = useState('')
+  const [topOffsets, setTopOffsets] = useState({})
 
   const paramQuestion = props.match.params.question
-  const [ selectedQuestion, setQuestion ] = useState(allQuestions.includes(paramQuestion) ? faq.find(item => item.qe === paramQuestion) : null)
-  const [ page, setPage ] = useState(selectedQuestion ? pageByQuestions[selectedQuestion.q] : 0)
+  const [selectedQuestion, setQuestion] = useState(allQuestions.includes(paramQuestion) ? faq.find(item => item.qe === paramQuestion) : null)
+  const [page, setPage] = useState(selectedQuestion ? pageByQuestions[selectedQuestion.q] : 0)
 
   // Scroll to selected item when the ref and scrollbar are defined
   useEffect(() => {
     if (props.scrollbar && selectedQuestion && topOffsets[selectedQuestion.qe]) {
       props.scrollbar.scrollTop(topOffsets[selectedQuestion.qe])
     }
-  }, [ props.scrollbar, selectedQuestion, topOffsets ])
+  }, [props.scrollbar, selectedQuestion, topOffsets])
 
   // Scroll after searching an item
   useEffect(() => {
     if (searchTerm === '' && props.scrollbar && selectedQuestion && topOffsets[selectedQuestion.qe]) {
       props.scrollbar.scrollTop(topOffsets[selectedQuestion.qe])
     }
-  }, [ searchTerm, props.scrollbar, selectedQuestion, topOffsets ])
+  }, [searchTerm, props.scrollbar, selectedQuestion, topOffsets])
 
   useEffect(() => {
     const focused = querystring.parse(props.location.search).focus
     if (!focused || !selectedQuestion) return
     const modalProps = {
       header: <h2>{selectedQuestion.q}</h2>,
-      footer: <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div>
-          <SectionSubtitle>Keywords</SectionSubtitle>
-          <TagContainer>{selectedQuestion.t.map((tag, i) => <Tag key={i}>{tag}</Tag>)}</TagContainer>
-        </div>
-        <Button content='Ok' onClick={e => modal.hide()} />
-      </div>
+      footer: (
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div>
+            <SectionSubtitle>Keywords</SectionSubtitle>
+            <TagContainer>{selectedQuestion.t.map((tag, i) => <Tag key={i}>{tag}</Tag>)}</TagContainer>
+          </div>
+          <Button content='Ok' onClick={e => modal.hide()} />
+        </div>)
     }
     const modalChildren = (
       <Answer pose='expand' style={{ paddingLeft: 0 }}>
@@ -202,22 +203,24 @@ function FAQ (props) {
       </Answer>
     )
     modal.show(modalProps, modalChildren)
-  }, [ props.history, props.location.search, selectedQuestion ])
+  }, [props.history, props.location.search, selectedQuestion])
 
   useEffect(() => {
     if (selectedQuestion) document.title = `Discord.RSS - FAQ - ${selectedQuestion.q}`
-    else document.title = `Discord.RSS - FAQ`
+    else document.title = 'Discord.RSS - FAQ'
   }, [selectedQuestion])
 
   const contentClone = searchFAQ(searchTerm)
 
-  let addedTopOffset = false
+  const addedTopOffset = false
   const items = contentClone.map((item, index) => {
     const selected = selectedQuestion && selectedQuestion.qe === item.qe
     return (
-      <QAWrapper key={item.q} ref={elem => {
-        if (!topOffsets[item.qe]) topOffsets[item.qe] = elem.offsetTop
-      }}>
+      <QAWrapper
+        key={item.q} ref={elem => {
+          if (!topOffsets[item.qe]) topOffsets[item.qe] = elem.offsetTop
+        }}
+      >
         <QAWrapperInner>
           {/* <CopyIcon name='copy' /> */}
           <div>
@@ -250,16 +253,18 @@ function FAQ (props) {
         <PageHeader heading='Frequently Asked Questions' style={{ textAlign: 'center' }} />
         <p style={{ textAlign: 'center' }}>A labyrinth of information, at your disposal.<br /><span style={{ color: colors.discord.yellow }}>This is an incomplete section. More content will be added.</span></p>
         <div style={{ width: '100%', display: 'flex', justifyContent: 'center', position: 'relative' }}>
-          <Input icon='search' iconPosition='left' onKeyDown={e => {
-            if (e.keyCode !== 13 || !searchTerm || contentClone.length === 0) return
-            setQuestion(contentClone[0])
-            setPage(pageByQuestions[contentClone[0].q])
-            setSearch('')
+          <Input
+            icon='search' iconPosition='left' onKeyDown={e => {
+              if (e.keyCode !== 13 || !searchTerm || contentClone.length === 0) return
+              setQuestion(contentClone[0])
+              setPage(pageByQuestions[contentClone[0].q])
+              setSearch('')
             // props.history.push(`${pages.FAQ}/${contentClone[0].qe}`)
-          }} onChange={e => {
-            if (page !== 0) setPage(0)
-            setSearch(e.target.value)
-          }} value={searchTerm} />
+            }} onChange={e => {
+              if (page !== 0) setPage(0)
+              setSearch(e.target.value)
+            }} value={searchTerm}
+          />
           <FadeText pose={searchTerm && items.length > 0 ? 'enter' : 'exit'}>Click Enter to see the first article</FadeText>
         </div>
         {/* <Dropdown multiple search selection options={allTagsOptions} /> */}
@@ -267,7 +272,7 @@ function FAQ (props) {
       <Section>
         <SectionFAQ pose='enter' key='faq'>
           <div>
-            <h2>{ searchTerm ? 'Search Results' : 'Top Questions' }</h2>
+            <h2>{searchTerm ? 'Search Results' : 'Top Questions'}</h2>
             <Button.Group>
               <Button size='large' icon='caret left' disabled={page === 0} onClick={e => page <= 0 ? null : setPage(page - 1)} />
               <Button.Or text={displayPage} />

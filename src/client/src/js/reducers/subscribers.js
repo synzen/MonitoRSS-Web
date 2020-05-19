@@ -10,7 +10,7 @@ function subscribersReducer (state = initialState, action) {
       return [...state, action.payload]
     case DELETE_SUBSCRIBER.SUCCESS:
       return state.filter(s => s.id !== action.payload)
-    case EDIT_SUBSCRIBER.SUCCESS:
+    case EDIT_SUBSCRIBER.SUCCESS: {
       const clone = [...state]
       const updated = action.payload
       clone.forEach((subscriber, index) => {
@@ -19,6 +19,7 @@ function subscribersReducer (state = initialState, action) {
         }
       })
       return clone
+    }
     default:
       return state
   }

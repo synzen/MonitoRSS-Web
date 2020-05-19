@@ -51,7 +51,7 @@ function ControlPanel () {
   const [loaded, setLoaded] = useState(false)
   const [ready, setReady] = useState(false)
   const dispatch = useDispatch()
-  const [ sizeInfo, setSizeInfo ] = useState({
+  const [sizeInfo, setSizeInfo] = useState({
     leftMenuExpanded: window.innerWidth >= 910,
     leftMenuNotFull: window.innerWidth >= 910
   })
@@ -111,20 +111,23 @@ function ControlPanel () {
       <ToastContainer position='top-center' />
       {sizeInfo.leftMenuNotFull
         ? null
-        : <TopBar toggleLeftMenu={() => {
-          setSizeInfo({
-            ...sizeInfo,
-            leftMenuExpanded: !sizeInfo.leftMenuExpanded
-          })
-        }} />
-      }
+        : (
+          <TopBar toggleLeftMenu={() => {
+            setSizeInfo({
+              ...sizeInfo,
+              leftMenuExpanded: !sizeInfo.leftMenuExpanded
+            })
+          }}
+          />)}
       <MainContainer offsetTop={!sizeInfo.leftMenuNotFull}>
-        <LeftMenu disableMenuButtonToggle={sizeInfo.leftMenuNotFull} toggleLeftMenu={() => {
-          setSizeInfo({
-            ...sizeInfo,
-            leftMenuExpanded: !sizeInfo.leftMenuExpanded
-          })
-        }} expanded={sizeInfo.leftMenuExpanded} />
+        <LeftMenu
+          disableMenuButtonToggle={sizeInfo.leftMenuNotFull} toggleLeftMenu={() => {
+            setSizeInfo({
+              ...sizeInfo,
+              leftMenuExpanded: !sizeInfo.leftMenuExpanded
+            })
+          }} expanded={sizeInfo.leftMenuExpanded}
+        />
         <ContentBody />
       </MainContainer>
     </div>

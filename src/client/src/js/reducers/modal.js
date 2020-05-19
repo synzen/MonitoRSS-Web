@@ -1,4 +1,4 @@
-import { SHOW_MODAL, HIDE_MODAL } from "js/constants/actions/modal";
+import { SHOW_MODAL, HIDE_MODAL } from 'js/constants/actions/modal'
 
 const initialState = {
   open: false,

@@ -181,12 +181,16 @@ function LeftMenu (props) {
 
   function logoutClick () {
     const modalProps = {
-      footer: (<LogoutModalFooter>
-        <button onClick={modal.hide}>Cancel</button>
-        <Button color='red' onClick={e => {
-          window.location.href = '/logout'
-        }}>Log Out</Button>
-      </LogoutModalFooter>)
+      footer: (
+        <LogoutModalFooter>
+          <button onClick={() => modal.hide()}>Cancel</button>
+          <Button
+            color='red' onClick={e => {
+              window.location.href = '/logout'
+            }}
+          >Log Out
+          </Button>
+        </LogoutModalFooter>)
     }
     const children = <h4 style={{ padding: '0.5em' }}>Are you sure you want to log out?</h4>
     modal.show(modalProps, children)
@@ -200,15 +204,15 @@ function LeftMenu (props) {
         <Content expanded={props.expanded}>
           <div>
             {props.disableMenuButtonToggle
-              ? <Header to='/'>
-                <div>
-                  <img alt='Discord RSS logo' src='https://discordapp.com/assets/d36b33903dafb0107bb067b55bdd9cbc.svg' width='30px' />
-                  <h3 style={{ margin: '0 10px' }}>Discord.RSS</h3>
-                  <h4 style={{ margin: 0 }}>Control Panel</h4>
-                </div>
-              </Header>
-              : null
-            }
+              ? (
+                <Header to='/'>
+                  <div>
+                    <img alt='Discord RSS logo' src='https://discordapp.com/assets/d36b33903dafb0107bb067b55bdd9cbc.svg' width='30px' />
+                    <h3 style={{ margin: '0 10px' }}>Discord.RSS</h3>
+                    <h4 style={{ margin: 0 }}>Control Panel</h4>
+                  </div>
+                </Header>)
+              : null}
             {/* <Divider /> */}
             <UserContainer>
               <div>
@@ -245,7 +249,8 @@ function LeftMenu (props) {
               disabled={noFeeds || articlesFetching}
               value={articlesFetching ? '' : feedId}
               selection
-              onChange={(e, data) => setFeed(data.value)} />
+              onChange={(e, data) => setFeed(data.value)}
+            />
             <MenuButton to={pages.MESSAGE} disabled={disableFeedButtons} onClick={() => menuButtonClick(pages.MESSAGE)} selected={page === pages.MESSAGE}>Message</MenuButton>
             <MenuButton to={pages.FILTERS} disabled={disableFeedButtons} onClick={() => menuButtonClick(pages.FILTERS)} selected={page === pages.FILTERS}>Filters</MenuButton>
             <MenuButton to={pages.SUBSCRIBERS} disabled={disableFeedButtons} onClick={() => menuButtonClick(pages.SUBSCRIBERS)} selected={page === pages.SUBSCRIBERS}>Subscribers</MenuButton>

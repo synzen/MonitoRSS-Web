@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-escape */
+/* eslint-disable no-prototype-builtins */
 import React from 'react'
 import SimpleMarkdown from 'simple-markdown'
 import hljs from 'highlight.js'
@@ -223,7 +225,7 @@ const baseRules = {
           return <Mention color={role.hexColor} key={state.key}>@{role.name}</Mention>
         }
       }
-      return <Mention color={''} key={state.key}>@{node.content}</Mention>
+      return <Mention color='' key={state.key}>@{node.content}</Mention>
     }
   },
   codeBlock: {

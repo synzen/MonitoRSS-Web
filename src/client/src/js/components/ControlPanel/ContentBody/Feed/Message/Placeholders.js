@@ -211,7 +211,7 @@ function Placeholders (props) {
             <div>
               <PlaceholderNameContainer>
                 <p className='preview-placeholder-name'>{`{${phname}}`}</p>
-                { placeholderName.startsWith('regex') ? <RegexTag>Regex</RegexTag> : null }
+                {placeholderName.startsWith('regex') ? <RegexTag>Regex</RegexTag> : null}
               </PlaceholderNameContainer>
               {/* { phname === 'link' || phname.includes('image') || phname.includes('anchor')
                 ? <a href={content} target='_blank' rel='noopener noreferrer'><p>{content}</p></a>
@@ -219,7 +219,7 @@ function Placeholders (props) {
               <p>{parser.parse(content)}</p>
               {/* } */}
             </div>
-            { phname.includes('image') ? <div><img onClick={e => modal.showImage(content, phname)} alt={phname} src={content} /></div> : null }
+            {phname.includes('image') ? <div><img onClick={e => modal.showImage(content, phname)} alt={phname} src={content} /></div> : null}
           </div>
           <Divider />
         </PlaceholderImage>
@@ -250,10 +250,11 @@ function Placeholders (props) {
             {articlesFetching
               ? <Loader inverted size='big' active />
               : articlesError
-                ? <div>
-                  <SectionSubtitleDescription style={{ color: colors.discord.red }}>Failed to Load Articles</SectionSubtitleDescription>
-                  <SectionSubtitleDescription>{articlesError || 'Unknown Error'}</SectionSubtitleDescription>
-                </div>
+                ? (
+                  <div>
+                    <SectionSubtitleDescription style={{ color: colors.discord.red }}>Failed to Load Articles</SectionSubtitleDescription>
+                    <SectionSubtitleDescription>{articlesError || 'Unknown Error'}</SectionSubtitleDescription>
+                  </div>)
                 : placeholderElements.length === 0
                   ? <SectionSubtitleDescription>No articles in feed</SectionSubtitleDescription>
                   : placeholderElements}

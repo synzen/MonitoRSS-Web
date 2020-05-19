@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import PaginatedTable from './PaginatedTable'
 import { Button, Icon } from 'semantic-ui-react'
 
@@ -32,15 +33,21 @@ function FiltersTable (props) {
   )
 
   return (
-      <PaginatedTable.Table
-        compact
-        unstackable
-        items={filtersArray}
-        headers={['Filter', 'Category', 'Negated?', 'Broad?', 'Delete']}
-        itemFunc={filtersTableRowFunc}
-        searchFunc={filtersTableSearchFunc}
-      />
+    <PaginatedTable.Table
+      compact
+      unstackable
+      items={filtersArray}
+      headers={['Filter', 'Category', 'Negated?', 'Broad?', 'Delete']}
+      itemFunc={filtersTableRowFunc}
+      searchFunc={filtersTableSearchFunc}
+    />
   )
+}
+
+FiltersTable.propTypes = {
+  filters: PropTypes.object,
+  removeFilter: PropTypes.func,
+  inProgress: PropTypes.bool
 }
 
 export default FiltersTable

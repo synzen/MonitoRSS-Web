@@ -46,7 +46,7 @@ content.forEach((item, contentIndex) => {
       splat.forEach(halfTag => halfTags.push(stemmer(halfTag)))
     }
   })
-  const bothTags = [ halfTags, tags ]
+  const bothTags = [halfTags, tags]
   for (let i = 0; i < bothTags.length; ++i) {
     const POINTS = i === 0 ? TAG_POINTS / 2 : TAG_POINTS
     const tags = bothTags[i]
@@ -93,7 +93,7 @@ function search (searchTerm) {
   }
 
   for (const docIndex in documentCounts) {
-    if (documentCounts[docIndex] === searchTermSplitSize) intersectingDocumentIndexes.push([ docIndex, documentPoints[docIndex] ])
+    if (documentCounts[docIndex] === searchTermSplitSize) intersectingDocumentIndexes.push([docIndex, documentPoints[docIndex]])
   }
   return intersectingDocumentIndexes.sort((a, b) => b[1] - a[1]).map((item, index) => content[item[0]]) // 0th index is the document index, 1st index is the number of points (weight)
 }

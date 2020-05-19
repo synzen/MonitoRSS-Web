@@ -10,10 +10,11 @@ function feedsReducer (state = initialState, action) {
       return action.payload
     case ADD_FEED.SUCCESS:
       return [...state, action.payload]
-    case DELETE_FEED.SUCCESS:
+    case DELETE_FEED.SUCCESS: {
       const feedID = action.payload
       return state.filter(feed => feed._id !== feedID)
-    case EDIT_FEED.SUCCESS:
+    }
+    case EDIT_FEED.SUCCESS: {
       const clone = [...state]
       const updated = action.payload
       clone.forEach((feed, index) => {
@@ -22,6 +23,7 @@ function feedsReducer (state = initialState, action) {
         }
       })
       return clone
+    }
     default:
       return state
   }

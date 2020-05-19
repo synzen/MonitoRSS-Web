@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { Link, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import { Icon, Button } from 'semantic-ui-react'
@@ -196,8 +197,8 @@ const DropdownNavItem = styled.li`
 `
 
 function NavBar (props) {
-  const [ showNavDropdown, setShowNavDropdown ] = useState(false)
-  const [ showMobileNav, setShowMobileNav ] = useState(false)
+  const [showNavDropdown, setShowNavDropdown] = useState(false)
+  const [showMobileNav, setShowMobileNav] = useState(false)
   const path = props.location.pathname
 
   return (
@@ -217,7 +218,7 @@ function NavBar (props) {
           <NavItem selected={path === pages.SUPPORT}><a href='https://discord.gg/pudv7Rx' target='_blank' rel='noopener noreferrer'>Support<Icon name='external' size='small' /></a></NavItem>
           <NavItem onMouseEnter={e => setShowNavDropdown(true)} onMouseLeave={e => setShowNavDropdown(false)}>
             <button>Links<Icon name='caret down' size='small' /></button>
-            <NavDropdown show={showNavDropdown} >
+            <NavDropdown show={showNavDropdown}>
               <DropdownNavItem><a href='https://github.com/synzen/Discord.RSS' target='_blank' rel='noopener noreferrer'><Icon name='github' /><span>Github</span></a></DropdownNavItem>
               <DropdownNavItem><a href='https://www.patreon.com/discordrss' target='_blank' rel='noopener noreferrer'><Icon name='patreon' style={{ color: '#E85B46' }} /><span>Patreon</span></a></DropdownNavItem>
             </NavDropdown>
@@ -245,6 +246,10 @@ function NavBar (props) {
       </MobileNav>
     </header>
   )
+}
+
+NavBar.propTypes = {
+  location: PropTypes.object
 }
 
 export default withRouter(NavBar)

@@ -2,7 +2,7 @@ import axios from 'axios'
 import {
   GET_GUILDS,
   SET_ACTIVE_GUILD,
-  EDIT_GUILD,
+  EDIT_GUILD
 } from '../constants/actions/guilds'
 import { fetchGuildChannels } from './channels'
 import { fetchGuildRoles } from './roles'
@@ -28,7 +28,7 @@ export function fetchGuilds () {
     const { activeGuildID } = getState()
     try {
       dispatch(setGuildsBegin())
-      const { data } = await axios.get(`/api/users/@me/guilds`)
+      const { data } = await axios.get('/api/users/@me/guilds')
       dispatch(setGuildsSuccess(data))
       if (!data.find(guild => guild.id === activeGuildID)) {
         await dispatch(setActiveGuild(''))
@@ -46,7 +46,7 @@ export function fetchEditGuild (guildID, edited) {
     try {
       dispatch(editGuildBegin())
       const { data } = await axios.patch(`/api/guilds/${guildID}`, edited)
-      toast.success(`Your changes have been saved`)
+      toast.success('Your changes have been saved')
       dispatch(editGuildSuccess(data))
     } catch (err) {
       dispatch(editGuildFailure(err))
