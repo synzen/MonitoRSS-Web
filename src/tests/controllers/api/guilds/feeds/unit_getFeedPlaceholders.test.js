@@ -67,7 +67,7 @@ describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
     const next = createNext()
     await getFeedPlaceholders(req, res, next)
     expect(feedServices.getFeedPlaceholders)
-      .toHaveBeenCalledWith(req.feed.url, req.guildData.profile)
+      .toHaveBeenCalledWith(req.feed, req.guildData.profile)
   })
   it('calls the service with config feeds if no guild profile', async function () {
     const req = {
@@ -86,6 +86,6 @@ describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
     configServices.getFeedConfig.mockResolvedValue(feedConfig)
     await getFeedPlaceholders(req, res, next)
     expect(feedServices.getFeedPlaceholders)
-      .toHaveBeenCalledWith(req.feed.url, feedConfig)
+      .toHaveBeenCalledWith(req.feed, feedConfig)
   })
 })
