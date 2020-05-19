@@ -14,7 +14,7 @@ async function getFeedPlaceholders (req, res) {
     profile = await configServices.getFeedConfig()
   }
   try {
-    const data = await feedServices.getFeedPlaceholders(feed.url, profile)
+    const data = await feedServices.getFeedPlaceholders(feed, profile)
     res.json(data)
   } catch (err) {
     const resError = createError(500, err.message)

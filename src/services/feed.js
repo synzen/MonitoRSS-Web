@@ -3,19 +3,21 @@ const Article = DiscordRSS.Article
 const FeedFetcher = DiscordRSS.FeedFetcher
 const FailRecord = DiscordRSS.FailRecord
 const Feed = DiscordRSS.Feed
+const FeedData = DiscordRSS.FeedData
 
 /**
- * @param {string} url
+ * @param {import('discord.rss').Feed} feed
  * @param {Object<string, any>} profile
  */
-async function getFeedPlaceholders (url, profile) {
-  const { articleList } = await FeedFetcher.fetchFeed(url)
+async function getFeedPlaceholders (feed, profile) {
+  const { articleList } = await FeedFetcher.fetchFeed(feed.url)
   const allPlaceholders = []
   if (articleList.length === 0) {
     return allPlaceholders
   }
+  const feedData = await FeedData.ofFeed(feed)
   for (const article of articleList) {
-    const parsed = new Article(article, profile)
+    const parsed = new Article(article, feedData)
     allPlaceholders.push(parsed.toJSON())
   }
   return allPlaceholders
