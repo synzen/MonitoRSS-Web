@@ -4,12 +4,12 @@ const FeedFetcher = DiscordRSS.FeedFetcher
 const FailRecord = DiscordRSS.FailRecord
 const Feed = DiscordRSS.Feed
 const FeedData = DiscordRSS.FeedData
+const configServices = require('./config.js')
 
 /**
  * @param {import('discord.rss').Feed} feed
- * @param {Object<string, any>} profile
  */
-async function getFeedPlaceholders (feed, profile) {
+async function getFeedPlaceholders (feed) {
   const { articleList } = await FeedFetcher.fetchFeed(feed.url)
   const allPlaceholders = []
   if (articleList.length === 0) {
@@ -21,6 +21,21 @@ async function getFeedPlaceholders (feed, profile) {
     allPlaceholders.push(parsed.toJSON())
   }
   return allPlaceholders
+}
+
+/**
+ *
+ * @param {string} feedURL
+ */
+async function getAnonymousFeedPlaceholders (feedURL) {
+  const feedConfig = await configServices.getFeedConfig()
+  const dummyFeed = new Feed({
+    ...feedConfig,
+    guild: '1',
+    channel: '1',
+    url: feedURL
+  })
+  return module.exports.getFeedPlaceholders(dummyFeed)
 }
 
 /**
@@ -100,6 +115,7 @@ async function getFeedsOfGuild (guildID) {
 }
 
 module.exports = {
+  getAnonymousFeedPlaceholders,
   getFeedPlaceholders,
   getFeedOfGuild,
   createFeed,

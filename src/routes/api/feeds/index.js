@@ -20,6 +20,6 @@ const urlSchema = Joi.object({
   url: Joi.string().uri()
 })
 
-feedsAPI.get('/:url', validator.params(urlSchema), controllers.api.feeds.getFeed())
+feedsAPI.get('/:url', validator.params(urlSchema), controllers.api.feeds.getFeed)
 
 module.exports = feedsAPI
