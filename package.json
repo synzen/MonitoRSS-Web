@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "Website for Discord.RSS",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/synzen/Discord.RSS-Web"
+  },
   "dependencies": {
     "@hapi/joi": "^16.1.8",
     "compression": "^1.7.4",
