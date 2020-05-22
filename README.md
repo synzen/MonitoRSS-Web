@@ -8,7 +8,9 @@ A web app for https://github.com/synzen/Discord.RSS to manage your feeds.
 
 All documentation can be found at https://docs.discordrss.xyz/.
 
-This repo is for development only. For the main npm bot repository, see https://github.com/synzen/Discord.RSS. For personal non-programmatic use via cloning, use the repo at https://github.com/synzen/Discord.RSS-Clone.
+This repo is for development only. For the main npm bot repository, see https://github.com/synzen/Discord.RSS.
+
+To deploy for personal use, use the repo at https://github.com/synzen/Discord.RSS-Clone.
 
 
 # Preview
