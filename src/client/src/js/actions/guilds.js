@@ -66,8 +66,8 @@ export function setActiveGuild (guildID) {
     await Promise.all([
       dispatch(fetchGuildChannels(guildID)),
       dispatch(fetchGuildRoles(guildID)),
-      dispatch(fetchGuildFeeds(guildID)),
       dispatch(fetchGuildFailRecords(guildID))
     ])
+    dispatch(fetchGuildFeeds(guildID))
   }
 }
