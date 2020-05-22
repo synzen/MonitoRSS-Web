@@ -4,7 +4,7 @@
   "description": "Website for Discord.RSS",
   "main": "index.js",
   "dependencies": {
-    "@hapi/joi": "^17.1.1",
+    "@hapi/joi": "^16.1.8",
     "compression": "^1.7.4",
     "connect-redis": "^4.0.4",
     "discord.js": "^12.2.0",
@@ -12,8 +12,6 @@
     "express-joi-validation": "^4.0.3",
     "express-rate-limit": "^5.1.3",
     "express-session": "^1.17.1",
-    "express-socket.io-session": "^1.3.5",
-    "express-ws": "^4.0.0",
     "moment-timezone": "^0.5.31",
     "mongoose": "^5.9.15",
     "morgan": "^1.10.0",
