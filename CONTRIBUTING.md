@@ -13,8 +13,8 @@ All development happens on dev branches.
 1. Fork & clone this repo
 2. Create a new branch from the **dev** branch
 3. Code!
-4. Test with `node server.js`
-5. Run `npm run eslint` to run ESLint and automatically fix problems in coding style
+4. Run `npm run eslint` to run ESLint and automatically fix problems in coding style
+5. Use `npm link` this repo from the clone repo to test changes
 6. Push your work to your fork and submit a pull request (before that you may need to merge the latest from **upstream**)
 
 ## Frontend
