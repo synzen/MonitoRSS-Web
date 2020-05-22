@@ -253,7 +253,7 @@ function Placeholders (props) {
                 ? (
                   <div>
                     <SectionSubtitleDescription style={{ color: colors.discord.red }}>Failed to Load Articles</SectionSubtitleDescription>
-                    <SectionSubtitleDescription>{articlesError || 'Unknown Error'}</SectionSubtitleDescription>
+                    <SectionSubtitleDescription>{articlesError.message || 'Unknown Error'}</SectionSubtitleDescription>
                   </div>)
                 : placeholderElements.length === 0
                   ? <SectionSubtitleDescription>No articles in feed</SectionSubtitleDescription>

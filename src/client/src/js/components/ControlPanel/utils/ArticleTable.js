@@ -75,7 +75,7 @@ function ArticleTable (props) {
       <LoadingBox>
         <ErrorText>
           <SectionSubtitleDescription style={{ color: colors.discord.red }}>Failed to Load Articles</SectionSubtitleDescription>
-          <SectionSubtitleDescription>{articlesError || 'Unknown Error'}</SectionSubtitleDescription>
+          <SectionSubtitleDescription>{articlesError.message || 'Unknown Error'}</SectionSubtitleDescription>
         </ErrorText>
       </LoadingBox>
     )
