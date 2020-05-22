@@ -116,7 +116,6 @@ function MiscOptions () {
       vals.ncomparisons = []
     }
     await dispatch(fetchEditFeed(feed.guild, feed._id, vals))
-    reset()
   }
 
   const reset = () => {
