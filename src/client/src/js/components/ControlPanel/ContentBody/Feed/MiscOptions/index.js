@@ -12,6 +12,7 @@ import { fetchEditFeed } from 'js/actions/feeds'
 import { changePage } from 'js/actions/page'
 import pages from 'js/constants/pages'
 import { Redirect } from 'react-router-dom'
+import Loading from '../../common/Loading'
 
 const Container = styled.div`
   padding: 20px;
@@ -63,6 +64,7 @@ const configKeyNames = {
 function MiscOptions () {
   const botConfig = useSelector(state => state.botConfig)
   const editing = useSelector(feedSelectors.feedEditing)
+  const feedsFetching = useSelector(feedSelectors.feedsFetching)
   const feed = useSelector(feedSelectors.activeFeed)
   const [userCheckTitles, setUserCheckTitles] = useState(feed && feed.ncomparisons.includes('title'))
   const [userValues, setUserValues] = useState({})
@@ -72,7 +74,9 @@ function MiscOptions () {
     dispatch(changePage(pages.MISC_OPTIONS))
   }, [dispatch])
 
-  if (!feed) {
+  if (feedsFetching) {
+    return <Loading />
+  } if (!feed) {
     dispatch(changePage(pages.DASHBOARD))
     return <Redirect to={pages.DASHBOARD} />
   }

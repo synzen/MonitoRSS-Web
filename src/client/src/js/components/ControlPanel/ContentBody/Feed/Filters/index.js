@@ -15,6 +15,7 @@ import { changePage } from 'js/actions/page'
 import pages from 'js/constants/pages'
 import { Redirect } from 'react-router-dom'
 import toast from 'js/components/ControlPanel/utils/toast'
+import Loading from '../../common/Loading'
 
 const Container = styled.div`
   padding: 20px;
@@ -68,6 +69,7 @@ const FilterTag = styled.a`
 function Filters () {
   const feed = useSelector(feedSelectors.activeFeed)
   const editing = useSelector(feedSelectors.feedEditing)
+  const feedsFetching = useSelector(feedSelectors.feedsFetching)
   const [selectedArticle, setArticle] = useState()
   const dispatch = useDispatch()
 
@@ -75,7 +77,9 @@ function Filters () {
     dispatch(changePage(pages.FILTERS))
   }, [dispatch])
 
-  if (!feed) {
+  if (feedsFetching) {
+    return <Loading />
+  } if (!feed) {
     dispatch(changePage(pages.DASHBOARD))
     return <Redirect to={pages.DASHBOARD} />
   }

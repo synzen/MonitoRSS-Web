@@ -21,6 +21,7 @@ import { changePage } from 'js/actions/page'
 import pages from 'js/constants/pages'
 import { Redirect } from 'react-router-dom'
 import toast from 'js/components/ControlPanel/utils/toast'
+import Loading from '../../common/Loading'
 
 const Container = styled.div`
   padding: 20px;
@@ -258,6 +259,7 @@ function Subscribers () {
   const roles = useSelector(state => state.roles)
   const subscribers = useSelector(state => state.subscribers)
   const feed = useSelector(feedSelector.activeFeed)
+  const feedsFetching = useSelector(feedSelector.feedsFetching)
   const editing = useSelector(subscriberSelector.editing)
   const adding = useSelector(subscriberSelector.adding)
   const deleting = useSelector(subscriberSelector.deleting)
@@ -273,7 +275,9 @@ function Subscribers () {
     dispatch(changePage(pages.SUBSCRIBERS))
   }, [dispatch])
 
-  if (!feed) {
+  if (feedsFetching) {
+    return <Loading />
+  } if (!feed) {
     dispatch(changePage(pages.DASHBOARD))
     return <Redirect to={pages.DASHBOARD} />
   }

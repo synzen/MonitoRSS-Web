@@ -14,6 +14,7 @@ import feedSelectors from 'js/selectors/feeds'
 import { Redirect } from 'react-router-dom'
 import pages from 'js/constants/pages'
 import { changePage } from 'js/actions/page'
+import Loading from '../../common/Loading'
 
 const MAX_VIEWPORT_WIDTH_STICKY = 1850
 
@@ -53,6 +54,7 @@ const PreviewHeader = styled.div`
 function Message () {
   const botConfig = useSelector(state => state.botConfig)
   const feed = useSelector(feedSelectors.activeFeed)
+  const feedsFetching = useSelector(feedSelectors.feedsFetching)
   const subscribers = useSelector(state => state.subscribers)
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
   const [windowHeight, setWindowHeight] = useState(window.innerHeight)
@@ -72,7 +74,9 @@ function Message () {
     return () => window.removeEventListener('resize', updateWindowDimensions)
   })
 
-  if (!feed) {
+  if (feedsFetching) {
+    return <Loading />
+  } else if (!feed) {
     dispatch(changePage(pages.DASHBOARD))
     return <Redirect to={pages.DASHBOARD} />
   }
