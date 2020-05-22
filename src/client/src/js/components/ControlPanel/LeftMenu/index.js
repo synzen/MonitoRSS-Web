@@ -196,7 +196,7 @@ function LeftMenu (props) {
     modal.show(modalProps, children)
   }
 
-  const disableFeedButtons = !feedId || feedsFetchError || feedsFetching || articlesFetching || articlesFetchError
+  const disableFeedButtons = !feedId || !!feedsFetchError || !!feedsFetching || !!articlesFetching || !!articlesFetchError
 
   return (
     <LeftMenuDiv expanded={props.expanded}>
