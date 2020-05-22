@@ -136,8 +136,8 @@ function Home (props) {
   return (
     <Container>
       <PageHeader heading={`Hi there, ${user ? user.username : '(no name found)'}!`} subheading='Make your life immensely easier by using this web interface! (though excuse my appearance while I am still under construction)' />
-      <AlertBox>
-        This UI is still under development! Occasional issues are expected - please report them if you encounter any!
+      <AlertBox warn>
+        This UI is still under development. It is not meant to completely replace regular Discord commands. Occasional issues are expected - please report them if you encounter any!
       </AlertBox>
       {/* <Divider />
       <h2>What is Discord.RSS?</h2>
