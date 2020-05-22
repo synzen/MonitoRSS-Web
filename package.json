@@ -27,7 +27,7 @@
     "request-ip": "^2.1.3"
   },
   "peerDependencies": {
-    "discord.rss": "github:synzen/discord.rss#dev"
+    "discord.rss": "discord.rss"
   },
   "devDependencies": {
     "@types/jest": "^25.2.3",
