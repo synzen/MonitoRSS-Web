@@ -121,17 +121,22 @@ function Feeds (props) {
             <PageHeader heading='Feed Management' subheading='Manage and edit your feeds.' />
             <Divider />
             <SectionTitle
-              heading='Current' subheading='View and your current feeds.' sideComponent={
+              heading='Current' subheading='View and edit your current feeds.' sideComponent={
                 <FeedLimitContainer>
-                  <Popup
-                    content={<span>Need more? <a href='https://www.patreon.com/discordrss' target='_blank' rel='noopener noreferrer'>Become a supporter!</a></span>}
-                    position='left center'
-                    hideOnScroll
-                    hoverable
-                    inverted
-                    trigger={<span>{tableItems.length}/{activeGuild.limit === 0 ? '∞' : activeGuild.limit}</span>}
-                  />
-                  <a href='https://www.patreon.com/discordrss' target='_blank' rel='noopener noreferrer'><Icon color='green' name='arrow circle up' /></a>
+                  {activeGuild.limit !== 0
+                    ? (
+                      <div>
+                        <Popup
+                          content={<span>Need more? <a href='https://www.patreon.com/discordrss' target='_blank' rel='noopener noreferrer'>Become a supporter!</a></span>}
+                          position='left center'
+                          hideOnScroll
+                          hoverable
+                          inverted
+                          trigger={<span>{tableItems.length}/{activeGuild.limit === 0 ? '∞' : activeGuild.limit}</span>}
+                        />
+                        <a href='https://www.patreon.com/discordrss' target='_blank' rel='noopener noreferrer'><Icon color='green' name='arrow circle up' /></a>
+                      </div>)
+                    : null}
                 </FeedLimitContainer>
               }
             />
@@ -185,10 +190,11 @@ function Feeds (props) {
               heading='Add'
               subheading={
                 <span>
-                  {`Add a new feed. You may have a maximum of ${activeGuild.limit === 0 ? '∞' : activeGuild.limit} feeds. Need more? `}
-                  <a href='https://www.patreon.com/discordrss' target='_blank' rel='noopener noreferrer'>
-                    Become a supporter!
-                  </a>
+                  {`Add a new feed. You may have a maximum of ${activeGuild.limit === 0 ? '∞' : activeGuild.limit} feeds.`}
+                  {activeGuild.limit !== 0
+                    ? ` Need more? ${<a href='https://www.patreon.com/discordrss' target='_blank' rel='noopener noreferrer'>Become a supporter!</a>}`
+                    : ''}
+
                 </span>
               }
             />
