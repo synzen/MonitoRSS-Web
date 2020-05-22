@@ -76,7 +76,7 @@ class Guild extends Base {
       update: async (redisClient, oldGuild, newGuild) => {
         if (!(oldGuild instanceof Discord.Guild) || !(newGuild instanceof Discord.Guild)) throw new TypeError('Guild is not instance of Discord.Guild')
         const exists = await promisify(redisClient.exists).bind(redisClient)(this.utils.REDIS_KEYS.guilds(newGuild.id))
-        if (!exists) return Guild.utils.recognize(newGuild)
+        if (!exists) return Guild.utils.recognize(redisClient, newGuild)
         const toStore = {}
         let u = 0
         this.utils.JSON_KEYS.forEach(key => {
