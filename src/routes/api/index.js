@@ -13,7 +13,7 @@ const validator = require('express-joi-validation').createValidator({
 if (process.env.NODE_ENV !== 'test') {
   api.use(rateLimit({
     windowMs: 60 * 1000, // 1 minute
-    max: 60, // 60 requests per 1 minute
+    max: 200, // 200 requests per 1 minute
     message: {
       code: 429,
       message: 'Too many requests'

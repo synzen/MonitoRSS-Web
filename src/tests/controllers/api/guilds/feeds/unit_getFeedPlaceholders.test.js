@@ -1,7 +1,6 @@
 process.env.TEST_ENV = true
 const getFeedPlaceholders = require('../../../../../controllers/api/guilds/feeds/getFeedPlaceholders.js')
 const feedServices = require('../../../../../services/feed.js')
-const configServices = require('../../../../../services/config.js')
 const createError = require('../../../../../util/createError.js')
 const {
   createResponse,
@@ -9,13 +8,11 @@ const {
 } = require('../../../../mocks/express.js')
 
 jest.mock('../../../../../services/feed.js')
-jest.mock('../../../../../services/config.js')
 jest.mock('../../../../../util/createError.js')
 
 describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
   afterEach(function () {
     feedServices.getFeedPlaceholders.mockReset()
-    configServices.getFeedConfig.mockReset()
   })
   it('returns the placeholders', async function () {
     const req = {
@@ -67,7 +64,7 @@ describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
     const next = createNext()
     await getFeedPlaceholders(req, res, next)
     expect(feedServices.getFeedPlaceholders)
-      .toHaveBeenCalledWith(req.feed, req.guildData.profile)
+      .toHaveBeenCalledWith(req.feed)
   })
   it('calls the service with config feeds if no guild profile', async function () {
     const req = {
@@ -76,16 +73,11 @@ describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
       },
       guildData: {}
     }
-    const feedConfig = {
-      a: 1,
-      b: 2
-    }
     const res = createResponse()
     const next = createNext()
     feedServices.getFeedPlaceholders.mockResolvedValue()
-    configServices.getFeedConfig.mockResolvedValue(feedConfig)
     await getFeedPlaceholders(req, res, next)
     expect(feedServices.getFeedPlaceholders)
-      .toHaveBeenCalledWith(req.feed, feedConfig)
+      .toHaveBeenCalledWith(req.feed)
   })
 })

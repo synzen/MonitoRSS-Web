@@ -1,4 +1,3 @@
-const configServices = require('../../../../services/config.js')
 const feedServices = require('../../../../services/feed.js')
 const createError = require('../../../../util/createError.js')
 
@@ -9,12 +8,8 @@ const createError = require('../../../../util/createError.js')
 async function getFeedPlaceholders (req, res) {
   /** @type {import('../../../../../structs/db/Feed.js')} */
   const feed = req.feed
-  let profile = req.guildData.profile
-  if (!profile) {
-    profile = await configServices.getFeedConfig()
-  }
   try {
-    const data = await feedServices.getFeedPlaceholders(feed, profile)
+    const data = await feedServices.getFeedPlaceholders(feed)
     res.json(data)
   } catch (err) {
     const resError = createError(500, err.message)
