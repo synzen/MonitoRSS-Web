@@ -171,7 +171,7 @@ function Feeds (props) {
                           : <Icon name='check circle' style={{ fontSize: '18px' }} color='green' />}
                     </PaginatedTable.Cell>
                     <PaginatedTable.Cell>{feed.title}</PaginatedTable.Cell>
-                    <PaginatedTable.Cell>{feed.url}</PaginatedTable.Cell>
+                    <PaginatedTable.Cell><a href={feed.url} target='_blank' rel='noopener noreferrer'>{feed.url}</a></PaginatedTable.Cell>
                     <PaginatedTable.Cell>{channel ? `#${channel.name}` : `Unknown (${feed.channel})`}</PaginatedTable.Cell>
                   </PaginatedTable.Row>
                 )
