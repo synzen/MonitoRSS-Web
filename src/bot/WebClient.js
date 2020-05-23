@@ -29,7 +29,7 @@ class WebClient {
       this.redisClient = await connectRedis(this.config, '-')
       this.client = new Discord.Client()
       await this.client.login(token)
-      this.log.info('Logged in')
+      this.log.info('Discord.RSS Web Logged in')
       this.log = createLogger(this.client.shard.ids[0])
       this.log.debug('Waiting for client to be ready...')
       await once(this.client, 'ready')
