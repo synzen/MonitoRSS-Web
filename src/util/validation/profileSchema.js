@@ -2,10 +2,10 @@ const Joi = require('@hapi/joi')
 const profileJoi = require('./custom/profile.js')
 
 const profileSchema = Joi.object({
-  dateFormat: Joi.string().trim().max(400),
+  dateFormat: Joi.string().trim().max(400).allow(''),
   // dateLanguage: profileJoi.profile().isDateLanguage(),
   timezone: profileJoi.profile().isTimezone(),
-  prefix: Joi.string().trim().max(10),
+  prefix: Joi.string().trim().max(10).allow(''),
   locale: profileJoi.profile().isLocale()
 })
 
