@@ -49,6 +49,10 @@ class WebClientManager {
   }
 
   onMessage (message) {
+    if (message === 'exit') {
+      this.manager.broadcast('exit')
+      process.exit(1)
+    }
     if (message !== 'complete') {
       this.log.debug('Ignoring non-complete message')
       return

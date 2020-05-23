@@ -17,19 +17,29 @@ class WebClient {
      * @type {import('redis').RedisClient}
      */
     this.redisClient = null
+    process.on('message', message => {
+      if (message === 'exit') {
+        process.exit(1)
+      }
+    })
   }
 
   async login (token) {
-    this.redisClient = await connectRedis(this.config, '-')
-    this.client = new Discord.Client()
-    await this.client.login(token)
-    this.log.info('Logged in')
-    this.log = createLogger(this.client.shard.ids[0])
-    this.log.debug('Waiting for client to be ready...')
-    await once(this.client, 'ready')
-    this.client.on('debug', message => this.log.debug(message))
-    this.log.debug('Client is ready, registering listeners...')
-    await this.onReady()
+    try {
+      this.redisClient = await connectRedis(this.config, '-')
+      this.client = new Discord.Client()
+      await this.client.login(token)
+      this.log.info('Logged in')
+      this.log = createLogger(this.client.shard.ids[0])
+      this.log.debug('Waiting for client to be ready...')
+      await once(this.client, 'ready')
+      this.client.on('debug', message => this.log.debug(message))
+      this.log.debug('Client is ready, registering listeners...')
+      await this.onReady()
+    } catch (err) {
+      this.log.error(err)
+      process.send('exit')
+    }
   }
 
   async onReady () {
