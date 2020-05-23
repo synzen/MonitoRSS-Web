@@ -66,7 +66,7 @@ function MiscOptions () {
   const editing = useSelector(feedSelectors.feedEditing)
   const feedsFetching = useSelector(feedSelectors.feedsFetching)
   const feed = useSelector(feedSelectors.activeFeed)
-  const [userCheckTitles, setUserCheckTitles] = useState(feed && feed.ncomparisons.includes('title'))
+  const [userCheckTitles, setUserCheckTitles] = useState(!!(feed && feed.ncomparisons.includes('title')))
   const [userValues, setUserValues] = useState({})
   const dispatch = useDispatch()
 
@@ -82,6 +82,7 @@ function MiscOptions () {
   }
 
   const originalCheckTitles = feed.ncomparisons.includes('title')
+  console.log(userCheckTitles, originalCheckTitles)
   const unsaved = Object.keys(userValues).length > 0 || userCheckTitles !== originalCheckTitles
 
   const getOriginalPropertyValue = (property) => {
@@ -120,6 +121,7 @@ function MiscOptions () {
       vals.ncomparisons = []
     }
     await dispatch(fetchEditFeed(feed.guild, feed._id, vals))
+    setUserValues({})
   }
 
   const reset = () => {
