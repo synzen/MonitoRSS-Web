@@ -8,5 +8,6 @@ export default {
   SERVER_SETTINGS: '/cp/settings',
   DEBUGGER: '/cp/debugger',
   SUPPORT: '/support',
-  FEED_BROWSER: '/feed-browser'
+  FEED_BROWSER: '/feed-browser',
+  FAQ: '/faq'
 }
