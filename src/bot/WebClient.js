@@ -29,7 +29,7 @@ class WebClient {
       this.redisClient = await connectRedis(this.config, '-')
       this.client = new Discord.Client()
       await this.client.login(token)
-      this.log.info('Discord.RSS Web Logged in')
+      this.log.info(`Discord.RSS-Web logged in as ${this.client.user.username}#${this.client.user.discriminator}`)
       this.log = createLogger(this.client.shard.ids[0])
       this.log.debug('Waiting for client to be ready...')
       await once(this.client, 'ready')
@@ -79,9 +79,6 @@ class WebClient {
   }
 
   async initialize () {
-    this.log.debug('Flushing redis...')
-    await this.flushRedis()
-    this.log.debug('Redis successfully flushed')
     // This will recognize all guild info, members, channels and roles
     const recognizeGuilds = this.client.guilds.cache.map((guild) => {
       return RedisGuild.utils.recognize(this.redisClient, guild)

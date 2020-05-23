@@ -8,6 +8,7 @@ const createLogger = require('../util/logger/create.js')
 const connectMongo = require('../util/connectMongo.js')
 const connectRedis = require('../util/connectRedis.js')
 const setupModels = require('../util/setupModels.js')
+const promisify = require('util').promisify
 
 class WebClientManager {
   constructor (config) {
@@ -34,12 +35,28 @@ class WebClientManager {
     this.mongoConnection = await connectMongo(this.config, 'WM')
     this.redisClient = await connectRedis(this.config, 'WM')
     setupModels(this.mongoConnection)
-    this.log.info('Databases connected. Spawning shards...')
+    this.log.info('Databases connected')
+    this.log.debug('Flushing redis')
+    await this.flushRedis()
+    this.log.debug('Redis successfully flushed, spawning shards')
     const token = this.config.bot.token
     if (!token || token === 'DRSSWEB_docker_token') {
       throw new Error('No bot token defined')
     }
     await this.manager.spawn()
+  }
+
+  async flushRedis () {
+    const redisClient = this.redisClient
+    const keys = await promisify(redisClient.keys)
+      .bind(redisClient)('drss*')
+    const multi = redisClient.multi()
+    if (keys && keys.length > 0) {
+      for (const key of keys) {
+        multi.del(key)
+      }
+      return new Promise((resolve, reject) => multi.exec((err, res) => err ? reject(err) : resolve(res)))
+    }
   }
 
   async setupDiscordRSS () {
