@@ -17,9 +17,10 @@
 }
 
 .ui.input.error > input:focus {
-  border-color: rgba(240,71,71,.5) !important;
+  border-color: rgba(240,71,71,1) !important;
 }
 
-.ui.input.error > input:hover {
-  border-color: rgba(240,71,71,.4) !important;
+.ui.input.error > input {
+  border-color: rgba(240,71,71,1);
+  color: rgba(240, 71, 71, .9);
 }
