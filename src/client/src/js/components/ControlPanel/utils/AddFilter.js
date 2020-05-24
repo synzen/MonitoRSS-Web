@@ -35,6 +35,7 @@ const AddFilterContainer = styled.div`
 
 function AddFilter (props) {
   const [type, setType] = useState('title')
+  const [lastValidType, setLastValidType] = useState('title')
   const [value, setValue] = useState('')
   const [options, setOptions] = useState([{
     text: 'Title',
@@ -56,12 +57,14 @@ function AddFilter (props) {
 
   const onCustomAddition = (e, { value }) => {
     if (!value.startsWith('raw:')) {
+      setType(lastValidType)
       return toast.error('Only custom filter types that begin with raw: are accepted!')
     }
     setOptions([{
       text: value,
       value
     }, ...options])
+    setLastValidType(value)
   }
 
   async function callAdd (type, value) {
