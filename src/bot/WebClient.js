@@ -37,7 +37,7 @@ class WebClient {
       this.log.debug('Client is ready, registering listeners...')
       await this.onReady()
     } catch (err) {
-      this.log.error(err)
+      this.log.error(err, 'Failed to login Client')
       process.send('exit')
     }
   }

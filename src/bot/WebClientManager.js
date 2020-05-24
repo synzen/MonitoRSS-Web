@@ -43,7 +43,23 @@ class WebClientManager {
     if (!token || token === 'DRSSWEB_docker_token') {
       throw new Error('No bot token defined')
     }
-    await this.manager.spawn()
+    try {
+      await this.manager.spawn()
+    } catch (err) {
+      if (err.json) {
+        err.json().then((response) => {
+          this.log.error({ response }, 'WebClientManager failed to start. Verify token and observe rate limits.')
+          process.exit(1)
+        }).catch((jsonErr) => {
+          this.log.error(err, 'WebClientManager failed to start')
+          this.log.error(jsonErr, 'Failed to parse response from WebClientManager spawn')
+          process.exit(1)
+        })
+      } else {
+        this.log.error(err, 'WebClientManager failed to start')
+        process.exit(1)
+      }
+    }
   }
 
   async flushRedis () {
