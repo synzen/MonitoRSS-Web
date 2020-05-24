@@ -7,25 +7,33 @@ import FilterResults from './FilterResults'
  * @param {string} reference
  */
 function testArrayFilters (userFilters, reference) {
-  // Deal with inverted first
-  const filters = userFilters.map(word => new Filter(word))
-  const invertedFilters = filters.filter(filter => filter.inverted)
-  const regularFilters = filters.filter(filter => !filter.inverted)
-  const blocked = invertedFilters.find(filter => !filter.passes(reference))
-  if (blocked) {
-    return {
+    // Deal with inverted first
+    const filters = userFilters.map(word => new Filter(word))
+    const invertedFilters = filters.filter(filter => filter.inverted)
+    const regularFilters = filters.filter(filter => !filter.inverted)
+    const blocked = invertedFilters.find(filter => !filter.passes(reference))
+    const returnData = {
       inverted: invertedFilters.map(f => f.content),
-      regular: regularFilters.map(f => f.content),
-      passed: false
+      regular: regularFilters.map(f => f.content)
     }
-  }
+    if (blocked) {
+      return {
+        ...returnData,
+        passed: false
+      }
+    }
 
-  const passed = !!regularFilters.find(filter => filter.passes(reference))
-  return {
-    inverted: invertedFilters.map(f => f.content),
-    regular: regularFilters.map(f => f.content),
-    passed
-  }
+    if (regularFilters.length === 0) {
+      return {
+        ...returnData,
+        passed: true
+      }
+    }
+    const passed = !!regularFilters.find(filter => filter.passes(reference))
+    return {
+      ...returnData,
+      passed
+    }
 }
 
 /**
