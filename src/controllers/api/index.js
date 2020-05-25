@@ -5,6 +5,7 @@ const feeds = require('./feeds/index.js')
 const guilds = require('./guilds/index.js')
 const users = require('./users/index.js')
 const getFaq = require('./getFaq.js')
+const hitFaq = require('./hitFaq.js')
 
 module.exports = {
   createFeedback,
@@ -13,5 +14,6 @@ module.exports = {
   users,
   authenticated,
   config,
-  getFaq
+  getFaq,
+  hitFaq
 }
