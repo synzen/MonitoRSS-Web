@@ -21,7 +21,7 @@
     "mongoose": "^5.9.15",
     "morgan": "^1.10.0",
     "node-fetch": "^2.6.0",
-    "pino": "^6.2.1",
+    "pino": "^6.3.0",
     "pino-pretty": "^4.0.0",
     "redis": "^3.0.2",
     "remove-markdown": "^0.3.0",
@@ -30,7 +30,7 @@
     "stemmer": "^1.0.5"
   },
   "peerDependencies": {
-    "discord.rss": "^6.0.0"
+    "discord.rss": "^6.0.9"
   },
   "devDependencies": {
     "@types/jest": "^25.2.3",
