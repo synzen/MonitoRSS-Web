@@ -2,6 +2,7 @@ const createRequest = () => ({
   query: {},
   params: {},
   session: {},
+  body: {},
   app: {
     get: jest.fn()
   }

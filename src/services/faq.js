@@ -1,5 +1,23 @@
 const faq = require('../constants/faq.js')
 const FAQHits = require('../models/FAQHits.js')
+const createLogger = require('../util/logger/create.js')
+const faqHits = {}
+
+async function hit (question) {
+  const log = createLogger()
+  await FAQHits.Model.updateOne({
+    _id: question
+  }, {
+    $inc: {
+      hits: 1
+    }
+  }, {
+    upsert: true
+  })
+  log.debug({
+    question
+  }, 'FAQ hit')
+}
 
 async function getHits () {
   const hits = await FAQHits.Model.find().lean().exec()
@@ -36,8 +54,38 @@ function search (term) {
   return results
 }
 
+function registerNewQuestionHit (ip, question) {
+  const log = createLogger()
+  const hits = module.exports.faqHits
+  if (!hits[ip]) {
+    hits[ip] = {}
+  }
+  log.debug({
+    ip,
+    question
+  }, 'Marked new question for ip')
+  hits[ip][question] = new Date()
+  setTimeout(() => {
+    delete hits[ip][question]
+  }, 600000)
+}
+
+function recentlyClickedQuestion (ip, question) {
+  const hits = module.exports.faqHits
+  return !!(hits[ip] && hits[ip][question])
+}
+
+function isQuestion (question) {
+  return !!faq.documents.find(doc => doc.q === question)
+}
+
 module.exports = {
+  faqHits,
   getHits,
   get,
-  search
+  search,
+  hit,
+  recentlyClickedQuestion,
+  registerNewQuestionHit,
+  isQuestion
 }

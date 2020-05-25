@@ -3,7 +3,6 @@ const faq = require('../../constants/faq.js')
 const FAQHits = require('../../models/FAQHits.js')
 
 jest.mock('../../constants/faq.js')
-jest.mock('../../models/FAQHits.js')
 
 describe('services/faq', () => {
   let FAQHitsExec = jest.fn()
@@ -17,8 +16,14 @@ describe('services/faq', () => {
         lean: () => ({
           exec: FAQHitsExec
         })
+      }),
+      updateOne: ({
+        lean: () => ({
+          exec: FAQHitsExec
+        })
       })
     }
+    faqServices.faqHits = {}
   })
   describe('get', () => {
     beforeEach(() => {
@@ -109,6 +114,42 @@ describe('services/faq', () => {
       }]
       faq.search.mockReturnValue(searchResults)
       expect(faqServices.search()).toEqual(searchResults)
+    })
+  })
+  describe('registerNewQuestionHit', () => {
+    beforeAll(() => {
+      jest.useFakeTimers()
+    })
+    afterAll(() => {
+      jest.useRealTimers()
+    })
+    it('adds the question to session', () => {
+      const ip = 'q32ewt546r'
+      const question = 'aqetswr4y5'
+      faqServices.registerNewQuestionHit(ip, question)
+      expect(faqServices.faqHits[ip][question]).toBeDefined()
+    })
+    it('deletes the question from session after a while', () => {
+      const ip = 'q3ew24t6ry'
+      const question = 'aqetswr4y5'
+      faqServices.registerNewQuestionHit(ip, question)
+      jest.runAllTimers()
+      expect(faqServices.faqHits[ip][question]).toBeUndefined()
+    })
+  })
+  describe('recentlyClickedQuestion', () => {
+    it('returns correctly', () => {
+      const ip = 'w34rye5tuh'
+      const question = 'aqetswr4y5'
+      faqServices.faqHits = {
+        [ip]: {
+          [question]: new Date()
+        }
+      }
+      const returned = faqServices.recentlyClickedQuestion(ip, question)
+      expect(returned).toEqual(true)
+      const returned2 = faqServices.recentlyClickedQuestion(ip, question + 'abc')
+      expect(returned2).toEqual(false)
     })
   })
 })
