@@ -23,6 +23,7 @@ if (process.env.NODE_ENV !== 'test') {
 
 api.get('/authenticated', controllers.api.authenticated)
 api.get('/config', controllers.api.config)
+api.get('/faq', controllers.api.getFaq)
 api.use('/feeds', require('./feeds/index.js'))
 api.use(require('../../middleware/authenticate.js'))
 
