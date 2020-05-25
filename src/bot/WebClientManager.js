@@ -30,20 +30,20 @@ class WebClientManager {
   }
 
   async start () {
-    this.log.info('Attempting to connect to databases...')
-    await this.setupDiscordRSS()
-    this.mongoConnection = await connectMongo(this.config, 'WM')
-    this.redisClient = await connectRedis(this.config, 'WM')
-    setupModels(this.mongoConnection)
-    this.log.info('Databases connected')
-    this.log.debug('Flushing redis')
-    await this.flushRedis()
-    this.log.debug('Redis successfully flushed, spawning shards')
-    const token = this.config.bot.token
-    if (!token || token === 'DRSSWEB_docker_token') {
-      throw new Error('No bot token defined')
-    }
     try {
+      this.log.info('Attempting to connect to databases...')
+      await this.setupDiscordRSS()
+      this.mongoConnection = await connectMongo(this.config, 'WM')
+      this.redisClient = await connectRedis(this.config, 'WM')
+      setupModels(this.mongoConnection)
+      this.log.info('Databases connected')
+      this.log.debug('Flushing redis')
+      await this.flushRedis()
+      this.log.debug('Redis successfully flushed, spawning shards')
+      const token = this.config.bot.token
+      if (!token || token === 'DRSSWEB_docker_token') {
+        throw new Error('No bot token defined')
+      }
       await this.manager.spawn()
     } catch (err) {
       if (err.json) {
