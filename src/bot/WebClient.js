@@ -15,7 +15,8 @@ const CLIENT_OPTIONS = {
   ws: {
     intents: [
       'GUILDS',
-      'GUILD_MEMBERS'
+      'GUILD_MEMBERS',
+      'GUILD_PRESENCES'
     ]
   }
 }
