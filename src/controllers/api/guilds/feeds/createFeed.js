@@ -13,7 +13,8 @@ async function createFeed (req, res, next) {
   const data = {
     guild: req.params.guildID,
     channel: req.body.channel,
-    url: req.body.url
+    url: req.body.url,
+    title: req.body.title
   }
   try {
     const created = await feedServices.createFeed(data)
