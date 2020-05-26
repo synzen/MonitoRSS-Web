@@ -400,7 +400,7 @@ function Preview (props) {
                 ? (
                   <Footer hasThumbnail={hasThumbnail}>
                     {parsedProperties[embedProperties.footerIconURL] ? <img src={parsedProperties[embedProperties.footerIconURL]} alt='Embed Footer Icon' /> : null}
-                    <span>{properties[embedProperties.footerText] || properties[embedProperties.footerText]}{(parsedProperties[embedProperties.timestamp] && parsedProperties[embedProperties.timestamp] !== 'none') ? `${parsedProperties[embedProperties.footerText] ? ' • ' : ''}[${parsedProperties[embedProperties.timestamp] === 'article' ? 'ARTICLE TIMESTAMP' : 'NOW TIMESTAMP'}]` : ''}</span>
+                    <span>{parsedProperties[embedProperties.footerText]}{(parsedProperties[embedProperties.timestamp] && parsedProperties[embedProperties.timestamp] !== 'none') ? `${parsedProperties[embedProperties.footerText] ? ' • ' : ''}[${parsedProperties[embedProperties.timestamp] === 'article' ? 'ARTICLE TIMESTAMP' : 'NOW TIMESTAMP'}]` : ''}</span>
                   </Footer>)
                 : undefined}
             </EmbedGrid>
