@@ -148,7 +148,7 @@ class WebClientManager {
   }
 
   async startHttp () {
-    const app = expressApp(this.redisClient, this.config)
+    const app = expressApp(this.mongoConnection, this.redisClient, this.config)
     const config = this.config
     // Check variables
     const { port: httpPort } = config.http

@@ -2,13 +2,13 @@ const morgan = require('morgan')
 const express = require('express')
 const session = require('express-session')
 const compression = require('compression')
-const RedisStore = require('connect-redis')(session)
+const MongoStore = require('connect-mongo')(session)
 const routes = require('./routes/index.js')
 const requestIp = require('request-ip')
 const createLogger = require('./util/logger/create.js')
 const app = express()
 
-module.exports = (redisClient, config) => {
+module.exports = (mongooseConnection, redisClient, config) => {
   const log = createLogger('W')
   if (config.http.trustProxy) {
     app.enable('trust proxy')
@@ -35,8 +35,8 @@ module.exports = (redisClient, config) => {
     saveUninitialized: false,
     cookie: { secure: config.https.enabled }, // Set secure to true for HTTPS - otherwise sessions will not be saved
     maxAge: 1 * 24 * 60 * 60, // 1 day
-    store: new RedisStore({
-      client: redisClient // Recycle connection
+    store: new MongoStore({
+      mongooseConnection // Recycle connection
     })
   })
   app.use(session)
