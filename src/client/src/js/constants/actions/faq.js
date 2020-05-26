@@ -1,0 +1,5 @@
+export const GET_FAQ = {
+  BEGIN: 'GET_FAQ_BEGIN',
+  SUCCESS: 'GET_FAQ_SUCCESS',
+  FAILURE: 'GET_FAQ_FAILURE'
+}

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './js/index'
 import styled from 'styled-components'
-import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import colors from './js/constants/colors'
 import 'react-toastify/dist/ReactToastify.min.css'
 import './semantic/dist/semantic.min.css'
@@ -14,17 +14,11 @@ import Home from './js/components/Home/index'
 import FAQ from './js/components/FAQ/index'
 import FeedBrowser from './js/components/FeedBrowser/index'
 import ControlPanel from './js/components/ControlPanel/index'
-import { connect, useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import DiscordModal from './js/components/utils/DiscordModal'
 import modal from './js/components/utils/modal'
 import { Scrollbars } from 'react-custom-scrollbars'
-
-const mapStateToProps = state => {
-  return {
-    modalOpen: state.modalOpen,
-    modal: state.modal
-  }
-}
+import { fetchFaq } from './js/actions/faq'
 
 const EmptyBackground = styled.div`
   height: 100vh;
@@ -48,10 +42,16 @@ const Wrapper = styled.div`
   height: 60px;
 `
 
-function App (props) {
+function App () {
+  const dispatch = useDispatch()
   const [errorMessage] = useState('')
   const [scrollbarRef, setScrollbarRef] = useState()
   const reduxModal = useSelector(state => state.modal)
+
+  useEffect(() => {
+    dispatch(fetchFaq())
+  }, [])
+
   if (errorMessage) {
     return (
       <EmptyBackground>
@@ -94,4 +94,4 @@ function App (props) {
   )
 }
 
-export default withRouter(connect(mapStateToProps)(App))
+export default App
