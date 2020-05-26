@@ -48,7 +48,7 @@ class WebClientManager {
       if (!token || token === 'DRSSWEB_docker_token') {
         throw new Error('No bot token defined')
       }
-      await this.manager.spawn(2)
+      await this.manager.spawn()
     } catch (err) {
       if (err.json) {
         err.json().then((response) => {
