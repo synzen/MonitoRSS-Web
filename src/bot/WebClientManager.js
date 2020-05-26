@@ -53,14 +53,16 @@ class WebClientManager {
       if (err.json) {
         err.json().then((response) => {
           this.log.error({ response }, 'WebClientManager failed to start. Verify token and observe rate limits.')
-          process.exit(1)
         }).catch((jsonErr) => {
           this.log.error(err, 'WebClientManager failed to start')
           this.log.error(jsonErr, 'Failed to parse response from WebClientManager spawn')
+        }).finally(() => {
+          this.manager.broadcast('exit')
           process.exit(1)
         })
       } else {
         this.log.error(err, 'WebClientManager failed to start')
+        this.manager.broadcast('exit')
         process.exit(1)
       }
     }
