@@ -22,12 +22,12 @@ async function hit (question) {
 async function getHits () {
   const hits = await FAQHits.Model.find().lean().exec()
   const hitsMap = new Map()
-  for (const hit of hits) {
-    hitsMap.set(hit._id, hit.hits)
-  }
   const docs = faq.documents
   for (const doc of docs) {
     hitsMap.set(doc.q, 0)
+  }
+  for (const hit of hits) {
+    hitsMap.set(hit._id, hit.hits)
   }
   return hitsMap
 }
@@ -35,7 +35,7 @@ async function getHits () {
 async function get () {
   const hits = await module.exports.getHits()
   const docs = [...faq.documents]
-  docs.sort((a, b) => {
+  return docs.sort((a, b) => {
     const aHits = hits.get(a.q)
     const bHits = hits.get(b.q)
     if (aHits === bHits) {
@@ -46,7 +46,6 @@ async function get () {
       return -1
     }
   })
-  return docs
 }
 
 function search (term) {

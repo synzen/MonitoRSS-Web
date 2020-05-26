@@ -66,7 +66,9 @@ describe('services/faq', () => {
         _id: 'abc',
         hits: 5
       }]
-      const docs = []
+      const docs = [{
+        q: 'a'
+      }]
       faq.documents = docs
       FAQHitsExec.mockResolvedValue(hits)
       const hitsMap = await faqServices.getHits()
