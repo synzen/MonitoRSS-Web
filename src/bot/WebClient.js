@@ -8,6 +8,17 @@ const connectRedis = require('../util/connectRedis.js')
 const createLogger = require('../util/logger/create.js')
 const promisify = require('util').promisify
 const { once } = require('events')
+/**
+ * @type {import('discord.js').ClientOptions}
+ */
+const CLIENT_OPTIONS = {
+  ws: {
+    intents: [
+      'GUILDS',
+      'GUILD_MEMBERS'
+    ]
+  }
+}
 
 class WebClient {
   constructor () {
@@ -29,7 +40,7 @@ class WebClient {
   async login (token) {
     try {
       this.redisClient = await connectRedis(this.config, '-')
-      this.client = new Discord.Client()
+      this.client = new Discord.Client(CLIENT_OPTIONS)
       await this.client.login(token)
       this.log.info(`Discord.RSS-Web logged in as ${this.client.user.username}#${this.client.user.discriminator}`)
       this.log = createLogger(this.client.shard.ids[0])
