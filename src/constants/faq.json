@@ -63,10 +63,10 @@
     ]
   },
   {
-    "q": "How do I restore an rssbackup file?",
+    "q": "How do I restore an backup file?",
     "a": "If you're on the public bot, DM me your file. Otherwise, use the restore bot controller command.",
     "t": [
-      "rssbackup",
+      "backup",
       "restore",
       "file",
       "json"
