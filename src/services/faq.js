@@ -1,5 +1,6 @@
 const faq = require('../constants/faq.js')
 const FAQHits = require('../models/FAQHits.js')
+const shuffleArray = require('../util/shuffleArray.js')
 const createLogger = require('../util/logger/create.js')
 const faqHits = {}
 
@@ -34,7 +35,7 @@ async function getHits () {
 
 async function get () {
   const hits = await module.exports.getHits()
-  const docs = [...faq.documents]
+  const docs = [...shuffleArray(faq.documents)]
   return docs.sort((a, b) => {
     const aHits = hits.get(a.q)
     const bHits = hits.get(b.q)

@@ -1,8 +1,10 @@
 const faqServices = require('../../services/faq.js')
 const faq = require('../../constants/faq.js')
 const FAQHits = require('../../models/FAQHits.js')
+const shuffleArray = require('../../util/shuffleArray.js')
 
 jest.mock('../../constants/faq.js')
+jest.mock('../../util/shuffleArray.js')
 
 describe('services/faq', () => {
   let FAQHitsExec = jest.fn()
@@ -27,6 +29,7 @@ describe('services/faq', () => {
   })
   describe('get', () => {
     beforeEach(() => {
+      shuffleArray.mockReset()
       jest.spyOn(faqServices, 'getHits')
         .mockReturnValue(new Map())
     })
@@ -43,7 +46,7 @@ describe('services/faq', () => {
         ['b foo', 20],
         ['c foo', 10]
       ])
-      faq.documents = docs
+      shuffleArray.mockReturnValue(docs)
       jest.spyOn(faqServices, 'getHits')
         .mockResolvedValue(hits)
       const result = await faqServices.get()
