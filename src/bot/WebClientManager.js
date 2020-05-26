@@ -24,8 +24,12 @@ class WebClientManager {
     this.manager = new Discord.ShardingManager(path.join(__dirname, 'shard.js'), {
       token: this.config.bot.token
     })
+    this.shardsToInitialize = []
+    this.shardsInitialized = 0
     this.manager.on('shardCreate', (shard) => {
-      shard.on('message', message => this.onMessage(message))
+      shard.on('message', message => {
+        this.onMessage(shard, message)
+      })
     })
   }
 
@@ -44,7 +48,7 @@ class WebClientManager {
       if (!token || token === 'DRSSWEB_docker_token') {
         throw new Error('No bot token defined')
       }
-      await this.manager.spawn()
+      await this.manager.spawn(2)
     } catch (err) {
       if (err.json) {
         err.json().then((response) => {
@@ -81,25 +85,47 @@ class WebClientManager {
     await DiscordRSS.setupModels(uri, options)
   }
 
-  onMessage (message) {
+  /**
+   *
+   * @param {import('discord.js').Shard} shard
+   * @param {*} message
+   */
+  onMessage (shard, message) {
+    this.log.debug({
+      shardMessage: message
+    }, 'Got message')
     if (message === 'exit') {
       this.manager.broadcast('exit')
       process.exit(1)
     }
-    if (message !== 'complete') {
+    if (message === 'created') {
+      this.shardsToInitialize.push(shard)
+      this.log.debug(`Shard ${shard.id} created ${this.shardsToInitialize.length}/${this.manager.totalShards}`)
+      if (this.shardsToInitialize.length === this.manager.totalShards) {
+        this.log.debug('All shards created')
+        this.initializeNextShard()
+      }
+    } else if (message === 'complete') {
       this.log.debug('Ignoring non-complete message')
-      return
+      this.log.debug(`Got complete message, progress: ${this.manager.totalShards - this.shardsToInitialize.length}/${this.manager.totalShards}`)
+      if (this.shardsToInitialize.length > 0) {
+        this.initializeNextShard()
+        return
+      }
+      this.log.debug('Starting HTTP server')
+      this.startHttp().catch(err => {
+        this.log.fatal(err)
+        process.exit(1)
+      })
     }
-    ++this.shardsSpawned
-    this.log.debug(`Got complete message, progress: ${this.shardsSpawned}/${this.manager.totalShards}`)
-    if (this.shardsSpawned < this.manager.totalShards) {
-      return
-    }
-    this.log.debug('Starting HTTP server')
-    this.startHttp().catch(err => {
-      this.log.fatal(err)
-      process.exit(1)
-    })
+  }
+
+  initializeNextShard () {
+    this.log.debug({
+      shardsToInitialize: this.shardsToInitialize.map(s => s.id)
+    }, 'Initializing next shard in queue')
+    const firstToInitialize = this.shardsToInitialize.shift()
+    firstToInitialize.send('initialize')
   }
 
   readHttpsFiles () {

@@ -20,6 +20,8 @@ class WebClient {
     process.on('message', message => {
       if (message === 'exit') {
         process.exit(1)
+      } else if (message === 'initialize') {
+        this.initialize()
       }
     })
   }
@@ -35,33 +37,31 @@ class WebClient {
       await once(this.client, 'ready')
       this.client.on('debug', message => this.log.debug(message))
       this.log.debug('Client is ready, registering listeners...')
-      await this.onReady()
+      this.onReady()
     } catch (err) {
       this.log.error(err, 'Failed to login Client')
       process.send('exit')
     }
   }
 
-  async onReady () {
+  onReady () {
     this.registerListeners()
     this.log.info('Listeners registered')
-    await this.initialize()
-    this.log.info('Redis initialized')
-    this.client.shard.send('complete')
+    this.client.shard.send('created')
   }
 
   registerListeners () {
     const redisClient = this.redisClient
     const folderPath = path.join(__dirname, 'events')
     const files = fs.readdirSync(folderPath)
-    this.log.debug({
+    this.log.trace({
       files
     }, 'Registering listeners found files')
     for (const name of files) {
       const event = name.replace('.js', '')
       const filePath = path.join(folderPath, name)
       this.client.on(event, require(filePath)(redisClient))
-      this.log.debug(`Registered listener for event ${event}`)
+      this.log.trace(`Registered listener for event ${event}`)
     }
   }
 
@@ -89,6 +89,8 @@ class WebClient {
     this.log.debug('Recognizing guilds and users...')
     await Promise.all(recognizeGuilds.concat(recognizeUsers))
     this.log.debug('Guilds and users successfully recognized')
+    this.log.info('Redis initialized')
+    this.client.shard.send('complete')
   }
 }
 
