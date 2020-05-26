@@ -1,6 +1,6 @@
 {
   "name": "discord.rss-web",
-  "version": "0.0.15",
+  "version": "0.0.17",
   "description": "Website for Discord.RSS",
   "main": "index.js",
   "repository": {
@@ -10,7 +10,7 @@
   "dependencies": {
     "@hapi/joi": "^16.1.8",
     "compression": "^1.7.4",
-    "connect-redis": "^4.0.4",
+    "connect-mongo": "^3.2.0",
     "discord.js": "^12.2.0",
     "express": "^4.17.1",
     "express-joi-validation": "^4.0.3",
@@ -30,7 +30,7 @@
     "stemmer": "^1.0.5"
   },
   "peerDependencies": {
-    "discord.rss": "^6.0.9"
+    "discord.rss": "^6.0.10"
   },
   "devDependencies": {
     "@types/jest": "^25.2.3",
