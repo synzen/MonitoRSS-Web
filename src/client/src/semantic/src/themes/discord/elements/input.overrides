@@ -23,4 +23,6 @@
 .ui.input.error > input {
   border-color: rgba(240,71,71,1);
   color: rgba(240, 71, 71, .9);
+  background: #18191c;
+  color: white;
 }

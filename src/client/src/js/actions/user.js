@@ -21,10 +21,10 @@ export const {
 
 export function fetchUser () {
   return async dispatch => {
+    dispatch(setUserBegin())
     await Promise.all([
       dispatch(fetchAuthentication()),
       dispatch(fetchGuilds()),
-      dispatch(setUserBegin()),
       dispatch(fetchBotConfig()),
       dispatch(fetchBotUser()),
       axios.get('/api/users/@me').then(({ data, status }) => {
