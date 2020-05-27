@@ -102,7 +102,7 @@ async function getDatabaseArticles (feed, shardID) {
  * @param {string} url
  */
 async function getFailRecord (url) {
-  const record = await FailRecord.getBy('url', url)
+  const record = await FailRecord.get(url)
   return record ? record.toJSON() : null
 }
 
