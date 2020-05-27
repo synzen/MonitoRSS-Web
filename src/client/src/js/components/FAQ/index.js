@@ -200,12 +200,14 @@ function FAQ (props) {
     setSearchedDocuments(formatted)
     setSearchedTerm(searchTerm)
     setSearch('')
+    setPage(0)
   }
 
   function clearSearch () {
     setSearchedTerm('')
     setSearchedDocuments()
     setSelectedDocument()
+    setPage(0)
     history.push(pages.FAQ)
   }
 
