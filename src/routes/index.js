@@ -13,6 +13,7 @@ router.get('/', controllers.root)
 // Provide a custom meta title and description for FAQ
 router.get('/faq/*', controllers.faq)
 router.use(express.static(path.join(__dirname, '..', 'client/build')))
+router.use(express.static(path.join(__dirname, '..', 'client/disabled')))
 // Redirect all other routes not handled
 router.get('*', controllers.all)
 

@@ -1,0 +1,64 @@
+@font-face {
+  font-family: Whitney;
+  font-weight: 300;
+  src: url(https://discordapp.com/assets/6c6374bad0b0b6d204d8d6dc4a18d820.woff) format('woff');
+}
+
+@font-face {
+  font-family: Whitney;
+  font-weight: 400;
+  src: url(https://discordapp.com/assets/e8acd7d9bf6207f99350ca9f9e23b168.woff) format('woff');
+}
+
+@font-face {
+  font-family: Whitney;
+  font-weight: 500;
+  src: url(https://discordapp.com/assets/3bdef1251a424500c1b3a78dea9b7e57.woff) format('woff');
+}
+
+@font-face {
+  font-family: Whitney;
+  font-weight: 600;
+  src: url(https://discordapp.com/assets/be0060dafb7a0e31d2a1ca17c0708636.woff) format('woff');
+}
+
+@font-face {
+  font-family: Whitney;
+  font-weight: 700;
+  src: url(https://discordapp.com/assets/8e12fb4f14d9c4592eb8ec9f22337b04.woff) format('woff');
+}
+
+body {
+  background-color: #282b30;
+  font-family: Whitney, sans-serif !important;
+  color: white;
+  margin: 0;
+}
+
+#container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  margin: 0 50px;
+}
+
+.heading {
+  color: rgba(225, 0, 0, 1);
+  text-align: center;
+  margin: -20vh 0 0 0;
+}
+
+#reason {
+  margin-bottom: 75px;
+}
+
+#countdown, #countdown-label {
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+a {
+  color: #7289DA;
+}

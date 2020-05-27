@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="disabled.css">
+    <title>title</title>
+    <script>
+      var count = 15
+      setInterval(() => {
+        const countdown = document.getElementById('countdown')
+          if (count === 0) {
+            window.location.href = '/'
+          } else {
+            countdown.innerText = --count
+          }
+      }, 1000)
+    </script>
+  </head>
+  <body>
+    <div id="container">
+      <h1 class="heading">
+        Sorry, the control panel has been disabled.
+      </h1>
+      <h2 id="reason">
+      {{reason}}
+      </h2>
+      <h3 id="countdown-label">
+        You will be redirected back to the home page in
+      </h3>
+      <h3 id="countdown">
+        15
+      </h3>
+      <a href='/'>Go back</a>
+  </div>
+  </body>
+</html>

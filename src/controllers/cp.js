@@ -1,13 +1,22 @@
+
 const requestIp = require('request-ip')
 const authServices = require('../services/auth.js')
 const routingServices = require('../services/routing.js')
 const htmlConstants = require('../constants/html.js')
+const configuration = require('../config.js')
 
 /**
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
 function cp (req, res) {
+  const config = configuration.get()
+  if (config.disableCP) {
+    return res
+      .type('text/html')
+      .send(htmlConstants.disabledFile.replace('{{reason}}', config.disableCP || ''))
+  }
+
   if (!authServices.isAuthenticated(req.session)) {
     // Save the path to redirect them later after they're authorized
     const ip = requestIp.getClientIp(req)
