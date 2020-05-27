@@ -10,7 +10,6 @@
     "fomantic-ui": "^2.8.4",
     "highlight.js": "^10.0.3",
     "js-file-download": "^0.4.9",
-    "keyword-extractor": "0.0.19",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.25",
     "node-sass": "^4.14.1",
@@ -34,7 +33,6 @@
     "redux-thunk": "^2.3.0",
     "semantic-ui-react": "^0.88.2",
     "simple-markdown": "^0.7.2",
-    "stemmer": "^1.0.5",
     "styled-components": "^5.1.0",
     "twemoji": "^13.0.0"
   },
