@@ -63,7 +63,7 @@ function SideBar (props) {
   const dispatch = useDispatch()
   const defaultConfig = useSelector(state => state.botConfig)
   const { selectedFeed, channelDropdownOptions } = props
-  const selectedFailRecord = selectedFeed ? failRecords.find(r => r.url === selectedFeed.url) : null
+  const selectedFailRecord = selectedFeed ? failRecords.find(r => r._id === selectedFeed.url) : null
   const hasFailed = !selectedFailRecord ? false : !!selectedFailRecord.alerted
   const refreshRate = selectedFeed && schedules[selectedFeed._id] ? schedules[selectedFeed._id].refreshRateMinutes : null
 

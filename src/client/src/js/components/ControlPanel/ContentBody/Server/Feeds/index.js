@@ -149,7 +149,7 @@ function Feeds (props) {
               headers={['Status', 'Title', 'Link', 'Channel']}
               itemFunc={feed => {
                 const channel = channels.find(c => c.id === feed.channel)
-                const record = failRecords.find(r => r.url === feed.url)
+                const record = failRecords.find(r => r._id === feed.url)
                 const failed = record && record.alerted
                 return (
                   <PaginatedTable.Row
