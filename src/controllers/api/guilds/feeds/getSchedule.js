@@ -4,6 +4,9 @@
  * @param {import('express').NextFunction} next
  */
 async function getSchedule (req, res, next) {
+  /**
+   * @type {import('discord.rss').Feed}
+   */
   const feed = req.feed
   try {
     const schedule = await feed.determineSchedule()
