@@ -67,6 +67,9 @@ exports.set = (override) => {
     schema.validate(config)
   }
 
+  // Other
+  config.disableCP = override.disableCP || config.disableCP
+
   return exports.get()
 }
 

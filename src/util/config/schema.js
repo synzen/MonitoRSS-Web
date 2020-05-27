@@ -47,7 +47,8 @@ const schema = Joi.object({
   bot: botSchema.default(botSchema.validate({}).value),
   database: databaseSchema.default(databaseSchema.validate({}).value),
   http: httpSchema.default(httpSchema.validate({}).value),
-  https: httpsSchema.default(httpsSchema.validate({}).value)
+  https: httpsSchema.default(httpsSchema.validate({}).value),
+  disableCP: Joi.string().strict().allow('')
 })
 
 module.exports = {
