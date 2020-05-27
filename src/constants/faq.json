@@ -1,17 +1,16 @@
 [
   {
-    "q": "Why are no articles coming in and being delivered for my feed?",
-    "a": "Double check that D.RSS has permissions to read and send messages.\n\n    Make sure the all feed's contents and articles are publicly accessible (for example, not in private forum sections)\n    \n    Make sure any feed filters that you set are working as expected.\n\n    Wait at at least 10 minutes for any new articles to be fetched, if there are any past the time of feed addition (which can be checked in a browser that beautifies the feed such as firefox, or a browser plugin).\n    \n    If still nothing by then, make sure the feed you're trying to add has the pubdate (published date) and `{date}` field in rsstest filled out. If they don't exist, it will be marked as old and won't be sent. You may bypass this by disabling date checks for a specific feed in `rss.options` #4.\n    \n    If date checks are turned on (which is default), make sure articles `{date}` are less than a day old.",
+    "q": "Why are no articles being delivered for my feed?",
+    "a": "- Double check that the bot has permissions to read and send messages.\n- Ensure the all feed's articles are publicly accessible (for example, not in private forum sections)\n- Make sure any feed filters that you set are working as expected.\n- Wait at least 10 minutes for any new articles to be fetched, if there are any past the time of feed addition (which can be checked in a browser that beautifies the feed such as firefox, or a browser plugin).\n- Ensure your feed has the pubdate (published date) and `{date}` field in the test command filled out. If they don't exist, articles will be marked as old and won't be sent. You may bypass this by disabling date checks for a specific feed in `rss.options`.\n- If date checks are turned on (which is default), make sure the `{date}`s are less than a day old.\n\nIf the issue still persists after **carefully reading the above points**, provide your server ID, feed URL, and what the expect article(s) were in the support server.",
     "t": [
       "missing",
       "articles",
-      "missing",
       "feed",
       "no articles"
     ]
   },
   {
-    "q": "Why am I getting duplicate articles with the same title?",
+    "q": "Why am I getting articles with the same title?",
     "a": "The feed author may be improperly formatting the feed, causing two same articles to have the different unique identifiers (commonly guid) and thus classified as different articles. You may work around this by enabling title checks via `rss.compare -title`.",
     "t": [
       "duplicate",
@@ -52,7 +51,7 @@
   },
   {
     "q": "How do I mention a user or role when a new article comes in?",
-    "a": "To mention everyone, put the @everyone mention in ~rssmessage. To mention a specific role or user, use the ~rssmention command for users and roles. **Make sure you use the `{subscriptions}` placeholder since this is where the mentions are located.",
+    "a": "To mention everyone, put the @everyone mention in `rss.text`. To mention a specific role or user, use the `rss.mention` command for users and roles. **Make sure you use the `{subscribers}` placeholder since this is where the mentions are located.",
     "t": [
       "notify",
       "mention",
@@ -73,8 +72,8 @@
     ]
   },
   {
-    "q": "What permissions does someone need to use the bot?",
-    "a": "Manage Channel permission in either Server Settings, or in a specific channel's settings.",
+    "q": "What permissions are required for someone to use the bot?",
+    "a": "Manage Channel permission in either Server Settings, or in a specific channel's settings. For the `sub` and `unsub` commands, no special permissions are required.",
     "t": [
       "permission",
       "command"
@@ -91,7 +90,7 @@
     ]
   },
   {
-    "q": "Why is the bot sending empty messages whenever I send a command?",
+    "q": "Why is the bot sending empty messages whenever I use a command?",
     "a": "Your user settings are preventing you from seeing embeds. In your Discord User Settings, make sure you have the options \"Show website preview info from links pasted into chat\" and \"When posted as links to chat\" options enabled.",
     "t": [
       "empty",
@@ -101,7 +100,7 @@
   },
   {
     "q": "How do I give a custom name and avatar to the bot?",
-    "a": "For a custom name, you can set its nickname by right click and change nickname.\n    \n    If you want a custom avatar, this can only be done via webhooks (https://docs.discordrss.xyz/customizations/webhooks). For use of webhooks on the public bot, you will need to be a patron (https://www.patreon.com/discordrss).",
+    "a": "For a custom name, you can set its nickname by right click and change nickname.\n\nIf you want a custom avatar, this can only be done via webhooks (https://docs.discordrss.xyz/customizations/webhooks). For use of webhooks on the public bot, you will need to be a patron (https://www.patreon.com/discordrss).",
     "t": [
       "custom name",
       "custom avatar",
@@ -140,13 +139,21 @@
   },
   {
     "q": "How do I get fewer articles delivered, or get slower delivery?",
-    "a": "To get slower article delivery, you will have to self host and set the refresh rate in config to your needs. To get fewer aticles delivered, you can set filters to only get the content you want delivered.",
+    "a": "To get slower article delivery, you will have to self host and set the refresh rate in config to your needs.\n\nTo get fewer aticles delivered, you can set filters through the `rss.filters` command to only get the content you want delivered.",
     "t": [
       "slow",
       "fewer",
       "rate",
       "less",
       "fast"
+    ]
+  },
+  {
+    "q": "Why are subscribers, roles, or users not being mentioned in articles?",
+    "a": "Ensure the `{subscribers}` placeholder is placed somewhere in your text with the `rss.text` command.\n\nIf you have filters attached to your subscribers, then the filters you set for them must pass for them to be mentioned. To have subscribers mentioned in every article, remove the filters with the `rss.mention` command.",
+    "t": [
+      "subscribers",
+      "no mention"
     ]
   }
 ]
