@@ -68,6 +68,7 @@ class GuildMember extends Base {
       recognizeManagerManual: async (redisClient, userID, guildID) => {
         // This does not add to the regular members set of the guild
         if (!userID || !guildID) throw new TypeError('User or guild ID is not defined')
+        await this.utils.recognizeManual(redisClient, userID, guildID)
         return promisify(redisClient.sadd).bind(redisClient)(this.utils.REDIS_KEYS.managersOfGuild(guildID), userID)
       },
       forgetManager: async (redisClient, member) => {
