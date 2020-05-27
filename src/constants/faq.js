@@ -67,14 +67,11 @@ function search (searchTerm) {
   const terms = searchTerm
     .split(' ')
     .map(stemmer)
-    .filter(document => document)
   const termsSet = new Set(terms)
   const numberOfTerms = termsSet.size
   if (numberOfTerms === 0) {
     return documents
   }
-  const intersectingDocumentIndexes = []
-  const documentCounts = {}
   const documentPoints = {}
   for (const term of termsSet) {
     const occurrences = invertedIndexes[term]
@@ -85,24 +82,19 @@ function search (searchTerm) {
       const occurence = occurrences[i]
       const documentIndex = occurence[0]
       const points = occurence[1]
-      if (!documentCounts[documentIndex]) {
-        documentCounts[documentIndex] = 1
+      if (!documentPoints[documentIndex]) {
         documentPoints[documentIndex] = points
       } else {
-        ++documentCounts[documentIndex]
         documentPoints[documentIndex] += points
       }
     }
   }
 
-  for (const docIndex in documentCounts) {
-    if (documentCounts[docIndex] === numberOfTerms) {
-      intersectingDocumentIndexes.push([docIndex, documentPoints[docIndex]])
-    }
-  }
-  return intersectingDocumentIndexes
+  const sorted = Array.from(Object.entries(documentPoints))
     .sort((a, b) => b[1] - a[1])
-    .map((document) => documents[document[0]]) // 0th index is the document index, 1st index is the number of points (weight)
+    .map(([docIndex]) => documents[docIndex])
+
+  return sorted
 }
 
 module.exports = {
