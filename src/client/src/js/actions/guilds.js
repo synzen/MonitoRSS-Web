@@ -63,11 +63,16 @@ export function setActiveGuild (guildID) {
     if (!guildID) {
       return
     }
+    /**
+     * Fetch guild feeds first to cache data from Discord API
+     * if necessary before sending the other requests that
+     * needs access to the same data from Discord's API
+     */
+    await dispatch(fetchGuildFeeds(guildID))
     await Promise.all([
       dispatch(fetchGuildChannels(guildID)),
       dispatch(fetchGuildRoles(guildID)),
       dispatch(fetchGuildFailRecords(guildID))
     ])
-    dispatch(fetchGuildFeeds(guildID))
   }
 }
