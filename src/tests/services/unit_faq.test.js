@@ -10,7 +10,7 @@ describe('services/faq', () => {
   let FAQHitsExec = jest.fn()
   beforeEach(() => {
     jest.restoreAllMocks()
-    faq.documents = []
+    faq.get.mockReturnValue([])
     faq.search = jest.fn()
     FAQHitsExec = jest.fn()
     FAQHits.Model = {
@@ -72,7 +72,7 @@ describe('services/faq', () => {
       const docs = [{
         q: 'a'
       }]
-      faq.documents = docs
+      faq.get.mockReturnValue(docs)
       FAQHitsExec.mockResolvedValue(hits)
       const hitsMap = await faqServices.getHits()
       expect(hitsMap).toEqual(new Map([
@@ -86,7 +86,7 @@ describe('services/faq', () => {
       const docs = [{
         q: 'abc'
       }]
-      faq.documents = docs
+      faq.get.mockReturnValue(docs)
       FAQHitsExec.mockResolvedValue(hits)
       const hitsMap = await faqServices.getHits()
       expect(hitsMap).toEqual(new Map([
@@ -101,7 +101,7 @@ describe('services/faq', () => {
       const docs = [{
         q: 'abc'
       }]
-      faq.documents = docs
+      faq.get.mockReturnValue(docs)
       FAQHitsExec.mockResolvedValue(hits)
       const hitsMap = await faqServices.getHits()
       expect(hitsMap).toEqual(new Map([

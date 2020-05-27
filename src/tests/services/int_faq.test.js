@@ -9,7 +9,7 @@ const CON_OPTIONS = {
   useCreateIndex: true
 }
 
-faq.documents = [{
+faq.get = () => [{
   q: '1q',
   a: '1a',
   t: '1t'
@@ -64,7 +64,8 @@ describe('Int::models/FilteredFormat', function () {
       }]
       await collection.insertMany(docs)
       const expectedMap = new Map()
-      for (const doc of faq.documents) {
+      const faqDocuments = faq.get()
+      for (const doc of faqDocuments) {
         expectedMap.set(doc.q, 0)
       }
       for (const doc of docs) {
@@ -76,21 +77,22 @@ describe('Int::models/FilteredFormat', function () {
   })
   describe('get', function () {
     it('returns the sorted list of questions', async () => {
+      const faqDocuments = faq.get()
       const docs = [{
-        _id: faq.documents[0].q,
+        _id: faqDocuments[0].q,
         hits: 44
       }, {
-        _id: faq.documents[1].q,
+        _id: faqDocuments[1].q,
         hits: 300
       }, {
-        _id: faq.documents[2].q,
+        _id: faqDocuments[2].q,
         hits: 99
       }]
       await collection.insertMany(docs)
       const sortedDocuments = await faqService.get()
-      expect(sortedDocuments[0]).toEqual(faq.documents[1])
-      expect(sortedDocuments[1]).toEqual(faq.documents[2])
-      expect(sortedDocuments[2]).toEqual(faq.documents[0])
+      expect(sortedDocuments[0]).toEqual(faqDocuments[1])
+      expect(sortedDocuments[1]).toEqual(faqDocuments[2])
+      expect(sortedDocuments[2]).toEqual(faqDocuments[0])
     })
   })
   afterAll(async function () {

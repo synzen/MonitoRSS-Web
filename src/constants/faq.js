@@ -97,7 +97,11 @@ function search (searchTerm) {
   return sorted
 }
 
+function get () {
+  return [...documents]
+}
+
 module.exports = {
-  documents,
-  search
+  search,
+  get
 }

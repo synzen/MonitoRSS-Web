@@ -4,7 +4,6 @@ const faqServices = require('../../../services/faq.js')
 const createError = require('../../../util/createError.js')
 const {
   createRequest,
-  createResponse,
   createNext
 } = require('../../mocks/express.js')
 

@@ -23,7 +23,7 @@ async function hit (question) {
 async function getHits () {
   const hits = await FAQHits.Model.find().lean().exec()
   const hitsMap = new Map()
-  const docs = faq.documents
+  const docs = faq.get()
   for (const doc of docs) {
     hitsMap.set(doc.q, 0)
   }
@@ -35,7 +35,7 @@ async function getHits () {
 
 async function get () {
   const hits = await module.exports.getHits()
-  const docs = [...shuffleArray(faq.documents)]
+  const docs = [...shuffleArray(faq.get())]
   return docs.sort((a, b) => {
     const aHits = hits.get(a.q)
     const bHits = hits.get(b.q)
