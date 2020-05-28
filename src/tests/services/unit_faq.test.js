@@ -157,4 +157,18 @@ describe('services/faq', () => {
       expect(returned2).toEqual(false)
     })
   })
+  describe('isQuestion', () => {
+    it('returns correctly', () => {
+      const docs = [{
+        q: 'a'
+      }, {
+        q: 'b'
+      }]
+      faq.get.mockReturnValue(docs)
+      expect(faqServices.isQuestion('a'))
+        .toEqual(true)
+      expect(faqServices.isQuestion('c'))
+        .toEqual(false)
+    })
+  })
 })

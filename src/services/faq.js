@@ -76,7 +76,7 @@ function recentlyClickedQuestion (ip, question) {
 }
 
 function isQuestion (question) {
-  return !!faq.documents.find(doc => doc.q === question)
+  return !!faq.get().find(doc => doc.q === question)
 }
 
 module.exports = {
