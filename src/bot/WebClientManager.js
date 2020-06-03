@@ -50,12 +50,14 @@ class WebClientManager {
       }
       await this.manager.spawn()
     } catch (err) {
-      if (err.json) {
-        err.json().then((response) => {
+      if (err.headers) {
+        const isJSON = err.headers.get('content-type') === 'application/json'
+        const promise = isJSON ? err.json() : err.text()
+        promise.then((response) => {
           this.log.error({ response }, 'WebClientManager failed to start. Verify token and observe rate limits.')
-        }).catch((jsonErr) => {
+        }).catch((parseErr) => {
           this.log.error(err, 'WebClientManager failed to start')
-          this.log.error(jsonErr, 'Failed to parse response from WebClientManager spawn')
+          this.log.error(parseErr, `Failed to parse response from WebClientManager spawn (Status ${err.status})`)
         }).finally(() => {
           this.manager.broadcast('exit')
           process.exit(1)
