@@ -8,12 +8,12 @@ const Container = styled.div`
     color: white;
     font-weight: 500;
     text-transform: uppercase;
-    font-size: 20px;
+    font-size: 1.4em;
     margin-bottom: ${props => props.hasSubheading ? '8px' : '20px'} !important;
   }
   p {
     margin-bottom: 20px !important;
-    font-size: 16px;
+    font-size: 1.15em;
     font-weight: 500;
     color: ${colors.discord.offwhite};
   }

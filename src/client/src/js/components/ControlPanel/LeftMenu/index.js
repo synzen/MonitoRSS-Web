@@ -44,7 +44,7 @@ const Header = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 15px;
   margin-bottom: 30px;
   &:hover {
     text-decoration: none;
@@ -54,9 +54,11 @@ const Header = styled(Link)`
     align-items: flex-end;
   }
   h3 {
+    font-size: 1.35em;
     color: ${colors.discord.white};
   }
   h4 {
+    font-size: 1.1em;
     color: ${colors.discord.text};
   }
 `
@@ -70,7 +72,7 @@ const MenuSectionHeader = styled.span`
   line-height: 16px;
   color: #dcddde;
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: .8em;
   margin-bottom: 8px;
 `
 
@@ -85,7 +87,7 @@ const UserContainer = styled.div`
     overflow: hidden;
   }
   span {
-    font-size: 20px;
+    font-size: 1.15em;
     font-weight: 600;
     color: ${colors.discord.white};
     margin: 20px 0;
@@ -216,7 +218,7 @@ function LeftMenu (props) {
             {/* <Divider /> */}
             <UserContainer>
               <div>
-                <DiscordAvatar src={userAvatar} width='30px' />
+                <DiscordAvatar src={userAvatar} width='2em' />
                 <span>{user ? user.username : undefined}</span>
               </div>
               <Popup

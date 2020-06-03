@@ -120,7 +120,8 @@ body {
 h1 {
   font-family: Whitney, sans-serif !important;
   color: white;
-  font-size: 32px;
+  /* font-size: 32px; */
+  font-size: 2em;
   font-weight: 600;
   line-height: 34px;
 }
@@ -128,7 +129,8 @@ h1 {
 h2 {
   font-family: Whitney, sans-serif !important;
   color: white;
-  font-size: 26px;
+  /* font-size: 26px; */
+  font-size: 1.5em;
   font-weight: 600;
   margin-bottom: 20px;
   line-height: 32px;
@@ -136,7 +138,8 @@ h2 {
 
 h4 {
   font-family: Whitney, sans-serif !important;
-  font-size: 16px;
+  /* font-size: 16px; */
+  font-size: 1em;
   margin-top: 20px;
   margin-bottom: 4px;
   line-height: 24px;
