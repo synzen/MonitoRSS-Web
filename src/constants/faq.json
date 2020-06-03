@@ -164,5 +164,24 @@
       "status",
       "list"
     ]
+  },
+  {
+    "q": "Why did I get a message about a connection failure limit, or why do I see FAILED feed status? What does this mean?",
+    "a": "If the bot is unable to successfully connect to the feed after a certain number of hours, it is declared a failure and will not be retried anymore to conserve resources. It is up to the user to determine when the feed is back up, and to refresh it with the `refresh` command to remove its failed status. It will then be fetched again.",
+    "t": [
+      "failed status",
+      "connection failure limit",
+      "status"
+    ]
+  },
+  {
+    "q": "What does health percentage mean in the `list` command?",
+    "a": "It indicates how long the many consecutive failures bot has had in trying to connect to the feed URL. If there are 0 failures, it will be at 100%. If it has failed for a configured number of hours, it will reach 0 and will no longer be fetched. It and must then be refreshed with the `refresh` command. The configured number of hours until failure is set by the bot owner.",
+    "t": [
+      "health",
+      "percent",
+      "list",
+      "status"
+    ]
   }
 ]
