@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import colors from '../../constants/colors'
 
 const Container = styled.div`
   h3 {
@@ -14,7 +15,7 @@ const Container = styled.div`
     margin-bottom: 20px !important;
     font-size: 16px;
     font-weight: 500;
-    color: hsla(0,0%,100%,.5);
+    color: ${colors.discord.offwhite};
   }
 `
 

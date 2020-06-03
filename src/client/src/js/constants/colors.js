@@ -9,6 +9,7 @@ export default {
     yellow: 'rgb(250, 166, 26)',
     notQuiteblack: '#23272A',
     text: '#b9bbbe',
-    subtext: '#72767d'
+    subtext: '#72767d',
+    offwhite: '#dcddde'
   }
 }
