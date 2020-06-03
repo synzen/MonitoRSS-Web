@@ -30,9 +30,7 @@ class WebClient {
      */
     this.redisClient = null
     process.on('message', message => {
-      if (message === 'exit') {
-        process.exit(1)
-      } else if (message === 'initialize') {
+      if (message === 'initialize') {
         this.initialize()
       }
     })

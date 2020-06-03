@@ -59,15 +59,20 @@ class WebClientManager {
           this.log.error(err, 'WebClientManager failed to start')
           this.log.error(parseErr, `Failed to parse response from WebClientManager spawn (Status ${err.status})`)
         }).finally(() => {
-          this.manager.broadcast('exit')
-          process.exit(1)
+          this.kill()
         })
       } else {
         this.log.error(err, 'WebClientManager failed to start')
-        this.manager.broadcast('exit')
-        process.exit(1)
+        this.kill()
       }
     }
+  }
+
+  kill () {
+    this.manager.shards.forEach(shard => {
+      shard.kill()
+    })
+    process.exit(1)
   }
 
   async flushRedis () {
@@ -99,8 +104,7 @@ class WebClientManager {
       shardMessage: message
     }, 'Got message')
     if (message === 'exit') {
-      this.manager.broadcast('exit')
-      process.exit(1)
+      this.kill()
     }
     if (message === 'created') {
       this.shardsToInitialize.push(shard)
