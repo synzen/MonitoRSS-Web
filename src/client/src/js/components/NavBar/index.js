@@ -219,8 +219,9 @@ function NavBar (props) {
           <NavItem onMouseEnter={e => setShowNavDropdown(true)} onMouseLeave={e => setShowNavDropdown(false)}>
             <button>Links<Icon name='caret down' size='small' /></button>
             <NavDropdown show={showNavDropdown}>
-              <DropdownNavItem><a href='https://github.com/synzen/Discord.RSS' target='_blank' rel='noopener noreferrer'><Icon name='github' /><span>Github</span></a></DropdownNavItem>
               <DropdownNavItem><a href='https://www.patreon.com/discordrss' target='_blank' rel='noopener noreferrer'><Icon name='patreon' style={{ color: '#E85B46' }} /><span>Patreon</span></a></DropdownNavItem>
+              <DropdownNavItem><a href='https://github.com/synzen/Discord.RSS' target='_blank' rel='noopener noreferrer'><Icon name='github' /><span>Github</span></a></DropdownNavItem>
+              <DropdownNavItem><a href='https://docs.discordrss.xyz/' target='_blank' rel='noopener noreferrer'><Icon name='sticky note' /><span>Documentation</span></a></DropdownNavItem>
             </NavDropdown>
           </NavItem>
 
