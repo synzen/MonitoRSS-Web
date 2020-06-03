@@ -336,6 +336,7 @@ function Subscribers () {
       type: addType,
       id: addInput
     }))
+    setAddInput('')
   }
 
   const deleteSubscriber = async () => {
