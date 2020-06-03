@@ -11,8 +11,30 @@ jest.mock('../../../../../services/feed.js')
 jest.mock('../../../../../util/createError.js')
 
 describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
+  beforeEach(function () {
+    feedServices.feedURLHasFailed.mockResolvedValue(false)
+  })
   afterEach(function () {
     feedServices.getFeedPlaceholders.mockReset()
+    feedServices.feedURLHasFailed.mockReset()
+  })
+  it('returns 403 if feed url has failed', async function () {
+    const req = {
+      feed: {},
+      guildData: {}
+    }
+    const json = jest.fn()
+    const res = {
+      status: jest.fn(() => ({ json }))
+    }
+    const createdError = 'q3ew2t4r'
+    feedServices.feedURLHasFailed.mockResolvedValue(true)
+    createError.mockReturnValue(createdError)
+    const next = createNext()
+    await getFeedPlaceholders(req, res, next)
+    expect(next).not.toHaveBeenCalled()
+    expect(res.status).toHaveBeenCalledWith(403)
+    expect(json).toHaveBeenCalledWith(createdError)
   })
   it('returns the placeholders', async function () {
     const req = {

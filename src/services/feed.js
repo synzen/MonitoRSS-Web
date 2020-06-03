@@ -107,6 +107,25 @@ async function getFailRecord (url) {
 }
 
 /**
+ * @param {string} url
+ */
+async function feedURLHasFailed (url) {
+  const feedsConfig = await configServices.getFeedConfig()
+  const hoursUntilFail = feedsConfig.hoursUntilFail
+  if (!hoursUntilFail) {
+    return false
+  }
+  const failRecord = await getFailRecord(url)
+  if (!failRecord) {
+    return false
+  }
+  const now = new Date()
+  const failDate = new Date(failRecord.failedAt)
+  failDate.setTime(failDate.getTime() + hoursUntilFail * 60 * 60 * 1000)
+  return now > failDate
+}
+
+/**
  * @param {string} guildID
  */
 async function getFeedsOfGuild (guildID) {
@@ -123,5 +142,6 @@ module.exports = {
   deleteFeed,
   getDatabaseArticles,
   getFailRecord,
+  feedURLHasFailed,
   getFeedsOfGuild
 }

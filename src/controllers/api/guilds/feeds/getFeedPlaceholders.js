@@ -9,6 +9,11 @@ async function getFeedPlaceholders (req, res) {
   /** @type {import('../../../../../structs/db/Feed.js')} */
   const feed = req.feed
   try {
+    const failed = await feedServices.feedURLHasFailed(feed.url)
+    if (failed) {
+      const error = createError(403, `Feed URL ${feed.url} has reached connection failure limit`)
+      return res.status(403).json(error)
+    }
     const data = await feedServices.getFeedPlaceholders(feed)
     res.json(data)
   } catch (err) {
