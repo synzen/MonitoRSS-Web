@@ -178,7 +178,7 @@ const modalProps = {
     </ModalFooter>)
 }
 
-const modalChildren = <ModalBody>You can choose whether you want a role attached to the me by default.</ModalBody>
+const modalChildren = <ModalBody>You can choose whether you want a role attached to me by default.</ModalBody>
 
 function Home (props) {
   return (
@@ -187,7 +187,7 @@ function Home (props) {
         <div>
           <div>
             <h1>Get news delivered, automagically.</h1>
-            <p>Receive news from sources like Twitter, YouTube, Reddit, Steam, or any site that supports RSS.<br />
+            <p>Receive news from sources like YouTube, Reddit, Steam, or any site that supports RSS.<br />
               With a copious level of customization, you can design it to look just how you want it.
             </p>
             <HeaderButtons>
