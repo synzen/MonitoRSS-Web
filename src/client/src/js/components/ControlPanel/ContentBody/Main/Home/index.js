@@ -115,7 +115,7 @@ function Home (props) {
           <ServerButtonInner>
             <DiscordAvatar src={iconURL} width='48px' onClick={e => setSelectedGuildID(thisGuildId)} />
             <div>
-              <h4>{guild.name}</h4>
+              <h3>{guild.name}</h3>
               {/* <p>{feeds && feeds[thisGuildId] ? Object.keys(feeds[thisGuildId]).length : undefined} feeds</p> */}
             </div>
           </ServerButtonInner>
