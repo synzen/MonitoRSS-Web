@@ -122,7 +122,7 @@ const AnswerStyles = styled.div`
   padding-left: 15px;
   overflow: hidden;
   > span {
-    font-size: 18px;
+    font-size: 1.15em;
     line-height: 1.75em;
     > a {
       display: inline;
