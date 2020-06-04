@@ -1,12 +1,12 @@
-const fetch = require('node-fetch')
-const discordAPIConstants = require('../constants/discordAPI.js')
-const discordAPIHeaders = require('../constants/discordAPIHeaders.js')
+const BearerRequestHandler = require('../util/BearerRequestHandler.js')
 const roleServices = require('./role.js')
 const RedisUser = require('../bot/structs/User.js')
 const RedisGuildMember = require('../bot/structs/GuildMember.js')
 const WebCache = require('../models/WebCache.js')
+const getConfig = require('../config.js').get
 const createLogger = (base) => require('../util/logger/create.js')(undefined, base)
 const MANAGE_CHANNEL_PERMISSION = 16
+const requestHandler = new BearerRequestHandler()
 
 async function getCachedUser (id) {
   const cachedUser = await WebCache.Model.findOne({
@@ -113,11 +113,7 @@ async function getUserByAPI (id, accessToken, skipCache) {
   }
   userLog.debug('No cached user found, fetching from Discord HTTP API')
   userLog.info('[1 DISCORD API REQUEST] [USER] GET /api/users/@me')
-  const results = await fetch(`${discordAPIConstants.apiHost}/users/@me`, discordAPIHeaders.user(accessToken))
-  if (results.status !== 200) {
-    throw new Error(`Bad Discord status code (${results.status})`)
-  }
-  const data = await results.json()
+  const data = await requestHandler.getWithBearer('/users/@me', accessToken)
   userLog.debug({
     response: data
   }, 'Got Discord HTTP API Resonse for user. Caching response into Mongo.')
@@ -139,11 +135,7 @@ async function getGuildsByAPI (id, accessToken, skipCache) {
   }
   userLog.debug('No cached guilds found, fetching from Discord HTTP API')
   userLog.info('[1 DISCORD API REQUEST] [USER] GET /api/users/@me/guilds')
-  const res = await fetch(`${discordAPIConstants.apiHost}/users/@me/guilds`, discordAPIHeaders.user(accessToken))
-  if (res.status !== 200) {
-    throw new Error(`Bad Discord status code (${res.status})`)
-  }
-  const data = await res.json()
+  const data = await requestHandler.getWithBearer('/users/@me/guilds', accessToken)
   userLog.debug({
     response: data
   }, 'Discord HTTP API Response for user guilds. Caching response into Mongo.')
@@ -221,11 +213,11 @@ async function isManagerOfGuildByAPI (userID, guildID, redisClient) {
   })
   log.debug('Determing if user is manager of guild via Discord API')
   log.info('[1 DISCORD API REQUEST] [BOT] MIDDLEWARE /api/guilds/:guildId/members/:userId')
-  const res = await fetch(`${discordAPIConstants.apiHost}/guilds/${guildID}/members/${userID}`, discordAPIHeaders.bot())
-  if (res.status === 200) {
-    const user = await res.json()
+  const config = getConfig()
+  try {
+    const user = await requestHandler.getWithBot(`guilds/${guildID}/members/${userID}`, config.bot.token)
     log.debug({
-      response: res
+      response: user
     }, 'Fetched member from Discord API')
     const roles = user.roles
     for (const id of roles) {
@@ -242,14 +234,20 @@ async function isManagerOfGuildByAPI (userID, guildID, redisClient) {
     // Store the user as member
     await RedisGuildMember.utils.recognizeManual(redisClient, userID, guildID)
     return false
+  } catch (err) {
+    const res = err.response
+    if (!res) {
+      throw err
+    }
+    if (res.status === 403 || res.status === 401) {
+      log.debug(`User is not a member of guild via Discord API (got Discord ${res.status} status code). Caching as non-member.`)
+      // Store the user as non-member
+      await RedisGuildMember.utils.recognizeNonMember(redisClient, userID, guildID)
+      return false
+    } else {
+      throw new Error(`Bad Discord status code (${res.status})`)
+    }
   }
-  if (res.status === 403 || res.status === 401) {
-    log.debug(`User is not a member of guild via Discord API (got Discord ${res.status} status code). Caching as non-member.`)
-    // Store the user as non-member
-    await RedisGuildMember.utils.recognizeNonMember(redisClient, userID, guildID)
-    return false
-  }
-  throw new Error(`Bad Discord status code (${res.status})`)
 }
 
 module.exports = {
@@ -259,5 +257,6 @@ module.exports = {
   isManagerOfGuild,
   isManagerOfGuildByAPI,
   getMemberOfGuild,
-  hasGuildPermission
+  hasGuildPermission,
+  requestHandler
 }

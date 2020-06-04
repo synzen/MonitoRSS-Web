@@ -1,4 +1,5 @@
 const fetch = require('node-fetch')
+const userServices = require('./user.js')
 const { URLSearchParams } = require('url')
 const discordAPIConstants = require('../constants/discordAPI.js')
 
@@ -160,6 +161,7 @@ async function getAuthToken (token, config) {
  */
 async function logout (session, config) {
   await revokeAuthToken(session.token, config)
+  userServices.requestHandler.onAccessTokenRevoked(session.token)
   return new Promise((resolve, reject) => {
     session.destroy(err => {
       if (err) {
