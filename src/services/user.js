@@ -215,7 +215,7 @@ async function isManagerOfGuildByAPI (userID, guildID, redisClient) {
   log.info('[1 DISCORD API REQUEST] [BOT] MIDDLEWARE /api/guilds/:guildId/members/:userId')
   const config = getConfig()
   try {
-    const user = await requestHandler.getWithBot(`guilds/${guildID}/members/${userID}`, config.bot.token)
+    const user = await requestHandler.getWithBot(`/guilds/${guildID}/members/${userID}`, config.bot.token)
     log.debug({
       response: user
     }, 'Fetched member from Discord API')
