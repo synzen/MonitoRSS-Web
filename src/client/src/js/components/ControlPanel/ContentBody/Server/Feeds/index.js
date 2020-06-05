@@ -79,11 +79,7 @@ function Feeds (props) {
   }
 
   const onClickFeedRow = feed => {
-    if (selectedFeedID === feed._id) {
-      return setSelectedFeedID('')
-    } else {
-      return setSelectedFeedID(feed._id)
-    }
+    return setSelectedFeedID(feed._id)
   }
 
   const onSetOpen = op => {
