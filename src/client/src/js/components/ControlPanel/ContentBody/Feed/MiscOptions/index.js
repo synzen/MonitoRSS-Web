@@ -82,7 +82,6 @@ function MiscOptions () {
   }
 
   const originalCheckTitles = feed.ncomparisons.includes('title')
-  console.log(userCheckTitles, originalCheckTitles)
   const unsaved = Object.keys(userValues).length > 0 || userCheckTitles !== originalCheckTitles
 
   const getOriginalPropertyValue = (property) => {
