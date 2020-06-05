@@ -74,11 +74,6 @@ const ArticlesHeaderContainer = styled.div`
   }
 `
 
-const SearchFilterSection = posed.div({
-  enter: { height: 'auto', opacity: 1 },
-  exit: { height: 0, opacity: 0 }
-})
-
 const ViewOptions = styled.div`
   display: flex;
   flex-direction: column;
@@ -97,7 +92,7 @@ const ViewOptions = styled.div`
   }
 `
 
-const SortByContainerStyles = styled.div`
+const SortByContainer = styled.div`
   display: flex;
   /* overflow: hidden; */
   > .ui.dropdown {
@@ -117,11 +112,6 @@ const SortByContainerStyles = styled.div`
     flex-grow: 0;
   }
 `
-
-const SortByContainer = posed(SortByContainerStyles)({
-  enter: { width: 'auto', opacity: 1 },
-  exit: { width: 0, opacity: 0 }
-})
 
 const ArticleImages = styled.div`
   a {
@@ -173,8 +163,8 @@ const UrlDisplay = styled.div`
 `
 
 const OpacityTransition = posed.div({
-  enter: { opacity: 1, height: '100%' },
-  exit: { opacity: 0, height: 0 }
+  enter: { opacity: 1 },
+  exit: { opacity: 0 }
 })
 
 const XMLWrapperStyles = styled.pre`
@@ -224,24 +214,20 @@ function FeedBrowser () {
       const result = a[sortBy] > b[sortBy] ? 1 : -1
       return sortDescending ? result : result * -1
     })
-  ).map(placeholders => {
+  ).filter((placeholders) => {
+    if (!search) {
+      return true
+    }
+    return searchCategories.some(category => {
+      const articleValue = placeholders[category]
+      if (!articleValue) {
+        return false
+      }
+      return articleValue.toString().toLowerCase().includes(search)
+    })
+  }).map(placeholders => {
     const images = []
     const anchors = []
-    let include = false
-    // First see if there's a search
-    if (!search) include = true
-    else {
-      for (const placeholder in placeholders) {
-        if (include) continue
-        const val = placeholders[placeholder]
-        if (searchCategories.includes(placeholder) || (searchCategoriesHasImages && placeholder.includes('image')) || (searchCategoriesHasAnchors && placeholder.includes('anchor'))) {
-          if (val.toString().toLowerCase().includes(search)) include = true
-        }
-      }
-    }
-
-    if (!include) return null
-
     // Generate the image and anchor elements
     if (searchCategoriesHasAnchors || searchCategoriesHasImages) {
       const uniqueImages = new Set()
@@ -428,24 +414,60 @@ function FeedBrowser () {
               <a href={prevUrl} rel='noopener noreferrer' target='_blank'>{prevUrl}</a>
             </UrlDisplay>
             <Divider />
-            <SearchFilterSection pose={notPlaceholdersViewType ? 'exit' : 'enter'}>
-              <SectionSubtitle>
-                Search and Filter
-              </SectionSubtitle>
-              <ArticlesSectionSearch>
-                <Input disabled={loading || articleList.length === 0} icon='search' fluid onChange={e => setSearch(e.target.value)} placeholder='Search' loading={loading} />
-                <Dropdown disabled={loading || articleList.length === 0} placeholder='Show Properties' selection fluid multiple options={searchDropdownOptions} value={searchCategories} onChange={(e, data) => data.value.length === 0 ? null : setSearchCategories(data.value)} loading={loading} />
-              </ArticlesSectionSearch>
-              <Divider />
-            </SearchFilterSection>
+            <SectionSubtitle>
+              Search and Filter
+            </SectionSubtitle>
+            <ArticlesSectionSearch>
+              <Input
+                disabled={loading || articleList.length === 0 || notPlaceholdersViewType}
+                icon='search'
+                fluid
+                onChange={e => setSearch(e.target.value)}
+                placeholder='Search'
+                loading={loading}
+              />
+              <Dropdown
+                disabled={loading || articleList.length === 0 || notPlaceholdersViewType}
+                placeholder='Show Properties'
+                selection
+                fluid
+                multiple
+                options={searchDropdownOptions}
+                value={searchCategories}
+                onChange={(e, data) => data.value.length === 0 ? null : setSearchCategories(data.value)}
+                loading={loading}
+              />
+            </ArticlesSectionSearch>
+            <Divider />
             <ArticlesHeaderContainer>
-              <SectionSubtitle>{articleList.length} Articles</SectionSubtitle>
+              <SectionSubtitle>{elems.length} Articles</SectionSubtitle>
               <ViewOptions>
-                <Dropdown selection placeholder='View type' options={viewTypeOptions} value={viewType} onChange={(e, data) => changeViewType(data.value)} />
-                <SortByContainer pose={notPlaceholdersViewType ? 'exit' : 'enter'} style={articleList.length === 0 ? { overflow: 'hidden' } : {}}>
-                  <Dropdown selection value={sortBy} placeholder='Sort by' disabled={notPlaceholdersViewType || articleList.length === 0 || loading} onChange={(e, data) => changeSortBy(data.value)} options={searchDropdownOptions} />
-                  <Button icon='sort' disabled={notPlaceholdersViewType || !sortBy || articleList.length === 0 || loading} onClick={e => setSortDescending(!sortDescending)} />
-                  <Button icon='cancel' disabled={notPlaceholdersViewType || !sortBy || articleList.length === 0 || loading} onClick={e => changeSortBy()} />
+                <Dropdown
+                  selection
+                  placeholder='View type'
+                  options={viewTypeOptions}
+                  value={viewType}
+                  onChange={(e, data) => changeViewType(data.value)}
+                />
+                <SortByContainer style={articleList.length === 0 ? { overflow: 'hidden' } : {}}>
+                  <Dropdown
+                    selection
+                    value={sortBy}
+                    placeholder='Sort by'
+                    disabled={notPlaceholdersViewType || articleList.length === 0 || loading}
+                    onChange={(e, data) => changeSortBy(data.value)}
+                    options={searchDropdownOptions}
+                  />
+                  <Button
+                    icon='sort'
+                    disabled={notPlaceholdersViewType || !sortBy || articleList.length === 0 || loading}
+                    onClick={e => setSortDescending(!sortDescending)}
+                  />
+                  <Button
+                    icon='cancel'
+                    disabled={notPlaceholdersViewType || !sortBy || articleList.length === 0 || loading}
+                    onClick={e => changeSortBy()}
+                  />
                 </SortByContainer>
               </ViewOptions>
             </ArticlesHeaderContainer>
