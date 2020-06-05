@@ -226,7 +226,7 @@ function Home (props) {
             <Icon name='check' />
             <div>
               <h3>3. Add it!</h3>
-              <p>Use the ~rssadd command in your desired channel to add the feed!</p>
+              <p>Use the rss.add command in your desired channel to add the feed!</p>
             </div>
           </Card>
         </Cards>
