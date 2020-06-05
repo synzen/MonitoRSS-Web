@@ -388,8 +388,12 @@ function Subscribers () {
       <SubscriberListWrapper>
         <SubscriberList>
           {
-            subscribersArr.map(subscriber => {
-              if (search && !subscriber.name.toLowerCase().includes(search)) return null
+            subscribersArr.filter(subscriber => {
+              if (!search) {
+                return true
+              }
+              return subscriber.name.toLowerCase().includes(search)
+            }).map(subscriber => {
               return (
                 <SubscriberListItem key={subscriber.id} color={subscriber.hexColor} selected={subscriber.id === selectedSubscriberID}>
                   <button onClick={e => setSelectedSubscriberID(subscriber.id)}>
@@ -411,7 +415,9 @@ function Subscribers () {
       </SubscriberListWrapper>
       <SectionSubtitle>Subscriber Details</SectionSubtitle>
       <SubscriberBox color={selectedSubscriber.hexColor}>
-        {selectedSubscriberChosen ? <span>{selectedSubscriber.name}</span> : 'None selected'}
+        {selectedSubscriberChosen
+          ? <span>{subscribersArr.find(s => s.id === selectedSubscriber.id).name}</span>
+          : 'None selected'}
         <div>
           <PopInButton
             pose={selectedSubscriberChosen ? 'enter' : 'exit'}
