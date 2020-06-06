@@ -5,6 +5,7 @@ const Wrapper = styled.div`
   margin: 3em auto;
   max-width: 1450px;
   width: 100%;
+  padding: 0 25px;
 `
 
 function CookiePolicy () {
