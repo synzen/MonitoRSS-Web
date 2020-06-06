@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import pages from '../../constants/pages'
+import pages from '../../../constants/pages'
 const Wrapper = styled.div`
   margin: 3em auto;
   max-width: 1450px;

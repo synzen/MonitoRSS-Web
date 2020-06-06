@@ -4,9 +4,9 @@ import { Link, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import { Icon, Button } from 'semantic-ui-react'
 import { darken } from 'polished'
-import colors from '../../constants/colors'
+import colors from '../../../constants/colors'
 import posed from 'react-pose'
-import pages from '../../constants/pages'
+import pages from '../../../constants/pages'
 
 const Title = styled.h2`
   color: ${darken(0.1, 'white')};

@@ -9,10 +9,10 @@ import { Icon, Button } from 'semantic-ui-react'
 import pages from './js/constants/pages'
 import './App.css'
 import 'highlight.js/styles/solarized-dark.css'
-import NavBar from './js/components/NavBar/index'
-import Home from './js/components/Home/index'
-import FAQ from './js/components/FAQ/index'
-import FeedBrowser from './js/components/FeedBrowser/index'
+import NavBar from './js/components/Home/NavBar/index'
+import Main from './js/components/Home/index'
+import FAQ from './js/components/Home/FAQ/index'
+import FeedBrowser from './js/components/Home/FeedBrowser/index'
 import ControlPanel from './js/components/ControlPanel/index'
 import { useSelector, useDispatch } from 'react-redux'
 import DiscordModal from './js/components/utils/DiscordModal'
@@ -89,7 +89,7 @@ function App () {
               <Route path={pages.PRIVACY_POLICY} component={PrivacyPolicy} />
               <Route path={pages.TERMS} component={TermsAndConditions} />
               <Route path={pages.COOKIE_POLICY} component={CookiePolicy} />
-              <Route path='/' component={routerProps => <Home {...routerProps} />} />
+              <Route path='/' component={routerProps => <Main {...routerProps} />} />
               <Route render={() => <Redirect to='/' />} />
             </Switch>
           </Scrollbars>
