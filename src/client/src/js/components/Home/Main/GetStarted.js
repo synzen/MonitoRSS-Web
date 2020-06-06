@@ -2,6 +2,7 @@ import React from 'react'
 import { Icon } from 'semantic-ui-react'
 import styled from 'styled-components'
 import SectionDescription from './common/SectionDescription'
+import colors from 'js/constants/colors'
 
 const Cards = styled.div`
   display: grid;
@@ -29,6 +30,7 @@ const Card = styled.div`
   i {
     font-size: 3.5em !important;
     margin-top: 50px !important;
+    color: ${colors.discord.blurple};
   }
   a {
     word-break: break-all;
@@ -55,14 +57,14 @@ function GetStarted () {
           <Icon name='search' />
           <div>
             <h3>2. Find a valid feed</h3>
-            <p>An example of a valid feed would be <a href='https://www.gameinformer.com/news.xml' target='_blank' rel='noopener noreferrer'>https://www.gameinformer.com/news.xml</a></p>
+            <p>All it takes is some Googling - an example feed would be <a href='https://www.gameinformer.com/news.xml' target='_blank' rel='noopener noreferrer'>https://www.gameinformer.com/news.xml</a></p>
           </div>
         </Card>
         <Card>
           <Icon name='check' />
           <div>
             <h3>3. Add it!</h3>
-            <p>Use the rss.add command in your desired channel to add the feed!</p>
+            <p>Use the rss.add command in your desired channel to add the feed, then you're done!</p>
           </div>
         </Card>
       </Cards>
