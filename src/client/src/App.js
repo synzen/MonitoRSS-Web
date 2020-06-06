@@ -19,6 +19,8 @@ import DiscordModal from './js/components/utils/DiscordModal'
 import modal from './js/components/utils/modal'
 import { Scrollbars } from 'react-custom-scrollbars'
 import { fetchFaq } from './js/actions/faq'
+import PrivacyPolicy from 'js/components/Home/PrivacyPolicy'
+import TermsAndConditions from 'js/components/Home/TermsAndConditions'
 
 const EmptyBackground = styled.div`
   height: 100vh;
@@ -83,6 +85,8 @@ function App () {
                   return <FAQ {...props} scrollbar={scrollbarRef} />
                 }}
               />
+              <Route path={pages.PRIVACY_POLICY} component={PrivacyPolicy} />
+              <Route path={pages.TERMS} component={TermsAndConditions} />
               <Route path='/' component={routerProps => <Home {...routerProps} />} />
               <Route render={() => <Redirect to='/' />} />
             </Switch>

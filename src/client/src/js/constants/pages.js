@@ -9,5 +9,7 @@ export default {
   DEBUGGER: '/cp/debugger',
   SUPPORT: '/support',
   FEED_BROWSER: '/feed-browser',
-  FAQ: '/faq'
+  FAQ: '/faq',
+  PRIVACY_POLICY: '/privacy-policy',
+  TERMS: '/terms'
 }

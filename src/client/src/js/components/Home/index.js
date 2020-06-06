@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import { Button, Icon } from 'semantic-ui-react'
 import Section from './Section'
+import Footer from './Footer'
 import colors from '../../constants/colors'
 import modal from '../utils/modal'
 import pages from '../../constants/pages'
@@ -223,9 +224,6 @@ function Home (props) {
           </ImageContainer>
         </div>
       </Header>
-      {/* <SampleContainer>
-        <h2>Samples</h2>
-      </SampleContainer> */}
       <Section>
         <h2>Get Started!</h2>
         <p>Getting automatic delivery of your desired news can be done in 3 simple steps.<br />For the full list of commands, use the rss.help command.</p>
@@ -302,6 +300,9 @@ function Home (props) {
             </div>
           </Feature>
         </FeatureBoxes>
+      </Section>
+      <Section>
+        <Footer />
       </Section>
     </div>
   )
