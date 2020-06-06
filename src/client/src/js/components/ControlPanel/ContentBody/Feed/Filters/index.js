@@ -167,7 +167,7 @@ function Filters () {
       <AddFilter addFilter={addFilter} inProgress={editing} />
       <Divider />
 
-      <SectionTitle heading='Classifications' subheading='See what current articles gets blocked or passes your current filters. Click on a row to see more in-depth details.' />
+      <SectionTitle heading='Filter Results' subheading='See what current articles gets blocked or passes your current filters. Click on a row to see more in-depth details.' />
       <ArticleTable
         onClickArticle={article => setArticle(article)}
         positiveNegativeRowFunc={data => !!testFilters(feedFilters, data).passed}
