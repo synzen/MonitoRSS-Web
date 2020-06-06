@@ -23,7 +23,7 @@ const Card = styled.div`
     margin-bottom: 12px;
   }
   p {
-    font-size: 1em;
+    font-size: 1.1em;
     margin-bottom: 50px !important;
   }
   i {
