@@ -1,7 +1,7 @@
 import React from 'react'
 import { Icon } from 'semantic-ui-react'
 import styled from 'styled-components'
-import SectionDescription from './common/SectionDescription'
+import SectionDescription from '../common/SectionDescription'
 
 const Cards = styled.div`
   display: grid;

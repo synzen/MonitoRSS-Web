@@ -1,7 +1,7 @@
 import React from 'react'
-import colors from '../../constants/colors'
+import colors from '../../../constants/colors'
 import styled from 'styled-components'
-import SectionDescription from './common/SectionDescription'
+import SectionDescription from '../common/SectionDescription'
 import { Icon } from 'semantic-ui-react'
 import GitHubButton from 'react-github-btn'
 
