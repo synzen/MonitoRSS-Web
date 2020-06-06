@@ -8,6 +8,7 @@ import colors from '../../constants/colors'
 import modal from '../utils/modal'
 import pages from '../../constants/pages'
 import PropTypes from 'prop-types'
+import GitHubButton from 'react-github-btn'
 
 const Header = styled.div`
   position: relative;
@@ -230,7 +231,7 @@ function Home (props) {
         {/* <p style={{ fontSize: 16 }}>In just 3 easy steps.</p> */}
         <Cards>
           <Card>
-            <Icon name='add' />
+            <Icon name='envelope open outline' />
             <div>
               <h3>1. Invite Me</h3>
               <p>You'll have to invite me first to be able to use my features!</p>
@@ -295,15 +296,25 @@ function Home (props) {
           <Feature>
             <Icon name='github' />
             <div>
-              <span>Open Source</span>
-              <p>The source code is openly available for anyone to use and host. Spread the love!</p>
+              <span style={{ marginRight: '10px' }}>Open Source
+              </span>
+              <GitHubButton
+                href='https://github.com/synzen/discord.rss'
+                data-icon='octicon-star'
+                data-show-count='true'
+                aria-label='Star synzen/discord.rss on GitHub'
+              >
+                Star
+              </GitHubButton>
+              <p>
+                The source code is openly available for anyone to use and host. Spread the love!
+
+              </p>
             </div>
           </Feature>
         </FeatureBoxes>
       </Section>
-      <Section>
-        <Footer />
-      </Section>
+      <Footer />
     </div>
   )
 }
