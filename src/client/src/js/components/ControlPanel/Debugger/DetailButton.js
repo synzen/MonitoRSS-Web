@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import colors from 'js/constants/colors'
 import { Icon, Popup } from 'semantic-ui-react'
 import { lighten, darken } from 'polished'
-import WrapperDark from 'js/components/utils/WrapperDark'
+import WrapperDark from 'js/components/common/WrapperDark'
 import { Scrollbars } from 'react-custom-scrollbars'
 
 const ButtonBlank = styled.a`

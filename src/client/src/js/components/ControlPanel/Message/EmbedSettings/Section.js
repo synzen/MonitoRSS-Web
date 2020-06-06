@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Input, Button, Dropdown, Form, Popup } from 'semantic-ui-react'
 import styled from 'styled-components'
-import SectionItemTitle from 'js/components/utils/SectionItemTitle'
+import SectionItemTitle from 'js/components/common/SectionItemTitle'
 import posed from 'react-pose'
 import PropTypes from 'prop-types'
 import { SketchPicker } from 'react-color'

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import SectionSubtitle from 'js/components/utils/SectionSubtitle'
+import SectionSubtitle from 'js/components/common/SectionSubtitle'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Button, Dropdown, Input } from 'semantic-ui-react'

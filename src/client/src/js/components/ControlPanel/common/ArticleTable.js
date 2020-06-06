@@ -5,7 +5,7 @@ import PaginatedTable from './PaginatedTable'
 import { Dropdown, Loader } from 'semantic-ui-react'
 import styled from 'styled-components'
 import colors from 'js/constants/colors'
-import SectionSubtitleDescription from 'js/components/utils/SectionSubtitleDescription'
+import SectionSubtitleDescription from 'js/components/common/SectionSubtitleDescription'
 import { isHiddenProperty } from 'js/constants/hiddenArticleProperties'
 import feedSelectors from 'js/selectors/feeds'
 
