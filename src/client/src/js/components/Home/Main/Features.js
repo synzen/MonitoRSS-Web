@@ -6,37 +6,30 @@ import { Icon } from 'semantic-ui-react'
 import GitHubButton from 'react-github-btn'
 
 const FeatureBoxes = styled.div`
-  display: flex;
-  justify-content: center;
-  max-width: 1200px;
-  flex-wrap: wrap;
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  margin-top: 50px;
+  column-gap: 50px;
+  row-gap: 50px;
 `
 
 const Feature = styled.div`
-  max-width: 350px;
-  width: 100%;
   max-height: 225px;
   height: 100%;
-  display: flex;
-  align-items: left;
-  flex-direction: column;
   text-align: left;
-  padding: 30px;
-
   > div {
-    margin-top: 20px;
     > span {
-      font-size: 24px;
+      font-size: 1.3em;
       color: white;
     }
     > p {
-      font-size: 16px;
-      margin-top: 10px;
+      font-size: 1.15em;
+      margin-top: 20px;
     }
   }
   i {
     font-size: 40px !important;
+    margin-bottom: 10px;
   }
   img {
     width: 40px;
