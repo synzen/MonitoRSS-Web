@@ -202,9 +202,14 @@ function Placeholders (props) {
   if (article) {
     for (const placeholderName in article) {
       const content = article[placeholderName]
-      if (!content || placeholderName.startsWith('raw:') || placeholderName.startsWith('_')) continue
-      const phname = placeholderName.replace('regex:', '') // The {regex: in the beginning is for internal reference only
-      if ((searchPlaceholder && !phname.includes(searchPlaceholder)) || phname.startsWith('_')) continue
+      if (!content || placeholderName.startsWith('raw:') || placeholderName.startsWith('_')) {
+        continue
+      }
+      // The regex: in the beginning is for internal reference only
+      const phname = placeholderName.replace('regex:', '')
+      if ((searchPlaceholder && !phname.includes(searchPlaceholder)) || phname.startsWith('_')) {
+        continue
+      }
       placeholderElements.push(
         <PlaceholderImage key={`${placeholderName}`}>
           <div>
@@ -233,9 +238,29 @@ function Placeholders (props) {
     <div>
       <SectionSubtitle>Article Selection</SectionSubtitle>
       <ArticleBox>
-        <Dropdown selection fluid options={showArticleByOptions} value={showArticleBy} onChange={(e, data) => setShowArticleBy(data.value)} disabled={disabledDropdown} loading={articlesFetching} placeholder={articleDropdownOptions.length === 0 && !articlesFetching ? 'No articles in feed' : 'Show article by...'} />
+        <Dropdown
+          search
+          selection
+          fluid
+          options={showArticleByOptions}
+          value={showArticleBy}
+          onChange={(e, data) => setShowArticleBy(data.value)}
+          disabled={disabledDropdown}
+          loading={articlesFetching}
+          placeholder={articleDropdownOptions.length === 0 && !articlesFetching ? 'No articles in feed' : 'Show article by...'}
+        />
         <DropdownWithButtons>
-          <Dropdown search selection fluid options={articleDropdownOptions} value={articleID} onChange={(e, data) => setArticleID(data.value)} disabled={disabledDropdown} loading={articlesFetching} placeholder={articleDropdownOptions.length === 0 && !articlesFetching ? 'No articles in feed' : 'Select an article'} />
+          <Dropdown
+            search
+            selection
+            fluid
+            options={articleDropdownOptions}
+            value={articleID}
+            onChange={(e, data) => setArticleID(data.value)}
+            disabled={disabledDropdown}
+            loading={articlesFetching}
+            placeholder={articleDropdownOptions.length === 0 && !articlesFetching ? 'No articles in feed' : 'Select an article'}
+          />
           <ButtonGroup>
             <Button icon='arrow up' onClick={onClickPreviousArticle} disabled={articleID === 0 || articleList.length === 0} />
             <Button icon='arrow down' onClick={onClickNextArticle} disabled={articleID === articleList.length - 1 || articleList.length === 0} />
