@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
-import SectionDescription from '../common/SectionDescription'
+import SectionDescription from './common/SectionDescription'
 import { Button, Icon } from 'semantic-ui-react'
 import pages from '../../../constants/pages'
 import modal from '../../utils/modal'
