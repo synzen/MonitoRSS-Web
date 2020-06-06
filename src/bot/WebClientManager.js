@@ -2,8 +2,10 @@ const fs = require('fs')
 const path = require('path')
 const Discord = require('discord.js')
 const DiscordRSS = require('discord.rss')
+const Supporter = DiscordRSS.Supporter
 const setConfig = require('../config.js').set
 const expressApp = require('../app.js')
+const configServices = require('../services/config.js')
 const createLogger = require('../util/logger/create.js')
 const connectMongo = require('../util/connectMongo.js')
 const connectRedis = require('../util/connectRedis.js')
@@ -92,6 +94,10 @@ class WebClientManager {
     const uri = this.config.database.uri
     const options = this.config.database.connection
     await DiscordRSS.setupModels(uri, options)
+    const supporterConfig = await configServices.getSupporterConfig()
+    DiscordRSS.config.get()[Supporter.keys.ENABLED] = supporterConfig[Supporter.keys.ENABLED]
+    DiscordRSS.config.get()[Supporter.keys.REFRESH_RATE] = supporterConfig[Supporter.keys.REFRESH_RATE]
+    console.log(require('discord.rss').Supporter.enabled)
   }
 
   /**

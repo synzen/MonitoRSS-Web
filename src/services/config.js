@@ -10,6 +10,16 @@ async function getFeedConfig () {
   }
 }
 
+async function getSupporterConfig () {
+  const supporterConfig = await KeyValue.get(KeyValue.keys.SUPPORTER_CONFIG)
+  if (supporterConfig) {
+    return supporterConfig.toJSON().value
+  } else {
+    return {}
+  }
+}
+
 module.exports = {
-  getFeedConfig
+  getFeedConfig,
+  getSupporterConfig
 }
