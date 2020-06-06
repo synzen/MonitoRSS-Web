@@ -19,11 +19,11 @@ const Feature = styled.div`
   text-align: left;
   > div {
     > span {
-      font-size: 1.3em;
+      font-size: 1.15em;
       color: white;
     }
     > p {
-      font-size: 1.15em;
+      font-size: 1em;
       margin-top: 20px;
     }
   }

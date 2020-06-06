@@ -108,6 +108,9 @@ const NavItem = styled.li`
     justify-content: flex-end;
   }
   > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: ${colors.discord.text};
     border: none;
     background: none;
