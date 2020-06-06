@@ -76,7 +76,6 @@ function Footer () {
               </GitHubButton>
             </p>
           </SupportUs>
-          <div />
           <div>
             <h4>Information</h4>
             <Navigation>
