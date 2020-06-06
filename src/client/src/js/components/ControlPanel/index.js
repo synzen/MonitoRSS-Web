@@ -18,7 +18,6 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: row;
   padding-top: ${props => props.offsetTop ? '60px' : 0};
-  font-size: 14px;
 `
 
 const EmptyBackground = styled.div`

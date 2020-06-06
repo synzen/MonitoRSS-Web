@@ -10,6 +10,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   margin: 0 30px 60px 30px;
+  font-size: 0.95em;
 `
 
 const FooterContainer = styled.div`

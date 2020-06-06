@@ -61,7 +61,7 @@ const ServerButton = styled(MenuButton)`
     border-bottom-right-radius: 0;`
     : ''};
   span {
-    font-size: 1.2em;
+    font-size: 1.15em;
   }
 `
 
