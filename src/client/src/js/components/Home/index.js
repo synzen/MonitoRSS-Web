@@ -160,12 +160,15 @@ const ModalFooter = styled.div`
   justify-content: space-around;
   a {
     width: 100%;
+    span {
+      margin-right: 10px;
+    }
     &:hover {
       text-decoration: none;
     }
     &:first-child {
-    margin-right: 10px;
-  }
+      margin-right: 10px;
+    }
   }
   
 `
@@ -173,8 +176,28 @@ const ModalFooter = styled.div`
 const modalProps = {
   footer: (
     <ModalFooter>
-      <a target='_blank' rel='noopener noreferrer' href='https://discordapp.com/oauth2/authorize?client_id=268478587651358721&scope=bot&permissions=19456' onClick={e => modal.hide()}><Button fluid>With Role</Button></a>
-      <a target='_blank' rel='noopener noreferrer' href='https://discordapp.com/oauth2/authorize?client_id=268478587651358721&scope=bot' onClick={e => modal.hide()}><Button fluid>Without Role</Button></a>
+      <a
+        target='_blank'
+        rel='noopener noreferrer'
+        href='https://discordapp.com/oauth2/authorize?client_id=268478587651358721&scope=bot&permissions=19456'
+        onClick={e => modal.hide()}
+      >
+        <Button fluid>
+          <span>With Role</span>
+          <Icon name='external' />
+        </Button>
+      </a>
+      <a
+        target='_blank'
+        rel='noopener noreferrer'
+        href='https://discordapp.com/oauth2/authorize?client_id=268478587651358721&scope=bot'
+        onClick={e => modal.hide()}
+      >
+        <Button fluid>
+          <span>Without Role</span>
+          <Icon name='external' />
+        </Button>
+      </a>
     </ModalFooter>)
 }
 
