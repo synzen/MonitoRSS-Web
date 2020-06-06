@@ -5,6 +5,7 @@
     <meta property="og:site_name" content="Discord.RSS">
     <meta property="og:title" content="__OG_TITLE__">
     <meta property="og:description" content="__OG_DESCRIPTION__">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta
       name="viewport"
@@ -28,6 +29,23 @@
     <title>Discord.RSS</title>
   </head>
   <body>
+    <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+    <script>
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#7289da",
+          "text": "#ffffff"
+        },
+        "button": {
+          "background": "#fff",
+          "text": "#7289da"
+        }
+      },
+      "theme": "classic",
+      "position": "bottom-right"
+    });
+    </script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
