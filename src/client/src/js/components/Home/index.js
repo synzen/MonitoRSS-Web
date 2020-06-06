@@ -240,7 +240,7 @@ function Home (props) {
             <Icon name='search' />
             <div>
               <h3>2. Find a valid feed</h3>
-              <p>An example of a valid feed would be <a href='https://www.reddit.com/r/all.rss' target='_blank' rel='noopener noreferrer'>https://www.reddit.com/r/all.rss</a></p>
+              <p>An example of a valid feed would be <a href='https://www.gameinformer.com/news.xml' target='_blank' rel='noopener noreferrer'>https://www.gameinformer.com/news.xml</a></p>
             </div>
           </Card>
           <Card>
