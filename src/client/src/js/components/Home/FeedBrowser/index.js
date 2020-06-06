@@ -162,10 +162,9 @@ const UrlDisplay = styled.div`
   }
 `
 
-const OpacityTransition = posed.div({
-  enter: { opacity: 1 },
-  exit: { opacity: 0 }
-})
+const ArticlesSectionBody = styled.div`
+  display: ${props => props.loading ? 'none' : 'block'};
+`
 
 const XMLWrapperStyles = styled.pre`
   max-width: 100%;
@@ -404,7 +403,7 @@ function FeedBrowser () {
 
       <ArticlesSection className='hello'>
         <ArticlesSectionInner>
-          <OpacityTransition pose={loading || articleList.length === 0 ? 'exit' : 'enter'} className='world'>
+          <ArticlesSectionBody loading={loading || articleList.length === 0} className='world'>
             <SectionTitle heading='Result' subheading='You can filter out article details by selecting certain article categories. You may also filter articles by search.' />
             <UrlDisplay>
               <SectionSubtitle>
@@ -470,7 +469,7 @@ function FeedBrowser () {
                 </SortByContainer>
               </ViewOptions>
             </ArticlesHeaderContainer>
-          </OpacityTransition>
+          </ArticlesSectionBody>
           {error
             ? <StatusMessage><SectionSubtitleDescription style={{ color: colors.discord.red }} fontSize='20px'>{error}</SectionSubtitleDescription></StatusMessage>
             : loading || articleList.length === 0 || loadingXML
