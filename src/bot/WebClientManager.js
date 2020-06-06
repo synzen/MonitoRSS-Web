@@ -97,7 +97,6 @@ class WebClientManager {
     const supporterConfig = await configServices.getSupporterConfig()
     DiscordRSS.config.get()[Supporter.keys.ENABLED] = supporterConfig[Supporter.keys.ENABLED]
     DiscordRSS.config.get()[Supporter.keys.REFRESH_RATE] = supporterConfig[Supporter.keys.REFRESH_RATE]
-    console.log(require('discord.rss').Supporter.enabled)
   }
 
   /**
