@@ -12,7 +12,7 @@ function CookiePolicy () {
     <Wrapper>
       <h1>Cookie Policy for Discord.RSS</h1>
 
-      <p>This is the Cookie Policy for Discord.RSS, accessible from https://discordrss.xyz</p>
+      <p>This is the Cookie Policy for the official Discord.RSS Website, accessible from https://discordrss.xyz</p>
 
       <p><strong>What Are Cookies</strong></p>
 
