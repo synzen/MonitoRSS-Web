@@ -1,8 +1,15 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const Wrapper = styled.div`
+  margin: 3em auto;
+  max-width: 1450px;
+  width: 100%;
+`
 
 function CookiePolicy () {
   return (
-    <div>
+    <Wrapper>
       <h1>Cookie Policy for Discord.RSS</h1>
 
       <p>This is the Cookie Policy for Discord.RSS, accessible from https://discordrss.xyz</p>
@@ -59,7 +66,7 @@ function CookiePolicy () {
 
       </ul>
 
-    </div>
+    </Wrapper>
   )
 }
 
