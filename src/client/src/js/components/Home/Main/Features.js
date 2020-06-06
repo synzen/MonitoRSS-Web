@@ -7,10 +7,11 @@ import GitHubButton from 'react-github-btn'
 
 const FeatureBoxes = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(100px, 400px));
   margin-top: 50px;
   column-gap: 50px;
   row-gap: 50px;
+  justify-content: center;
 `
 
 const Feature = styled.div`
