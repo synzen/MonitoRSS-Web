@@ -60,6 +60,9 @@ const ServerButton = styled(MenuButton)`
     ? `border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;`
     : ''};
+  span {
+    font-size: 1.2em;
+  }
 `
 
 const FeedbackForm = styled(Form)`
@@ -73,12 +76,12 @@ const FeedbackForm = styled(Form)`
 const NoServers = styled.div`
   text-align: center;
   color: #72767d;
-  font-size: 17px;
+  font-size: 1.15em;
   user-select: none;
   padding: 40px 15px;
   > span {
     margin-top: 8px;
-    font-size: 16px;
+    font-size: 1.1em;
   }
 `
 
@@ -114,10 +117,10 @@ function Home (props) {
         <ServerButton nonmenu padding='15px' selected={selectedGuildID === thisGuildId} onClick={e => setSelectedGuildID(thisGuildId)}>
           <ServerButtonInner>
             <DiscordAvatar src={iconURL} width='48px' onClick={e => setSelectedGuildID(thisGuildId)} />
-            <div>
-              <h3>{guild.name}</h3>
+            <span>
+              {guild.name}
               {/* <p>{feeds && feeds[thisGuildId] ? Object.keys(feeds[thisGuildId]).length : undefined} feeds</p> */}
-            </div>
+            </span>
           </ServerButtonInner>
         </ServerButton>
         <ServerEditButtons pose={selectedGuildID === thisGuildId ? 'enter' : 'exit'}>
