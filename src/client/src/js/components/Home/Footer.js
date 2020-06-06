@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import GitHubButton from 'react-github-btn'
 import { Divider } from 'semantic-ui-react'
 import colors from '../../constants/colors'
+import { Link } from 'react-router-dom'
 
 const Wrapper = styled.div`
   display: flex;
@@ -79,9 +80,9 @@ function Footer () {
           <div>
             <h4>Information</h4>
             <Navigation>
-              <a href={pages.TERMS}>Terms & Conditions</a>
-              <a href={pages.PRIVACY_POLICY}>Privacy Policy</a>
-              <a href={pages.COOKIE_POLICY}>Cookie Policy</a>
+              <Link to={pages.TERMS}>Terms & Conditions</Link>
+              <Link to={pages.PRIVACY_POLICY}>Privacy Policy</Link>
+              <Link to={pages.COOKIE_POLICY}>Cookie Policy</Link>
             </Navigation>
           </div>
           <div>

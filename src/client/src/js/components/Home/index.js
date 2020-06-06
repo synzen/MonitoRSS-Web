@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Scrollbars from 'react-custom-scrollbars'
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect, useLocation } from 'react-router-dom'
 import NavBar from './NavBar'
 import FeedBrowser from './FeedBrowser'
 import PrivacyPolicy from './PrivacyPolicy'
@@ -23,11 +23,19 @@ const Wrapper = styled.div`
 
 function Home () {
   const dispatch = useDispatch()
+  const location = useLocation()
   const [scrollbarRef, setScrollbarRef] = useState()
 
   useEffect(() => {
     dispatch(fetchFaq())
   }, [])
+
+  useEffect(() => {
+    if (!scrollbarRef) {
+      return
+    }
+    scrollbarRef.scrollToTop()
+  }, [location.pathname, scrollbarRef])
 
   return (
     <Scrollbars style={{ width: '100vw', height: '100vh' }} ref={scrollbar => setScrollbarRef(scrollbar)}>
