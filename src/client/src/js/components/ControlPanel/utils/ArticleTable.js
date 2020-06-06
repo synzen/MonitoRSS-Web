@@ -153,7 +153,15 @@ function ArticleTable (props) {
       headers={addedHeaders.concat([articleProperty.replace('regex:', '')])}
       itemFunc={classificationsTableRowFunc}
       searchFunc={classificationsTableSearchFunc}
-      button={<Dropdown selection options={classificationsDropdownOptions} onChange={(e, data) => setArticleProperty(data.value)} value={articleProperty} />}
+      button={
+        <Dropdown
+          search
+          selection
+          options={classificationsDropdownOptions}
+          onChange={(e, data) => setArticleProperty(data.value)}
+          value={articleProperty}
+        />
+      }
     />
   )
 }
