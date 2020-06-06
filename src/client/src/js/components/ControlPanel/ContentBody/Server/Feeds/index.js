@@ -173,12 +173,10 @@ function Feeds (props) {
                 )
               }}
               searchFunc={(feed, search) => {
-                for (const key in feed) {
-                  if (typeof feed[key] === 'string' && feed[key].includes(search)) {
-                    return true
-                  }
-                }
-                return false
+                const channel = channels.find(c => c.id === feed.channel)
+                const matchKeys = Object.keys(feed).some(key => typeof feed[key] === 'string' && feed[key].includes(search))
+                const matchChannels = channel.name.includes(search)
+                return matchKeys || matchChannels
               }}
             />
             <Divider />
