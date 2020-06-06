@@ -84,17 +84,19 @@ function Features () {
           <div>
             <span style={{ marginRight: '10px' }}>Open Source
             </span>
-            <GitHubButton
-              href='https://github.com/synzen/discord.rss'
-              data-icon='octicon-star'
-              data-show-count='true'
-              aria-label='Star synzen/discord.rss on GitHub'
-            >
-              Star
-            </GitHubButton>
+            <br />
             <p>
               The source code is openly available for anyone to use and host. Spread the love!
-
+              <br />
+              <br />
+              <GitHubButton
+                href='https://github.com/synzen/discord.rss'
+                data-icon='octicon-star'
+                data-show-count='true'
+                aria-label='Star synzen/discord.rss on GitHub'
+              >
+                Star
+              </GitHubButton>
             </p>
           </div>
         </Feature>
