@@ -256,11 +256,38 @@ function FeedBrowser () {
     // console.log(images)
 
     const singleLineElements = []
-    if (searchCategoriesHasLink) singleLineElements.push(<div key={placeholders.link + 'sl'}><PlaceholderTitle>Link</PlaceholderTitle><Popup position='left center' hideOnScroll trigger={<a rel='noopener noreferrer' target='_blank' href={placeholders.link}>{placeholders.link}</a>} inverted content='{link}' on='hover' /></div>)
+    if (searchCategoriesHasLink) {
+      singleLineElements.push(
+        <div key={placeholders.link + 'sl'}>
+          <PlaceholderTitle>Link</PlaceholderTitle>
+          <Popup
+            position='left center'
+            hideOnScroll
+            trigger={<a rel='noopener noreferrer' target='_blank' href={placeholders.link}>{placeholders.link}</a>}
+            inverted
+            content='{link}'
+            on='hover'
+          />
+        </div>
+      )
+    }
     for (const category of searchCategories) {
       // Skip the below categories since these must be manually added below to preserve their ordering. Anchors and images don't have to be ordered, but they're already handled in the above for loop for efficiency
-      if (category === 'title' || category === 'date' || category === 'link' || category === 'description' || category === 'anchors' || category === 'images') continue
-      singleLineElements.push(<div key={placeholders[category] + 'sll'}><PlaceholderTitle>{category}</PlaceholderTitle><Popup position='left center' hideOnScroll trigger={<p>{parser.parseAllowLinks(placeholders[category])}</p>} inverted content={`{${category}}`} on='hover' /></div>)
+      if (category === 'title' || category === 'date' || category === 'link' || category === 'description' || category === 'anchors' || category === 'images') {
+        continue
+      }
+      singleLineElements.push(
+        <div key={placeholders[category] + 'sll'}>
+          <PlaceholderTitle>{category}</PlaceholderTitle>
+          <Popup
+            position='left center'
+            hideOnScroll
+            trigger={<p>{parser.parseAllowLinks(placeholders[category])}</p>}
+            inverted
+            content={`{${category}}`}
+            on='hover'
+          />
+        </div>)
     }
 
     return (
@@ -268,17 +295,17 @@ function FeedBrowser () {
         <Wrapper>
           {searchCategoriesHasDate
             ? placeholders.date
-              ? <Popup position='left center' hideOnScroll trigger={<SectionSubtitleDescription>{placeholders.date + timezoneGuess}</SectionSubtitleDescription>} on='focus' inverted content='{date}' />
+              ? <Popup position='left center' hideOnScroll trigger={<SectionSubtitleDescription>{placeholders.date + timezoneGuess}</SectionSubtitleDescription>} on='hover' inverted content='{date}' />
               : null
             : null}
           {searchCategoriesHasTitle
             ? placeholders.title
-              ? <Popup position='left center' hideOnScroll trigger={<SectionItemTitle>{parser.parseAllowLinks(placeholders.title)}</SectionItemTitle>} on='focus' inverted content='{title}' />
+              ? <Popup position='left center' hideOnScroll trigger={<SectionItemTitle>{parser.parseAllowLinks(placeholders.title)}</SectionItemTitle>} on='hover' inverted content='{title}' />
               : <SectionItemTitle>No Title Available</SectionItemTitle>
             : null}
           {searchCategoriesHasDescription
             ? placeholders.description
-              ? <Popup position='left center' hideOnScroll trigger={<p>{parser.parseAllowLinks(placeholders.description || placeholders.summary)}</p>} inverted content='{summary}' on='focus' />
+              ? <Popup position='left center' hideOnScroll trigger={<p>{parser.parseAllowLinks(placeholders.description || placeholders.summary)}</p>} inverted content='{description}' on='hover' />
               : null
             : null}
           {singleLineElements.length > 0 ? <Divider /> : null}
