@@ -11,5 +11,6 @@ export default {
   FEED_BROWSER: '/feed-browser',
   FAQ: '/faq',
   PRIVACY_POLICY: '/privacy-policy',
+  COOKIE_POLICY: '/cookie-policy',
   TERMS: '/terms'
 }
