@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Button, Input, Dropdown } from 'semantic-ui-react'
-import toast from './toast'
+import toast from '../utils/toast'
 
 const FlexRight = styled.div`
   display: flex;

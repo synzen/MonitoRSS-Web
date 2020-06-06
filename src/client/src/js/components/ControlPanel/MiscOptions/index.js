@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
-import PopInButton from '../../../utils/PopInButton'
+import PopInButton from '../common/PopInButton'
 import colors from 'js/constants/colors'
 import SectionItemTitle from 'js/components/utils/SectionItemTitle'
 import PageHeader from 'js/components/utils/PageHeader'
@@ -12,7 +12,7 @@ import { fetchEditFeed } from 'js/actions/feeds'
 import { changePage } from 'js/actions/page'
 import pages from 'js/constants/pages'
 import { Redirect } from 'react-router-dom'
-import Loading from '../../common/Loading'
+import Loading from '../common/Loading'
 
 const Container = styled.div`
   padding: 20px;

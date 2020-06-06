@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { ToastContainer } from 'react-toastify'
 import styled from 'styled-components'
 import LeftMenu from './LeftMenu/index'
-import ContentBody from './ContentBody/index'
+import Content from './Content'
 import { useSelector, useDispatch } from 'react-redux'
 import colors from 'js/constants/colors'
 import {
   fetchUser
 } from 'js/actions/user'
 import { Loader } from 'semantic-ui-react'
-import TopBar from './TopBar/index'
+import TopBar from './TopBar'
 
 const MainContainer = styled.div`
   width: 100vw;
@@ -128,7 +128,7 @@ function ControlPanel () {
             })
           }} expanded={sizeInfo.leftMenuExpanded}
         />
-        <ContentBody />
+        <Content />
       </MainContainer>
     </div>
   )

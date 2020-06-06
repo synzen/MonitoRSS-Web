@@ -14,7 +14,7 @@ import feedSelectors from 'js/selectors/feeds'
 import { Redirect } from 'react-router-dom'
 import pages from 'js/constants/pages'
 import { changePage } from 'js/actions/page'
-import Loading from '../../common/Loading'
+import Loading from 'js/components/ControlPanel/common/Loading'
 
 const MAX_VIEWPORT_WIDTH_STICKY = 1850
 

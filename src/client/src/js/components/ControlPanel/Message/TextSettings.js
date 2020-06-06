@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Button } from 'semantic-ui-react'
 import styled from 'styled-components'
 import TextArea from 'js/components/utils/TextArea'
-import PopInButton from '../../../utils/PopInButton'
+import PopInButton from 'js/components/ControlPanel/common/PopInButton'
 import feedSelectors from 'js/selectors/feeds'
 import { fetchEditFeed } from 'js/actions/feeds'
 
