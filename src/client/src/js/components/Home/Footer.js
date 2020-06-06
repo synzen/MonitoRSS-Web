@@ -53,7 +53,7 @@ function Footer () {
               <a
                 target='_blank'
                 href='https://www.patreon.com/discordrss'
-                rel='noreferrer'
+                rel='noreferrer noopener'
               >
                 <img
                   src='https://c5.patreon.com/external/logo/become_a_patron_button.png'
@@ -64,6 +64,8 @@ function Footer () {
               <br /><br />
               <GitHubButton
                 href='https://github.com/synzen/discord.rss'
+                target='_blank'
+                rel='noreferrer noopener'
                 data-icon='octicon-star'
                 data-size='large'
                 data-show-count='true'
@@ -85,9 +87,9 @@ function Footer () {
           <div>
             <h4>Useful Links</h4>
             <Navigation>
-              <a href='https://github.com/synzen/discord.rss' target='_blank' rel='noreferrer'>GitHub</a>
-              <a href='https://docs.discordrss.xyz' target='_blank' rel='noreferrer'>Documentation</a>
-              <a href='https://discord.gg/pudv7Rx' target='_blank' rel='noreferrer'>Support Server</a>
+              <a href='https://github.com/synzen/discord.rss' target='_blank' rel='noreferrer noopener'>GitHub</a>
+              <a href='https://docs.discordrss.xyz' target='_blank' rel='noreferrer noopener'>Documentation</a>
+              <a href='https://discord.gg/pudv7Rx' target='_blank' rel='noreferrer noopener'>Support Server</a>
             </Navigation>
           </div>
         </FooterContainer>
