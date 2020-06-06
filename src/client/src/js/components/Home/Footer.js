@@ -48,7 +48,7 @@ function Footer () {
           <SupportUs>
             <h3>Support Us!</h3>
             <p style={{ marginBottom: 0 }}>
-              Has Discord.RSS helped you? You can show your support by either becoming a Patron, or just a simple star on Github!
+              Has Discord.RSS helped you or your community? You can show your support by either becoming a Patron, or just a simple star on Github!
               <br /><br />
               <a
                 target='_blank'

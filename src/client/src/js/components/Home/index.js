@@ -9,6 +9,8 @@ import modal from '../utils/modal'
 import pages from '../../constants/pages'
 import PropTypes from 'prop-types'
 import GitHubButton from 'react-github-btn'
+import GetStarted from './GetStarted'
+import SectionDescription from './common/SectionDescription'
 
 const Header = styled.div`
   position: relative;
@@ -25,7 +27,6 @@ const Header = styled.div`
   /* max-width: 1600px; */
   p {
     margin-bottom: 30px;
-    font-size: 16px;
   }
   h1 {
     font-weight: bold;
@@ -70,47 +71,6 @@ const ImageContainer = styled.div`
     width: 100%;
     height: 100%;
     box-shadow: 0 8px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  }
-`
-
-const Cards = styled.div`
-  display: flex;
-  justify-content: center;
-  /* justify-content: space-between; */
-  flex-wrap: wrap;
-`
-
-const Card = styled.div`
-  box-shadow: 0 9px 20px 0 rgba(0,0,0,0.23);
-  background-color: #26262b;
-  max-width: 345px;
-  width: 100%;
-  padding: 30px 20px;
-  min-height: 350px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  /* margin-right: 30px;
-  margin-top: 30px; */
-  margin: 30px;
-  margin-bottom: 0;
-  /* &:last-child {
-    margin-right: 0;
-  } */
-  h3 {
-    margin-top: 30px !important;
-    font-weight: bolder;
-    line-height: 30px;
-    margin-bottom: 12px;
-  }
-  p {
-    font-size: 20px;
-    margin-bottom: 50px !important;
-  }
-  i {
-    font-size: 3.5em !important;
-    margin-top: 50px !important;
   }
 `
 
@@ -212,9 +172,11 @@ function Home (props) {
         <div>
           <div>
             <h1>Get news delivered, automagically.</h1>
-            <p>Receive news from sources like YouTube, Reddit, Steam, or any site that supports RSS.<br />
+            <SectionDescription>
+              Receive news from sources like YouTube, Reddit, Steam, or any site that supports RSS.
+              <br />
               With a copious level of customization, you can design it to look just how you want it.
-            </p>
+            </SectionDescription>
             <HeaderButtons>
               <Button basic onClick={e => props.history.push(pages.DASHBOARD)}>Control Panel</Button>
               <Button size='large' onClick={e => modal.show(modalProps, modalChildren)}>Invite Me!</Button>
@@ -226,36 +188,11 @@ function Home (props) {
         </div>
       </Header>
       <Section>
-        <h2>Get Started!</h2>
-        <p>Getting automatic delivery of your desired news can be done in 3 simple steps.<br />For the full list of commands, use the rss.help command.</p>
-        {/* <p style={{ fontSize: 16 }}>In just 3 easy steps.</p> */}
-        <Cards>
-          <Card>
-            <Icon name='envelope open outline' />
-            <div>
-              <h3>1. Invite Me</h3>
-              <p>You'll have to invite me first to be able to use my features!</p>
-            </div>
-          </Card>
-          <Card>
-            <Icon name='search' />
-            <div>
-              <h3>2. Find a valid feed</h3>
-              <p>An example of a valid feed would be <a href='https://www.gameinformer.com/news.xml' target='_blank' rel='noopener noreferrer'>https://www.gameinformer.com/news.xml</a></p>
-            </div>
-          </Card>
-          <Card>
-            <Icon name='check' />
-            <div>
-              <h3>3. Add it!</h3>
-              <p>Use the rss.add command in your desired channel to add the feed!</p>
-            </div>
-          </Card>
-        </Cards>
+        <GetStarted />
       </Section>
       <Section>
-        <h2>Features</h2>
-        <p>With a slew of customization features, you get to design exactly how you want your feed to look like.</p>
+        <h1>Features</h1>
+        <SectionDescription>With a slew of customization features, you get to design exactly how you want your feed to look like.</SectionDescription>
         <FeatureBoxes>
           <Feature>
             <Icon name='filter' style={{ color: colors.discord.yellow }} />
