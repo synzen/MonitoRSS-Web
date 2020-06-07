@@ -29,7 +29,7 @@ describe('Unit::middleware/checkUserGuildPermission', function () {
   afterEach(function () {
     guildServices.getCachedGuild.mockReset()
     guildServices.getAppData.mockReset()
-    userServices.isManagerOfGuild.mockReset()
+    userServices.isManagerOfGuildByRoles.mockReset()
     createError.mockReset()
   })
   it('returns 404 for unknown guild', async function () {
@@ -51,7 +51,7 @@ describe('Unit::middleware/checkUserGuildPermission', function () {
     const error = { f: 1 }
     createError.mockReturnValue(error)
     guildServices.getCachedGuild.mockResolvedValue({})
-    userServices.isManagerOfGuild.mockResolvedValue(false)
+    userServices.isManagerOfGuildByRoles.mockResolvedValue(false)
     const req = createRequest()
     const json = jest.fn()
     const res = {
@@ -68,7 +68,7 @@ describe('Unit::middleware/checkUserGuildPermission', function () {
     const guildData = { bar: 2 }
     guildServices.getCachedGuild.mockResolvedValue(guild)
     guildServices.getAppData.mockResolvedValue(guildData)
-    userServices.isManagerOfGuild.mockResolvedValue(true)
+    userServices.isManagerOfGuildByRoles.mockResolvedValue(true)
     const req = createRequest()
     const json = jest.fn()
     const res = {
@@ -79,11 +79,28 @@ describe('Unit::middleware/checkUserGuildPermission', function () {
     expect(req.guild).toEqual(guild)
     expect(req.guildData).toEqual(guildData)
   })
-  it('calls next on success', async function () {
+  it('calls next if manager by roles', async function () {
     guildServices.getCachedGuild.mockResolvedValue({})
     guildServices.getAppData.mockResolvedValue({})
-    userServices.isManagerOfGuild.mockResolvedValue(true)
+    userServices.isManagerOfGuildByRoles.mockResolvedValue(true)
     const req = createRequest()
+    const json = jest.fn()
+    const res = {
+      status: jest.fn(() => ({ json }))
+    }
+    const next = createNext()
+    await checkUserGuildPermission(req, res, next)
+    expect(next).toHaveBeenCalledWith()
+  })
+  it('calls next if guild owner', async function () {
+    const ownerID = 'wte4r'
+    guildServices.getCachedGuild.mockResolvedValue({
+      ownerID
+    })
+    guildServices.getAppData.mockResolvedValue({})
+    userServices.isManagerOfGuildByRoles.mockResolvedValue(false)
+    const req = createRequest()
+    req.session.identity.id = ownerID
     const json = jest.fn()
     const res = {
       status: jest.fn(() => ({ json }))
@@ -96,7 +113,7 @@ describe('Unit::middleware/checkUserGuildPermission', function () {
     const error = new Error('aqwsf')
     guildServices.getCachedGuild.mockRejectedValue(error)
     guildServices.getAppData.mockResolvedValue({})
-    userServices.isManagerOfGuild.mockResolvedValue(true)
+    userServices.isManagerOfGuildByRoles.mockResolvedValue(true)
     const req = createRequest()
     const json = jest.fn()
     const res = {
@@ -109,13 +126,13 @@ describe('Unit::middleware/checkUserGuildPermission', function () {
     await checkUserGuildPermission(req, res, next)
     guildServices.getCachedGuild.mockResolvedValue({})
     guildServices.getAppData.mockRejectedValue(error)
-    userServices.isManagerOfGuild.mockResolvedValue(true)
+    userServices.isManagerOfGuildByRoles.mockResolvedValue(true)
     expect(next).toHaveBeenCalledWith(error)
     next.mockClear()
     await checkUserGuildPermission(req, res, next)
     guildServices.getCachedGuild.mockResolvedValue({})
     guildServices.getAppData.mockResolvedValue({})
-    userServices.isManagerOfGuild.mockRejectedValue(error)
+    userServices.isManagerOfGuildByRoles.mockRejectedValue(error)
     expect(next).toHaveBeenCalledWith(error)
   })
 })

@@ -177,9 +177,9 @@ async function hasGuildPermission (guild, config, redisClient) {
  * @param {Object<string, any>} config
  * @param {import('redis').RedisClient} redisClient
  */
-async function isManagerOfGuild (userID, guildID, config, redisClient) {
+async function isManagerOfGuildByRoles (userID, guildID, config, redisClient) {
   const log = createLogger({
-    function: 'isManagerOfGuild',
+    function: 'isManagerOfGuildByRoles',
     userID,
     guildID
   })
@@ -197,7 +197,7 @@ async function isManagerOfGuild (userID, guildID, config, redisClient) {
   }
   // At this point, the member is not cached - so check the API
   log.debug('Unable to determine if user is manager of guild via Redis, they are not stored')
-  return isManagerOfGuildByAPI(userID, guildID, redisClient)
+  return isManagerOfGuildByRolesAPI(userID, guildID, redisClient)
 }
 
 /**
@@ -205,9 +205,9 @@ async function isManagerOfGuild (userID, guildID, config, redisClient) {
  * @param {string} guildID
  * @param {import('redis').RedisClient}
  */
-async function isManagerOfGuildByAPI (userID, guildID, redisClient) {
+async function isManagerOfGuildByRolesAPI (userID, guildID, redisClient) {
   const log = createLogger({
-    function: 'isManagerOfGuildByAPI',
+    function: 'isManagerOfGuildByRolesAPI',
     userID,
     guildID
   })
@@ -254,8 +254,8 @@ module.exports = {
   getUserByAPI,
   getUser,
   getGuildsByAPI,
-  isManagerOfGuild,
-  isManagerOfGuildByAPI,
+  isManagerOfGuildByRoles,
+  isManagerOfGuildByRolesAPI,
   getMemberOfGuild,
   hasGuildPermission,
   requestHandler

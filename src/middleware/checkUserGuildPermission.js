@@ -14,16 +14,16 @@ async function checkUserGuildPermission (req, res, next) {
   try {
     var guildID = req.params.guildID
     var userID = req.session.identity.id
-    const [guild, guildData, isManager] = await Promise.all([
+    const [guild, guildData, hasPermissiveRoles] = await Promise.all([
       guildServices.getCachedGuild(guildID, redisClient),
       guildServices.getAppData(guildID),
-      userServices.isManagerOfGuild(userID, guildID, config, redisClient)
+      userServices.isManagerOfGuildByRoles(userID, guildID, config, redisClient)
     ])
     if (!guild) {
       const error = createError(404, 'Unknown guild')
       return res.status(404).json(error)
     }
-    if (!isManager) {
+    if (guild.ownerID !== userID && !hasPermissiveRoles) {
       const error = createError(403, 'Missing MANAGE_CHANNEL permissions of this guild')
       return res.status(403).json(error)
     }
