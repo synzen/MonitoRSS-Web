@@ -225,7 +225,11 @@ function EmbedSettings (props) {
   for (const key in embedPropertiesNames) {
     const propertyName = embedPropertiesNames[key]
     const thisEmbed = embeds[index]
-    valuesToUse[propertyName] = thisEmbed && thisEmbed[propertyName] === '' ? '' : thisEmbed && propertyName === 'color' && thisEmbed[propertyName] === 0 ? '0' : thisEmbed ? (thisEmbed[propertyName] || originalValues[propertyName] || '') : ''
+    valuesToUse[propertyName] = thisEmbed && thisEmbed[propertyName] === ''
+      ? ''
+      : thisEmbed
+        ? (thisEmbed[propertyName] || originalValues[propertyName] || '')
+        : ''
   }
 
   const fieldElements = []

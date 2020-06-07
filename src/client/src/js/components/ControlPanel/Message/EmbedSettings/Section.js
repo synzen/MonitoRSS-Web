@@ -84,7 +84,7 @@ function numberToColour (number) {
 function ColorPicker (props) {
   return (
     <InputWithButtonGroup>
-      <Input value={props.value || ''} />
+      <Input value={props.value} />
       <Button.Group>
         <Popup
           style={{ background: 'transparent' }}

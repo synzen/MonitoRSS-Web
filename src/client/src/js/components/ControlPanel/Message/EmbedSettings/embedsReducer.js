@@ -31,7 +31,11 @@ export default function reducer (embeds, action) {
       if (property === 'timestamp' && value === 'none') {
         newState[embedIndex].timestamp = ''
       } else if (property === 'color') {
-        newState[embedIndex].color = +value
+        if (value === '') {
+          newState[embedIndex].color = ''
+        } else {
+          newState[embedIndex].color = +value
+        }
       }
     }
   } else if (action.type === ADD_FIELD) {
