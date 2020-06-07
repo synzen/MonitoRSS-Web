@@ -160,11 +160,13 @@ function Feeds (props) {
                     </CheckboxWrapper>
                   </PaginatedTable.Cell> */}
                     <PaginatedTable.Cell collapsing>
-                      {feed.disabled
-                        ? <Icon name='warning circle' style={{ fontSize: '18px' }} color='yellow' />
-                        : failed
-                          ? <Icon name='dont' style={{ fontSize: '18px' }} color='red' />
-                          : <Icon name='check circle' style={{ fontSize: '18px' }} color='green' />}
+                      <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        {feed.disabled
+                          ? <Icon name='warning circle' style={{ fontSize: '18px' }} color='yellow' />
+                          : failed
+                            ? <Icon name='dont' style={{ fontSize: '18px' }} color='red' />
+                            : <Icon name='check circle' style={{ fontSize: '18px' }} color='green' />}
+                      </div>
                     </PaginatedTable.Cell>
                     <PaginatedTable.Cell>{feed.title}</PaginatedTable.Cell>
                     <PaginatedTable.Cell><a href={feed.url} target='_blank' rel='noopener noreferrer'>{feed.url}</a></PaginatedTable.Cell>
