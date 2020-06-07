@@ -5,11 +5,7 @@
     <meta property="og:site_name" content="Discord.RSS">
     <meta property="og:title" content="__OG_TITLE__">
     <meta property="og:description" content="__OG_DESCRIPTION__">
-    <script type="text/javascript">
-      var _iub = _iub || [];
-      _iub.csConfiguration = {"enableCcpa":true,"countryDetection":true,"ccpaAcknowledgeOnDisplay":true,"lang":"en","siteId":1920202,"cookiePolicyId":21683499,"privacyPolicyUrl":"https://discordrss.xyz/privacy-policy","cookiePolicyUrl":"https://discordrss.xyz/cookie-policy", "banner":{ "acceptButtonDisplay":true,"acceptButtonColor":"#7289da","acceptButtonCaptionColor":"#ffffff","rejectButtonColor":"#0073CE","rejectButtonCaptionColor":"white","position":"float-bottom-right","textColor":"#ffffff","backgroundColor":"#010101" }};
-      </script>
-      <script type="text/javascript" src="//cdn.iubenda.com/cs/beta/iubenda_cs.js" charset="UTF-8" async></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta
       name="viewport"
@@ -33,6 +29,28 @@
     <title>Discord.RSS</title>
   </head>
   <body>
+    <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+    <script>
+      window.cookieconsent.initialise({
+        palette: {
+          popup: {
+            background: "#7289da",
+            text: "#ffffff"
+          },
+          button: {
+            background: "#ffffff",
+            text: "#7289da"
+          }
+        },
+        theme: "classic",
+        position: "bottom-right",
+        content: {
+          link: 'See our cookie policy.',
+          href: '/cookie-policy',
+          policy: 'Cookie Policy'
+        }
+      });
+      </script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
