@@ -9,14 +9,15 @@ const Cards = styled.div`
   justify-content: center;
   margin-top: 50px;
   grid-template-columns: repeat(auto-fit, 350px);
-  column-gap: 10px;
-  row-gap: 10px;
+  column-gap: 30px;
+  row-gap: 30px;
 `
 
 const Card = styled.div`
   background-color: #26262b;
   padding: 30px 20px;
   min-height: 350px;
+  border-radius: 7px;
   h3 {
     margin-top: 30px !important;
     font-weight: bolder;

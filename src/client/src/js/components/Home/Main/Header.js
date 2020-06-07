@@ -55,6 +55,7 @@ const ImageContainer = styled.div`
     margin-top: 0;
   }
   > img {
+    border-radius: 7px;
     max-width: 450px;
     width: 100%;
     height: 100%;
