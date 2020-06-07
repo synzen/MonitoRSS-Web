@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import SectionTitle from 'js/components/common/SectionTitle'
 import PageHeader from 'js/components/common/PageHeader'
 import SidebarContent from './SidebarContent'
-import SectionTitle from 'js/components/common/SectionTitle'
 import AddFeed from './AddFeed'
 import PaginatedTable from '../common/PaginatedTable'
 import PropTypes from 'prop-types'
@@ -23,10 +23,7 @@ const MainContent = styled.div`
     padding: 55px;
   }
   width: 100%;
-  /* overflow: hidden; */
   scrollbar-width: thin;
-  /* overflow-y: auto; */
-  /* max-width: 840px; */
 `
 
 const FeedLimitContainer = styled.div`
@@ -182,19 +179,7 @@ function Feeds (props) {
               }}
             />
             <Divider />
-            <SectionTitle
-              heading='Add'
-              subheading={
-                <span>
-                  {`Add a new feed. You may have a maximum of ${activeGuild.limit === 0 ? '∞' : activeGuild.limit} feeds.`}
-                  {activeGuild.limit !== 0
-                    ? ` Need more? ${<a href='https://www.patreon.com/discordrss' target='_blank' rel='noopener noreferrer'>Become a supporter!</a>}`
-                    : ''}
-
-                </span>
-              }
-            />
-            <AddFeed channelDropdownOptions={channelDropdownOptions} />
+            <AddFeed channelDropdownOptions={channelDropdownOptions} limit={activeGuild.limit} />
             <Divider />
           </MainContent>
         </Scrollbars>
