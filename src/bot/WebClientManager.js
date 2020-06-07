@@ -94,9 +94,15 @@ class WebClientManager {
     const uri = this.config.database.uri
     const options = this.config.database.connection
     await DiscordRSS.setupModels(uri, options)
-    const supporterConfig = await configServices.getSupporterConfig()
-    DiscordRSS.config.get()[Supporter.keys.ENABLED] = supporterConfig[Supporter.keys.ENABLED]
-    DiscordRSS.config.get()[Supporter.keys.REFRESH_RATE] = supporterConfig[Supporter.keys.REFRESH_RATE]
+    const [feedConfig, supporterConfig] = await Promise.all([
+      configServices.getFeedConfig(),
+      configServices.getSupporterConfig()
+    ])
+    DiscordRSS.config.set({
+      feeds: feedConfig,
+      [Supporter.keys.ENABLED]: supporterConfig[Supporter.keys.ENABLED],
+      [Supporter.keys.REFRESH_RATE]: supporterConfig[Supporter.keys.REFRESH_RATE]
+    }, true)
   }
 
   /**

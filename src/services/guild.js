@@ -1,6 +1,7 @@
 const DiscordRSS = require('discord.rss')
 const RedisGuild = require('../bot/structs/Guild.js')
 const RedisChannel = require('../bot/structs/Channel.js')
+const feedServices = require('./feed.js')
 const GuildData = DiscordRSS.GuildData
 const Profile = DiscordRSS.Profile
 
@@ -26,8 +27,18 @@ async function getFeedLimit (guildID) {
   return Profile.getFeedLimit(guildID)
 }
 
+async function getGuildLimitInfo (guildID) {
+  const [feeds, limit] = await Promise.all([
+    feedServices.getFeedsOfGuild(guildID),
+    getFeedLimit(guildID)
+  ])
+  return {
+    exceeded: feeds.length >= limit,
+    limit
+  }
+}
+
 /**
- *
  * @param {string} guildID
  * @param {import('redis').RedisClient} redisClient
  */
@@ -84,6 +95,7 @@ module.exports = {
   getCachedGuild,
   updateProfile,
   getFeedLimit,
+  getGuildLimitInfo,
   guildHasChannel,
   getGuild
 }

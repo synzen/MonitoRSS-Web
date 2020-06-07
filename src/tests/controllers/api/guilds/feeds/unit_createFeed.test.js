@@ -3,6 +3,7 @@ const DiscordRSS = require('discord.rss')
 const FeedParserError = DiscordRSS.errors.FeedParserError
 const RequestError = DiscordRSS.errors.RequestError
 const createFeed = require('../../../../../controllers/api/guilds/feeds/createFeed.js')
+const guildServices = require('../../../../../services/guild.js')
 const feedServices = require('../../../../../services/feed.js')
 const createError = require('../../../../../util/createError.js')
 const {
@@ -10,10 +11,14 @@ const {
   createNext
 } = require('../../../../mocks/express.js')
 
+jest.mock('../../../../../services/guild.js')
 jest.mock('../../../../../services/feed.js')
 jest.mock('../../../../../util/createError.js')
 
 describe('Unit::controllers/api/guilds/feeds/createFeed', function () {
+  beforeEach(function () {
+    guildServices.getGuildLimitInfo.mockResolvedValue({})
+  })
   afterEach(function () {
     feedServices.createFeed.mockReset()
   })
@@ -35,6 +40,27 @@ describe('Unit::controllers/api/guilds/feeds/createFeed', function () {
     expect(next).not.toHaveBeenCalled()
     expect(res.status).toHaveBeenCalledWith(201)
     expect(json).toHaveBeenCalledWith(createdFeed)
+  })
+  it('returns 403 if exceeded feed limit', async function () {
+    guildServices.getGuildLimitInfo.mockResolvedValue({
+      exceeded: true,
+      limit: 10
+    })
+    const req = {
+      params: {},
+      body: {}
+    }
+    const json = jest.fn()
+    const res = {
+      status: jest.fn(() => ({ json }))
+    }
+    const next = createNext()
+    const createdError = '2q3t4ewgr'
+    createError.mockReturnValue(createdError)
+    await createFeed(req, res, next)
+    expect(next).not.toHaveBeenCalled()
+    expect(res.status).toHaveBeenCalledWith(403)
+    expect(json).toHaveBeenCalledWith(createdError)
   })
   it('returns 400 if error is already exists in this channel', async function () {
     const req = {
