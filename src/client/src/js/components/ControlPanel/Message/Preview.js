@@ -252,7 +252,6 @@ const EmbedFieldTitle = styled.div`
   color: ${colors.discord.subtext};
   font-weight: 500;
   margin-bottom: 2px;
-  font-size: 0.875em;
   line-height: 1.125em;
   min-width: 0;
 `
