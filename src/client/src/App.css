@@ -202,6 +202,10 @@ a {
   color: #0096cf;
 }
 
+a:active, a:focus {
+  outline: none;
+}
+
 a:hover {
   text-decoration: underline;
   color: #0096cf;

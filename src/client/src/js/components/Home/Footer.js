@@ -88,9 +88,11 @@ function Footer () {
           <div>
             <h4>Useful Links</h4>
             <Navigation>
-              <a href='https://github.com/synzen/discord.rss' target='_blank' rel='noreferrer noopener'>GitHub</a>
-              <a href='https://docs.discordrss.xyz' target='_blank' rel='noreferrer noopener'>Documentation</a>
+              <Link to={pages.FAQ}>FAQ</Link>
+              <Link to={pages.FEED_BROWSER}>Feed Browser</Link>
               <a href='https://discord.gg/pudv7Rx' target='_blank' rel='noreferrer noopener'>Support Server</a>
+              <a href='https://docs.discordrss.xyz' target='_blank' rel='noreferrer noopener'>Documentation</a>
+              <a href='https://github.com/synzen/discord.rss' target='_blank' rel='noreferrer noopener'>GitHub</a>
             </Navigation>
           </div>
         </FooterContainer>
