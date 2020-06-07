@@ -72,12 +72,15 @@ async function refreshToken (tokenObject, config) {
   })
   const res = await fetch(url, {
     method: 'POST',
-    body
+    body,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
   })
   if (!res.ok) {
     const log = createLogger()
     log.error({
-      responseError: getResponseError(res)
+      responseError: await getResponseError(res)
     }, 'Failed to refresh token')
     throw new Error(`Non-200 status code (${res.status}, ${res.statusText})`)
   }
@@ -109,7 +112,7 @@ async function createAuthToken (code, config) {
   if (!res.ok) {
     const log = createLogger()
     log.error({
-      responseError: getResponseError(res)
+      responseError: await getResponseError(res)
     }, 'Failed to create auth token')
     throw new Error(`Non-200 status code (${res.status}, ${res.statusText})`)
   }

@@ -1,5 +1,5 @@
 module.exports = {
-  scopes: 'identify%20guilds',
+  scopes: 'identify guilds',
   apiHost: 'https://discord.com/api',
   auth: {
     tokenHost: 'https://discord.com/api',
