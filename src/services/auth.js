@@ -2,6 +2,8 @@ const fetch = require('node-fetch')
 const userServices = require('./user.js')
 const { URLSearchParams } = require('url')
 const discordAPIConstants = require('../constants/discordAPI.js')
+const getResponseError = require('../util/getResponseError.js')
+const createLogger = require('../util/logger/create.js')
 
 /**
  * @typedef {Object} Session
@@ -73,6 +75,10 @@ async function refreshToken (tokenObject, config) {
     body
   })
   if (!res.ok) {
+    const log = createLogger()
+    log.error({
+      responseError: getResponseError(res)
+    }, 'Failed to refresh token')
     throw new Error(`Non-200 status code (${res.status}, ${res.statusText})`)
   }
   const json = await res.json()
@@ -101,6 +107,10 @@ async function createAuthToken (code, config) {
     body
   })
   if (!res.ok) {
+    const log = createLogger()
+    log.error({
+      responseError: getResponseError(res)
+    }, 'Failed to create auth token')
     throw new Error(`Non-200 status code (${res.status}, ${res.statusText})`)
   }
   const json = await res.json()
@@ -136,6 +146,10 @@ async function revokeAuthToken (tokenObject, config) {
     })
   ])
   if (!accessResp.ok || !refreshResp.ok) {
+    const log = createLogger()
+    log.error({
+      responseError: getResponseError(!accessResp.ok ? refreshResp : accessResp)
+    }, 'Failed to revoke auth token')
     throw new Error(`Failed to completely revoke tokens, bad status codes (access_token: ${accessResp.status}, refresh_token: ${refreshResp.ok})`)
   }
 }
