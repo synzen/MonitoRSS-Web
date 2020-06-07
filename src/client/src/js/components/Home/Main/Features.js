@@ -24,13 +24,13 @@ const Feature = styled.div`
       color: white;
     }
     > p {
-      font-size: 1em;
-      margin-top: 20px;
+      font-size: 1.1em;
+      margin-top: 12px;
     }
   }
   i {
     font-size: 40px !important;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
   img {
     width: 40px;

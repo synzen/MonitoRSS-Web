@@ -10,7 +10,6 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   margin: 0 30px 60px 30px;
-  font-size: 0.95em;
 `
 
 const FooterContainer = styled.div`
@@ -34,6 +33,7 @@ const SupportUs = styled.div`
   grid-column-start: 1;
   grid-column-end: 3;
   text-align: left;
+  font-size: 1.1em;
 `
 
 const Navigation = styled.nav`
@@ -50,7 +50,7 @@ function Footer () {
           <SupportUs>
             <h3>Support Us!</h3>
             <p style={{ marginBottom: 0 }}>
-              Has Discord.RSS helped you or your community? You can show your support by either becoming a Patron, or just a simple star on Github!
+              Has Discord.RSS helped you or your community? You can show your support by either becoming a Patron, or just adding a star on Github!
               <br /><br />
               <a
                 target='_blank'
