@@ -49,6 +49,7 @@ const EmbedFieldBoxStyles = styled(Wrapper)`
   display: inline-block;
   flex-shrink: 0;
   margin-right: 30px;
+  background: #2f3136;
   /* height: 100%; */
   overflow: hidden;
   > div {
