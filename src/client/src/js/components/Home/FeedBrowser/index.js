@@ -424,7 +424,11 @@ function FeedBrowser () {
     <div>
       <Header>
         <PageHeader heading='Feed Browser' />
-        <p>Preview placeholders and browse their contents without adding them!</p>
+        <p>
+          Preview placeholders and browse their contents without adding them!
+          <br />
+          Try a <a href='/feed-browser/https%3A%2F%2Fwww.gameinformer.com%2Fnews.xml'>sample feed.</a>
+        </p>
         <FeedInput getArticles={getArticles} loading={loading} />
       </Header>
 
