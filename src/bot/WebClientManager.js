@@ -91,6 +91,10 @@ class WebClientManager {
   }
 
   async setupDiscordRSS () {
+    console.log(process.env.DRSS_START)
+    if (process.env.DRSS_START === 'bot-web') {
+      return
+    }
     const uri = this.config.database.uri
     const options = this.config.database.connection
     await DiscordRSS.setupModels(uri, options)
