@@ -7,6 +7,7 @@ import { darken } from 'polished'
 import colors from '../../../constants/colors'
 import posed from 'react-pose'
 import pages from '../../../constants/pages'
+import WhiteButton from '../Main/common/WhiteButton'
 
 const Title = styled.h2`
   color: ${darken(0.1, 'white')};
@@ -96,7 +97,6 @@ const NavItem = styled.li`
   justify-content: center;
   height: 100%;
   width: 100%;
-  
   &:first-child > a {
     user-select: none;
     padding-left: 25px;
@@ -142,7 +142,7 @@ const NavItem = styled.li`
     color: ${props => props.selected ? 'white' : colors.discord.text};
     text-decoration: none;
     transition: color 0.25s;
-    &:hover {
+    &:hover, &:focus {
       color: white;
       text-decoration: none;
     }
@@ -206,11 +206,11 @@ function NavBar (props) {
 
   return (
     <header style={{ height: '100%' }}>
-      <DesktopNav>
+      <DesktopNav aria-label='primary desktop'>
         <NavButtons>
           <NavItem select={path === '/'}>
             <Link to='/'>
-              <Logo src='https://discordapp.com/assets/d36b33903dafb0107bb067b55bdd9cbc.svg' />
+              <Logo src='https://discordapp.com/assets/d36b33903dafb0107bb067b55bdd9cbc.svg' alt='Website logo' />
               <Title>Discord.RSS</Title>
             </Link>
           </NavItem>
@@ -220,7 +220,9 @@ function NavBar (props) {
           <li onMouseEnter={e => setHoverGithub(true)} onMouseLeave={e => setHoverGithub(false)}>Github<ExternalIcon pose={hoveringGithub ? 'enter' : 'exit'} name='external' /></li> */}
           <NavItem selected={path === pages.SUPPORT}><a href='https://discord.gg/pudv7Rx' target='_blank' rel='noopener noreferrer'>Support<Icon name='external' size='small' /></a></NavItem>
           <NavItem onMouseEnter={e => setShowNavDropdown(true)} onMouseLeave={e => setShowNavDropdown(false)}>
-            <button>Links<Icon name='caret down' size='small' /></button>
+            <button>
+              Links<Icon name='caret down' size='small' />
+            </button>
             <NavDropdown show={showNavDropdown}>
               <DropdownNavItem><a href='https://www.patreon.com/discordrss' target='_blank' rel='noopener noreferrer'><Icon name='patreon' style={{ color: '#E85B46' }} /><span>Patreon</span></a></DropdownNavItem>
               <DropdownNavItem><a href='https://github.com/synzen/Discord.RSS' target='_blank' rel='noopener noreferrer'><Icon name='github' /><span>Github</span></a></DropdownNavItem>
@@ -228,13 +230,17 @@ function NavBar (props) {
             </NavDropdown>
           </NavItem>
 
-          <NavItem><Link to={pages.DASHBOARD}><Button basic>Control Panel</Button></Link></NavItem>
+          <NavItem>
+            <Link to={pages.DASHBOARD}>
+              <WhiteButton basic>Control Panel</WhiteButton>
+            </Link>
+          </NavItem>
         </NavButtons>
       </DesktopNav>
-      <MobileNav>
-        <Button basic icon={showMobileNav ? 'caret up' : 'list ul'} onClick={e => setShowMobileNav(!showMobileNav)} />
+      <MobileNav aria-label='primary mobile'>
+        <Button aria-label='Show Menu' basic icon={showMobileNav ? 'caret up' : 'list ul'} onClick={e => setShowMobileNav(!showMobileNav)} />
         <Link to='/'>
-          <Logo src='https://discordapp.com/assets/d36b33903dafb0107bb067b55bdd9cbc.svg' />
+          <Logo src='https://discordapp.com/assets/d36b33903dafb0107bb067b55bdd9cbc.svg' alt='Website logo' />
           <Title>Discord.RSS</Title>
         </Link>
         <Sidebar pose={showMobileNav ? 'enter' : 'exit'}>

@@ -29,7 +29,7 @@ const FooterContainer = styled.div`
   }
 `
 
-const SupportUs = styled.div`
+const SupportUs = styled.section`
   grid-column-start: 1;
   grid-column-end: 3;
   text-align: left;
@@ -43,12 +43,12 @@ const Navigation = styled.nav`
 
 function Footer () {
   return (
-    <div>
+    <footer>
       <Divider />
       <Wrapper>
         <FooterContainer>
           <SupportUs>
-            <h3>Support Us!</h3>
+            <h2>Support Us!</h2>
             <p style={{ marginBottom: 0 }}>
               Has Discord.RSS helped you or your community? You can show your support by either becoming a Patron, or just adding a star on Github!
               <br /><br />
@@ -77,16 +77,16 @@ function Footer () {
               </GitHubButton>
             </p>
           </SupportUs>
-          <div>
-            <h4>Information</h4>
+          <section>
+            <h3>Information</h3>
             <Navigation>
               <Link to={pages.TERMS}>Terms & Conditions</Link>
               <Link to={pages.PRIVACY_POLICY}>Privacy Policy</Link>
               <Link to={pages.COOKIE_POLICY}>Cookie Policy</Link>
             </Navigation>
-          </div>
-          <div>
-            <h4>Useful Links</h4>
+          </section>
+          <section>
+            <h3>Useful Links</h3>
             <Navigation>
               <Link to={pages.FAQ}>FAQ</Link>
               <Link to={pages.FEED_BROWSER}>Feed Browser</Link>
@@ -94,10 +94,10 @@ function Footer () {
               <a href='https://docs.discordrss.xyz' target='_blank' rel='noreferrer noopener'>Documentation</a>
               <a href='https://github.com/synzen/discord.rss' target='_blank' rel='noreferrer noopener'>GitHub</a>
             </Navigation>
-          </div>
+          </section>
         </FooterContainer>
       </Wrapper>
-    </div>
+    </footer>
   )
 }
 

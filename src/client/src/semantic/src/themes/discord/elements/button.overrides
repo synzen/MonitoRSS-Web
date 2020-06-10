@@ -13,7 +13,7 @@
   transition: color .17s ease,background-color .17s ease,border-color .17s ease;
   box-shadow: none !important;
   border: 1px solid rgba(114,137,218,.3);
-  color: #7289da !important;
+  color: #7289da;
 }
 
 .ui.basic.buttons .button:hover,

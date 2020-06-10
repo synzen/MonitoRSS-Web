@@ -5,6 +5,7 @@ import SectionDescription from './common/SectionDescription'
 import { Button, Icon } from 'semantic-ui-react'
 import pages from '../../../constants/pages'
 import modal from '../../utils/modal'
+import WhiteButton from './common/WhiteButton'
 
 const Wrapper = styled.div`
   position: relative;
@@ -128,7 +129,7 @@ function Header () {
             With a copious level of customization, you can design it to look just how you want it.
           </SectionDescription>
           <HeaderButtons>
-            <Button basic onClick={e => history.push(pages.DASHBOARD)}>Control Panel</Button>
+            <WhiteButton basic onClick={e => history.push(pages.DASHBOARD)}>Control Panel</WhiteButton>
             <Button size='large' onClick={e => modal.show(modalProps, modalChildren)}>Invite Me!</Button>
           </HeaderButtons>
         </div>

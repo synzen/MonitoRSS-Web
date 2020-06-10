@@ -199,14 +199,18 @@ code {
 }
 
 a {
-  color: #0096cf;
+  color: rgb(20, 170, 227);
 }
 
 a:active, a:focus {
   outline: none;
 }
 
+a:focus {
+  text-decoration: underline;
+}
+
 a:hover {
   text-decoration: underline;
-  color: #0096cf;
+  color: rgb(20, 170, 227);
 }

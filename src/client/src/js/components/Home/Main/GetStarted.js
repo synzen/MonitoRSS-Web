@@ -18,7 +18,7 @@ const Card = styled.div`
   padding: 30px 20px;
   min-height: 350px;
   border-radius: 7px;
-  h3 {
+  h2 {
     margin-top: 30px !important;
     font-weight: bolder;
     line-height: 30px;
@@ -50,21 +50,21 @@ function GetStarted () {
         <Card>
           <Icon name='envelope open outline' />
           <div>
-            <h3>1. Invite Me</h3>
+            <h2>1. Invite Me</h2>
             <p>You'll have to invite me first to be able to use my features!</p>
           </div>
         </Card>
         <Card>
           <Icon name='search' />
           <div>
-            <h3>2. Find a valid feed</h3>
+            <h2>2. Find a valid feed</h2>
             <p>All it takes is some Googling - an example feed would be <a href='https://www.gameinformer.com/news.xml' target='_blank' rel='noopener noreferrer'>https://www.gameinformer.com/news.xml</a></p>
           </div>
         </Card>
         <Card>
           <Icon name='check' />
           <div>
-            <h3>3. Add it!</h3>
+            <h2>3. Add it!</h2>
             <p>Use the rss.add command in your desired channel to add the feed, then you're done!</p>
           </div>
         </Card>
