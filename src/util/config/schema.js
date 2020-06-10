@@ -62,7 +62,7 @@ module.exports = {
         .map(d => d.message)
         .join('\n')
 
-      throw new TypeError(`Config validation failed\n\n${str}\n`)
+      throw new TypeError(`Web config validation failed\n\n${str}\n`)
     }
   }
 }
