@@ -157,13 +157,20 @@ function Filters () {
     <Container>
       <PageHeader>
         <h2>Filters</h2>
-        <p>Set up filters to decide which articles should be sent to Discord. For more information, see the <a href='https://docs.discordrss.xyz/bot-customizations/filters/filters-regular' target='_blank' rel='noreferrer noopener'>documentation</a>.</p>
+        <p>Set up filters to decide which articles should be sent to Discord.</p>
       </PageHeader>
       <Divider />
       <SectionTitle heading='Current' subheading='Your current filters are listed here.' />
       <FiltersTable filters={feedFilters} removeFilter={removeFilter} inProgress={editing} />
       <Divider />
-      <SectionTitle heading='Add' subheading='Type a new filter and add it. Note that all filters are automatically lowercased.' />
+      <SectionTitle
+        heading='Add'
+        subheading={
+          <>
+            Type a new filter and add it. Note that all filters are automatically lowercased. For more information, see the <a href='https://docs.discordrss.xyz/bot-customizations/filters/filters-regular' target='_blank' rel='noreferrer noopener'>documentation</a>
+          </>
+        }
+      />
       <AddFilter addFilter={addFilter} inProgress={editing} />
       <Divider />
 
