@@ -33,7 +33,7 @@ async function getGuildLimitInfo (guildID) {
     getFeedLimit(guildID)
   ])
   return {
-    exceeded: feeds.length >= limit,
+    exceeded: limit !== 0 && feeds.length >= limit,
     limit
   }
 }
