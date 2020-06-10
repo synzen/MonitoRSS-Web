@@ -30,7 +30,7 @@
   },
   {
     "q": "What is a valid RSS feed, and how do I find one?",
-    "a": "A valid feed is normally a page with XML code. See https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml for an example of how an RSS page looks like. To find a feed, you can find an RSS icon or a link that alludes to getting updates. If you are still unable to find it, you can try contacting the site admin to see if they can provide the RSS feed you need.",
+    "a": "A valid feed is normally a page with XML code. See https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml for an example of how an RSS page looks like. To find a feed on a particular site, you can find an RSS icon, a link that alludes to getting updates, or just googling for it. If you are still unable to find it, you can try contacting the site admin to see if they can provide the RSS feed you need.",
     "t": [
       "valid feed",
       "feed",
