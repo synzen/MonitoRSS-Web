@@ -1,6 +1,6 @@
 {
   "name": "discord.rss-web",
-  "version": "0.0.29",
+  "version": "0.0.30",
   "description": "Website for Discord.RSS",
   "main": "index.js",
   "repository": {
