@@ -91,7 +91,6 @@ class WebClientManager {
   }
 
   async setupDiscordRSS () {
-    console.log(process.env.DRSS_START)
     if (process.env.DRSS_START === 'bot-web') {
       return
     }
