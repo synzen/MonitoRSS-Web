@@ -399,7 +399,8 @@ function FeedBrowser () {
       console.log(err.response || err.message)
       const errMessage = err.response && err.response.data && err.response.data.message ? err.response.data.message : err.response && err.response.data ? err.response.data : err.message
       console.log(errMessage)
-      setError(errMessage)
+      setError(<>{}{targetURL}<br /><br />{errMessage}</>)
+      setLoading(false)
     })
   }
 
@@ -502,7 +503,19 @@ function FeedBrowser () {
             </ArticlesHeaderContainer>
           </ArticlesSectionBody>
           {error
-            ? <StatusMessage><SectionSubtitleDescription style={{ color: colors.discord.red }} fontSize='20px'>{error}</SectionSubtitleDescription></StatusMessage>
+            ? (
+              <StatusMessage>
+                <SectionSubtitleDescription
+                  style={{
+                    color: colors.discord.red,
+                    textAlign: 'center'
+                  }}
+                  fontSize='20px'
+                >
+                  {error}
+                </SectionSubtitleDescription>
+              </StatusMessage>
+            )
             : loading || articleList.length === 0 || loadingXML
               ? (loading || loadingXML)
                 ? (

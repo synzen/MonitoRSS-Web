@@ -15,6 +15,12 @@ class FeedInput extends Component {
 
   handleGetArticles = () => this.props.getArticles(this.state.url)
 
+  setURL (url) {
+    this.setState({
+      url
+    })
+  }
+
   render () {
     return (
       <Input
@@ -22,8 +28,14 @@ class FeedInput extends Component {
         placeholder='Enter a feed URL!'
         disabled={this.props.loading}
         action={<Button disabled={!this.state.url} content='Get' onClick={this.handleGetArticles} />}
-        onKeyPress={e => e.key === 'Enter' ? this.handleGetArticles() : null}
-        onChange={e => this.setState({ url: e.target.value })}
+        onKeyPress={e => {
+          if (e.key !== 'Enter') {
+            return
+          }
+          this.handleGetArticles()
+          this.setURL('')
+        }}
+        onChange={e => this.setURL(e.target.value)}
         value={this.state.url}
       />
     )
