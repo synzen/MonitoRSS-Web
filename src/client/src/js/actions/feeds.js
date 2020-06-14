@@ -68,10 +68,6 @@ export function fetchGuildFeeds (guildID) {
       } else {
         await dispatch(setActiveFeed(activeFeedID))
       }
-      for (const feed of data) {
-        // No need to explicitly wait for schedules to be fetched
-        dispatch(fetchGuildFeedSchedule(guildID, feed._id))
-      }
     } catch (err) {
       dispatch(setFeedsFailure(err))
     }
