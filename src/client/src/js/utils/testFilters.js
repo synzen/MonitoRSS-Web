@@ -74,7 +74,7 @@ function getFilterReference (article, type) {
 
 export default function testFilters (filters, article) {
   const filterResults = new FilterResults()
-  let passed = Object.keys(filters).every(type => !!getFilterReference(type))
+  let passed = Object.keys(filters).every(type => !!getFilterReference(article, type))
   filterResults.passed = passed
   // If not every key in filters exists on the articles, auto-block it
   if (!passed) {
