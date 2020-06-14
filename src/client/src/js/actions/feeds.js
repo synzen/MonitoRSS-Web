@@ -63,14 +63,14 @@ export function fetchGuildFeeds (guildID) {
       dispatch(setFeedsBegin())
       const { data } = await axios.get(`/api/guilds/${guildID}/feeds`)
       dispatch(setFeedsSuccess(data))
-      for (const feed of data) {
-        // No need to explicitly wait for schedules to be fetched
-        dispatch(fetchGuildFeedSchedule(guildID, feed._id))
-      }
       if (!data.find(feed => feed._id === activeFeedID)) {
         await dispatch(setActiveFeed(''))
       } else {
         await dispatch(setActiveFeed(activeFeedID))
+      }
+      for (const feed of data) {
+        // No need to explicitly wait for schedules to be fetched
+        dispatch(fetchGuildFeedSchedule(guildID, feed._id))
       }
     } catch (err) {
       dispatch(setFeedsFailure(err))
