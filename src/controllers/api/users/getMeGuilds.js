@@ -13,14 +13,15 @@ async function getMeGuilds (req, res, next) {
   try {
     const userGuilds = await userServices.getGuildsByAPI(identity.id, token.access_token)
     const guilds = []
-    for (const guild of userGuilds) {
+    const promises = userGuilds.map((guild) => (async () => {
       const hasPerm = await userServices.hasGuildPermission(guild, config, redisClient)
       if (!hasPerm) {
-        continue
+        return
       }
       const guildData = await guildServices.getGuild(guild.id, redisClient)
       guilds.push(guildData)
-    }
+    })())
+    await Promise.all(promises)
     res.json(guilds)
   } catch (err) {
     next(err)
