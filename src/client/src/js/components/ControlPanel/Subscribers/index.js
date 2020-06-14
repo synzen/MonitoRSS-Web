@@ -397,7 +397,7 @@ function Subscribers () {
               return (
                 <SubscriberListItem key={subscriber.id} color={subscriber.hexColor} selected={subscriber.id === selectedSubscriberID}>
                   <button onClick={e => setSelectedSubscriberID(subscriber.id)}>
-                    {subscriber.name}
+                    {subscriber.name || subscriber.id}
                   </button>
                   <div>
                     <SectionSubtitle>
