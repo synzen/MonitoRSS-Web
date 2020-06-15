@@ -12,6 +12,7 @@ import pages from 'js/constants/pages'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { fetchFaq } from 'js/actions/faq'
+import { fetchStats } from 'js/actions/stats'
 import Footer from './Footer'
 
 const Wrapper = styled.div`
@@ -28,6 +29,7 @@ function Home () {
 
   useEffect(() => {
     dispatch(fetchFaq())
+    dispatch(fetchStats())
   }, [])
 
   useEffect(() => {

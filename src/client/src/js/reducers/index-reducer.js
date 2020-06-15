@@ -18,6 +18,7 @@ import schedulesReducer from './schedules'
 import authenticatedReducer from './authenticated'
 import botUserReducer from './botUser'
 import faqReducer from './faq'
+import statsReducer from './stats'
 
 const rootReducer = combineReducers({
   authenticated: authenticatedReducer,
@@ -38,7 +39,8 @@ const rootReducer = combineReducers({
   botConfig: botConfigReducer,
   failRecords: failRecordsReducer,
   schedules: schedulesReducer,
-  faq: faqReducer
+  faq: faqReducer,
+  stats: statsReducer
 })
 
 export default rootReducer
