@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Link, withRouter } from 'react-router-dom'
+import { Link, withRouter, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { Icon, Button } from 'semantic-ui-react'
 import { darken } from 'polished'
@@ -199,17 +199,18 @@ const DropdownNavItem = styled.li`
   }
 `
 
-function NavBar (props) {
+function NavBar () {
   const [showNavDropdown, setShowNavDropdown] = useState(false)
   const [showMobileNav, setShowMobileNav] = useState(false)
-  const path = props.location.pathname
+  const location = useLocation()
+  const path = location.pathname
 
   return (
     <header style={{ height: '100%' }}>
       <DesktopNav aria-label='primary desktop'>
         <NavButtons>
           <NavItem select={path === '/'}>
-            <Link to='/'>
+            <Link to='/' onClick={e => path === '/' ? e.preventDefault() : null}>
               <Logo src='https://discordapp.com/assets/d36b33903dafb0107bb067b55bdd9cbc.svg' alt='Website logo' />
               <Title>Discord.RSS</Title>
             </Link>
@@ -258,8 +259,4 @@ function NavBar (props) {
   )
 }
 
-NavBar.propTypes = {
-  location: PropTypes.object
-}
-
-export default withRouter(NavBar)
+export default NavBar
