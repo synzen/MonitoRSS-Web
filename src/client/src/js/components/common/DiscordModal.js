@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
 import posed, { PoseGroup } from 'react-pose'
 import colors from '../../constants/colors'
+import { useSelector, useDispatch } from 'react-redux'
+import { hideModal } from 'js/actions/modal'
 // import { Scrollbars } from 'react-custom-scrollbars'
 const TRANSITION_DURATION = 150
 
@@ -83,69 +84,85 @@ const ModalHeaderWrapper = styled.div`
   }
 `
 
-class DiscordModal extends React.PureComponent {
-  componentDidMount () {
-    document.addEventListener('keydown', this.escFunction, false)
-    window.addEventListener('popstate', this.popState)
-  }
+function DiscordModal () {
+  const reduxModal = useSelector(state => state.modal)
+  const props = reduxModal.props || {}
+  const dispatch = useDispatch()
 
-  componentWillUnmount () {
-    document.removeEventListener('keydown', this.escFunction, false)
-    window.removeEventListener('popstate', this.popState)
-  }
-
-  popState = e => {
-    if (this.props.open) {
-      e.preventDefault()
-      this.props.onClose()
+  const escape = (event) => {
+    if (event.keyCode === 27 && reduxModal.open) {
+      dispatch(hideModal())
     }
   }
 
-  escFunction = event => {
-    if (event.keyCode === 27 && this.props.open) this.props.onClose()
+  function popState (event) {
+    if (reduxModal.open) {
+      event.preventDefault()
+      dispatch(hideModal())
+    }
   }
 
-  render () {
-    const props = this.props
+  useEffect(() => {
+    document.addEventListener('keydown', escape, false)
+    window.addEventListener('popstate', popState)
+    return () => {
+      document.removeEventListener('keydown', escape)
+      window.removeEventListener('popstate', popState)
+    }
+  }, [reduxModal])
 
-    return (
-      <PoseGroup>
-        {this.props.open && [
-          <StyledShade
-            key='shade' onClick={e => {
-              if (e.target === e.currentTarget && this.props.onClose) this.props.onClose()
-            }}
-          >
-            <StyledModal key='dialog' isImage={this.props.isImage} fullWidth={this.props.fullWidth}>
-              {props.header
-                ? <ModalHeader>{props.header}</ModalHeader>
-                : props.title || props.subtitle
-                  ? <ModalHeader><ModalHeaderWrapper><h4>{props.title}</h4><p>{props.subtitle}</p></ModalHeaderWrapper></ModalHeader>
-                  : null}
-              {/* <Scrollbars> */}
-              <ModalBody isImage={this.props.isImage} transparent={props.transparentBody} hasHeader={!!props.header || !!props.title || !!props.subtitle} hasFooter={!!props.footer}><div>{props.children}</div></ModalBody>
-              {/* </Scrollbars> */}
-              {props.footer ? <ModalFooter transparent={props.transparentFooter} fullWidth={this.props.fullWidth}>{props.footer}</ModalFooter> : undefined}
-            </StyledModal>
-          </StyledShade>
-        ]}
-      </PoseGroup>
-    )
-  }
-}
-
-DiscordModal.propTypes = {
-  fullWidth: PropTypes.bool,
-  onClose: PropTypes.func,
-  open: PropTypes.bool,
-  isImage: PropTypes.bool,
-  header: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  title: PropTypes.string,
-  subtitle: PropTypes.string,
-  children: PropTypes.node,
-  transparentBody: PropTypes.bool,
-  transparentFooter: PropTypes.bool,
-  footer: PropTypes.oneOfType([PropTypes.node])
+  return (
+    <PoseGroup>
+      {reduxModal.open && [
+        <StyledShade
+          key='shade' onClick={e => {
+            if (e.target === e.currentTarget) {
+              dispatch(hideModal())
+            }
+          }}
+        >
+          <StyledModal key='dialog' isImage={props.isImage} fullWidth={props.fullWidth}>
+            {props.header
+              ? <ModalHeader>{props.header}</ModalHeader>
+              : props.title || props.subtitle
+                ? 
+                (
+                  <ModalHeader>
+                    <ModalHeaderWrapper>
+                      <h4>{props.title}</h4>
+                      <p>{props.subtitle}</p>
+                    </ModalHeaderWrapper>
+                  </ModalHeader>
+                )
+                : null}
+            {/* <Scrollbars> */}
+            <ModalBody
+              isImage={props.isImage}
+              transparent={props.transparentBody}
+              hasHeader={!!props.header || !!props.title || !!props.subtitle}
+              hasFooter={!!props.footer}>
+                <div>
+                  {reduxModal.children}
+                </div>
+              </ModalBody>
+            {/* </Scrollbars> */}
+            {props.footer
+              ? 
+              (
+                <ModalFooter
+                  transparent={props.transparentFooter}
+                  fullWidth={props.fullWidth}
+                >
+                  {props.footer}
+                </ModalFooter>
+              )
+              : undefined
+            }
+          </StyledModal>
+        </StyledShade>
+      ]}
+    </PoseGroup>
+  )
 }
 
 export default DiscordModal

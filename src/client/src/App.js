@@ -34,7 +34,6 @@ const EmptyBackground = styled.div`
 function App () {
   const dispatch = useDispatch()
   const [errorMessage] = useState('')
-  const reduxModal = useSelector(state => state.modal)
 
   useEffect(() => {
     dispatch(fetchFaq())
@@ -55,7 +54,7 @@ function App () {
 
   return (
     <div className='App'>
-      <DiscordModal onClose={() => modal.hide()} open={reduxModal.open} {...reduxModal.props}>{reduxModal.children}</DiscordModal>
+      <DiscordModal />
       <Switch>
         <Route path={pages.DASHBOARD} component={ControlPanel} />
         <Route component={Home} />
