@@ -115,14 +115,15 @@ describe('services/faq', () => {
       jest.spyOn(faqServices, 'saveSearchQuery')
         .mockResolvedValue()
     })
-    it('returns the search results', () => {
+    it('returns the search results', async () => {
       const searchResults = [{
         a: 'b'
       }, {
         c: 'd'
       }]
       faq.search.mockReturnValue(searchResults)
-      expect(faqServices.search()).toEqual(searchResults)
+      await expect(faqServices.search())
+        .resolves.toEqual(searchResults)
     })
   })
   describe('registerNewQuestionHit', () => {

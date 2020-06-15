@@ -99,10 +99,7 @@ describe('Int::models/FilteredFormat', function () {
   describe('search', () => {
     it('saves the query', async () => {
       const query = 'blah blah'
-      faqService.search(query)
-      await new Promise((resolve) => {
-        setImmediate(resolve)
-      })
+      await faqService.search(query)
       const queries = await con.db.collection(SearchQuery.Model.collection.name).find().toArray()
       expect(queries).toHaveLength(1)
     })

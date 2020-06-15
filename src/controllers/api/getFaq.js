@@ -9,7 +9,7 @@ async function getFaq (req, res, next) {
   const query = req.query.search
   try {
     if (query) {
-      const topResult = faqServices.search(query)
+      const topResult = await faqServices.search(query)
       res.json(topResult)
     } else {
       const faq = await faqServices.get()

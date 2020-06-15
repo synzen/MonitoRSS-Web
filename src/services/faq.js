@@ -50,13 +50,14 @@ async function get () {
   })
 }
 
-function search (term) {
+async function search (term) {
   const results = faq.search(term)
-  module.exports.saveSearchQuery(term)
-    .catch((err) => {
-      const log = createLogger()
-      log.error(err, 'Failed to save search query')
-    })
+  try {
+    await module.exports.saveSearchQuery(term)
+  } catch (err) {
+    const log = createLogger()
+    log.error(err, 'Failed to save search query')
+  }
   return results
 }
 
