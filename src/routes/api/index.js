@@ -30,6 +30,7 @@ if (process.env.NODE_ENV !== 'test') {
 api.get('/authenticated', controllers.api.authenticated)
 api.get('/config', controllers.api.config)
 api.get('/faq', controllers.api.getFaq)
+api.get('/stats', controllers.api.getStats)
 api.post('/faq', validator.body(apiHitSchema), controllers.api.hitFaq)
 api.post('/feedback', validator.body(feedbackSchema), controllers.api.createFeedback)
 
