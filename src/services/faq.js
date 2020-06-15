@@ -62,10 +62,16 @@ async function search (term) {
 }
 
 async function saveSearchQuery (query) {
-  const sq = new SearchQuery.Model({
+  await SearchQuery.Model.findOneAndUpdate({
     query
+  }, {
+    query,
+    $inc: {
+      count: 1
+    }
+  }, {
+    upsert: true
   })
-  await sq.save()
 }
 
 function registerNewQuestionHit (ip, question) {

@@ -5,6 +5,9 @@ const schema = new mongoose.Schema({
     type: String,
     required: true
   },
+  count: {
+    type: Number
+  },
   createdAt: {
     type: Date,
     default: Date.now,

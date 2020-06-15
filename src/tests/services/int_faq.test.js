@@ -100,8 +100,30 @@ describe('Int::models/FilteredFormat', function () {
     it('saves the query', async () => {
       const query = 'blah blah'
       await faqService.search(query)
-      const queries = await con.db.collection(SearchQuery.Model.collection.name).find().toArray()
-      expect(queries).toHaveLength(1)
+      const doc = await con.db.collection(SearchQuery.Model.collection.name).findOne({
+        query
+      })
+      expect(doc).toBeDefined()
+      expect(doc).toEqual(expect.objectContaining({
+        query,
+        count: 1
+      }))
+    })
+    it('increments if it exists already', async () => {
+      const query = 'blah blah'
+      await con.db.collection(SearchQuery.Model.collection.name).insertOne({
+        query,
+        count: 55
+      })
+      await faqService.search(query)
+      const doc = await con.db.collection(SearchQuery.Model.collection.name).findOne({
+        query
+      })
+      expect(doc).toBeDefined()
+      expect(doc).toEqual(expect.objectContaining({
+        query,
+        count: 56
+      }))
     })
   })
   afterAll(async function () {
