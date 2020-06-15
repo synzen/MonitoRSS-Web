@@ -161,7 +161,7 @@ class WebClientManager {
     this.guildCount = await this.getTotalGuilds()
     setInterval(async () => {
       try {
-        this.guildCount = this.getTotalGuilds()
+        this.guildCount = await this.getTotalGuilds()
       } catch (err) {
         this.log.error(err, 'Failed to update total guild count')
       }
