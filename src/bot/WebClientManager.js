@@ -26,6 +26,7 @@ class WebClientManager {
     this.manager = new Discord.ShardingManager(path.join(__dirname, 'shard.js'), {
       token: this.config.bot.token
     })
+    this.guildCount = 0
     this.shardsToInitialize = []
     this.shardsInitialized = 0
     this.manager.on('shardCreate', (shard) => {
@@ -113,7 +114,7 @@ class WebClientManager {
    * @param {import('discord.js').Shard} shard
    * @param {*} message
    */
-  onMessage (shard, message) {
+  async onMessage (shard, message) {
     this.log.debug({
       shardMessage: message
     }, 'Got message')
@@ -134,11 +135,17 @@ class WebClientManager {
         this.initializeNextShard()
         return
       }
-      this.log.debug('Starting HTTP server')
-      this.startHttp().catch(err => {
+      try {
+        await this.pollUpdateTotalGuilds()
+        this.log.debug('Starting HTTP server')
+        this.startHttp().catch(err => {
+          this.log.fatal(err)
+          process.exit(1)
+        })
+      } catch (err) {
         this.log.fatal(err)
         process.exit(1)
-      })
+      }
     }
   }
 
@@ -148,6 +155,23 @@ class WebClientManager {
     }, 'Initializing next shard in queue')
     const firstToInitialize = this.shardsToInitialize.shift()
     firstToInitialize.send('initialize')
+  }
+
+  async pollUpdateTotalGuilds () {
+    this.guildCount = await this.getTotalGuilds()
+    setInterval(async () => {
+      try {
+        this.guildCount = this.getTotalGuilds()
+      } catch (err) {
+        this.log.error(err, 'Failed to update total guild count')
+      }
+    }, 1000 * 60 * 20) // 20 min
+  }
+
+  async getTotalGuilds () {
+    const sizes = await this.manager.fetchClientValues('guilds.cache.size')
+    const totalGuilds = sizes.reduce((prev, val) => prev + val, 0)
+    return totalGuilds
   }
 
   readHttpsFiles () {
@@ -168,7 +192,7 @@ class WebClientManager {
   }
 
   async startHttp () {
-    const app = expressApp(this.mongoConnection, this.redisClient, this.config)
+    const app = expressApp(this, this.config)
     const config = this.config
     // Check variables
     const { port: httpPort } = config.http

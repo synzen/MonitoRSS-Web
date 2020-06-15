@@ -8,8 +8,12 @@ const requestIp = require('request-ip')
 const createLogger = require('./util/logger/create.js')
 const app = express()
 
-module.exports = (mongooseConnection, redisClient, config) => {
+/**
+ * @param {import('./bot/WebClientManager')} webClientManager
+ */
+module.exports = (webClientManager) => {
   const log = createLogger('W')
+  const config = webClientManager.config
   if (config.http.trustProxy) {
     app.enable('trust proxy')
   }
@@ -36,7 +40,7 @@ module.exports = (mongooseConnection, redisClient, config) => {
     cookie: { secure: config.https.enabled }, // Set secure to true for HTTPS - otherwise sessions will not be saved
     maxAge: 1 * 24 * 60 * 60, // 1 day
     store: new MongoStore({
-      mongooseConnection // Recycle connection
+      mongooseConnection: webClientManager.mongoConnection // Recycle connection
     })
   })
   app.use(session)
@@ -66,8 +70,9 @@ module.exports = (mongooseConnection, redisClient, config) => {
   }
 
   // Application-specific variables
+  app.set('webClientManager', webClientManager)
   app.set('config', config)
-  app.set('redisClient', redisClient)
+  app.set('redisClient', webClientManager.redisClient)
 
   // Routes
   app.use(routes)
