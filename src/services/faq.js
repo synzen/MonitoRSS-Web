@@ -1,5 +1,6 @@
 const faq = require('../constants/faq.js')
 const FAQHits = require('../models/FAQHits.js')
+const SearchQuery = require('../models/SearchQuery.js')
 const shuffleArray = require('../util/shuffleArray.js')
 const createLogger = require('../util/logger/create.js')
 const faqHits = {}
@@ -51,7 +52,19 @@ async function get () {
 
 function search (term) {
   const results = faq.search(term)
+  module.exports.saveSearchQuery(term)
+    .catch((err) => {
+      const log = createLogger()
+      log.error(err, 'Failed to save search query')
+    })
   return results
+}
+
+async function saveSearchQuery (query) {
+  const sq = new SearchQuery.Model({
+    query
+  })
+  await sq.save()
 }
 
 function registerNewQuestionHit (ip, question) {
@@ -83,6 +96,7 @@ module.exports = {
   faqHits,
   getHits,
   get,
+  saveSearchQuery,
   search,
   hit,
   recentlyClickedQuestion,

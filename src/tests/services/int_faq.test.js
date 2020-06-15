@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const faqService = require('../../services/faq.js')
+const SearchQuery = require('../../models/SearchQuery.js')
 const setupModels = require('../../util/setupModels.js')
 const faq = require('../../constants/faq.js')
 const dbName = 'test_int_faq'
@@ -93,6 +94,17 @@ describe('Int::models/FilteredFormat', function () {
       expect(sortedDocuments[0]).toEqual(faqDocuments[1])
       expect(sortedDocuments[1]).toEqual(faqDocuments[2])
       expect(sortedDocuments[2]).toEqual(faqDocuments[0])
+    })
+  })
+  describe('search', () => {
+    it('saves the query', async () => {
+      const query = 'blah blah'
+      faqService.search(query)
+      await new Promise((resolve) => {
+        setImmediate(resolve)
+      })
+      const queries = await con.db.collection(SearchQuery.Model.collection.name).find().toArray()
+      expect(queries).toHaveLength(1)
     })
   })
   afterAll(async function () {

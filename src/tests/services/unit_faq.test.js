@@ -111,6 +111,10 @@ describe('services/faq', () => {
     })
   })
   describe('search', () => {
+    beforeEach(() => {
+      jest.spyOn(faqServices, 'saveSearchQuery')
+        .mockResolvedValue()
+    })
     it('returns the search results', () => {
       const searchResults = [{
         a: 'b'
