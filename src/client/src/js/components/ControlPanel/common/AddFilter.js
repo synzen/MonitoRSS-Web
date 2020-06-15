@@ -38,19 +38,19 @@ function AddFilter (props) {
   const [lastValidType, setLastValidType] = useState('title')
   const [value, setValue] = useState('')
   const [options, setOptions] = useState([{
-    text: 'Title',
+    text: 'title',
     value: 'title'
   }, {
-    text: 'Description',
+    text: 'description',
     value: 'description'
   }, {
-    text: 'Summary',
+    text: 'summary',
     value: 'summary'
   }, {
-    text: 'Author',
+    text: 'author',
     value: 'author'
   }, {
-    text: 'Tags',
+    text: 'tags',
     value: 'tags'
   }])
   const { addFilter, inProgress } = props
