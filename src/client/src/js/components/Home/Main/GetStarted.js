@@ -18,7 +18,7 @@ const Card = styled.div`
   border-radius: 7px;
   max-width: 350px;
   width: 100%;
-  margin: 15px 30px;
+  margin: 8px;
   h2 {
     margin-top: 30px !important;
     font-weight: bolder;
