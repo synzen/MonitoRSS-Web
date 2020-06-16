@@ -34,6 +34,7 @@ module.exports = async (config, tag) => {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
     ...connOptions
   })
   log.info('Connected to MongoDB')
