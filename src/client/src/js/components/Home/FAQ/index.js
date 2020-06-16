@@ -98,9 +98,7 @@ const SectionFAQ = styled.div`
   a {
     cursor: pointer;
     display: block;
-    &:hover {
-      text-decoration: none;
-    }
+    text-decoration-color: #7289da;
   }
 `
 
