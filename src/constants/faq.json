@@ -158,7 +158,7 @@
   },
   {
     "q": "What is the refresh rate of my feed, and how do I check it?",
-    "a": "Use the `list` command.",
+    "a": "Use the `list` command. For a list of all commands, use the `help` command.",
     "t": [
       "check",
       "status",
@@ -182,6 +182,13 @@
       "percent",
       "list",
       "status"
+    ]
+  },
+  {
+    "q": "How do I remove a feed I added?",
+    "a": "Use the `remove` command. For a list of all commands, use the `help` command.",
+    "t": [
+      "remove"
     ]
   }
 ]
