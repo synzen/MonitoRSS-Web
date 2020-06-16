@@ -86,7 +86,7 @@ const ModalHeaderWrapper = styled.div`
 
 function DiscordModal () {
   const reduxModal = useSelector(state => state.modal)
-  const props = reduxModal.props || {}
+  const reduxModalProps = reduxModal.props || {}
   const dispatch = useDispatch()
 
   const escape = (event) => {
@@ -121,43 +121,41 @@ function DiscordModal () {
             }
           }}
         >
-          <StyledModal key='dialog' isImage={props.isImage} fullWidth={props.fullWidth}>
-            {props.header
-              ? <ModalHeader>{props.header}</ModalHeader>
-              : props.title || props.subtitle
-                ? 
-                (
+          <StyledModal key='dialog' isImage={reduxModalProps.isImage} fullWidth={reduxModalProps.fullWidth}>
+            {reduxModalProps.header
+              ? <ModalHeader>{reduxModalProps.header}</ModalHeader>
+              : reduxModalProps.title || reduxModalProps.subtitle
+                ? (
                   <ModalHeader>
                     <ModalHeaderWrapper>
-                      <h4>{props.title}</h4>
-                      <p>{props.subtitle}</p>
+                      <h4>{reduxModalProps.title}</h4>
+                      <p>{reduxModalProps.subtitle}</p>
                     </ModalHeaderWrapper>
                   </ModalHeader>
                 )
                 : null}
             {/* <Scrollbars> */}
             <ModalBody
-              isImage={props.isImage}
-              transparent={props.transparentBody}
-              hasHeader={!!props.header || !!props.title || !!props.subtitle}
-              hasFooter={!!props.footer}>
-                <div>
-                  {reduxModal.children}
-                </div>
-              </ModalBody>
+              isImage={reduxModalProps.isImage}
+              transparent={reduxModalProps.transparentBody}
+              hasHeader={!!reduxModalProps.header || !!reduxModalProps.title || !!reduxModalProps.subtitle}
+              hasFooter={!!reduxModalProps.footer}
+            >
+              <div>
+                {reduxModal.children}
+              </div>
+            </ModalBody>
             {/* </Scrollbars> */}
-            {props.footer
-              ? 
-              (
+            {reduxModalProps.footer
+              ? (
                 <ModalFooter
-                  transparent={props.transparentFooter}
-                  fullWidth={props.fullWidth}
+                  transparent={reduxModalProps.transparentFooter}
+                  fullWidth={reduxModalProps.fullWidth}
                 >
-                  {props.footer}
+                  {reduxModalProps.footer}
                 </ModalFooter>
               )
-              : undefined
-            }
+              : undefined}
           </StyledModal>
         </StyledShade>
       ]}
