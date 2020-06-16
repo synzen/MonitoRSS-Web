@@ -32,7 +32,7 @@
     "stemmer": "^1.0.5"
   },
   "peerDependencies": {
-    "discord.rss": "^6.3.10"
+    "discord.rss": "^6.4.8"
   },
   "devDependencies": {
     "@types/jest": "^25.2.3",
