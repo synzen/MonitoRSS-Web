@@ -163,7 +163,7 @@ const UrlDisplay = styled.div`
 `
 
 const ArticlesSectionBody = styled.div`
-  display: ${props => props.loading ? 'none' : 'block'};
+  display: ${props => props.hidden ? 'none' : 'block'};
 `
 
 const XMLWrapperStyles = styled.pre`
@@ -435,7 +435,7 @@ function FeedBrowser () {
 
       <ArticlesSection className='hello'>
         <ArticlesSectionInner>
-          <ArticlesSectionBody loading={loading || articleList.length === 0} className='world'>
+          <ArticlesSectionBody hidden={loading || articleList.length === 0} className='world'>
             <SectionTitle heading='Result' subheading='You can filter out article details by selecting certain article categories. You may also filter articles by search.' />
             <UrlDisplay>
               <SectionSubtitle>
