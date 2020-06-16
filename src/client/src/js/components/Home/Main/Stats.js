@@ -41,7 +41,7 @@ function Stats () {
           <h2>
             <CountUp end={totalGuilds} separator=',' duration={1.5} />
           </h2>
-          <p>Servers</p>
+          <p>Communities</p>
         </StatBox>
         <StatBox>
           <h2>
@@ -53,7 +53,7 @@ function Stats () {
           <h2>
             <CountUp end={articlesDelivered} separator=',' duration={1.5} />
           </h2>
-          <p>Total Articles<br />Since June 2, 2020</p>
+          <p>Delivered Articles<br />Since June 2, 2020</p>
         </StatBox>
       </Wrapper>
       {/* <Divider /> */}
