@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import CountUp from 'react-countup'
+import moment from 'moment'
+
 const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -51,9 +53,9 @@ function Stats () {
         </StatBox>
         <StatBox>
           <h2>
-            <CountUp end={articlesDelivered} separator=',' duration={1.5} />
+            <CountUp end={articlesDelivered.data} separator=',' duration={1.5} />
           </h2>
-          <p>Delivered Articles<br />Since June 2, 2020</p>
+          <p>Delivered Articles<br />Since {moment(articlesDelivered.addedAt).format('MMMM D, YYYY')}</p>
         </StatBox>
       </Wrapper>
       {/* <Divider /> */}

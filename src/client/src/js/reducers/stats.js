@@ -1,7 +1,10 @@
 import { GET_STATS } from 'js/constants/actions/stats'
 
 const initialState = {
-  articlesDelivered: 0,
+  articlesDelivered: {
+    data: 0,
+    addedAt: new Date('June 2, 2020').toISOString()
+  },
   feedCount: 0,
   totalGuilds: 0
 }

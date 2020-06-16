@@ -15,7 +15,7 @@ async function getFeedCount () {
 
 async function getArticleDeliveryCount () {
   const doc = await GeneralStats.Model.findById(GeneralStats.TYPES.ARTICLES_SENT)
-  return doc.data
+  return doc
 }
 
 module.exports = {
