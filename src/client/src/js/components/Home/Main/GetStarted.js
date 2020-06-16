@@ -5,19 +5,20 @@ import SectionDescription from './common/SectionDescription'
 import colors from 'js/constants/colors'
 
 const Cards = styled.div`
-  display: grid;
+  display: flex;
   justify-content: center;
   margin-top: 50px;
-  grid-template-columns: repeat(auto-fit, 350px);
-  column-gap: 30px;
-  row-gap: 30px;
+  flex-wrap: wrap;
 `
 
 const Card = styled.div`
   background-color: #26262b;
-  padding: 30px 20px;
+  padding: 30px 30px;
   min-height: 350px;
   border-radius: 7px;
+  max-width: 350px;
+  width: 100%;
+  margin: 15px 30px;
   h2 {
     margin-top: 30px !important;
     font-weight: bolder;
