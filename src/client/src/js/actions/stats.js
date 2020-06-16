@@ -13,7 +13,6 @@ export function fetchStats () {
     try {
       dispatch(getStatsBegin())
       const { data } = await axios.get('/api/stats')
-      console.log(data)
       dispatch(getStatsSuccess(data))
     } catch (err) {
       dispatch(getStatsFailure(err))
