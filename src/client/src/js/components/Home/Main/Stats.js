@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import CountUp from 'react-countup'
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 const Wrapper = styled.div`
   display: flex;
@@ -34,6 +34,7 @@ function Stats () {
     feedCount,
     totalGuilds
   } = stats
+  const userTz = moment.tz.guess()
 
   return (
     <>
@@ -49,13 +50,13 @@ function Stats () {
           <h2>
             <CountUp end={feedCount} separator=',' duration={1.5} />
           </h2>
-          <p>News Sources</p>
+          <p>Sources of News</p>
         </StatBox>
         <StatBox>
           <h2>
             <CountUp end={articlesDelivered.data} separator=',' duration={1.5} />
           </h2>
-          <p>Delivered Articles<br />Since {moment(articlesDelivered.addedAt).format('MMMM D, YYYY')}</p>
+          <p>Delivered Articles<br />Since {moment(articlesDelivered.addedAt).tz(userTz).format('MMMM D, YYYY')}</p>
         </StatBox>
       </Wrapper>
       {/* <Divider /> */}
