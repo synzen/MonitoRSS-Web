@@ -24,6 +24,7 @@
     "node-fetch": "^2.6.0",
     "pino": "^6.3.2",
     "pino-pretty": "^4.0.0",
+    "react-countup": "^4.3.3",
     "redis": "^3.0.2",
     "remove-markdown": "^0.3.0",
     "request": "^2.88.2",
