@@ -41,12 +41,10 @@ const Wrapper = styled.div`
 const HeaderButtons = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 40px;
+  flex-wrap: wrap;  
   > .ui.button {
     width: 200px;
-    &:first-child {
-      margin-right: 2em;
-    }
+    margin: 10px 20px;
   }
 `
 
