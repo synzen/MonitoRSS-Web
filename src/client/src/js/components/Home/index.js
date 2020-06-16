@@ -26,18 +26,18 @@ function Home () {
   const dispatch = useDispatch()
   const location = useLocation()
   const [scrollbarRef, setScrollbarRef] = useState()
-
+  const pathname = location.pathname
   useEffect(() => {
     dispatch(fetchFaq())
     dispatch(fetchStats())
   }, [])
 
   useEffect(() => {
-    if (!scrollbarRef) {
+    if (!scrollbarRef || pathname.startsWith('/faq/')) {
       return
     }
     scrollbarRef.scrollToTop()
-  }, [location.pathname, scrollbarRef])
+  }, [pathname, scrollbarRef])
 
   return (
     <Scrollbars style={{ width: '100vw', height: '100vh' }} ref={scrollbar => setScrollbarRef(scrollbar)}>
