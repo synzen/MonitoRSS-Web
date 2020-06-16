@@ -9,8 +9,9 @@ import { Link } from 'react-router-dom'
 const RouterLink = styled(Link)`
   -webkit-tap-highlight-color: transparent;
   outline: none;
-  :hover {
-    text-decoration: none !important;
+  text-decoration: none !important;
+  &:focus {
+    color: white;
   }
   &:active, &:focus {
     border: none;
