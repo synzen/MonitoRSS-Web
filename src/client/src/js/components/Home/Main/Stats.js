@@ -30,7 +30,7 @@ const StatBox = styled.div`
 function Stats () {
   const stats = useSelector(state => state.stats)
   const {
-    articlesDelivered,
+    articlesSent,
     feedCount,
     totalGuilds
   } = stats
@@ -54,9 +54,9 @@ function Stats () {
         </StatBox>
         <StatBox>
           <h2>
-            <CountUp end={articlesDelivered.data} separator=',' duration={1.5} />
+            <CountUp end={articlesSent.data} separator=',' duration={1.5} />
           </h2>
-          <p>Delivered Articles<br />Since {moment(articlesDelivered.addedAt).tz(userTz).format('MMMM D, YYYY')}</p>
+          <p>Delivered Articles<br />Since {moment(articlesSent.addedAt).tz(userTz).format('MMMM D, YYYY')}</p>
         </StatBox>
       </Wrapper>
       {/* <Divider /> */}

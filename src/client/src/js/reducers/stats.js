@@ -1,7 +1,7 @@
 import { GET_STATS } from 'js/constants/actions/stats'
 
 const initialState = {
-  articlesDelivered: {
+  articlesSent: {
     data: 0,
     addedAt: new Date('June 2, 2020').toISOString()
   },
@@ -11,8 +11,17 @@ const initialState = {
 
 function statsReducer (state = initialState, action) {
   switch (action.type) {
-    case GET_STATS.SUCCESS:
-      return action.payload
+    case GET_STATS.SUCCESS: {
+      const payload = action.payload
+      return {
+        articlesSent: {
+          data: payload.articlesSent.data,
+          addedAt: payload.articlesSent.addedAt || initialState.articlesSent.addedAt
+        },
+        feedCount: payload.feedCount,
+        totalGuilds: payload.totalGuilds
+      }
+    }
     default:
       return state
   }
