@@ -9,8 +9,8 @@ function getTotalGuilds (webClientManager) {
 }
 
 async function getFeedCount () {
-  const stats = await Feed.Model.collection.stats()
-  return stats.count
+  const stats = await Feed.Model.collection.distinct('url')
+  return stats.length
 }
 
 async function getArticleDeliveryCount () {
