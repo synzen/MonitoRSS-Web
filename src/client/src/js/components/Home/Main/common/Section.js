@@ -5,13 +5,13 @@ const SectionWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 60px 30px;
 `
 
 const SectionInner = styled.section`
   max-width: 1400px;
   width: 100%;
   text-align: center;
-  margin: 60px 30px;
   > h2 {
     margin-bottom: 12px;
     font-size: 26px;
@@ -27,7 +27,7 @@ const SectionInner = styled.section`
 function Section (props) {
   return (
     <SectionWrapper>
-      <SectionInner style={{ ...props.style }}>
+      <SectionInner {...props}>
         {props.children}
       </SectionInner>
     </SectionWrapper>
