@@ -18,16 +18,16 @@ describe('Unit::controllers/api/getFaq', function () {
     const req = createRequest()
     const res = createResponse()
     const next = createNext()
-    const articlesDelivered = 100
+    const articlesSent = 100
     const feedCount = 9423
     const totalGuilds = 235
     statsServices.getTotalGuilds.mockReturnValue(totalGuilds)
-    statsServices.getArticleDeliveryCount.mockResolvedValue(articlesDelivered)
+    statsServices.getArticleDeliveryCount.mockResolvedValue(articlesSent)
     statsServices.getFeedCount.mockResolvedValue(feedCount)
     await getStatsController(req, res, next)
     expect(next).not.toHaveBeenCalled()
     expect(res.json).toHaveBeenCalledWith({
-      articlesDelivered,
+      articlesSent,
       feedCount,
       totalGuilds
     })

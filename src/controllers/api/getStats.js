@@ -10,14 +10,14 @@ async function getStats (req, res, next) {
   try {
     const totalGuilds = statsServices.getTotalGuilds(webClientManager)
     const [
-      articlesDelivered,
+      articlesSent,
       feedCount
     ] = await Promise.all([
       statsServices.getArticleDeliveryCount(),
       statsServices.getFeedCount()
     ])
     res.json({
-      articlesDelivered,
+      articlesSent,
       feedCount,
       totalGuilds
     })
