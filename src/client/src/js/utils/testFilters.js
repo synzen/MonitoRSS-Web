@@ -68,7 +68,7 @@ function getFilterReference (article, type) {
     summary: article.fullSummary,
     title: article.fullTitle
   }
-  const trimmedType = type.replace('other:', '')
+  const trimmedType = type.startsWith('other:') ? type.replace('other:', '') : type
   return referenceOverrides[trimmedType] || article[trimmedType]
 }
 

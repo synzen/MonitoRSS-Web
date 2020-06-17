@@ -200,7 +200,7 @@ function Filters () {
               <FilterExplanation>
                 {!selectedArticleFilterResults.passed
                   ? Object.keys(selectedArticleFilterResults.invertedMatches).length === 0
-                    ? <p>This article would not have been sent to Discord because there were no matching filters.</p>
+                    ? <p>This article would not have been sent to Discord because there were no matching filters, or a category of one or more filters does not exist for the article..</p>
                     : <p>This article would not have been sent to Discord because the following negated filters blocked it: <FilterTagContainer>{invertedFilterTags}</FilterTagContainer></p>
                   : Object.keys(selectedArticleFilterResults.matches).length === 0
                     ? <p>This article would have been sent because there are no filters to negate it.</p>

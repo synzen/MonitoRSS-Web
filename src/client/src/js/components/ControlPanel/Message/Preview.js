@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import embedProperties from 'js/constants/embed'
 import parser from 'js/components/ControlPanel/utils/textParser'
 import BoundedImage from 'js/components/common/BoundedImage'
-import testFilters from 'js/components/ControlPanel/Filters/util/filters'
+import testFilters from 'js/utils/testFilters'
 import { isHiddenProperty } from 'js/constants/hiddenArticleProperties'
 import feedSelectors from 'js/selectors/feeds'
 
