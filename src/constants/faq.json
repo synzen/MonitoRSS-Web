@@ -138,11 +138,21 @@
     ]
   },
   {
-    "q": "How do I get fewer articles delivered, or get slower delivery?",
-    "a": "To get slower article delivery, you will have to self host and set the refresh rate in config to your needs.\nTo get fewer aticles delivered, you can set filters through the `filters` command to only get the content you want delivered.",
+    "q": "How do I get slower delivery?",
+    "a": "To get slower article delivery, you will have to self host and set the refresh rate in config to your needs. Note that if you set a slower delivery, this just means that when it *does* deliver, you will get spammed with articles.\nFor example, if you get 10 articles every 10 minutes and you configure it to send once per day, then you will get 1440 articles spammed to your channel. You should, instead, reconsider the feed you're using or add filters to it.",
     "t": [
       "slow",
+      "rate",
+      "day",
       "fewer",
+      "daily"
+    ]
+  },
+  {
+    "q": "How do I get fewer articles delivered?",
+    "a": "You can set filters through the `filters` command to only get the content you want delivered. For a list of all commands, use the `help` command. For documentation on filters, see <https://docs.discordrss.xyz/bot-customizations/filters/filters-regular>.",
+    "t": [
+      "slow",
       "rate",
       "less",
       "fast"
