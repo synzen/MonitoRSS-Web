@@ -76,6 +76,7 @@ describe('Unit::middleware/checkUserGuildPermission', function () {
     }
     const next = createNext()
     await checkUserGuildPermission(req, res, next)
+    expect(req.guild).toEqual(guild)
     expect(req.guildData).toEqual(guildData)
   })
   it('calls next if manager by roles', async function () {

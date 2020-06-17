@@ -27,6 +27,7 @@ async function checkUserGuildPermission (req, res, next) {
       const error = createError(403, 'Missing MANAGE_CHANNEL permissions of this guild')
       return res.status(403).json(error)
     }
+    req.guild = guild
     req.guildData = guildData
     return next()
   } catch (err) {
