@@ -8,7 +8,7 @@ import PageHeader from 'js/components/common/PageHeader'
 import { Divider, Checkbox, Button } from 'semantic-ui-react'
 import SectionSubtitle from 'js/components/common/SectionSubtitle'
 import feedSelectors from 'js/selectors/feeds'
-import { fetchEditFeed } from 'js/actions/feeds'
+import { fetchEditFeed, fetchGuildFeedArticles } from 'js/actions/feeds'
 import { changePage } from 'js/actions/page'
 import pages from 'js/constants/pages'
 import { Redirect } from 'react-router-dom'
@@ -120,6 +120,9 @@ function MiscOptions () {
       vals.ncomparisons = []
     }
     await dispatch(fetchEditFeed(feed.guild, feed._id, vals))
+    if ('imgLinksExistence' in vals) {
+      await dispatch(fetchGuildFeedArticles(feed.guild, feed._id))
+    }
     setUserValues({})
   }
 
