@@ -1,4 +1,4 @@
-const BearerRequestHandler = require('../util/BearerRequestHandler.js')
+const RequestHandler = require('../util/RequestHandler.js')
 const roleServices = require('./role.js')
 const RedisUser = require('../bot/structs/User.js')
 const RedisGuildMember = require('../bot/structs/GuildMember.js')
@@ -6,7 +6,7 @@ const WebCache = require('../models/WebCache.js')
 const getConfig = require('../config.js').get
 const createLogger = (base) => require('../util/logger/create.js')(undefined, base)
 const MANAGE_CHANNEL_PERMISSION = 16
-const requestHandler = new BearerRequestHandler()
+const requestHandler = new RequestHandler()
 
 async function getCachedUser (id) {
   const cachedUser = await WebCache.Model.findOne({
