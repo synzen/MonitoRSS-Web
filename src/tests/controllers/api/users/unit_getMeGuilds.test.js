@@ -21,6 +21,11 @@ const createRequest = () => ({
   },
   app: {
     get: jest.fn()
+      .mockImplementation((key) => {
+        if (key === 'webClientManager') {
+          return {}
+        }
+      })
   }
 })
 
@@ -65,6 +70,11 @@ describe('Unit::controllers/api/users/getMeGuilds', function () {
     const redisClient = {
       a: 99
     }
+    const webClientManager = {
+      requestHandler: {
+        foo: 'baaa'
+      }
+    }
     userServices.getGuildsByAPI.mockResolvedValue(userGuilds)
     userServices.hasGuildPermission.mockResolvedValueOnce(true)
     guildServices.getGuild.mockResolvedValue(guildData)
@@ -76,12 +86,14 @@ describe('Unit::controllers/api/users/getMeGuilds', function () {
         return config
       } else if (key === 'redisClient') {
         return redisClient
+      } else if (key === 'webClientManager') {
+        return webClientManager
       }
     })
     await getMeGuilds(req, res, next)
     expect(next).not.toHaveBeenCalled()
     expect(userServices.getGuildsByAPI)
-      .toHaveBeenCalledWith(123, 'aesgr')
+      .toHaveBeenCalledWith(webClientManager.requestHandler, 123, 'aesgr')
     expect(userServices.hasGuildPermission)
       .toHaveBeenCalledWith(userGuilds[0], config, redisClient)
     expect(guildServices.getGuild)

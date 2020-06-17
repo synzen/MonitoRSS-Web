@@ -19,6 +19,13 @@ const createRequest = () => ({
   },
   app: {
     get: jest.fn()
+      .mockImplementation((key) => {
+        if (key === 'webClientManager') {
+          return {
+            requestHandler: {}
+          }
+        }
+      })
   }
 })
 
@@ -64,7 +71,7 @@ describe('Unit::controllers/api/users/getMe', function () {
     expect(userServices.getUserByAPI)
       .toHaveBeenCalledTimes(1)
     expect(userServices.getUserByAPI)
-      .toHaveBeenCalledWith(session.identity.id, session.token.access_token)
+      .toHaveBeenCalledWith({}, session.identity.id, session.token.access_token)
   })
   it('returns data from api if cache is unavailable', async function () {
     const user = 'zzzzzzz'

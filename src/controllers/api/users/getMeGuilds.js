@@ -10,8 +10,9 @@ async function getMeGuilds (req, res, next) {
   const { identity, token } = req.session
   const config = req.app.get('config')
   const redisClient = req.app.get('redisClient')
+  const requestHandler = req.app.get('webClientManager').requestHandler
   try {
-    const userGuilds = await userServices.getGuildsByAPI(identity.id, token.access_token)
+    const userGuilds = await userServices.getGuildsByAPI(requestHandler, identity.id, token.access_token)
     const guilds = []
     const promises = userGuilds.map((guild) => (async () => {
       const hasPerm = await userServices.hasGuildPermission(guild, config, redisClient)

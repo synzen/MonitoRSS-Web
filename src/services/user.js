@@ -1,12 +1,9 @@
-const RequestHandler = require('../util/RequestHandler.js')
 const roleServices = require('./role.js')
 const RedisUser = require('../bot/structs/User.js')
 const RedisGuildMember = require('../bot/structs/GuildMember.js')
 const WebCache = require('../models/WebCache.js')
-const getConfig = require('../config.js').get
 const createLogger = (base) => require('../util/logger/create.js')(undefined, base)
 const MANAGE_CHANNEL_PERMISSION = 16
-const requestHandler = new RequestHandler()
 
 async function getCachedUser (id) {
   const cachedUser = await WebCache.Model.findOne({
@@ -99,7 +96,13 @@ async function getUser (userID, redisClient) {
   return cachedUser ? cachedUser.toJSON() : null
 }
 
-async function getUserByAPI (id, accessToken, skipCache) {
+/**
+ * @param {import('../util/RequestHandler.js')} requestHandler
+ * @param {string} [id]
+ * @param {string} accessToken
+ * @param {boolean} skipCache
+ */
+async function getUserByAPI (requestHandler, id, accessToken, skipCache) {
   const userLog = createLogger({
     function: 'getUserByAPI',
     userID: id
@@ -121,7 +124,13 @@ async function getUserByAPI (id, accessToken, skipCache) {
   return data
 }
 
-async function getGuildsByAPI (id, accessToken, skipCache) {
+/**
+ * @param {import('../util/RequestHandler.js')} requestHandler
+ * @param {string} id
+ * @param {string} accessToken
+ * @param {boolean} skipCache
+ */
+async function getGuildsByAPI (requestHandler, id, accessToken, skipCache) {
   const userLog = createLogger({
     function: 'getGuildsByAPI',
     userID: id
@@ -176,8 +185,9 @@ async function hasGuildPermission (guild, config, redisClient) {
  * @param {string} guildID
  * @param {Object<string, any>} config
  * @param {import('redis').RedisClient} redisClient
+ * @param {import('../util/RequestHandler.js')} requestHandler
  */
-async function isManagerOfGuildByRoles (userID, guildID, config, redisClient) {
+async function isManagerOfGuildByRoles (userID, guildID, config, redisClient, requestHandler) {
   const log = createLogger({
     function: 'isManagerOfGuildByRoles',
     userID,
@@ -197,15 +207,16 @@ async function isManagerOfGuildByRoles (userID, guildID, config, redisClient) {
   }
   // At this point, the member is not cached - so check the API
   log.debug('Unable to determine if user is manager of guild via Redis, they are not stored')
-  return isManagerOfGuildByRolesAPI(userID, guildID, redisClient)
+  return isManagerOfGuildByRolesAPI(userID, guildID, redisClient, requestHandler)
 }
 
 /**
  * @param {string} userID
  * @param {string} guildID
- * @param {import('redis').RedisClient}
+ * @param {import('redis').RedisClient} redisClient
+ * * @param {import('../util/RequestHandler.js')} requestHandler
  */
-async function isManagerOfGuildByRolesAPI (userID, guildID, redisClient) {
+async function isManagerOfGuildByRolesAPI (userID, guildID, redisClient, requestHandler) {
   const log = createLogger({
     function: 'isManagerOfGuildByRolesAPI',
     userID,
@@ -213,9 +224,8 @@ async function isManagerOfGuildByRolesAPI (userID, guildID, redisClient) {
   })
   log.debug('Determing if user is manager of guild via Discord API')
   log.info('[1 DISCORD API REQUEST] [BOT] MIDDLEWARE /api/guilds/:guildId/members/:userId')
-  const config = getConfig()
   try {
-    const user = await requestHandler.getWithBot(`/guilds/${guildID}/members/${userID}`, config.bot.token)
+    const user = await requestHandler.getWithBot(`/guilds/${guildID}/members/${userID}`)
     log.debug({
       response: user
     }, 'Fetched member from Discord API')
@@ -257,6 +267,5 @@ module.exports = {
   isManagerOfGuildByRoles,
   isManagerOfGuildByRolesAPI,
   getMemberOfGuild,
-  hasGuildPermission,
-  requestHandler
+  hasGuildPermission
 }

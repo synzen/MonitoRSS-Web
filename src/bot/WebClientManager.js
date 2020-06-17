@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const Discord = require('discord.js')
 const DiscordRSS = require('discord.rss')
+const RequestHandler = require('../util/RequestHandler.js')
 const Supporter = DiscordRSS.Supporter
 const setConfig = require('../config.js').set
 const expressApp = require('../app.js')
@@ -29,6 +30,7 @@ class WebClientManager {
     this.guildCount = 0
     this.shardsToInitialize = []
     this.shardsInitialized = 0
+    this.requestHandler = new RequestHandler(this.config.bot.token)
     this.manager.on('shardCreate', (shard) => {
       shard.on('message', message => {
         this.onMessage(shard, message)

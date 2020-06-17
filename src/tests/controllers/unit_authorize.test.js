@@ -22,6 +22,11 @@ describe('Unit::controllers/authorize', function () {
       bar: 2
     }
     const req = createRequest()
+    req.app.get.mockImplementation((key) => {
+      if (key === 'webClientManager') {
+        return {}
+      }
+    })
     const res = createResponse()
     authServices.createAuthToken.mockResolvedValue(token)
     userServices.getUserByAPI.mockResolvedValue(identity)
@@ -34,6 +39,11 @@ describe('Unit::controllers/authorize', function () {
     const req = createRequest()
     const res = createResponse()
     const savedPath = '32qwt54e6ry5t'
+    req.app.get.mockImplementation((key) => {
+      if (key === 'webClientManager') {
+        return {}
+      }
+    })
     routingServices.getPath.mockReturnValue(savedPath)
     await controller(req, res)
     expect(res.redirect).toHaveBeenCalledWith(savedPath)
@@ -41,6 +51,11 @@ describe('Unit::controllers/authorize', function () {
   it('redirects to the /cp if saved route does not exist', async function () {
     const req = createRequest()
     const res = createResponse()
+    req.app.get.mockImplementation((key) => {
+      if (key === 'webClientManager') {
+        return {}
+      }
+    })
     routingServices.getPath.mockReturnValue(null)
     await controller(req, res)
     expect(res.redirect).toHaveBeenCalledWith('/cp')
@@ -48,6 +63,11 @@ describe('Unit::controllers/authorize', function () {
   it('redirects to / if createAuthToken fails', async function () {
     const req = createRequest()
     const res = createResponse()
+    req.app.get.mockImplementation((key) => {
+      if (key === 'webClientManager') {
+        return {}
+      }
+    })
     authServices.createAuthToken.mockRejectedValue(new Error())
     await controller(req, res)
     expect(res.redirect).toHaveBeenCalledWith('/')
