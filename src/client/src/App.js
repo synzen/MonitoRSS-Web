@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './js/index'
 import styled from 'styled-components'
 import { Switch, Route } from 'react-router-dom'
@@ -10,9 +10,7 @@ import pages from './js/constants/pages'
 import './App.css'
 import 'highlight.js/styles/solarized-dark.css'
 import ControlPanel from './js/components/ControlPanel/index'
-import { useDispatch } from 'react-redux'
 import DiscordModal from './js/components/common/DiscordModal'
-import { fetchFaq } from './js/actions/faq'
 import Home from './js/components/Home/index'
 
 const EmptyBackground = styled.div`
@@ -31,12 +29,7 @@ const EmptyBackground = styled.div`
 `
 
 function App () {
-  const dispatch = useDispatch()
   const [errorMessage] = useState('')
-
-  useEffect(() => {
-    dispatch(fetchFaq())
-  }, [])
 
   if (errorMessage) {
     return (
