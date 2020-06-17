@@ -13,12 +13,12 @@ jest.mock('../../util/createError.js')
 describe('Unit::middleware/authenticate', function () {
   it('returns a 401 with the error if no token on session', async function () {
     const req = createRequest()
-    req.session.token = null
     const json = jest.fn()
     const res = {
       status: jest.fn(() => ({ json }))
     }
     const error = 'q32wt54e6rye5'
+    authServices.isAuthenticated.mockReturnValue(false)
     createError.mockReturnValue(error)
     await authenticate(req, res)
     expect(res.status).toHaveBeenCalledWith(401)
@@ -33,6 +33,7 @@ describe('Unit::middleware/authenticate', function () {
     }
     const next = createNext()
     req.session.token = { token: 1 }
+    authServices.isAuthenticated.mockReturnValue(true)
     authServices.getAuthToken.mockResolvedValue({})
     await authenticate(req, res, next)
     expect(next).toHaveBeenCalledWith()
@@ -47,6 +48,7 @@ describe('Unit::middleware/authenticate', function () {
     const next = createNext()
     req.session.token = { token: 1 }
     const error = new Error('ruh roh')
+    authServices.isAuthenticated.mockReturnValue(true)
     authServices.getAuthToken.mockRejectedValue(error)
     await authenticate(req, res, next)
     expect(next).toHaveBeenCalledWith(error)

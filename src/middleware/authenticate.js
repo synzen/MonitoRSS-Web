@@ -8,13 +8,12 @@ const createError = require('../util/createError.js')
  */
 async function authenticate (req, res, next) {
   const config = req.app.get('config')
-  const { token } = req.session
-  if (!token) {
+  if (!authServices.isAuthenticated(req.session)) {
     const error = createError(401, 'Failed discord authorization')
     return res.status(401).json(error)
   }
   try {
-    const newToken = await authServices.getAuthToken(token, config)
+    const newToken = await authServices.getAuthToken(req.session.token, config)
     req.session.token = newToken
     next()
   } catch (err) {
