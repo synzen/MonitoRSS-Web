@@ -34,9 +34,6 @@ const Card = styled.div`
     margin-top: 50px !important;
     color: ${colors.discord.blurple};
   }
-  a {
-    word-break: break-all;
-  }
 `
 
 function GetStarted () {

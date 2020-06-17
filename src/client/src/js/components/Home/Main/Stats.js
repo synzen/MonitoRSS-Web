@@ -23,7 +23,7 @@ const StatBox = styled.div`
     font-size: 2em;
   }
   > p {
-    font-size: 1.15em;
+    font-size: 1.05em;
   }
 `
 
@@ -50,7 +50,7 @@ function Stats () {
           <h2>
             <CountUp end={feedCount} separator=',' duration={1.5} />
           </h2>
-          <p>Sources of News</p>
+          <p>Sources of News<br />Being Delivered</p>
         </StatBox>
         <StatBox>
           <h2>
