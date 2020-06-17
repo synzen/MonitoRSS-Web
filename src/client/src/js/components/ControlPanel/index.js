@@ -10,6 +10,7 @@ import {
 } from 'js/actions/user'
 import { Loader } from 'semantic-ui-react'
 import TopBar from './TopBar'
+import { fetchAuthentication } from 'js/actions/auth'
 
 const MainContainer = styled.div`
   width: 100vw;
@@ -63,9 +64,15 @@ function ControlPanel () {
   }, [loaded, authenticated, ready])
 
   useEffect(() => {
-    dispatch(fetchUser()).then(() => {
+    async function loadCP () {
+      const authenticated = await dispatch(fetchAuthentication())
+      if (!authenticated) {
+        return
+      }
+      await dispatch(fetchUser())
       setLoaded(true)
-    })
+    }
+    loadCP()
   }, [])
 
   useEffect(() => {

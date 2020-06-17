@@ -14,6 +14,7 @@ export function fetchAuthentication () {
       dispatch(checkAuthBegin())
       const { data } = await axios.get('/api/authenticated')
       dispatch(checkAuthSuccess(data.authenticated))
+      return data.authenticated
     } catch (err) {
       dispatch(checkAuthFailure(err))
     }
