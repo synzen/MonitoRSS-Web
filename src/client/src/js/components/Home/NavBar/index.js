@@ -214,8 +214,8 @@ function NavBar () {
               <Title>Discord.RSS</Title>
             </Link>
           </NavItem>
-          <NavItem selected={path === pages.FAQ}><Link to={pages.FAQ}>FAQ</Link></NavItem>
-          <NavItem selected={path === pages.FEED_BROWSER}><Link to={pages.FEED_BROWSER}>Feed Browser</Link></NavItem>
+          <NavItem selected={path.startsWith(pages.FAQ)}><Link to={pages.FAQ}>FAQ</Link></NavItem>
+          <NavItem selected={path.startsWith(pages.FEED_BROWSER)}><Link to={pages.FEED_BROWSER}>Feed Browser</Link></NavItem>
           {/* <li onMouseEnter={e => setHoverPatreon(true)} onMouseLeave={e => setHoverPatreon(false)}>Patreon<ExternalIcon pose={hoveringPatreon ? 'enter' : 'exit'} name='external' /></li>
           <li onMouseEnter={e => setHoverGithub(true)} onMouseLeave={e => setHoverGithub(false)}>Github<ExternalIcon pose={hoveringGithub ? 'enter' : 'exit'} name='external' /></li> */}
           <NavItem selected={path === pages.SUPPORT}><a href='https://discord.gg/pudv7Rx' target='_blank' rel='noopener noreferrer'>Support<Icon name='external' size='small' /></a></NavItem>
