@@ -50,7 +50,7 @@ function Stats () {
           <h2>
             <CountUp end={feedCount} separator=',' duration={1.5} />
           </h2>
-          <p>Sources of News<br />Being Delivered</p>
+          <p>Sources of News<br />Registered</p>
         </StatBox>
         <StatBox>
           <h2>
