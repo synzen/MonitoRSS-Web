@@ -43,9 +43,6 @@ describe('Unit::controllers/api/guilds/feeds/getDatabaseArticles', function () {
     const req = {
       feed: {
         url: 'qe3wt463rg'
-      },
-      guild: {
-        shard: 2333
       }
     }
     const res = createResponse()
@@ -56,6 +53,6 @@ describe('Unit::controllers/api/guilds/feeds/getDatabaseArticles', function () {
     feedServices.getDatabaseArticles.mockResolvedValue(data)
     await getDatabaseArticles(req, res, next)
     expect(feedServices.getDatabaseArticles)
-      .toHaveBeenCalledWith(req.feed, req.guild.shard)
+      .toHaveBeenCalledWith(req.feed)
   })
 })

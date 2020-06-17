@@ -85,15 +85,13 @@ async function deleteFeed (feedID) {
 
 /**
  * @param {import('../../structs/db/Feed.js')} feed
- * @param {string} feedID
  */
-async function getDatabaseArticles (feed, shardID) {
+async function getDatabaseArticles (feed) {
   // Schedule name must be determined
   const schedule = await feed.determineSchedule()
   const data = await DiscordRSS.models.Article.Model.find({
     scheduleName: schedule.name,
-    feedURL: feed.url,
-    shardID
+    feedURL: feed.url
   }).lean().exec()
   return data
 }
