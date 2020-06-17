@@ -53,6 +53,7 @@ const BackupButtonContainer = styled.div`
 function ServerSettings () {
   const [invalidTimezone, setInvalidTimezone] = useState(false)
   const [updatedValues, setUpdatedValues] = useState({})
+  const [autoSave, setAutoSave] = useState(false)
   const guild = useSelector(guildSelectors.activeGuild)
   const botConfig = useSelector(state => state.botConfig)
   const editing = useSelector(guildSelectors.editing)
@@ -61,24 +62,6 @@ function ServerSettings () {
   const dispatch = useDispatch()
   const unsaved = Object.keys(updatedValues).length > 0
   const profile = guild ? guild.profile : null
-
-  useEffect(() => {
-    dispatch(changePage(pages.SERVER_SETTINGS))
-  }, [dispatch])
-
-  useEffect(() => {
-    const tz = updatedValues.timezone
-    if (!tz) {
-      setInvalidTimezone(false)
-      return
-    }
-    setInvalidTimezone(!moment.tz.zone(tz))
-  }, [updatedValues.timezone])
-
-  if (!guild) {
-    dispatch(changePage(pages.DASHBOARD))
-    return <Redirect to={pages.DASHBOARD} />
-  }
 
   const downloadBackup = () => {
     const data = {
@@ -108,7 +91,6 @@ function ServerSettings () {
       return value === getOriginalPropertyValue(property)
     }
   }
-
   const setValue = (property, value) => {
     if (matchesOriginalProperty(property, value)) {
       const valuesCopy = { ...updatedValues }
@@ -143,9 +125,37 @@ function ServerSettings () {
     setUpdatedValues({})
   }
 
-  const prefixValue = updatedValues.prefix === undefined ? getOriginalPropertyValue('prefix') : updatedValues.prefix
-  const timezoneValue = updatedValues.timezone === undefined ? getOriginalPropertyValue('timezone') : updatedValues.timezone
-  const dateFormatValue = updatedValues.dateFormat === undefined ? getOriginalPropertyValue('dateFormat') : updatedValues.dateFormat
+  useEffect(() => {
+    dispatch(changePage(pages.SERVER_SETTINGS))
+  }, [dispatch])
+
+  useEffect(() => {
+    const tz = updatedValues.timezone
+    if (!tz) {
+      setInvalidTimezone(false)
+      return
+    }
+    setInvalidTimezone(!moment.tz.zone(tz))
+  }, [updatedValues.timezone])
+
+  useEffect(() => {
+    if (autoSave) {
+      save()
+      setAutoSave(false)
+    }
+  }, [autoSave])
+
+  if (!guild) {
+    dispatch(changePage(pages.DASHBOARD))
+    return <Redirect to={pages.DASHBOARD} />
+  }
+
+  const originalPrefix = getOriginalPropertyValue('prefix')
+  const originalTimezone = getOriginalPropertyValue('timezone')
+  const originalDateFormat = getOriginalPropertyValue('dateFormat')
+  const prefixValue = updatedValues.prefix === undefined ? originalPrefix : updatedValues.prefix
+  const timezoneValue = updatedValues.timezone === undefined ? originalTimezone : updatedValues.timezone
+  const dateFormatValue = updatedValues.dateFormat === undefined ? originalDateFormat : updatedValues.dateFormat
   // const dateLanguageValue = updatedValues.dateLanguage === undefined ? getOriginalPropertyValue('dateLanguage') : updatedValues.dateLanguage
 
   return (
@@ -158,7 +168,24 @@ function ServerSettings () {
       <br />
       <br />
       <SectionSubtitle>Timezone</SectionSubtitle>
-      <Input fluid onChange={e => setValue('timezone', e.target.value)} error={invalidTimezone} value={timezoneValue} placeholder={getOriginalPropertyValue('timezone')} />
+      <Input
+        fluid
+        onChange={e => setValue('timezone', e.target.value)}
+        error={invalidTimezone}
+        value={timezoneValue}
+        placeholder={originalTimezone}
+        onKeyPress={e => e.key === 'Enter' ? save() : null}
+        action={
+          <Button
+            content='Set to Default'
+            onClick={e => {
+              setValue('timezone', '')
+              setAutoSave(true)
+            }}
+            disabled={(!profile || profile.timezone === undefined || profile.timezone === botConfig.timezone)}
+          />
+        }
+      />
       <InputDescription>This will change the timezone of the {'{date}'} placeholder to the one you specify. <a href='https://en.wikipedia.org/wiki/List_of_tz_database_time_zones' target='_blank' rel='noopener noreferrer'>See here for a list of valid timezones under the "TZ database name" column.</a></InputDescription>
       <br />
       {/* <SectionSubtitle>Date Language</SectionSubtitle>
@@ -166,15 +193,31 @@ function ServerSettings () {
       <InputDescription>Only a certain number of languages are manually supported for dates. To request your language to be supported, please contact the developer on the support server.</InputDescription>
       <br /> */}
       <SectionSubtitle>Date Format</SectionSubtitle>
-      <Input fluid value={dateFormatValue} onChange={e => setValue('dateFormat', e.target.value)} placeholder={getOriginalPropertyValue('dateFormat')} />
+      <Input
+        fluid
+        value={dateFormatValue}
+        onChange={e => setValue('dateFormat', e.target.value)}
+        placeholder={getOriginalPropertyValue('dateFormat')}
+        onKeyPress={e => e.key === 'Enter' ? save() : null}
+        action={
+          <Button
+            content='Set to Default'
+            onClick={e => {
+              setValue('dateFormat', '')
+              setAutoSave(true)
+            }}
+            disabled={(!profile || profile.dateFormat === undefined || profile.dateFormat === botConfig.dateFormat)}
+          />
+        }
+      />
       <InputDescription>This will dictate how the {'{date}'} placeholder will be formatted. <a href='https://momentjs.com/docs/#/displaying/' target='_blank' rel='noopener noreferrer'>See here on how to customize your date formats.</a>.</InputDescription>
       <LargeDivider />
-      <SectionTitle heading='Command Prefix' subheading='If specified, this prefix will replace the default prefix used before all commands. This setting can only be configured through Discord commands at this time.' />
+      <SectionTitle heading='Command Prefix' subheading='If specified, this prefix will replace the default prefix used before all commands. This setting can only be configured through the Discord command "prefix" at this time.' />
       <Input fluid onChange={e => setValue('prefix', e.target.value)} value={prefixValue} disabled />
       <LargeDivider />
-      <SectionTitle heading='Alerts' subheading='Set up direct messaging to specific users when a feed has problems. This setting can only be configured through Discord commands at this time.' />
+      <SectionTitle heading='Alerts' subheading='Set up direct messaging to specific users when a feed has problems. This setting can only be configured through the Discord command "alert" at this time.' />
       <LargeDivider />
-      <SectionTitle heading='Backup' subheading='Download a copy of all your server feeds and settings for safekeeping. This is highly, HIGHLY recommended in case there is data loss, or if you wish to import/overwrite your settings at a later point. Restorations can only be done by requesting through the support server.' />
+      <SectionTitle heading='Backup' subheading='Download a copy of all your server feeds and settings for safekeeping. This is HIGHLY recommended in case there is data loss, or if you wish to import/overwrite your settings at a later point. Restorations can be done by requesting through the support server.' />
       <BackupButtonContainer>
         <Button basic content='Download Backup' onClick={downloadBackup} />
         <Button basic content='Send Backup to Discord' disabled onClick={downloadBackup} />
