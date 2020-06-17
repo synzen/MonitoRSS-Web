@@ -40,6 +40,11 @@ class RequestHandler {
     const rest = this.getRestClient(this.botToken, TokenType.BOT)
     return rest.get(endpoint)
   }
+
+  async requestWithBot (method, endpoint) {
+    const rest = this.getRestClient(this.botToken, TokenType.BOT)
+    return rest[method][endpoint]
+  }
 }
 
 module.exports = RequestHandler

@@ -128,7 +128,7 @@ const ArticleImages = styled.div`
   }
 `
 
-const ArticleStyle = styled.div`
+const ArticleStyle = styled.article`
   word-break: break-all;
 `
 
@@ -152,11 +152,11 @@ const StatusMessage = styled.div`
   user-select: none;
 `
 
-const UrlDisplay = styled.div`
+const UrlDisplay = styled.section`
   display: flex;
   align-items: center;
   word-break: break-all;
-  > label {
+  h1 {
     margin-bottom: 0;
     margin-right: 1em;
   }
@@ -428,115 +428,123 @@ function FeedBrowser () {
         <p>
           Preview placeholders and browse their contents without adding them!
           <br />
-          Try a <a href='/feed-browser/https%3A%2F%2Fwww.gameinformer.com%2Fnews.xml'>sample feed.</a>
+          <a href='/feed-browser/https%3A%2F%2Fwww.gameinformer.com%2Fnews.xml'>Try a sample feed.</a>
         </p>
         <FeedInput getArticles={getArticles} loading={loading} />
       </Header>
 
-      <ArticlesSection className='hello'>
+      <ArticlesSection>
         <ArticlesSectionInner>
-          <ArticlesSectionBody hidden={loading || articleList.length === 0} className='world'>
-            <SectionTitle heading='Result' subheading='You can filter out article details by selecting certain article categories. You may also filter articles by search.' />
-            <UrlDisplay>
-              <SectionSubtitle>
-                URL
-              </SectionSubtitle>
-              <a href={prevUrl} rel='noopener noreferrer' target='_blank'>{prevUrl}</a>
-            </UrlDisplay>
-            <Divider />
-            <SectionSubtitle>
-              Search and Filter
-            </SectionSubtitle>
-            <ArticlesSectionSearch>
-              <Input
-                disabled={loading || articleList.length === 0 || notPlaceholdersViewType}
-                icon='search'
-                fluid
-                onChange={e => setSearch(e.target.value)}
-                placeholder='Search'
-                loading={loading}
-              />
-              <Dropdown
-                disabled={loading || articleList.length === 0 || notPlaceholdersViewType}
-                placeholder='Show Properties'
-                selection
-                fluid
-                multiple
-                options={searchDropdownOptions}
-                value={searchCategories}
-                onChange={(e, data) => data.value.length === 0 ? null : setSearchCategories(data.value)}
-                loading={loading}
-              />
-            </ArticlesSectionSearch>
-            <Divider />
-            <ArticlesHeaderContainer>
-              <SectionSubtitle>{elems.length} Articles</SectionSubtitle>
-              <ViewOptions>
-                <Dropdown
-                  selection
-                  placeholder='View type'
-                  options={viewTypeOptions}
-                  value={viewType}
-                  onChange={(e, data) => changeViewType(data.value)}
-                />
-                <SortByContainer style={articleList.length === 0 ? { overflow: 'hidden' } : {}}>
+          <section>
+            <ArticlesSectionBody hidden={loading || articleList.length === 0} className='world'>
+              <SectionTitle heading='Result' subheading='You can filter out article details by selecting certain article categories. You may also filter articles by search.' />
+              <UrlDisplay>
+                <SectionSubtitle as='h1'>
+                  URL
+                </SectionSubtitle>
+                <a href={prevUrl} rel='noopener noreferrer' target='_blank'>{prevUrl}</a>
+              </UrlDisplay>
+              <Divider />
+              <section>
+                <SectionSubtitle as='h1'>
+                  Search and Filter
+                </SectionSubtitle>
+                <ArticlesSectionSearch>
+                  <Input
+                    disabled={loading || articleList.length === 0 || notPlaceholdersViewType}
+                    icon='search'
+                    fluid
+                    onChange={e => setSearch(e.target.value)}
+                    placeholder='Search'
+                    loading={loading}
+                  />
                   <Dropdown
+                    disabled={loading || articleList.length === 0 || notPlaceholdersViewType}
+                    placeholder='Show Properties'
                     selection
-                    value={sortBy}
-                    placeholder='Sort by'
-                    disabled={notPlaceholdersViewType || articleList.length === 0 || loading}
-                    onChange={(e, data) => changeSortBy(data.value)}
+                    fluid
+                    multiple
                     options={searchDropdownOptions}
+                    value={searchCategories}
+                    onChange={(e, data) => data.value.length === 0 ? null : setSearchCategories(data.value)}
+                    loading={loading}
                   />
-                  <Button
-                    icon='sort'
-                    disabled={notPlaceholdersViewType || !sortBy || articleList.length === 0 || loading}
-                    onClick={e => setSortDescending(!sortDescending)}
-                  />
-                  <Button
-                    icon='cancel'
-                    disabled={notPlaceholdersViewType || !sortBy || articleList.length === 0 || loading}
-                    onClick={e => changeSortBy()}
-                  />
-                </SortByContainer>
-              </ViewOptions>
-            </ArticlesHeaderContainer>
-          </ArticlesSectionBody>
-          {error
-            ? (
-              <StatusMessage>
-                <SectionSubtitleDescription
-                  style={{
-                    color: colors.discord.red,
-                    textAlign: 'center'
-                  }}
-                  fontSize='20px'
-                >
-                  {error}
-                </SectionSubtitleDescription>
-              </StatusMessage>
-            )
-            : loading || articleList.length === 0 || loadingXML
-              ? (loading || loadingXML)
-                ? (
-                  <StatusMessage>
-                    <Loader active inverted size='massive' content={<SectionSubtitleDescription fontSize='20px'>Fetching...</SectionSubtitleDescription>} />
-                  </StatusMessage>)
-                : prevUrl
-                  ? <StatusMessage><SectionSubtitleDescription fontSize='20px'>No articles were found :(</SectionSubtitleDescription></StatusMessage>
-                  : null
-              : null}
-          <PoseGroup animateOnMount>
-            {loading || loadingXML
-              ? []
-              : notPlaceholdersViewType && xmlText
-                ? [
-                  <XMLWrapper key='xml'>
-                    <code dangerouslySetInnerHTML={{ __html: hljs.highlight('xml', xmlText).value }} />
-                  </XMLWrapper>
-                ]
-                : elems}
-          </PoseGroup>
+                </ArticlesSectionSearch>
+              </section>
+              <Divider />
+              <ArticlesHeaderContainer>
+                <SectionSubtitle>{elems.length} Articles</SectionSubtitle>
+                <section>
+                  <ViewOptions>
+                    <Dropdown
+                      selection
+                      placeholder='View type'
+                      options={viewTypeOptions}
+                      value={viewType}
+                      onChange={(e, data) => changeViewType(data.value)}
+                    />
+                    <SortByContainer style={articleList.length === 0 ? { overflow: 'hidden' } : {}}>
+                      <Dropdown
+                        selection
+                        value={sortBy}
+                        placeholder='Sort by'
+                        disabled={notPlaceholdersViewType || articleList.length === 0 || loading}
+                        onChange={(e, data) => changeSortBy(data.value)}
+                        options={searchDropdownOptions}
+                      />
+                      <Button
+                        icon='sort'
+                        disabled={notPlaceholdersViewType || !sortBy || articleList.length === 0 || loading}
+                        onClick={e => setSortDescending(!sortDescending)}
+                      />
+                      <Button
+                        icon='cancel'
+                        disabled={notPlaceholdersViewType || !sortBy || articleList.length === 0 || loading}
+                        onClick={e => changeSortBy()}
+                      />
+                    </SortByContainer>
+                  </ViewOptions>
+                </section>
+              </ArticlesHeaderContainer>
+            </ArticlesSectionBody>
+            {error
+              ? (
+                <StatusMessage>
+                  <SectionSubtitleDescription
+                    style={{
+                      color: colors.discord.red,
+                      textAlign: 'center'
+                    }}
+                    fontSize='20px'
+                  >
+                    {error}
+                  </SectionSubtitleDescription>
+                </StatusMessage>
+              )
+              : loading || articleList.length === 0 || loadingXML
+                ? (loading || loadingXML)
+                  ? (
+                    <StatusMessage>
+                      <Loader active inverted size='massive' content={<SectionSubtitleDescription fontSize='20px'>Fetching...</SectionSubtitleDescription>} />
+                    </StatusMessage>)
+                  : prevUrl
+                    ? <StatusMessage><SectionSubtitleDescription fontSize='20px'>No articles were found :(</SectionSubtitleDescription></StatusMessage>
+                    : null
+                : null}
+            <section>
+              <PoseGroup animateOnMount>
+                {loading || loadingXML
+                  ? []
+                  : notPlaceholdersViewType && xmlText
+                    ? [
+                      <XMLWrapper key='xml'>
+                        <code dangerouslySetInnerHTML={{ __html: hljs.highlight('xml', xmlText).value }} />
+                      </XMLWrapper>
+                    ]
+                    : elems}
+              </PoseGroup>
+            </section>
+          </section>
         </ArticlesSectionInner>
       </ArticlesSection>
     </div>

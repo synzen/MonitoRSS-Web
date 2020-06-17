@@ -131,6 +131,13 @@ async function getFeedsOfGuild (guildID) {
   return feeds.map(f => f.toJSON())
 }
 
+/**
+ * @param {import('discord.rss').Feed} feed
+ */
+async function sendMessage (feed) {
+
+}
+
 module.exports = {
   getAnonymousFeedPlaceholders,
   getFeedPlaceholders,
