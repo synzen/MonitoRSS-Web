@@ -5,7 +5,7 @@ const createError = require('../../../../util/createError.js')
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-async function getFeedPlaceholders (req, res) {
+async function getFeedArticles (req, res) {
   /** @type {import('../../../../../structs/db/Feed.js')} */
   const feed = req.feed
   try {
@@ -14,7 +14,7 @@ async function getFeedPlaceholders (req, res) {
       const error = createError(403, `Feed URL ${feed.url} has reached connection failure limit`)
       return res.status(403).json(error)
     }
-    const data = await feedServices.getFeedPlaceholders(feed)
+    const data = await feedServices.getFeedArticles(feed)
     res.json(data)
   } catch (err) {
     const resError = createError(500, err.message)
@@ -22,4 +22,4 @@ async function getFeedPlaceholders (req, res) {
   }
 }
 
-module.exports = getFeedPlaceholders
+module.exports = getFeedArticles

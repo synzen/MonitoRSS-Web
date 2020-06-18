@@ -78,7 +78,7 @@ export function fetchGuildFeedArticles (guildID, feedID) {
   return async dispatch => {
     try {
       dispatch(setArticlesBegin())
-      const { data } = await axios.get(`/api/guilds/${guildID}/feeds/${feedID}/placeholders`)
+      const { data } = await axios.get(`/api/guilds/${guildID}/feeds/${feedID}/articles`)
       dispatch(setArticlesSuccess(data))
     } catch (err) {
       dispatch(setArticlesFailure(err))

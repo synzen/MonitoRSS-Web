@@ -119,7 +119,7 @@ describe('Unit::controllers/api/feeds/getFeed', function () {
       text: jest.fn()
     }
     const feedURL = 'wseatgrhy'
-    feedServices.getFeedPlaceholders
+    feedServices.getFeedArticles
       .mockResolvedValue()
     fetch.mockResolvedValue(fetchResults)
     const req = createRequest()

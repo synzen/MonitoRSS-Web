@@ -1,5 +1,4 @@
 const fetch = require('node-fetch')
-const userServices = require('./user.js')
 const { URLSearchParams } = require('url')
 const discordAPIConstants = require('../constants/discordAPI.js')
 const getResponseError = require('../util/getResponseError.js')

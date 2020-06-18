@@ -1,5 +1,5 @@
 process.env.TEST_ENV = true
-const getFeedPlaceholders = require('../../../../../controllers/api/guilds/feeds/getFeedPlaceholders.js')
+const getFeedArticles = require('../../../../../controllers/api/guilds/feeds/getFeedArticles.js')
 const feedServices = require('../../../../../services/feed.js')
 const createError = require('../../../../../util/createError.js')
 const {
@@ -10,12 +10,12 @@ const {
 jest.mock('../../../../../services/feed.js')
 jest.mock('../../../../../util/createError.js')
 
-describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
+describe('Unit::controllers/api/guilds/feeds/getFeedArticles', function () {
   beforeEach(function () {
     feedServices.feedURLHasFailed.mockResolvedValue(false)
   })
   afterEach(function () {
-    feedServices.getFeedPlaceholders.mockReset()
+    feedServices.getFeedArticles.mockReset()
     feedServices.feedURLHasFailed.mockReset()
   })
   it('returns 403 if feed url has failed', async function () {
@@ -31,7 +31,7 @@ describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
     feedServices.feedURLHasFailed.mockResolvedValue(true)
     createError.mockReturnValue(createdError)
     const next = createNext()
-    await getFeedPlaceholders(req, res, next)
+    await getFeedArticles(req, res, next)
     expect(next).not.toHaveBeenCalled()
     expect(res.status).toHaveBeenCalledWith(403)
     expect(json).toHaveBeenCalledWith(createdError)
@@ -45,9 +45,9 @@ describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
     const data = {
       a: 1
     }
-    feedServices.getFeedPlaceholders.mockResolvedValue(data)
+    feedServices.getFeedArticles.mockResolvedValue(data)
     const next = createNext()
-    await getFeedPlaceholders(req, res, next)
+    await getFeedArticles(req, res, next)
     expect(next).not.toHaveBeenCalled()
     expect(res.json).toHaveBeenCalledWith(data)
   })
@@ -62,10 +62,10 @@ describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
     }
     const error = new Error('w4ersyg')
     const createdError = 'q3ew2t4r'
-    feedServices.getFeedPlaceholders.mockRejectedValue(error)
+    feedServices.getFeedArticles.mockRejectedValue(error)
     createError.mockReturnValue(createdError)
     const next = createNext()
-    await getFeedPlaceholders(req, res, next)
+    await getFeedArticles(req, res, next)
     expect(next).not.toHaveBeenCalled()
     expect(res.status).toHaveBeenCalledWith(500)
     expect(json).toHaveBeenCalledWith(createdError)
@@ -82,10 +82,10 @@ describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
       }
     }
     const res = createResponse()
-    feedServices.getFeedPlaceholders.mockResolvedValue()
+    feedServices.getFeedArticles.mockResolvedValue()
     const next = createNext()
-    await getFeedPlaceholders(req, res, next)
-    expect(feedServices.getFeedPlaceholders)
+    await getFeedArticles(req, res, next)
+    expect(feedServices.getFeedArticles)
       .toHaveBeenCalledWith(req.feed)
   })
   it('calls the service with config feeds if no guild profile', async function () {
@@ -97,9 +97,9 @@ describe('Unit::controllers/api/guilds/feeds/getFeedPlaceholders', function () {
     }
     const res = createResponse()
     const next = createNext()
-    feedServices.getFeedPlaceholders.mockResolvedValue()
-    await getFeedPlaceholders(req, res, next)
-    expect(feedServices.getFeedPlaceholders)
+    feedServices.getFeedArticles.mockResolvedValue()
+    await getFeedArticles(req, res, next)
+    expect(feedServices.getFeedArticles)
       .toHaveBeenCalledWith(req.feed)
   })
 })

@@ -7,7 +7,7 @@ const initialState = []
 function articlesReducer (state = initialState, action) {
   switch (action.type) {
     case GET_ARTICLES.SUCCESS:
-      return action.payload
+      return action.payload.placeholderArticles
     default:
       return state
   }

@@ -9,7 +9,7 @@ const configServices = require('./config.js')
 /**
  * @param {import('discord.rss').Feed} feed
  */
-async function getFeedPlaceholders (feed) {
+async function getFeedArticles (feed) {
   const { articleList } = await FeedFetcher.fetchFeed(feed.url)
   const allPlaceholders = []
   if (articleList.length === 0) {
@@ -20,7 +20,10 @@ async function getFeedPlaceholders (feed) {
     const parsed = new Article(article, feedData)
     allPlaceholders.push(parsed.toJSON())
   }
-  return allPlaceholders
+  return {
+    articles: articleList,
+    placeholderArticles: allPlaceholders
+  }
 }
 
 /**
@@ -35,7 +38,7 @@ async function getAnonymousFeedPlaceholders (feedURL) {
     channel: '1',
     url: feedURL
   })
-  return module.exports.getFeedPlaceholders(dummyFeed)
+  return module.exports.getFeedArticles(dummyFeed)
 }
 
 /**
@@ -140,7 +143,7 @@ async function sendMessage (feed) {
 
 module.exports = {
   getAnonymousFeedPlaceholders,
-  getFeedPlaceholders,
+  getFeedArticles,
   getFeedOfGuild,
   createFeed,
   editFeed,

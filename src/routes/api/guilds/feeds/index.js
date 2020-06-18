@@ -39,7 +39,7 @@ guildFeedsAPI.patch('/:feedID', [
 guildFeedsAPI.delete('/:feedID', controllers.api.guilds.feeds.deleteFeed)
 
 // Get feed placeholders
-guildFeedsAPI.get('/:feedID/placeholders', controllers.api.guilds.feeds.getFeedPlaceholders)
+guildFeedsAPI.get('/:feedID/articles', controllers.api.guilds.feeds.getFeedArticles)
 
 // Get database articles for debugging
 guildFeedsAPI.get('/:feedID/database', controllers.api.guilds.feeds.getDatabaseArticles)

@@ -3,7 +3,7 @@ const createFeed = require('./createFeed.js')
 const editFeed = require('./editFeed.js')
 const deleteFeed = require('./deleteFeed.js')
 const getSchedule = require('./getSchedule.js')
-const getFeedPlaceholders = require('./getFeedPlaceholders.js')
+const getFeedArticles = require('./getFeedArticles.js')
 const getDatabaseArticles = require('./getDatabaseArticles.js')
 const subscribers = require('./subscribers/index.js')
 
@@ -13,7 +13,7 @@ module.exports = {
   editFeed,
   deleteFeed,
   getSchedule,
-  getFeedPlaceholders,
+  getFeedArticles,
   getDatabaseArticles,
   subscribers
 }

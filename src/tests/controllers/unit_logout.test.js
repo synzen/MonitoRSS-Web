@@ -15,6 +15,11 @@ describe('Unit::controllers/logout', function () {
   })
   it('calls next authServices logout succeeds', async function () {
     const req = createRequest()
+    req.app.get.mockImplementation((key) => {
+      if (key === 'webClientManager') {
+        return {}
+      }
+    })
     const next = createNext()
     await controller(req, {}, next)
     authServices.logout.mockResolvedValue()
@@ -23,6 +28,11 @@ describe('Unit::controllers/logout', function () {
   it('calls next if logout errors', async function () {
     const req = createRequest()
     const next = createNext()
+    req.app.get.mockImplementation((key) => {
+      if (key === 'webClientManager') {
+        return {}
+      }
+    })
     const error = new Error('hasdf')
     authServices.logout.mockRejectedValue(error)
     await controller(req, {}, next)
