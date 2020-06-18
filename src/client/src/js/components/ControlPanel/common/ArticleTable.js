@@ -35,7 +35,7 @@ const ErrorText = styled.div`
 `
 
 function ArticleTable (props) {
-  const articleList = useSelector(state => state.articles)
+  const placeholderList = useSelector(state => state.articles.placeholders)
   const articlesFetching = useSelector(feedSelectors.articlesFetching)
   const articlesError = useSelector(feedSelectors.articlesFetchErrored)
   const [articleProperty, setArticleProperty] = useState('')
@@ -43,11 +43,11 @@ function ArticleTable (props) {
   const { addColumns, positiveNegativeRowFunc } = props
 
   useEffect(() => {
-    if (articleProperty || articleList.length === 0) {
+    if (articleProperty || placeholderList.length === 0) {
       return
     }
-    const article = articleList[0]
-    if (article.title && articleList[1] && articleList[1].title !== article.title) {
+    const article = placeholderList[0]
+    if (article.title && placeholderList[1] && placeholderList[1].title !== article.title) {
       setArticleProperty('title')
       return
     }
@@ -55,8 +55,8 @@ function ArticleTable (props) {
       if (!placeholder) {
         continue
       }
-      if (articleList[1]) {
-        if (articleList[1][placeholder] !== article[placeholder]) {
+      if (placeholderList[1]) {
+        if (placeholderList[1][placeholder] !== article[placeholder]) {
           // Try to select a placeholder where its content is different from other articles
           setArticleProperty(placeholder)
           return
@@ -68,7 +68,7 @@ function ArticleTable (props) {
     }
     // If the above fails, just use the duplicated property
     setArticleProperty(Object.keys(article)[0])
-  }, [articleList, articleProperty])
+  }, [placeholderList, articleProperty])
 
   if (articlesError) {
     return (
@@ -101,10 +101,10 @@ function ArticleTable (props) {
       collapsingCells = collapsingCells.concat(data.collapsing)
     }
   }
-  const classificationsItems = articleList
+  const classificationsItems = placeholderList
   const classificationsDropdownOptions = []
   const added = {}
-  for (const article of articleList) {
+  for (const article of placeholderList) {
     for (const placeholder in article) {
       if (added[placeholder]) continue
       const isRegexPlaceholder = placeholder.includes('regex:')

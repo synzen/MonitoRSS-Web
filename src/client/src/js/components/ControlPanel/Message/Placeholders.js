@@ -137,14 +137,14 @@ function Placeholders (props) {
   const [showArticleBy, setShowArticleBy] = useState()
   const [searchPlaceholder, setSearchPlaceholder] = useState('')
   const [seenPlaceholders, setSeenPlaceholders] = useState(new Set())
-  const articleList = useSelector(state => state.articles)
+  const placeholderList = useSelector(state => state.articles.placeholders)
   const articlesError = useSelector(feedSelectors.articlesFetchErrored)
   const articlesFetching = useSelector(feedSelectors.articlesFetching)
   const placeholderElements = []
-  const article = articleList[articleID]
+  const article = placeholderList[articleID]
 
   const onClickNextArticle = () => {
-    if (articleID === articleList.length - 1) {
+    if (articleID === placeholderList.length - 1) {
       return
     }
     setArticleID(articleID + 1)
@@ -163,7 +163,7 @@ function Placeholders (props) {
 
   useEffect(() => {
     const seen = new Set()
-    for (const article of articleList) {
+    for (const article of placeholderList) {
       for (const placeholder in article) {
         if (placeholder.startsWith('regex:') || isHiddenProperty(placeholder) || placeholder.startsWith('raw:')) {
           continue
@@ -174,7 +174,7 @@ function Placeholders (props) {
       }
     }
     setSeenPlaceholders(seen)
-  }, [articleList])
+  }, [placeholderList])
 
   useEffect(() => {
     if (showArticleBy || seenPlaceholders.size === 0) {
@@ -193,7 +193,7 @@ function Placeholders (props) {
   }))
 
   // Articles
-  const articleDropdownOptions = articleList.map((placeholders, index) => ({
+  const articleDropdownOptions = placeholderList.map((placeholders, index) => ({
     text: placeholders[showArticleBy],
     value: index
   }))
@@ -262,8 +262,8 @@ function Placeholders (props) {
             placeholder={articleDropdownOptions.length === 0 && !articlesFetching ? 'No articles in feed' : 'Select an article'}
           />
           <ButtonGroup>
-            <Button icon='arrow up' onClick={onClickPreviousArticle} disabled={articleID === 0 || articleList.length === 0} />
-            <Button icon='arrow down' onClick={onClickNextArticle} disabled={articleID === articleList.length - 1 || articleList.length === 0} />
+            <Button icon='arrow up' onClick={onClickPreviousArticle} disabled={articleID === 0 || placeholderList.length === 0} />
+            <Button icon='arrow down' onClick={onClickNextArticle} disabled={articleID === placeholderList.length - 1 || placeholderList.length === 0} />
           </ButtonGroup>
         </DropdownWithButtons>
       </ArticleBox>
