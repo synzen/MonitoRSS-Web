@@ -173,12 +173,13 @@ async function getAuthToken (token, config) {
 
 /**
  * Attach the user's oauth2 token to req
+ * @param {import('../util/RequestHandler.js')} requestHandler
  * @param {Session} session
  * @param {Object} config
  */
-async function logout (session, config) {
+async function logout (requestHandler, session, config) {
   await revokeAuthToken(session.token, config)
-  userServices.requestHandler.onAccessTokenRevoked(session.token)
+  requestHandler.onAccessTokenRevoked(session.token)
   return new Promise((resolve, reject) => {
     session.destroy(err => {
       if (err) {

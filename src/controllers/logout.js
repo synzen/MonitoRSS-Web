@@ -7,9 +7,10 @@ const authServices = require('../services/auth.js')
  */
 async function logout (req, res, next) {
   const config = req.app.get('config')
+  const requestHandler = req.app.get('webClientManager').requestHandler
   const session = req.session
   try {
-    await authServices.logout(session, config)
+    await authServices.logout(requestHandler, session, config)
     res.redirect('/')
   } catch (err) {
     next(err)
