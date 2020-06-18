@@ -13,7 +13,10 @@ async function getFeedArticles (feed) {
   const { articleList } = await FeedFetcher.fetchFeed(feed.url)
   const allPlaceholders = []
   if (articleList.length === 0) {
-    return allPlaceholders
+    return {
+      articles: [],
+      placeholderArticles: []
+    }
   }
   const feedData = await FeedData.ofFeed(feed)
   for (const article of articleList) {
