@@ -5,7 +5,8 @@ import {
   SET_ACTIVE_FEED,
   DELETE_FEED,
   EDIT_FEED,
-  ADD_FEED
+  ADD_FEED,
+  SEND_FEED_MESSAGE
 } from '../constants/actions/feeds'
 import FetchStatusActions from './utils/FetchStatusActions'
 import { fetchGuildFeedSubscribers, getSubscribersSuccess } from './subscribers'
@@ -41,6 +42,12 @@ export const {
   success: setArticlesSuccess,
   failure: setArticlesFailure
 } = new FetchStatusActions(GET_ARTICLES)
+
+export const {
+  begin: sendFeedMessageBegin,
+  success: sendFeedMessageSuccess,
+  failure: sendFeedMessageFailure
+} = new FetchStatusActions(SEND_FEED_MESSAGE)
 
 export function addGuildFeed (guildID, feedData) {
   return async dispatch => {
@@ -127,6 +134,21 @@ export function fetchEditFeed (guildID, feedID, newData) {
       dispatch(editFeedSuccess(data))
     } catch (err) {
       dispatch(editFeedFailure(err))
+    }
+  }
+}
+
+export function sendFeedMessage (guildID, feedID, article) {
+  return async dispatch => {
+    try {
+      dispatch(sendFeedMessageBegin())
+      const { data } = await axios.post(`/api/guilds/${guildID}/feeds/${feedID}/message`, {
+        article
+      })
+      toast.success('Article delivered')
+      dispatch(sendFeedMessageSuccess(data))
+    } catch (err) {
+      dispatch(sendFeedMessageFailure(err))
     }
   }
 }
