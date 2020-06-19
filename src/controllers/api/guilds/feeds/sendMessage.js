@@ -26,7 +26,23 @@ async function sendMessage (req, res, next) {
     }
     res.status(201).end()
   } catch (err) {
-    next(err)
+    if (err.response) {
+      const status = err.response.status
+      if (status === 403) {
+        const createdError = createError(status, 'Missing permissions. Bot requires Read/Send Messages and, if applicable, Embed Links in the specified channel.')
+        res.status(status).json(createdError)
+      } else if (status === 400) {
+        const createdError = createError(status, 'Failed to deliver malformed message. Reformat your feed.')
+        res.status(status).json(createdError)
+      } else if (status === 404) {
+        const createdError = createError(status, 'Missing channel')
+        res.status(status).json(createdError)
+      } else {
+        next(err)
+      }
+    } else {
+      next(err)
+    }
   }
 }
 
