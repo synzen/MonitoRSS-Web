@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useState, useEffect, useReducer, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Input, Popup, Button, Divider, Checkbox, Icon } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
@@ -148,30 +148,6 @@ function EmbedSettings (props) {
   const originalEmbeds = feed.embeds
   const [embeds, embedsDispatch] = useReducer(embedsReducer, originalEmbeds)
 
-  useEffect(() => {
-    if (!unsaved) {
-      discardChanges()
-    }
-  }, [feed, originalEmbeds])
-
-  useEffect(() => {
-    const prunedEmbeds = pruneEmbeds(embeds)
-    const prunedOriginalEmbeds = pruneEmbeds(feed.embeds)
-    if (!fastEqual(prunedEmbeds, prunedOriginalEmbeds)) {
-      if (!unsaved) {
-        setUnsaved(true)
-      }
-    } else {
-      if (unsaved) {
-        setUnsaved(false)
-      }
-    }
-  }, [embeds, unsaved, feed.embeds])
-
-  useEffect(() => {
-    onUpdate(embeds)
-  }, [embeds, onUpdate])
-
   const prevIndex = () => {
     if (index <= 0 || unsaved) return
     setIndex(index - 1)
@@ -198,10 +174,34 @@ function EmbedSettings (props) {
     embedsDispatch(addField(index))
   }
 
-  const discardChanges = () => {
+  const discardChanges = useCallback(() => {
     setIndex(0)
     embedsDispatch(setEmbeds(feed.embeds))
-  }
+  }, [feed])
+
+  useEffect(() => {
+    if (!unsaved) {
+      discardChanges()
+    }
+  }, [feed, originalEmbeds, discardChanges, unsaved])
+
+  useEffect(() => {
+    const prunedEmbeds = pruneEmbeds(embeds)
+    const prunedOriginalEmbeds = pruneEmbeds(feed.embeds)
+    if (!fastEqual(prunedEmbeds, prunedOriginalEmbeds)) {
+      if (!unsaved) {
+        setUnsaved(true)
+      }
+    } else {
+      if (unsaved) {
+        setUnsaved(false)
+      }
+    }
+  }, [embeds, unsaved, feed.embeds])
+
+  useEffect(() => {
+    onUpdate(embeds)
+  }, [embeds, onUpdate])
 
   const apply = async () => {
     if (!unsaved) {

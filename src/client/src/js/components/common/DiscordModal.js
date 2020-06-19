@@ -109,7 +109,7 @@ function DiscordModal () {
       document.removeEventListener('keydown', escape)
       window.removeEventListener('popstate', popState)
     }
-  }, [reduxModal])
+  }, [reduxModal, escape, popState])
 
   return (
     <PoseGroup>

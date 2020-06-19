@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import PageHeader from 'js/components/common/PageHeader'
 import colors from 'js/constants/colors'
@@ -104,7 +104,7 @@ function ServerSettings () {
     }
   }
 
-  const save = async () => {
+  const save = useCallback(async () => {
     if (!unsaved) {
       return
     }
@@ -119,7 +119,7 @@ function ServerSettings () {
     }
     await dispatch(fetchEditGuild(guild.id, toSend))
     resetValues()
-  }
+  }, [unsaved, updatedValues, guild, botConfig, dispatch])
 
   const resetValues = () => {
     setUpdatedValues({})
@@ -143,7 +143,7 @@ function ServerSettings () {
       save()
       setAutoSave(false)
     }
-  }, [autoSave])
+  }, [autoSave, save])
 
   if (!guild) {
     dispatch(changePage(pages.DASHBOARD))
