@@ -166,20 +166,20 @@ async function createArticleMessage (feed, article, channel) {
  * @param {import('discord.rss').ArticleMessage} articleMessage
  */
 async function sendMessage (requestHandler, articleMessage) {
-  const { text, options } = articleMessage.createTextAndOptions()
+  const { feed } = articleMessage
+  const { text, embeds } = articleMessage.generateMessage()
   let textArray = [text]
-  if (options.split) {
-    textArray = Discord.Util.splitMessage(text, options.split)
+  if (feed.split) {
+    textArray = Discord.Util.splitMessage(text, feed.split)
   }
   for (let i = 0; i < textArray.length; ++i) {
     const thisText = textArray[i]
     const thisOptions = {
-      content: thisText,
-      allowed_mentions: options.allowedMentions
+      content: thisText
     }
     // Only attach the embed to the last message
-    if (i === textArray.length - 1 && options.embeds && options.embeds.length > 0) {
-      thisOptions.embed = options.embeds[0]
+    if (i === textArray.length - 1 && embeds.length > 0) {
+      thisOptions.embed = embeds[0]
     }
     await requestHandler.postWithBot(`/channels/${articleMessage.feed.channel}/messages`, thisOptions)
   }
@@ -194,10 +194,10 @@ async function sendWebhookMessage (requestHandler, articleMessage) {
   const { feed, parsedArticle } = articleMessage
   const feedWebhook = feed.webhook
   const { id, token } = await getWebhook(requestHandler, feed)
-  const { text, options } = articleMessage.createTextAndOptions()
+  const { text, embeds } = articleMessage.generateMessage()
   let textArray = [text]
-  if (options.split) {
-    textArray = Discord.Util.splitMessage(text, options.split)
+  if (feed.split) {
+    textArray = Discord.Util.splitMessage(text, feed.split)
   }
   let webhookName = feedWebhook.name
   if (webhookName) {
@@ -212,12 +212,11 @@ async function sendWebhookMessage (requestHandler, articleMessage) {
     const thisOptions = {
       username: webhookName,
       avatar_url: webhookAvatar,
-      content: thisText,
-      allowed_mentions: options.allowedMentions
+      content: thisText
     }
     // Only attach the embeds to the last message
-    if (i === textArray.length - 1 && options.embeds && options.embeds.length > 0) {
-      thisOptions.embeds = options.embeds
+    if (i === textArray.length - 1 && embeds.length > 0) {
+      thisOptions.embeds = embeds
     }
     await requestHandler.postWithBot(`/webhooks/${id}/${token}?wait=true`, thisOptions)
   }
