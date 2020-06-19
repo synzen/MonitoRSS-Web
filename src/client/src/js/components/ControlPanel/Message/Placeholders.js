@@ -115,6 +115,7 @@ const PlaceholderNameContainer = styled.div`
     font-family: monospace;
     font-weight: bold;
     margin-bottom: 0;
+    color: ${colors.discord.offwhite};
   }
 `
 
