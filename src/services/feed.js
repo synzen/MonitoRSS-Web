@@ -151,9 +151,14 @@ async function getWebhook (requestHandler, feed) {
 /**
  * @param {import('discord.rss').Feed} feed
  * @param {Object<string, any>} article
+ * @param {string} [channel]
  */
-async function createArticleMessage (feed, article) {
-  return ArticleMessage.create(feed, article)
+async function createArticleMessage (feed, article, channel) {
+  const created = await ArticleMessage.create(feed, article)
+  if (channel) {
+    created.feed.channel = channel
+  }
+  return created
 }
 
 /**

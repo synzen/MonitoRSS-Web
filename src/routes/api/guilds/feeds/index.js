@@ -15,7 +15,8 @@ const feedIDSchema = Joi.object({
 })
 
 const sendArticleSchema = Joi.object({
-  article: Joi.object()
+  article: Joi.object(),
+  channel: Joi.string()
 })
 
 // Get guild feeds

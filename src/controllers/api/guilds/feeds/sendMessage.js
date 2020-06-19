@@ -9,10 +9,10 @@ const createError = require('../../../../util/createError.js')
 async function sendMessage (req, res, next) {
   const requestHandler = req.app.get('webClientManager').requestHandler
   const feed = req.feed
-  const article = req.body.article
+  const { article, channel } = req.body
   let articleMessage
   try {
-    articleMessage = await feedServices.createArticleMessage(feed, article)
+    articleMessage = await feedServices.createArticleMessage(feed, article, channel)
   } catch (err) {
     const createdError = createError(400, 'Invalid article')
     return res.status(400).json(createdError)
