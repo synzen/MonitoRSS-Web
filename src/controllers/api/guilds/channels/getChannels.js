@@ -10,7 +10,8 @@ async function getChannels (req, res, next) {
   const guildID = req.params.guildID
   try {
     const channels = await channelServices.getGuildChannels(guildID, redisClient)
-    res.json(channels)
+    const sortedChannels = channels.sort((a, b) => a.name < b.name ? -1 : 1)
+    res.json(sortedChannels)
   } catch (err) {
     next(err)
   }
