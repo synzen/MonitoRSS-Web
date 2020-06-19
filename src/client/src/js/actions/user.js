@@ -20,18 +20,20 @@ export const {
 
 export function fetchUser () {
   return async dispatch => {
-    dispatch(setUserBegin())
-    await Promise.all([
-      dispatch(fetchGuilds()),
-      dispatch(fetchBotConfig()),
-      dispatch(fetchBotUser()),
-      axios.get('/api/users/@me').then(({ data, status }) => {
-        dispatch(setUserSuccess(data))
-      }).catch(err => {
-        console.log(err)
-        dispatch(setUserFailure(err))
-      })
-    ])
+    try {
+      dispatch(setUserBegin())
+      // Fetch the user first in case the token needs to be refreshed
+      const { data } = await axios.get('/api/users/@me')
+      dispatch(setUserSuccess(data))
+      await Promise.all([
+        dispatch(fetchGuilds()),
+        dispatch(fetchBotConfig()),
+        dispatch(fetchBotUser())
+      ])
+    } catch (err) {
+      console.log(err)
+      dispatch(setUserFailure(err))
+    }
   }
 }
 
