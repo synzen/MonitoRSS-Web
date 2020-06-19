@@ -23,7 +23,7 @@ const sendArticleRateLimit = rateLimit({
   max: 1, // 1 requests
   message: {
     code: 429,
-    message: 'Wait 10 seconds after sending a message to try again'
+    message: 'Wait 5 seconds after sending a message to try again'
   }
 })
 
