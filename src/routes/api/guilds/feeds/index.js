@@ -19,8 +19,8 @@ const sendArticleSchema = Joi.object({
   channel: Joi.string()
 })
 const sendArticleRateLimit = rateLimit({
-  windowMs: 10000, // 10 seconds
-  max: 1, // 1 requests per 10 seconds
+  windowMs: 5000, // 5 seconds
+  max: 1, // 1 requests
   message: {
     code: 429,
     message: 'Wait 10 seconds after sending a message to try again'
