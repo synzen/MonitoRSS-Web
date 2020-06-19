@@ -14,6 +14,10 @@ const feedIDSchema = Joi.object({
   feedID: Joi.string()
 })
 
+const sendArticleSchema = Joi.object({
+  article: Joi.object()
+})
+
 // Get guild feeds
 guildFeedsAPI.get('/', controllers.api.guilds.feeds.getFeeds)
 
@@ -46,6 +50,9 @@ guildFeedsAPI.get('/:feedID/database', controllers.api.guilds.feeds.getDatabaseA
 
 // Get schedule
 guildFeedsAPI.get('/:feedID/schedule', controllers.api.guilds.feeds.getSchedule)
+
+// Post message
+guildFeedsAPI.post('/:feedID/message', validator.body(sendArticleSchema), controllers.api.guilds.feeds.sendMessage)
 
 // Handle subscribers
 guildFeedsAPI.use('/:feedID/subscribers', require('./subscribers/index.js'))

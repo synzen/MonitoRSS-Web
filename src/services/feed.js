@@ -1,5 +1,7 @@
+const Discord = require('discord.js')
 const DiscordRSS = require('discord.rss')
 const Article = DiscordRSS.Article
+const ArticleMessage = DiscordRSS.ArticleMessage
 const FeedFetcher = DiscordRSS.FeedFetcher
 const FailRecord = DiscordRSS.FailRecord
 const Feed = DiscordRSS.Feed
@@ -138,10 +140,70 @@ async function getFeedsOfGuild (guildID) {
 }
 
 /**
+ * @param {import('../util/RequestHandler.js')} requestHandler
  * @param {import('discord.rss').Feed} feed
  */
-async function sendMessage (feed) {
+async function getWebhook (requestHandler, feed) {
+  const feedWebhook = feed.webhook
+  return requestHandler.getWithBot(`/webhooks/${feedWebhook.id}`)
+}
 
+/**
+ * @param {import('discord.rss').Feed} feed
+ * @param {Object<string, any>} article
+ */
+async function createArticleMessage (feed, article) {
+  return ArticleMessage.create(feed, article)
+}
+
+/**
+ * @param {import('../util/RequestHandler.js')} requestHandler
+ * @param {import('discord.rss').ArticleMessage} articleMessage
+ */
+async function sendMessage (requestHandler, articleMessage) {
+  const { text, options } = articleMessage.createTextAndOptions()
+  const textArray = Discord.Util.splitMessage(text, options.split)
+  for (let i = 0; i < textArray.length; ++i) {
+    const thisText = textArray[i]
+    const thisOptions = {
+      content: thisText,
+      allowed_mentions: options.allowedMentions
+    }
+    // Only attach the embed to the last message
+    if (i === textArray.length - 1 && options.embeds && options.embeds.length > 0) {
+      thisOptions.embed = options.embeds[0]
+    }
+    await requestHandler.postWithBot(`/channels/${articleMessage.feed.channel}/messages`, thisOptions)
+  }
+}
+
+/**
+ *
+ * @param {import('../util/RequestHandler.js')} requestHandler
+ * @param {import('discord.rss').ArticleMessage} articleMessage
+ */
+async function sendWebhookMessage (requestHandler, articleMessage) {
+  const { feed, parsedArticle } = articleMessage
+  const feedWebhook = feed.webhook
+  const { id, token } = await getWebhook(requestHandler, feed)
+  const { text, options } = articleMessage.createTextAndOptions()
+  const textArray = Discord.Util.splitMessage(text, options.split)
+  const webhookName = feedWebhook.name ? parsedArticle.convertKeywords(feedWebhook.name).slice(0, 32) : undefined
+  const webhookAvatar = feedWebhook.avatar ? parsedArticle.convertImgs(feedWebhook.avatar) : undefined
+  for (let i = 0; i < textArray.length; ++i) {
+    const thisText = textArray[i]
+    const thisOptions = {
+      username: webhookName,
+      avatar_url: webhookAvatar,
+      content: thisText,
+      allowed_mentions: options.allowedMentions
+    }
+    // Only attach the embeds to the last message
+    if (i === textArray.length - 1 && options.embeds && options.embeds.length > 0) {
+      thisOptions.embeds = options.embeds
+    }
+    await requestHandler.postWithBot(`/webhooks/${id}/${token}?wait=true`, thisOptions)
+  }
 }
 
 module.exports = {
@@ -154,5 +216,9 @@ module.exports = {
   getDatabaseArticles,
   getFailRecord,
   feedURLHasFailed,
-  getFeedsOfGuild
+  getFeedsOfGuild,
+  createArticleMessage,
+  getWebhook,
+  sendMessage,
+  sendWebhookMessage
 }

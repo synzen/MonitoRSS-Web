@@ -41,9 +41,9 @@ class RequestHandler {
     return rest.get(endpoint)
   }
 
-  async requestWithBot (method, endpoint) {
+  async postWithBot (endpoint, body) {
     const rest = this.getRestClient(this.botToken, TokenType.BOT)
-    return rest[method][endpoint]
+    return rest.post(endpoint, body)
   }
 }
 
