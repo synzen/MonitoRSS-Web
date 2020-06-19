@@ -162,7 +162,7 @@ async function createArticleMessage (feed, article) {
  */
 async function sendMessage (requestHandler, articleMessage) {
   const { text, options } = articleMessage.createTextAndOptions()
-  const textArray = Discord.Util.splitMessage(text, options.split)
+  const textArray = options.split ? Discord.Util.splitMessage(text, options.split) : [text]
   for (let i = 0; i < textArray.length; ++i) {
     const thisText = textArray[i]
     const thisOptions = {
@@ -187,7 +187,7 @@ async function sendWebhookMessage (requestHandler, articleMessage) {
   const feedWebhook = feed.webhook
   const { id, token } = await getWebhook(requestHandler, feed)
   const { text, options } = articleMessage.createTextAndOptions()
-  const textArray = Discord.Util.splitMessage(text, options.split)
+  const textArray = options.split ? Discord.Util.splitMessage(text, options.split) : [text]
   const webhookName = feedWebhook.name ? parsedArticle.convertKeywords(feedWebhook.name).slice(0, 32) : undefined
   const webhookAvatar = feedWebhook.avatar ? parsedArticle.convertImgs(feedWebhook.avatar) : undefined
   for (let i = 0; i < textArray.length; ++i) {
