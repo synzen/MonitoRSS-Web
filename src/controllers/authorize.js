@@ -10,6 +10,9 @@ const log = createLogger('W')
  * @param {import('express').Response} res
  */
 async function authorize (req, res) {
+  if (req.query.error === 'access_denied') {
+    return res.redirect('/')
+  }
   try {
     const config = req.app.get('config')
     const requestHandler = req.app.get('webClientManager').requestHandler

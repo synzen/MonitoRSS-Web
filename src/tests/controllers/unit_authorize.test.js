@@ -14,6 +14,13 @@ jest.mock('../../services/routing.js')
 jest.mock('request-ip')
 
 describe('Unit::controllers/authorize', function () {
+  it('redirects to / if access denied', async function () {
+    const req = createRequest()
+    const res = createResponse()
+    req.query.error = 'access_denied'
+    await controller(req, res)
+    expect(res.redirect).toHaveBeenCalledWith('/')
+  })
   it('injects the token and identity into session', async function () {
     const token = {
       foo: 1
