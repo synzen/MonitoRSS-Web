@@ -94,7 +94,11 @@ class WebClientManager {
   }
 
   async setupDiscordRSS () {
-    if (process.env.DRSS_START === 'bot-web') {
+    if (process.env.DRSS_CONFIG) {
+      /**
+       * An instance of the bot has been instantiated.
+       * Config was already set.
+       */
       return
     }
     const uri = this.config.database.uri
