@@ -15,7 +15,7 @@ async function sendMessage (req, res, next) {
     articleMessage = await feedServices.createArticleMessage(feed, article)
   } catch (err) {
     const createdError = createError(400, 'Invalid article')
-    res.status(400).json(createdError)
+    return res.status(400).json(createdError)
   }
 
   try {
