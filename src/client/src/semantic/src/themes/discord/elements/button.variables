@@ -16,4 +16,7 @@
 @focusBackgroundColor: @blurple;
 @focusColor: white;
 @downBackgroundColor: darken(@background, 5%);
+@activeBackgroundColor: darken(@background, 5%);
+@activeColor: white;
+@activeHoverColor: white;
 @downColor: white;

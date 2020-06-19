@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Button, Divider, Sticky, ButtonGroup } from 'semantic-ui-react'
+import { Button, Divider, Sticky, ButtonGroup, Dropdown } from 'semantic-ui-react'
 import styled from 'styled-components'
 import MessageSettings from './TextSettings'
 import EmbedSettings from './EmbedSettings/index'
@@ -15,6 +15,8 @@ import { Redirect } from 'react-router-dom'
 import pages from 'js/constants/pages'
 import { changePage } from 'js/actions/page'
 import Loading from 'js/components/ControlPanel/common/Loading'
+import { sendFeedMessage } from 'js/actions/feeds'
+import { SEND_FEED_MESSAGE } from 'js/constants/actions/feeds'
 
 const MAX_VIEWPORT_WIDTH_STICKY = 1850
 
@@ -43,19 +45,45 @@ const PreviewArea = styled.div`
   justify-items: center;
 `
 
-const PreviewHeader = styled.div`
+const PreviewButtons = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   > div:first-child {
-    margin-right: 1em;
-    padding-bottom: 0;
+    margin-bottom: 10px;
+    > button {
+      width: 115px;
+    }
+  }
+  @media only screen and (min-width: 480px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    > div:first-child {
+      margin-bottom: 0;
+    }
+  }
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .menu {
+    width: 100%;
+  }
+  .item {
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 `
+
 function Message () {
   const botConfig = useSelector(state => state.botConfig)
   const feed = useSelector(feedSelectors.activeFeed)
   const feedsFetching = useSelector(feedSelectors.feedsFetching)
+  const channels = useSelector(state => state.channels)
+  const sendingToDiscord = useSelector(state => state.loading[SEND_FEED_MESSAGE.BEGIN])
   const subscribers = useSelector(state => state.subscribers)
+  const articleList = useSelector(state => state.articles.original)
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
   const [windowHeight, setWindowHeight] = useState(window.innerHeight)
   const [articleID, setArticleID] = useState()
@@ -98,6 +126,42 @@ function Message () {
     setInputEmbeds(embeds)
   }
 
+  const sendMessage = async (channelID) => {
+    const article = articleList[articleID]
+    await dispatch(sendFeedMessage(feed.guild, feed._id, article, channelID))
+  }
+
+  const PreviewSectionHead = (
+    <>
+      <SectionTitle heading='Preview' subheading='I can preview my settings right here?! Wow!' />
+      <PreviewButtons>
+        <ButtonGroup>
+          <Button content='See Original' onClick={e => setPreviewNew(false)} disabled={!previewNew} />
+          <Button content='See New' onClick={e => setPreviewNew(true)} disabled={previewNew} />
+        </ButtonGroup>
+        {feed.webhook
+          ? <Button content='Send Original to Discord' loading={sendingToDiscord} onClick={e => sendMessage()} />
+          : (
+            <Dropdown button text='Send Original to Discord' loading={sendingToDiscord}>
+              <Dropdown.Menu>
+                <Dropdown.Menu scrolling>
+                  {channels.map(channel => (
+                    <Dropdown.Item
+                      key={channel.id}
+                      text={`#${channel.name}`}
+                      value={channel.id}
+                      onClick={e => sendMessage(channel.id)}
+                    />
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown.Menu>
+            </Dropdown>
+          )}
+
+      </PreviewButtons>
+    </>
+  )
+
   return (
     <FullArea>
       <SettingsArea ref={scrollReference}>
@@ -127,34 +191,21 @@ function Message () {
         {windowWidth >= MAX_VIEWPORT_WIDTH_STICKY
           ? null
           : (
-            <div>
-              <div>
-                <SectionTitle heading='Preview' subheading='I can preview my settings right here?! Wow!' />
-              </div>
-              <ButtonGroup fluid>
-                <Button content='Old' onClick={e => setPreviewNew(false)} disabled={!previewNew} />
-                <Button content='New' onClick={e => setPreviewNew(true)} disabled={previewNew} />
-              </ButtonGroup>
+            <>
+              {PreviewSectionHead}
               <div style={{ marginTop: '20px' }}>
                 <Preview embeds={previewNew ? inputEmbeds : feed.embeds} message={previewNew ? messageToDisplay : originalMessage} articleID={articleID} />
               </div>
               <Divider />
-            </div>)}
+            </>
+          )}
       </SettingsArea>
       {windowWidth < MAX_VIEWPORT_WIDTH_STICKY
         ? null
         : (
           <Sticky context={scrollReference} offset={55}>
             <PreviewArea stickied>
-              <PreviewHeader>
-                <PageHeader heading='Preview' />
-              </PreviewHeader>
-              <div style={{ marginTop: '1em' }}>
-                <ButtonGroup fluid>
-                  <Button content='Old' onClick={e => setPreviewNew(false)} disabled={!previewNew} />
-                  <Button content='New' onClick={e => setPreviewNew(true)} disabled={previewNew} />
-                </ButtonGroup>
-              </div>
+              {PreviewSectionHead}
               <div style={{ height: windowHeight - 55 - 70 - 150, marginTop: '20px' }}> {/* 55 is the topbar, 70 is the margin/padding, 150 is the rest of the space to leave */}
                 <Scrollbars>
                   <Preview embeds={previewNew ? inputEmbeds : feed.embeds} message={previewNew ? messageToDisplay : originalMessage} articleID={articleID} />

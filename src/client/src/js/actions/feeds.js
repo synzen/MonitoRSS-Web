@@ -138,14 +138,15 @@ export function fetchEditFeed (guildID, feedID, newData) {
   }
 }
 
-export function sendFeedMessage (guildID, feedID, article) {
+export function sendFeedMessage (guildID, feedID, article, channel) {
   return async dispatch => {
     try {
       dispatch(sendFeedMessageBegin())
       const { data } = await axios.post(`/api/guilds/${guildID}/feeds/${feedID}/message`, {
-        article
+        article,
+        channel
       })
-      toast.success('Article delivered')
+      toast.success('Article has been beamed to Discord!')
       dispatch(sendFeedMessageSuccess(data))
     } catch (err) {
       dispatch(sendFeedMessageFailure(err))
