@@ -28,12 +28,9 @@ async function createFeed (req, res, next) {
     res.status(201).json(created)
   } catch (err) {
     const message = err.message
-    if (message.includes('this channel')) {
+    if (message.includes('this channel') || err instanceof FeedParserError || err instanceof RequestError) {
       const createdError = createError(400, err.message)
       res.status(400).json(createdError)
-    } else if (err instanceof FeedParserError || err instanceof RequestError) {
-      const createdError = createError(500, err.message)
-      res.status(500).json(createdError)
     } else {
       next(err)
     }
