@@ -220,7 +220,6 @@ function ServerSettings () {
       <SectionTitle heading='Backup' subheading='Download a copy of all your server feeds and settings for safekeeping. This is HIGHLY recommended in case there is data loss, or if you wish to import/overwrite your settings at a later point. Restorations can be done by requesting through the support server.' />
       <BackupButtonContainer>
         <Button basic content='Download Backup' onClick={downloadBackup} />
-        <Button basic content='Send Backup to Discord' disabled onClick={downloadBackup} />
       </BackupButtonContainer>
       <LargeDivider />
       <ButtonContainer>
