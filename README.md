@@ -6,19 +6,4 @@ A web app for https://github.com/synzen/Discord.RSS to manage your feeds.
 
 ### Usage
 
-All documentation can be found at https://docs.discordrss.xyz/.
-
-This repo is for development only. For the main npm bot repository, see https://github.com/synzen/Discord.RSS.
-
-To deploy for personal use, use the repo at https://github.com/synzen/Discord.RSS-Clone.
-
-
-# Preview
-
-Mobile responsive UI, built according to Discord's theme with Discord's blessing
-
-![UI Screenshot](https://i.imgur.com/CD8mbRh.png)
-
-## API Tests
-
-Run `npm test`
+All documentation can be found at https://docs.discordrss.xyz/. This branch is only for updating the FAQ.
