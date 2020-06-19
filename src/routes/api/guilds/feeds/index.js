@@ -1,22 +1,30 @@
 const express = require('express')
+const Joi = require('@hapi/joi')
+const rateLimit = require('express-rate-limit')
 const guildFeedsAPI = express.Router({ mergeParams: true })
 const guildHasFeed = require('../../../../middleware/guildHasFeed.js')
 const guildHasChannel = require('../../../../middleware/guildHasChannel.js')
 const guildHasChannelOptional = require('../../../../middleware/guildHasChannelOptional.js')
 const controllers = require('../../../../controllers/index.js')
-const Joi = require('@hapi/joi')
+const feedSchema = require('../../../../util/validation/feedSchema.js')
 const validator = require('express-joi-validation').createValidator({
   passError: true
 })
-const feedSchema = require('../../../../util/validation/feedSchema.js')
 const feedIDSchema = Joi.object({
   guildID: Joi.string(),
   feedID: Joi.string()
 })
-
 const sendArticleSchema = Joi.object({
   article: Joi.object(),
   channel: Joi.string()
+})
+const sendArticleRateLimit = rateLimit({
+  windowMs: 5000, // 5 seconds
+  max: 1, // 1 requests per 5 seconds
+  message: {
+    code: 429,
+    message: 'Wait 5 seconds after sending a message to try again'
+  }
 })
 
 // Get guild feeds
@@ -53,7 +61,10 @@ guildFeedsAPI.get('/:feedID/database', controllers.api.guilds.feeds.getDatabaseA
 guildFeedsAPI.get('/:feedID/schedule', controllers.api.guilds.feeds.getSchedule)
 
 // Post message
-guildFeedsAPI.post('/:feedID/message', validator.body(sendArticleSchema), controllers.api.guilds.feeds.sendMessage)
+guildFeedsAPI.post('/:feedID/message', [
+  sendArticleRateLimit,
+  validator.body(sendArticleSchema)
+], controllers.api.guilds.feeds.sendMessage)
 
 // Handle subscribers
 guildFeedsAPI.use('/:feedID/subscribers', require('./subscribers/index.js'))
