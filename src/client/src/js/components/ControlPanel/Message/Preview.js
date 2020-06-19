@@ -32,6 +32,7 @@ const Wrapper = styled.div`
   /* transition: all 0.3s cubic-bezier(.25,.8,.25,1); */
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 `
+
 const Username = styled.span`
   font-weight: 600;
   letter-spacing: 0;
@@ -269,24 +270,25 @@ function Preview (props) {
   const feed = useSelector(feedSelectors.activeFeed)
   const bot = useSelector(state => state.botUser)
   const subscribers = useSelector(state => state.subscribers)
-  const articleList = useSelector(state => state.articles)
+  const placeholderList = useSelector(state => state.articles.placeholders)
   const botConfig = useSelector(state => state.botConfig)
   const { embeds, message, articleID } = props
-  const article = articleList[articleID]
+  const articlePlaceholders = placeholderList[articleID]
 
   const convertKeywords = (word) => {
     if (word.length === 0) {
       return word
     }
     let content = word
-    for (const placeholderName in article) {
+    for (const placeholderName in articlePlaceholders) {
       if (isHiddenProperty(placeholderName)) continue
       if (placeholderName === 'subscriptions') continue
       const sanitizedPlaceholderName = `{${placeholderName.replace('regex:', '')}}`
-      // console.log('replacing', sanitizedPlaceholderName, 'with', article[placeholderName])
-      content = content.replace(sanitizedPlaceholderName, article[placeholderName])
+      // console.log('replacing', sanitizedPlaceholderName, 'with', articlePlaceholders[placeholderName])
+      const replacementQuery = new RegExp(sanitizedPlaceholderName, 'g')
+      content = content.replace(replacementQuery, articlePlaceholders[placeholderName])
     }
-    // Do not replace it with article.subscriptions since it may be outdated after updating subscriptions from the subscriptions page. It will not be updated until another article fetch has occurred.
+    // Do not replace it with articlePlaceholders.subscriptions since it may be outdated after updating subscriptions from the subscriptions page. It will not be updated until another articlePlaceholders fetch has occurred.
     if (content.includes('{subscriptions}')) {
       const feedSubscribers = []
       const thisSubscribers = subscribers.filter(s => s.feed === feed._id)
@@ -295,7 +297,7 @@ function Preview (props) {
         const hasFilters = Object.keys(subscriber.filters).length > 0
         if (!hasFilters) {
           feedSubscribers.push(`<@${id}> `)
-        } else if (article && testFilters(subscriber.filters, article).passed) {
+        } else if (articlePlaceholders && testFilters(subscriber.filters, articlePlaceholders).passed) {
           feedSubscribers.push(`<@${id}>`)
         }
       }
@@ -314,7 +316,7 @@ function Preview (props) {
     for (const propertyName in embedProperties) {
       const propName = embedProperties[propertyName]
       if (properties[propName] === undefined) continue
-      parsedProperties[propName] = article && propName !== 'color' ? convertKeywords(properties[propName]) : properties[propName] // color is a number
+      parsedProperties[propName] = articlePlaceholders && propName !== 'color' ? convertKeywords(properties[propName]) : properties[propName] // color is a number
       populatedEmbed = populatedEmbed || !!properties[propName]
     }
     const fields = properties.fields
@@ -402,7 +404,7 @@ function Preview (props) {
                 ? (
                   <Footer hasThumbnail={hasThumbnail}>
                     {parsedProperties[embedProperties.footerIconURL] ? <img src={parsedProperties[embedProperties.footerIconURL]} alt='Embed Footer Icon' /> : null}
-                    <span>{parsedProperties[embedProperties.footerText]}{(parsedProperties[embedProperties.timestamp] && parsedProperties[embedProperties.timestamp] !== 'none') ? `${parsedProperties[embedProperties.footerText] ? ' • ' : ''}[${parsedProperties[embedProperties.timestamp] === 'article' ? 'ARTICLE TIMESTAMP' : 'NOW TIMESTAMP'}]` : ''}</span>
+                    <span>{parsedProperties[embedProperties.footerText]}{(parsedProperties[embedProperties.timestamp] && parsedProperties[embedProperties.timestamp] !== 'none') ? `${parsedProperties[embedProperties.footerText] ? ' • ' : ''}[${parsedProperties[embedProperties.timestamp] === 'articlePlaceholders' ? 'ARTICLE TIMESTAMP' : 'NOW TIMESTAMP'}]` : ''}</span>
                   </Footer>)
                 : undefined}
             </EmbedGrid>
@@ -425,7 +427,7 @@ function Preview (props) {
       <Content>
         {(message || botConfig.defaultText) === '{empty}' && hasEmbeds
           ? ''
-          : article
+          : articlePlaceholders
             ? parser.parse(convertKeywords(message || botConfig.defaultText || '').trim(), true, {}, parser.jumboify)
             : parser.parse((message || botConfig.defaultText || '').trim(), true, {}, parser.jumboify)}
         {embedElements}
