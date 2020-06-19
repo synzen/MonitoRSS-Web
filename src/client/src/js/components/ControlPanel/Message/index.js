@@ -133,7 +133,7 @@ function Message () {
 
   const PreviewSectionHead = (
     <>
-      <SectionTitle heading='Preview' subheading='I can preview my settings right here?! Wow!' />
+      <SectionTitle heading='Preview' />
       <PreviewButtons>
         <ButtonGroup>
           <Button content='See Original' onClick={e => setPreviewNew(false)} disabled={!previewNew} />
