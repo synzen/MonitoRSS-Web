@@ -97,10 +97,10 @@ describe('Unit::controllers/api/guilds/feeds/createFeed', function () {
     const next = createNext()
     await createFeed(req, res, next)
     expect(next).not.toHaveBeenCalled()
-    expect(res.status).toHaveBeenCalledWith(500)
+    expect(res.status).toHaveBeenCalledWith(400)
     expect(json).toHaveBeenCalledWith(createdError)
   })
-  it('returns 500 wiht the created error if request err', async function () {
+  it('returns 500 with the created error if request err', async function () {
     const req = {
       params: {},
       body: {}
@@ -116,7 +116,7 @@ describe('Unit::controllers/api/guilds/feeds/createFeed', function () {
     const next = createNext()
     await createFeed(req, res, next)
     expect(next).not.toHaveBeenCalled()
-    expect(res.status).toHaveBeenCalledWith(500)
+    expect(res.status).toHaveBeenCalledWith(400)
     expect(json).toHaveBeenCalledWith(createdError)
   })
   it('calls next for unrecognized errors', async function () {
