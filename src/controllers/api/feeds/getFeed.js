@@ -34,7 +34,7 @@ async function getFeed (req, res) {
   }
 
   res.json({
-    placeholders: allPlaceholders,
+    articles: allPlaceholders,
     xml: xmlStr
   })
 }

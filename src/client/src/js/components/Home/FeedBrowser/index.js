@@ -392,7 +392,7 @@ function FeedBrowser () {
     setLoadingXML(false)
     const encodedUrl = encodeURIComponent(targetURL)
     axios.get(`/api/feeds/${encodedUrl}`).then(res => {
-      fillSearchDropdown(res.data.placeholders, targetURL, encodedUrl, res.data.xml)
+      fillSearchDropdown(res.data.articles.placeholderArticles, targetURL, encodedUrl, res.data.xml)
       sessionStorage.setItem('feedbrowserData', JSON.stringify({ articleList: res.data.placeholders, xml: res.data.xml, prevUrl: targetURL }))
       // this.setState({ loading: false, articleList: res.data, prevUrl: url })
     }).catch(err => {

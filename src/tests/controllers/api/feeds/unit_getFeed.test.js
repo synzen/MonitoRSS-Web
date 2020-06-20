@@ -21,20 +21,20 @@ describe('Unit::controllers/api/feeds/getFeed', function () {
     configServices.getFeedConfig.mockReset()
   })
   it('returns the feeds and xml if it exists', async function () {
-    const placeholders = '23w4ey5rthu'
+    const articles = '23w4ey5rthu'
     const xml = 'tewsr'
     const fetchResults = {
       status: 200,
       text: jest.fn(() => xml)
     }
     feedServices.getAnonymousFeedPlaceholders
-      .mockResolvedValue(placeholders)
+      .mockResolvedValue(articles)
     fetch.mockResolvedValue(fetchResults)
     const req = createRequest()
     const res = createResponse()
     const next = createNext()
     const expected = {
-      placeholders,
+      articles,
       xml
     }
     req.app.get.mockReturnValue({})
