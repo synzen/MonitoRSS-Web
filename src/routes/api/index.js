@@ -35,8 +35,8 @@ api.post('/faq', validator.body(apiHitSchema), controllers.api.hitFaq)
 api.post('/feedback', validator.body(feedbackSchema), controllers.api.createFeedback)
 
 api.use('/feeds', require('./feeds/index.js'))
-api.use(require('../../middleware/authenticate.js'))
 api.use('/users', require('./users/index.js'))
+api.use(require('../../middleware/authenticate.js'))
 api.use('/guilds', require('./guilds/index.js'))
 
 api.use(function errorHandler (err, req, res, next) {
