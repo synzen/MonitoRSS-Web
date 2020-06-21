@@ -11,6 +11,8 @@ import {
 import { Loader } from 'semantic-ui-react'
 import TopBar from './TopBar'
 import { fetchAuthentication } from 'js/actions/auth'
+import { fetchGuilds } from 'js/actions/guilds'
+import { fetchBotConfig } from 'js/actions/botConfig'
 
 const MainContainer = styled.div`
   width: 100vw;
@@ -69,7 +71,12 @@ function ControlPanel () {
       if (!authenticated) {
         return
       }
-      await dispatch(fetchUser())
+      // Fetch bot user is done in Home to create the invite link
+      await Promise.all([
+        dispatch(fetchUser()),
+        dispatch(fetchGuilds()),
+        dispatch(fetchBotConfig())
+      ])
       setLoaded(true)
     }
     loadCP()

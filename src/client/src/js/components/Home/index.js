@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux'
 import { fetchFaq } from 'js/actions/faq'
 import { fetchStats } from 'js/actions/stats'
 import Footer from './Footer'
+import { fetchBotUser } from 'js/actions/user'
 
 const Wrapper = styled.div`
   padding: 0 0px;
@@ -30,6 +31,7 @@ function Home () {
   useEffect(() => {
     dispatch(fetchFaq())
     dispatch(fetchStats())
+    dispatch(fetchBotUser())
   }, [])
 
   useEffect(() => {

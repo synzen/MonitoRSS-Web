@@ -6,6 +6,7 @@ import { Button, Icon } from 'semantic-ui-react'
 import pages from '../../../constants/pages'
 import modal from '../../utils/modal'
 import WhiteButton from './common/WhiteButton'
+import { useSelector } from 'react-redux'
 
 const Wrapper = styled.div`
   position: relative;
@@ -85,14 +86,17 @@ const ModalFooter = styled.div`
 `
 
 function Header () {
+  const botUser = useSelector(state => state.botUser)
   const history = useHistory()
+  const clientID = botUser?.id ?? '268478587651358721'
+
   const modalProps = {
     footer: (
       <ModalFooter>
         <a
           target='_blank'
           rel='noopener noreferrer'
-          href='https://discordapp.com/oauth2/authorize?client_id=268478587651358721&scope=bot&permissions=19456'
+          href={`https://discordapp.com/oauth2/authorize?client_id=${clientID}&scope=bot&permissions=19456`}
           onClick={e => modal.hide()}
         >
           <Button fluid>
@@ -103,7 +107,7 @@ function Header () {
         <a
           target='_blank'
           rel='noopener noreferrer'
-          href='https://discordapp.com/oauth2/authorize?client_id=268478587651358721&scope=bot'
+          href={`https://discordapp.com/oauth2/authorize?client_id=${clientID}&scope=bot`}
           onClick={e => modal.hide()}
         >
           <Button fluid>

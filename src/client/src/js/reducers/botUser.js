@@ -1,6 +1,6 @@
 import { GET_BOT_USER } from 'js/constants/actions/user'
 
-const initialState = {}
+const initialState = null
 
 function botUserReducer (state = initialState, action) {
   switch (action.type) {
