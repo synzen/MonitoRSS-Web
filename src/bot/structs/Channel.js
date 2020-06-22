@@ -47,7 +47,7 @@ class Channel extends Base {
       },
       recognizeTransaction: (multi, channel) => {
         if (!(channel instanceof Discord.GuildChannel)) throw new TypeError('Channel is not instance of Discord.GuildChannel')
-        if (channel.type !== 'text') return
+        if (channel.type !== 'text' && channel.type !== 'news') return
         const toStore = {}
         this.utils.JSON_KEYS.forEach(key => {
           toStore[key] = key === 'guildID' ? channel.guild.id : channel[key] || '' // MUST be a flat structure
