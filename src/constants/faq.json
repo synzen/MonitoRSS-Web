@@ -86,7 +86,9 @@
       "feed limit",
       "increase",
       "refresh rate",
-      "more feeds"
+      "more feeds",
+      "speed",
+      "time"
     ]
   },
   {
@@ -104,7 +106,8 @@
     "t": [
       "custom name",
       "custom avatar",
-      "webhook"
+      "webhook",
+      "profile picture"
     ]
   },
   {
@@ -145,7 +148,9 @@
       "rate",
       "day",
       "fewer",
-      "daily"
+      "daily",
+      "time",
+      "speed"
     ]
   },
   {
@@ -198,7 +203,27 @@
     "q": "How do I remove a feed I added?",
     "a": "Use the `remove` command. For a list of all commands, use the `help` command.",
     "t": [
-      "remove"
+      "remove",
+      "delete"
+    ]
+  },
+  {
+    "q": "How do I add custom emojis to my text message or embed in the Control Panel?",
+    "a": "You must first get the name and ID of the emoji, and put it in the format of `<:emoji_name:emoji_id>` (or for animated emojis, `<a:emoji_name:emoji_id>`). Discord can give you this full format if you\n\n1. Type the emoji in the chatbox\n2. Put a blackslash `\\` before it\n3. Press Enter\n\nAfter getting the format, simply paste it within the Control Panel.",
+    "t": [
+      "custom",
+      "emoji",
+      "emote"
+    ]
+  },
+  {
+    "q": "Where can I get a list of all commands?",
+    "a": "Use the `list` command, or see the documentation at https://docs.discordrss.xyz.",
+    "t": [
+      "list",
+      "documentation",
+      "feeds",
+      "overview"
     ]
   }
 ]
