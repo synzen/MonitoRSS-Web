@@ -47,7 +47,10 @@ exports.set = (override) => {
   }
   const http = config.http
   const httpOverride = override.http
-  http.trustProxy = Boolean(process.env.DRSSWEB_HTTP_TRUSTPROXY) || httpOverride.trustProxy === undefined ? http.trustProxy : httpOverride.trustProxy
+  http.trustProxy = process.env.DRSSWEB_HTTP_TRUSTPROXY !== undefined
+    ? process.env.DRSSWEB_HTTP_TRUSTPROXY === 'true'
+    : httpOverride.trustProxy !== undefined
+      ? httpOverride.trustProxy : http.trustProxy
   http.sessionSecret = process.env.DRSSWEB_HTTP_SESSIONSECRET || httpOverride.sessionSecret || http.sessionSecret
   http.port = Number(process.env.PORT) || Number(process.env.DRSSWEB_HTTP_PORT) || httpOverride.port || http.port
 
@@ -57,7 +60,11 @@ exports.set = (override) => {
   }
   const https = config.https
   const httpsOverride = override.https
-  https.enabled = Boolean(process.env.DRSSWEB_HTTPS_ENABLED) || httpsOverride.enabled === undefined ? https.enabled : httpsOverride.enabled
+  https.enabled = process.env.DRSSWEB_HTTPS_ENABLED !== undefined
+    ? process.env.DRSSWEB_HTTPS_ENABLED === 'true'
+    : httpsOverride.enabled !== undefined
+      ? httpsOverride.enabled
+      : https.enabled
   https.privateKey = process.env.DRSSWEB_HTTPS_PRIVATEKEY || httpsOverride.privateKey || https.privateKey
   https.certificate = process.env.DRSSWEB_HTTPS_CERTIFICATE || httpsOverride.certificate || https.certificate
   https.chain = process.env.DRSSWEB_HTTPS_CHAIN || httpsOverride.chain || https.chain
