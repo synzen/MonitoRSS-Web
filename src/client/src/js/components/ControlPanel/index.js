@@ -6,7 +6,7 @@ import Content from './Content'
 import { useSelector, useDispatch } from 'react-redux'
 import colors from 'js/constants/colors'
 import {
-  fetchUser
+  fetchUser, fetchBotUser
 } from 'js/actions/user'
 import { Loader } from 'semantic-ui-react'
 import TopBar from './TopBar'
@@ -51,6 +51,7 @@ const EmptyBackground = styled.div`
 
 function ControlPanel () {
   const authenticated = useSelector(state => state.authenticated)
+  const botUser = useSelector(state => state.botUser)
   const [loaded, setLoaded] = useState(false)
   const [ready, setReady] = useState(false)
   const dispatch = useDispatch()
@@ -77,6 +78,10 @@ function ControlPanel () {
         dispatch(fetchGuilds()),
         dispatch(fetchBotConfig())
       ])
+      if (!botUser) {
+        // Bot user may have been fetched on home page
+        await dispatch(fetchBotUser())
+      }
       setLoaded(true)
     }
     loadCP()
