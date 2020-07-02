@@ -2,8 +2,6 @@ import axios from 'axios'
 import {
   SET_USER, GET_BOT_USER
 } from '../constants/actions/user'
-import { fetchGuilds } from './guilds'
-import { fetchBotConfig } from './botConfig'
 import FetchStatusActions from './utils/FetchStatusActions'
 
 export const {
