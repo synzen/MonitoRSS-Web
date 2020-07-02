@@ -27,7 +27,7 @@ const Wrapper = styled.div`
   border-width: 1px;
   border-color: ${colors.discord.notQuiteblack};
   padding: 20px 0;
-  font-size: 16px;
+  font-size: 15px;
   /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
   /* transition: all 0.3s cubic-bezier(.25,.8,.25,1); */
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -56,7 +56,7 @@ const UserInfo = styled.div`
   }
   > h2 {
     color: white;
-    font-size: 16px;
+    font-size: 1em;
     margin: 0;
     white-space: nowrap;
     line-height: 16px;
@@ -73,7 +73,7 @@ const Content = styled.div`
   color: #dcddde;
   word-break: break-word;
   overflow-x: auto;
-  font-size: 16px;
+  font-size: 1em;
 `
 
 const EmbedContainer = styled.div`
