@@ -279,7 +279,7 @@ function Preview (props) {
     if (word.length === 0) {
       return word
     }
-    let content = word
+    let content = word.replace(/\\u200b/g, '\u200b')
     for (const placeholderName in articlePlaceholders) {
       if (isHiddenProperty(placeholderName)) continue
       if (placeholderName === 'subscriptions') continue
