@@ -225,5 +225,20 @@
       "feeds",
       "overview"
     ]
+  },
+  {
+    "q": "How can I change the prefix for commands?",
+    "a": "Use the `prefix` command. For a list of all commands, use the `help` command.",
+    "t": [
+      "prefix"
+    ]
+  },
+  {
+    "q": "What is the feed limit?",
+    "a": "To check the feed limit of any server, use the `list` command. For a list of all commands, use the `help` command.",
+    "t": [
+      "limit",
+      "max"
+    ]
   }
 ]
