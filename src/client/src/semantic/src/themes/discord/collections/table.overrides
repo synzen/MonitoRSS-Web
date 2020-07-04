@@ -4,7 +4,7 @@
   border-radius: 0;
   line-height: 25px;
   word-break: break-all;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .ui.table > thead > tr:first-child > th:first-child,
