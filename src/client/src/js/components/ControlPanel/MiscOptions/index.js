@@ -157,7 +157,7 @@ function MiscOptions () {
           <MiscOptionContainer>
             <div>
               <SectionItemTitle>Date Checks</SectionItemTitle>
-              <Description>Date checking ensures that articles that are either older than {botConfig.cycleMaxAge} day{botConfig.cycleMaxAge > 1 ? 's' : ''} or has invalid/no published dates are never sent. This MUST be enabled for feeds with no {'{date}'} placeholder.</Description>
+              <Description>Date checking ensures that articles that are either older than {botConfig.cycleMaxAge} day{botConfig.cycleMaxAge > 1 ? 's' : ''} or has invalid/no published dates are never sent. This MUST be disabled for feeds with no {'{date}'} placeholder for any articles to be delivered..</Description>
               <Description>Default: {boolToText(botConfig.checkDates)}</Description>
             </div>
             <Checkbox checked={checkDates} toggle onChange={(e, data) => updateProperty(configKeyNames.checkDates, data.checked)} />
