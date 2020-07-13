@@ -11,7 +11,7 @@ async function getFeedArticles (req, res) {
   try {
     const failed = await feedServices.feedURLHasFailed(feed.url)
     if (failed) {
-      const error = createError(403, `Feed URL ${feed.url} has reached connection failure limit`)
+      const error = createError(403, `Feed URL ${feed.url} has reached connection failure limit. Use the list command in Discord for more information.`)
       return res.status(403).json(error)
     }
     const data = await feedServices.getFeedArticles(feed)
