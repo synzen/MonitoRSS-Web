@@ -96,7 +96,7 @@ function Header () {
         <a
           target='_blank'
           rel='noopener noreferrer'
-          href={`https://discordapp.com/oauth2/authorize?client_id=${clientID}&scope=bot&permissions=19456`}
+          href={`https://discord.com/oauth2/authorize?client_id=${clientID}&scope=bot&permissions=19456`}
           onClick={e => modal.hide()}
         >
           <Button fluid>
@@ -107,7 +107,7 @@ function Header () {
         <a
           target='_blank'
           rel='noopener noreferrer'
-          href={`https://discordapp.com/oauth2/authorize?client_id=${clientID}&scope=bot`}
+          href={`https://discord.com/oauth2/authorize?client_id=${clientID}&scope=bot`}
           onClick={e => modal.hide()}
         >
           <Button fluid>

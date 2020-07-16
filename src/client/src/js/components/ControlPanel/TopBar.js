@@ -67,7 +67,7 @@ function TopBar (props) {
     <BrandTitleContainer hideExpandButton={hideExpandButton}>
       <ExpandButton className='expand-left-menu-btn' icon='list' basic onClick={toggleLeftMenu} />
       <RouterLink to='/'>
-        <Logo src='https://discordapp.com/assets/d36b33903dafb0107bb067b55bdd9cbc.svg' />
+        <Logo src='https://discord.com/assets/d36b33903dafb0107bb067b55bdd9cbc.svg' />
         <Title>Discord.RSS</Title>
       </RouterLink>
     </BrandTitleContainer>

@@ -27,7 +27,7 @@ const Dismiss = styled.div`
   width: 36px;
   transition: opacity 0.2s;
   -webkit-app-region: no-drag;
-  background: url(https://discordapp.com/assets/7731c77d99babca1a8faec204d98c380.svg) no-repeat;
+  background: url(https://discord.com/assets/7731c77d99babca1a8faec204d98c380.svg) no-repeat;
 `
 
 class Notice extends React.PureComponent {
