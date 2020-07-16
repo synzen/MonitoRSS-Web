@@ -266,5 +266,13 @@
       "preview",
       "no embed"
     ]
+  }, {
+    "q": "Why are article deliveries delayed, slowed, or taking so long?",
+    "a": "First take note of the refresh rate of any particular feed with the `list` command. If you expected an article within that timeframe, then the article you were expecting was most likely not placed in the feed at the tiem you expected. The bot can only see articles once it is posted on the feed. You may personally check to see if the article is on the feed by directly going to the link, or using the feed browser on this site. For any more help, please visit the support server.",
+    "t": [
+      "too long",
+      "delayed",
+      "slow"
+    ]
   }
 ]
