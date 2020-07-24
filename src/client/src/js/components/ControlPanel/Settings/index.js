@@ -11,10 +11,11 @@ import moment from 'moment-timezone'
 import fileDownload from 'js-file-download'
 import Date from './Date'
 import guildSelectors from 'js/selectors/guilds'
-import { fetchEditGuild } from 'js/actions/guilds'
+import { fetchEditGuild, fetchGuildBackup } from 'js/actions/guilds'
 import { Redirect } from 'react-router-dom'
 import pages from 'js/constants/pages'
 import { changePage } from 'js/actions/page'
+import { GET_GUILD_BACKUP } from 'js/constants/actions/guilds'
 
 const Container = styled.div`
   padding: 20px;
@@ -54,21 +55,16 @@ function ServerSettings () {
   const [invalidTimezone, setInvalidTimezone] = useState(false)
   const [updatedValues, setUpdatedValues] = useState({})
   const [autoSave, setAutoSave] = useState(false)
+  const fetchingBackup = useSelector(state => state.loading[GET_GUILD_BACKUP.BEGIN])
   const guild = useSelector(guildSelectors.activeGuild)
   const botConfig = useSelector(state => state.botConfig)
   const editing = useSelector(guildSelectors.editing)
-  const subscribers = useSelector(state => state.subscribers)
-  const feeds = useSelector(state => state.feeds)
   const dispatch = useDispatch()
   const unsaved = Object.keys(updatedValues).length > 0
   const profile = guild ? guild.profile : null
 
-  const downloadBackup = () => {
-    const data = {
-      profile,
-      feeds,
-      subscribers
-    }
+  const downloadBackup = async () => {
+    const data = await dispatch(fetchGuildBackup(guild.id))
     fileDownload(JSON.stringify(data, null, 2), `${guild.id}.json`)
   }
 
@@ -219,7 +215,7 @@ function ServerSettings () {
       <LargeDivider />
       <SectionTitle heading='Backup' subheading='Download a copy of all your server feeds and settings for safekeeping. This is HIGHLY recommended in case there is data loss, or if you wish to import/overwrite your settings at a later point. Restorations can be done by requesting through the support server.' />
       <BackupButtonContainer>
-        <Button basic content='Download Backup' onClick={downloadBackup} />
+        <Button basic content='Download Backup' onClick={downloadBackup} loading={fetchingBackup} />
       </BackupButtonContainer>
       <LargeDivider />
       <ButtonContainer>

@@ -15,6 +15,7 @@ const guildIDSchema = Joi.object({
 guildsAPI.use('/:guildID', validator.params(guildIDSchema))
 guildsAPI.use('/:guildID', checkUserGuildPermission)
 guildsAPI.get('/:guildID', controllers.api.guilds.getGuild)
+guildsAPI.get('/:guildID/backup', controllers.api.guilds.getBackup)
 guildsAPI.patch('/:guildID', validator.body(profileSchema), controllers.api.guilds.editGuild)
 guildsAPI.use('/:guildID/feeds', require('./feeds/index.js'))
 guildsAPI.use('/:guildID/channels', require('./channels/index.js'))
