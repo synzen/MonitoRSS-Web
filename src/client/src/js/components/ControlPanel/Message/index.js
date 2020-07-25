@@ -179,7 +179,9 @@ function Message () {
               <span>Remember that you can use the placeholders listed above. A special placeholder, {'{empty}'} can be used to create an empty message, but only if an embed is used. Regular formatting such as bold and etc. is also available.</span>
               {!hasSubscribers
                 ? null
-                : messageToDisplay === '' || messageToDisplay.includes('{subscriptions}') ? '' : <span style={{ color: colors.discord.yellow }}> Note that because the placeholder {'{subscriptions}'} is not in your message, feed subscribers will not be mentioned.</span>}
+                : messageToDisplay === '' || messageToDisplay.includes('{subscriptions}') || messageToDisplay.includes('{subscribers}')
+                  ? ''
+                  : <span style={{ color: colors.discord.yellow }}> Note that because the placeholder {'{subscriptions}'} (or {'{subscribers}'}) is not in your message, feed subscribers will not be mentioned.</span>}
             </span>
 
           }
