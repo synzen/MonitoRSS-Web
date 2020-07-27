@@ -7,7 +7,6 @@ const guildHasChannel = require('../../../../middleware/guildHasChannel.js')
 const guildHasChannelOptional = require('../../../../middleware/guildHasChannelOptional.js')
 const controllers = require('../../../../controllers/index.js')
 const feedSchema = require('../../../../util/validation/feedSchema.js')
-const channelBelongsToGuild = require('../../../../middleware/channelBelongsToGuild.js')
 const validator = require('express-joi-validation').createValidator({
   passError: true
 })
@@ -64,8 +63,8 @@ guildFeedsAPI.get('/:feedID/schedule', controllers.api.guilds.feeds.getSchedule)
 // Post message
 guildFeedsAPI.post('/:feedID/message', [
   sendArticleRateLimit,
-  channelBelongsToGuild,
-  validator.body(sendArticleSchema)
+  validator.body(sendArticleSchema),
+  guildHasChannelOptional
 ], controllers.api.guilds.feeds.sendMessage)
 
 // Handle subscribers
