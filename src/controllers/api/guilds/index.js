@@ -1,6 +1,7 @@
 const getGuild = require('./getGuild.js')
 const editGuild = require('./editGuild.js')
 const getFailRecords = require('./getFailRecords.js')
+const getBackup = require('./getBackup.js')
 const feeds = require('./feeds/index.js')
 const channels = require('./channels/index.js')
 const roles = require('./roles/index.js')
@@ -11,5 +12,6 @@ module.exports = {
   channels,
   getGuild,
   editGuild,
-  getFailRecords
+  getFailRecords,
+  getBackup
 }
