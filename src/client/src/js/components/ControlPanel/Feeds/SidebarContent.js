@@ -51,7 +51,7 @@ function calculateHealth (failRecord, hoursUntilFail) {
 }
 
 function SideBar (props) {
-  const [inputTitle, setInputTitle] = useState('')
+  const [inputTitle, setInputTitle] = useState(undefined)
   const [inputChannel, setInputChannel] = useState('')
   const schedules = useSelector(state => state.schedules)
   const botConfig = useSelector(state => state.botConfig)
@@ -68,9 +68,13 @@ function SideBar (props) {
   const hasFailed = !selectedFailRecord ? false : !!selectedFailRecord.alerted
   const refreshRate = selectedFeed && schedules[selectedFeed._id] ? schedules[selectedFeed._id].refreshRateMinutes : null
 
-  useEffect(() => {
+  function resetEdit () {
     setInputChannel('')
-    setInputTitle('')
+    setInputTitle(undefined)
+  }
+
+  useEffect(() => {
+    resetEdit()
   }, [selectedFeed])
 
   useEffect(() => {
@@ -155,7 +159,7 @@ function SideBar (props) {
           <EditField>
             <SectionSubtitle>Title</SectionSubtitle>
             <Input
-              value={inputTitle || (selectedFeed ? selectedFeed.title : '')} fluid disabled={!selectedFeed} onChange={e => {
+              value={inputTitle ?? (selectedFeed ? selectedFeed.title : '')} fluid disabled={!selectedFeed} onChange={e => {
                 setInputTitle(e.target.value)
               }}
             />
@@ -170,10 +174,7 @@ function SideBar (props) {
           </EditField>
           <ApplyField>
             <PopInButton
-              basic inverted content='Reset' disabled={feedEditing || !differentFromDefault} pose={differentFromDefault ? 'enter' : 'exit'} onClick={e => {
-                setInputTitle('')
-                setInputChannel('')
-              }}
+              basic inverted content='Reset' disabled={feedEditing || !differentFromDefault || !inputTitle} pose={differentFromDefault ? 'enter' : 'exit'} onClick={resetEdit}
             />
             <Button content='Save' color='green' disabled={!differentFromDefault} onClick={edit} />
           </ApplyField>
