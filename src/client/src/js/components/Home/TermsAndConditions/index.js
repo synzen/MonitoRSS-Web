@@ -12,7 +12,7 @@ function TermsAndConditions () {
   return (
     <Wrapper>
       <h1>Terms and Conditions</h1>
-      <p>Last updated: June 06, 2020</p>
+      <p>Last updated: August 21, 2020</p>
       <p>These terms and conditions outline the rules and regulations for the use of MonitoRSS's official Website, located at https://monitorss.xyz.</p>
 
       <p>By accessing this website we assume you accept these terms and conditions. Do not continue to use MonitoRSS if you do not agree to take all of the terms and conditions stated on this page.</p>

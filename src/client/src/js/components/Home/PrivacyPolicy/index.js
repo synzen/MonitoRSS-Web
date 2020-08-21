@@ -12,7 +12,7 @@ function PrivacyPolicy () {
   return (
     <Wrapper>
       <h1>Privacy Policy</h1>
-      <p>Last updated: June 06, 2020</p>
+      <p>Last updated: August 21, 2020</p>
       <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You while using MonitoRSS's official Website, located at https://monitorss.xyz.</p>
       <p>We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy.</p>
       <h1>Interpretation and Definitions</h1>
