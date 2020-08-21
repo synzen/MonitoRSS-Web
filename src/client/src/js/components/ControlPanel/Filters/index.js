@@ -167,7 +167,7 @@ function Filters () {
         heading='Add'
         subheading={
           <>
-            Type a new filter and add it. Note that all filters are automatically lowercased. For more information, see the <a href='https://docs.discordrss.xyz/bot-customizations/filters/filters-regular' target='_blank' rel='noreferrer noopener'>documentation</a>
+            Type a new filter and add it. Note that all filters are automatically lowercased. For more information, see the <a href='https://docs.monitorss.xyz/bot-customizations/filters/filters-regular' target='_blank' rel='noreferrer noopener'>documentation</a>
           </>
         }
       />

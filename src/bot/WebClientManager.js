@@ -1,9 +1,9 @@
 const fs = require('fs')
 const path = require('path')
 const Discord = require('discord.js')
-const DiscordRSS = require('discord.rss')
+const MonitoRSS = require('monitorss')
 const RequestHandler = require('../util/RequestHandler.js')
-const Supporter = DiscordRSS.Supporter
+const Supporter = MonitoRSS.Supporter
 const setConfig = require('../config.js').set
 const expressApp = require('../app.js')
 const configServices = require('../services/config.js')
@@ -41,7 +41,7 @@ class WebClientManager {
   async start () {
     try {
       this.log.info('Attempting to connect to databases...')
-      await this.setupDiscordRSS()
+      await this.setupMonitoRSS()
       this.mongoConnection = await connectMongo(this.config, 'WM')
       this.redisClient = await connectRedis(this.config, 'WM')
       setupModels(this.mongoConnection)
@@ -93,7 +93,7 @@ class WebClientManager {
     }
   }
 
-  async setupDiscordRSS () {
+  async setupMonitoRSS () {
     if (process.env.DRSS_CONFIG) {
       /**
        * An instance of the bot has been instantiated.
@@ -103,12 +103,12 @@ class WebClientManager {
     }
     const uri = this.config.database.uri
     const options = this.config.database.connection
-    await DiscordRSS.setupModels(uri, options)
+    await MonitoRSS.setupModels(uri, options)
     const [feedConfig, supporterConfig] = await Promise.all([
       configServices.getFeedConfig(),
       configServices.getSupporterConfig()
     ])
-    DiscordRSS.config.set({
+    MonitoRSS.config.set({
       feeds: feedConfig,
       [Supporter.keys.ENABLED]: supporterConfig[Supporter.keys.ENABLED],
       [Supporter.keys.REFRESH_RATE]: supporterConfig[Supporter.keys.REFRESH_RATE]

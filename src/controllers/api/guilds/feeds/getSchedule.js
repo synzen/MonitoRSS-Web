@@ -5,7 +5,7 @@
  */
 async function getSchedule (req, res, next) {
   /**
-   * @type {import('discord.rss').Feed}
+   * @type {import('monitorss').Feed}
    */
   const feed = req.feed
   try {

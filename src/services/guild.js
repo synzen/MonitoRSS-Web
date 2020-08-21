@@ -1,9 +1,9 @@
-const DiscordRSS = require('discord.rss')
+const MonitoRSS = require('monitorss')
 const RedisGuild = require('../bot/structs/Guild.js')
 const RedisChannel = require('../bot/structs/Channel.js')
 const feedServices = require('./feed.js')
-const GuildData = DiscordRSS.GuildData
-const Profile = DiscordRSS.Profile
+const GuildData = MonitoRSS.GuildData
+const Profile = MonitoRSS.Profile
 
 async function getAppData (guildID) {
   const data = await GuildData.get(guildID)

@@ -1,7 +1,7 @@
-const DiscordRSS = require('discord.rss')
+const MonitoRSS = require('monitorss')
 const Joi = require('@hapi/joi')
 const moment = require('moment-timezone')
-const Translator = DiscordRSS.Translator
+const Translator = MonitoRSS.Translator
 // const getConfig = require('../../../config.js').get
 
 module.exports = Joi.extend(joi => {

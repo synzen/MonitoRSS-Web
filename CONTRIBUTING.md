@@ -3,7 +3,7 @@
 **The issue tracker is only for technical support, bug reports and enhancement suggestions.
 If you have a question, please ask it in the [Discord server](https://discord.gg/pudv7Rx) instead of opening an issue.**
 
-If you wish to contribute to the Discord.RSS-Web, feel free to fork the repository and submit a pull request.
+If you wish to contribute to the MonitoRSS-Web, feel free to fork the repository and submit a pull request.
 ESLint and StandardJS are used to enforce a consistent coding style, so having that set up in your editor of choice is a great boon to your development process.
 
 All development happens on dev branches.

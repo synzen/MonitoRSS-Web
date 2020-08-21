@@ -211,7 +211,7 @@ function NavBar () {
           <NavItem select={path === '/'}>
             <Link to='/' onClick={e => path === '/' ? e.preventDefault() : null}>
               <Logo src='https://discord.com/assets/d36b33903dafb0107bb067b55bdd9cbc.svg' alt='Website logo' />
-              <Title>Discord.RSS</Title>
+              <Title>MonitoRSS</Title>
             </Link>
           </NavItem>
           <NavItem selected={path.startsWith(pages.FAQ)}><Link to={pages.FAQ}>FAQ</Link></NavItem>
@@ -224,9 +224,9 @@ function NavBar () {
               Links<Icon name='caret down' size='small' />
             </button>
             <NavDropdown show={showNavDropdown}>
-              <DropdownNavItem><a href='https://www.patreon.com/discordrss' target='_blank' rel='noopener noreferrer'><Icon name='patreon' style={{ color: '#E85B46' }} /><span>Patreon</span></a></DropdownNavItem>
-              <DropdownNavItem><a href='https://github.com/synzen/Discord.RSS' target='_blank' rel='noopener noreferrer'><Icon name='github' /><span>Github</span></a></DropdownNavItem>
-              <DropdownNavItem><a href='https://docs.discordrss.xyz/' target='_blank' rel='noopener noreferrer'><Icon name='sticky note' /><span>Documentation</span></a></DropdownNavItem>
+              <DropdownNavItem><a href='https://www.patreon.com/monitorss' target='_blank' rel='noopener noreferrer'><Icon name='patreon' style={{ color: '#E85B46' }} /><span>Patreon</span></a></DropdownNavItem>
+              <DropdownNavItem><a href='https://github.com/synzen/MonitoRSS' target='_blank' rel='noopener noreferrer'><Icon name='github' /><span>Github</span></a></DropdownNavItem>
+              <DropdownNavItem><a href='https://docs.monitorss.xyz/' target='_blank' rel='noopener noreferrer'><Icon name='sticky note' /><span>Documentation</span></a></DropdownNavItem>
             </NavDropdown>
           </NavItem>
 
@@ -241,7 +241,7 @@ function NavBar () {
         <Button aria-label='Show Menu' basic icon={showMobileNav ? 'caret up' : 'list ul'} onClick={e => setShowMobileNav(!showMobileNav)} />
         <Link to='/'>
           <Logo src='https://discord.com/assets/d36b33903dafb0107bb067b55bdd9cbc.svg' alt='Website logo' />
-          <Title>Discord.RSS</Title>
+          <Title>MonitoRSS</Title>
         </Link>
         <Sidebar pose={showMobileNav ? 'enter' : 'exit'}>
           <div />
@@ -249,8 +249,8 @@ function NavBar () {
             <li><Link to={pages.FAQ} onClick={e => setShowMobileNav(false)}>FAQ</Link></li>
             <li><Link to={pages.FEED_BROWSER} onClick={e => setShowMobileNav(false)}>Feed Browser</Link></li>
             <li><a href='https://discord.gg/pudv7Rx' target='_blank' rel='noopener noreferrer'>Discord Support<Icon style={{ marginLeft: '5px' }} name='external' size='small' /></a></li>
-            <li><a href='https://github.com/synzen/Discord.RSS' target='_blank' rel='noopener noreferrer'><Icon name='github' /><span>Github</span></a></li>
-            <li><a href='https://www.patreon.com/discordrss' target='_blank' rel='noopener noreferrer'><Icon name='patreon' style={{ color: '#E85B46' }} /><span>Patreon</span></a></li>
+            <li><a href='https://github.com/synzen/MonitoRSS' target='_blank' rel='noopener noreferrer'><Icon name='github' /><span>Github</span></a></li>
+            <li><a href='https://www.patreon.com/monitorss' target='_blank' rel='noopener noreferrer'><Icon name='patreon' style={{ color: '#E85B46' }} /><span>Patreon</span></a></li>
           </ul>
         </Sidebar>
       </MobileNav>

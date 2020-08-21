@@ -39,7 +39,7 @@ class WebClient {
       this.redisClient = await connectRedis(this.config, '-')
       this.client = new Discord.Client(CLIENT_OPTIONS)
       await this.client.login(token)
-      this.log.info(`Discord.RSS-Web logged in as ${this.client.user.username}#${this.client.user.discriminator}`)
+      this.log.info(`MonitoRSS-Web logged in as ${this.client.user.username}#${this.client.user.discriminator}`)
       this.log = createLogger(this.client.shard.ids[0])
       this.log.debug('Waiting for client to be ready...')
       await once(this.client, 'ready')

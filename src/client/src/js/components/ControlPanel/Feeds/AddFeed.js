@@ -53,7 +53,7 @@ function AddFeed (props) {
           limit !== 0
             ? (
               <>
-                Add a new feed. You may have a maximum of {limit} feeds. Need more? <a href='https://www.patreon.com/discordrss' target='_blank' rel='noopener noreferrer'>Help support Discord.RSS by becoming a supporter!</a>
+                Add a new feed. You may have a maximum of {limit} feeds. Need more? <a href='https://www.patreon.com/monitorss' target='_blank' rel='noopener noreferrer'>Help support MonitoRSS by becoming a supporter!</a>
               </>
             )
             : ''

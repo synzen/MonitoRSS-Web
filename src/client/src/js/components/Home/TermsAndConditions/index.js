@@ -13,9 +13,9 @@ function TermsAndConditions () {
     <Wrapper>
       <h1>Terms and Conditions</h1>
       <p>Last updated: June 06, 2020</p>
-      <p>These terms and conditions outline the rules and regulations for the use of Discord.RSS's official Website, located at https://discordrss.xyz.</p>
+      <p>These terms and conditions outline the rules and regulations for the use of MonitoRSS's official Website, located at https://monitorss.xyz.</p>
 
-      <p>By accessing this website we assume you accept these terms and conditions. Do not continue to use Discord.RSS if you do not agree to take all of the terms and conditions stated on this page.</p>
+      <p>By accessing this website we assume you accept these terms and conditions. Do not continue to use MonitoRSS if you do not agree to take all of the terms and conditions stated on this page.</p>
       <h1>Interpretation and Definitions</h1>
       <h2>Interpretation</h2>
       <p>The words of which the initial letter is capitalized have meanings defined under the following conditions.
@@ -28,7 +28,7 @@ function TermsAndConditions () {
           <p><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</p>
         </li>
         <li>
-          <p><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to Discord.RSS.</p>
+          <p><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to MonitoRSS.</p>
         </li>
         <li>
           <p><strong>Affiliate</strong> means an entity that controls, is controlled by or is under common control with a party, where &quot;control&quot; means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.</p>
@@ -37,7 +37,7 @@ function TermsAndConditions () {
           <p><strong>Account</strong> means a unique account created for You to access our Service or parts of our Service.</p>
         </li>
         <li>
-          <p><strong>Website</strong> refers to Discord.RSS, accessible from <a href='https://discordrss.xyz' rel='external nofollow noopener noreferrer' target='_blank'>https://discordrss.xyz</a></p>
+          <p><strong>Website</strong> refers to MonitoRSS, accessible from <a href='https://monitorss.xyz' rel='external nofollow noopener noreferrer' target='_blank'>https://monitorss.xyz</a></p>
         </li>
         <li>
           <p><strong>Service</strong> refers to the Website.</p>
@@ -69,20 +69,20 @@ function TermsAndConditions () {
 
       <h2>Cookies</h2>
 
-      <p>We employ the use of cookies. By accessing Discord.RSS, you agreed to use cookies in agreement with the Discord.RSS's Privacy Policy.</p>
+      <p>We employ the use of cookies. By accessing MonitoRSS, you agreed to use cookies in agreement with the MonitoRSS's Privacy Policy.</p>
 
       <p>Most interactive websites use cookies to let us retrieve the user’s details for each visit. Cookies are used by our website to enable the functionality of certain areas to make it easier for people visiting our website. Some of our affiliate/advertising partners may also use cookies.</p>
 
       <h2>User Generated Contributions</h2>
 
-      {/* <p>Unless otherwise stated, Discord.RSS and/or its licensors own the intellectual property rights for all material on Discord.RSS. All intellectual property rights are reserved. You may access this from Discord.RSS for your own personal use subjected to restrictions set in these terms and conditions.</p>
+      {/* <p>Unless otherwise stated, MonitoRSS and/or its licensors own the intellectual property rights for all material on MonitoRSS. All intellectual property rights are reserved. You may access this from MonitoRSS for your own personal use subjected to restrictions set in these terms and conditions.</p>
 
       <p>You must not:</p>
       <ul>
-        <li>Republish material from Discord.RSS</li>
-        <li>Sell, rent or sub-license material from Discord.RSS</li>
-        <li>Reproduce, duplicate or copy material from Discord.RSS</li>
-        <li>Redistribute content from Discord.RSS</li>
+        <li>Republish material from MonitoRSS</li>
+        <li>Sell, rent or sub-license material from MonitoRSS</li>
+        <li>Reproduce, duplicate or copy material from MonitoRSS</li>
+        <li>Redistribute content from MonitoRSS</li>
       </ul>
 
       <p>This Agreement shall begin on the date hereof.</p> */}

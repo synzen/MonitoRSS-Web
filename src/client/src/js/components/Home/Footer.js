@@ -50,11 +50,11 @@ function Footer () {
           <SupportUs>
             <h2>Support Us!</h2>
             <p style={{ marginBottom: 0 }}>
-              Has Discord.RSS helped you or your community? You can show your support by either becoming a Patron, or just adding a star on Github!
+              Has MonitoRSS helped you or your community? You can show your support by either becoming a Patron, or just adding a star on Github!
               <br /><br />
               <a
                 target='_blank'
-                href='https://www.patreon.com/discordrss'
+                href='https://www.patreon.com/monitorss'
                 rel='noreferrer noopener'
               >
                 <img
@@ -65,13 +65,13 @@ function Footer () {
               </a>
               <br /><br />
               <GitHubButton
-                href='https://github.com/synzen/discord.rss'
+                href='https://github.com/synzen/MonitoRSS'
                 target='_blank'
                 rel='noreferrer noopener'
                 data-icon='octicon-star'
                 data-size='large'
                 data-show-count='true'
-                aria-label='Star synzen/discord.rss on GitHub'
+                aria-label='Star synzen/MonitoRSS on GitHub'
               >
                 Star
               </GitHubButton>
@@ -91,8 +91,8 @@ function Footer () {
               <Link to={pages.FAQ}>FAQ</Link>
               <Link to={pages.FEED_BROWSER}>Feed Browser</Link>
               <a href='https://discord.gg/pudv7Rx' target='_blank' rel='noreferrer noopener'>Support Server</a>
-              <a href='https://docs.discordrss.xyz' target='_blank' rel='noreferrer noopener'>Documentation</a>
-              <a href='https://github.com/synzen/discord.rss' target='_blank' rel='noreferrer noopener'>GitHub</a>
+              <a href='https://docs.monitorss.xyz' target='_blank' rel='noreferrer noopener'>Documentation</a>
+              <a href='https://github.com/synzen/MonitoRSS' target='_blank' rel='noreferrer noopener'>GitHub</a>
             </Navigation>
           </section>
         </FooterContainer>

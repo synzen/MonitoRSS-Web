@@ -120,14 +120,14 @@ function Feeds (props) {
                     ? (
                       <div>
                         <Popup
-                          content={<span>Need more? <a href='https://www.patreon.com/discordrss' target='_blank' rel='noopener noreferrer'>Become a supporter!</a></span>}
+                          content={<span>Need more? <a href='https://www.patreon.com/monitorss' target='_blank' rel='noopener noreferrer'>Become a supporter!</a></span>}
                           position='left center'
                           hideOnScroll
                           hoverable
                           inverted
                           trigger={<span>{tableItems.length}/{activeGuild.limit === 0 ? '∞' : activeGuild.limit}</span>}
                         />
-                        <a href='https://www.patreon.com/discordrss' target='_blank' rel='noopener noreferrer'><Icon color='green' name='arrow circle up' /></a>
+                        <a href='https://www.patreon.com/monitorss' target='_blank' rel='noopener noreferrer'><Icon color='green' name='arrow circle up' /></a>
                       </div>)
                     : null}
                 </FeedLimitContainer>

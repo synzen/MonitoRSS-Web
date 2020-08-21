@@ -1,7 +1,7 @@
-const DiscordRSS = require('discord.rss')
+const MonitoRSS = require('monitorss')
 
 async function createFeedback (userID, username, content) {
-  const feedback = new DiscordRSS.models.Feedback.Model({
+  const feedback = new MonitoRSS.models.Feedback.Model({
     type: 'web',
     userID,
     username,

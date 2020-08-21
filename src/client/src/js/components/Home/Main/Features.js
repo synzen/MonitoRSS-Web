@@ -97,10 +97,10 @@ function Features () {
               <br />
               <br />
               <GitHubButton
-                href='https://github.com/synzen/discord.rss'
+                href='https://github.com/synzen/MonitoRSS'
                 data-icon='octicon-star'
                 data-show-count='true'
-                aria-label='Star synzen/discord.rss on GitHub'
+                aria-label='Star synzen/MonitoRSS on GitHub'
               >
                 Star
               </GitHubButton>

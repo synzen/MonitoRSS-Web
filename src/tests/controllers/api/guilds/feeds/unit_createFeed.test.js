@@ -1,7 +1,7 @@
 process.env.TEST_ENV = true
-const DiscordRSS = require('discord.rss')
-const FeedParserError = DiscordRSS.errors.FeedParserError
-const RequestError = DiscordRSS.errors.RequestError
+const MonitoRSS = require('monitorss')
+const FeedParserError = MonitoRSS.errors.FeedParserError
+const RequestError = MonitoRSS.errors.RequestError
 const createFeed = require('../../../../../controllers/api/guilds/feeds/createFeed.js')
 const guildServices = require('../../../../../services/guild.js')
 const feedServices = require('../../../../../services/feed.js')

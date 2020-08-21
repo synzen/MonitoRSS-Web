@@ -1,9 +1,9 @@
-const DiscordRSS = require('discord.rss')
+const MonitoRSS = require('monitorss')
 const guildServices = require('../../../../services/guild.js')
 const feedServices = require('../../../../services/feed.js')
 const createError = require('../../../../util/createError.js')
-const FeedParserError = DiscordRSS.errors.FeedParserError
-const RequestError = DiscordRSS.errors.RequestError
+const FeedParserError = MonitoRSS.errors.FeedParserError
+const RequestError = MonitoRSS.errors.RequestError
 
 /**
  * @param {import('express').Request} req

@@ -82,7 +82,7 @@
   },
   {
     "q": "How do I get higher feed limit or faster refresh rate?",
-    "a": "You may get an official limit increase that supports customizations for each individual feed by supporting the bot on Patreon https://www.patreon.com/discordrss (would be greatly appreciated!).\nYou may also use a feed aggregator to combine multiple feeds into one (this has some disadvantages, such as its own unknown refresh time separate from the bot's). The limit is there to prevent abuse, and to optimize retrieval times.",
+    "a": "You may get an official limit increase that supports customizations for each individual feed by supporting the bot on Patreon https://www.patreon.com/monitorss (would be greatly appreciated!).\nYou may also use a feed aggregator to combine multiple feeds into one (this has some disadvantages, such as its own unknown refresh time separate from the bot's). The limit is there to prevent abuse, and to optimize retrieval times.",
     "t": [
       "feed limit",
       "increase",
@@ -103,7 +103,7 @@
   },
   {
     "q": "How do I give a custom name and avatar to the bot?",
-    "a": "For a custom name, you can set its nickname by right click and change nickname.\nIf you want a custom avatar, this can only be done via webhooks (https://docs.discordrss.xyz/bot-customizations/webhooks). For use of webhooks on the public bot, you will need to be a patron (https://www.patreon.com/discordrss).",
+    "a": "For a custom name, you can set its nickname by right click and change nickname.\nIf you want a custom avatar, this can only be done via webhooks (https://docs.monitorss.xyz/bot-customizations/webhooks). For use of webhooks on the public bot, you will need to be a patron (https://www.patreon.com/monitorss).",
     "t": [
       "custom name",
       "custom avatar",
@@ -156,7 +156,7 @@
   },
   {
     "q": "How do I get fewer articles delivered?",
-    "a": "You can set filters through the `filters` command to only get the content you want delivered. For a list of all commands, use the `help` command. For documentation on filters, see <https://docs.discordrss.xyz/bot-customizations/filters/filters-regular>.",
+    "a": "You can set filters through the `filters` command to only get the content you want delivered. For a list of all commands, use the `help` command. For documentation on filters, see <https://docs.monitorss.xyz/bot-customizations/filters/filters-regular>.",
     "t": [
       "slow",
       "rate",
@@ -219,7 +219,7 @@
   },
   {
     "q": "Where can I get a list of all commands?",
-    "a": "Use the `list` command, or see the documentation at https://docs.discordrss.xyz.",
+    "a": "Use the `list` command, or see the documentation at https://docs.monitorss.xyz.",
     "t": [
       "list",
       "documentation",

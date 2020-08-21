@@ -1,4 +1,4 @@
-const { Feed, models } = require('discord.rss')
+const { Feed, models } = require('monitorss')
 const { GeneralStats } = models
 
 /**

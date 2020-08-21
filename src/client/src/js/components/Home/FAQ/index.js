@@ -288,9 +288,9 @@ function FAQ (props) {
   // Set document title
   useEffect(() => {
     if (selectedDocument) {
-      document.title = `Discord.RSS - FAQ - ${selectedDocument.q}`
+      document.title = `MonitoRSS - FAQ - ${selectedDocument.q}`
     } else {
-      document.title = 'Discord.RSS - FAQ'
+      document.title = 'MonitoRSS - FAQ'
     }
   }, [selectedDocument])
 

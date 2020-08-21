@@ -11,9 +11,9 @@ const Wrapper = styled.div`
 function CookiePolicy () {
   return (
     <Wrapper>
-      <h1>Cookie Policy for Discord.RSS</h1>
-      <p>Last updated: June 06, 2020</p>
-      <p>This is the Cookie Policy for the official Discord.RSS Website, accessible from https://discordrss.xyz</p>
+      <h1>Cookie Policy for Monito-RSS</h1>
+      <p>Last updated: August 21, 2020</p>
+      <p>This is the Cookie Policy for the official MonitoRSS Website, accessible from https://monitorss.xyz</p>
 
       <p><strong>What Are Cookies</strong></p>
 

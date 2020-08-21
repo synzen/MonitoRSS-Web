@@ -1,15 +1,15 @@
 const Discord = require('discord.js')
-const DiscordRSS = require('discord.rss')
-const Article = DiscordRSS.Article
-const ArticleMessage = DiscordRSS.ArticleMessage
-const FeedFetcher = DiscordRSS.FeedFetcher
-const FailRecord = DiscordRSS.FailRecord
-const Feed = DiscordRSS.Feed
-const FeedData = DiscordRSS.FeedData
+const MonitoRSS = require('monitorss')
+const Article = MonitoRSS.Article
+const ArticleMessage = MonitoRSS.ArticleMessage
+const FeedFetcher = MonitoRSS.FeedFetcher
+const FailRecord = MonitoRSS.FailRecord
+const Feed = MonitoRSS.Feed
+const FeedData = MonitoRSS.FeedData
 const configServices = require('./config.js')
 
 /**
- * @param {import('discord.rss').Feed} feed
+ * @param {import('monitorss').Feed} feed
  */
 async function getFeedArticles (feed) {
   const { articleList } = await FeedFetcher.fetchFeed(feed.url)
@@ -97,7 +97,7 @@ async function deleteFeed (feedID) {
 async function getDatabaseArticles (feed) {
   // Schedule name must be determined
   const schedule = await feed.determineSchedule()
-  const data = await DiscordRSS.models.Article.Model.find({
+  const data = await MonitoRSS.models.Article.Model.find({
     scheduleName: schedule.name,
     feedURL: feed.url
   }).lean().exec()
@@ -141,7 +141,7 @@ async function getFeedsOfGuild (guildID) {
 
 /**
  * @param {import('../util/RequestHandler.js')} requestHandler
- * @param {import('discord.rss').Feed} feed
+ * @param {import('monitorss').Feed} feed
  */
 async function getWebhook (requestHandler, feed) {
   const feedWebhook = feed.webhook
@@ -149,7 +149,7 @@ async function getWebhook (requestHandler, feed) {
 }
 
 /**
- * @param {import('discord.rss').Feed} feed
+ * @param {import('monitorss').Feed} feed
  * @param {Object<string, any>} article
  * @param {string} [channel]
  */
@@ -163,7 +163,7 @@ async function createArticleMessage (feed, article, channel) {
 
 /**
  * @param {import('../util/RequestHandler.js')} requestHandler
- * @param {import('discord.rss').ArticleMessage} articleMessage
+ * @param {import('monitorss').ArticleMessage} articleMessage
  */
 async function sendMessage (requestHandler, articleMessage) {
   const { feed } = articleMessage
@@ -188,7 +188,7 @@ async function sendMessage (requestHandler, articleMessage) {
 /**
  *
  * @param {import('../util/RequestHandler.js')} requestHandler
- * @param {import('discord.rss').ArticleMessage} articleMessage
+ * @param {import('monitorss').ArticleMessage} articleMessage
  */
 async function sendWebhookMessage (requestHandler, articleMessage) {
   const { feed, parsedArticle } = articleMessage

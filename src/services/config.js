@@ -1,12 +1,12 @@
-const DiscordRSS = require('discord.rss')
-const KeyValue = require('discord.rss').KeyValue
+const MonitoRSS = require('monitorss')
+const KeyValue = require('monitorss').KeyValue
 
 async function getFeedConfig () {
   const feedConfig = await KeyValue.get(KeyValue.keys.FEED_CONFIG)
   if (feedConfig) {
     return feedConfig.toJSON().value
   } else {
-    return DiscordRSS.schemas.feeds.validate({}).value
+    return MonitoRSS.schemas.feeds.validate({}).value
   }
 }
 

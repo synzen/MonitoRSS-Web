@@ -13,7 +13,7 @@ function PrivacyPolicy () {
     <Wrapper>
       <h1>Privacy Policy</h1>
       <p>Last updated: June 06, 2020</p>
-      <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You while using Discord.RSS's official Website, located at https://discordrss.xyz.</p>
+      <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You while using MonitoRSS's official Website, located at https://monitorss.xyz.</p>
       <p>We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy.</p>
       <h1>Interpretation and Definitions</h1>
       <h2>Interpretation</h2>
@@ -27,7 +27,7 @@ function PrivacyPolicy () {
           <p><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</p>
         </li>
         <li>
-          <p><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to Discord.RSS.</p>
+          <p><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to MonitoRSS.</p>
         </li>
         <li>
           <p><strong>Affiliate</strong> means an entity that controls, is controlled by or is under common control with a party, where &quot;control&quot; means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.</p>
@@ -36,7 +36,7 @@ function PrivacyPolicy () {
           <p><strong>Account</strong> means a unique account created for You to access our Service or parts of our Service.</p>
         </li>
         <li>
-          <p><strong>Website</strong> refers to Discord.RSS, accessible from <a href='https://discordrss.xyz' rel='external nofollow noopener noreferrer' target='_blank'>https://discordrss.xyz</a></p>
+          <p><strong>Website</strong> refers to MonitoRSS, accessible from <a href='https://monitorss.xyz' rel='external nofollow noopener noreferrer' target='_blank'>https://monitorss.xyz</a></p>
         </li>
         <li>
           <p><strong>Service</strong> refers to the Website.</p>

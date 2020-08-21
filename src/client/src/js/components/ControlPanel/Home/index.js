@@ -167,7 +167,7 @@ function Home (props) {
         : (
           <NoServers>
             <h4>NO ELIGIBLE SERVERS</h4>
-            <span>Make sure Discord.RSS is in the right servers where you have MANAGE CHANNEL permissions</span>
+            <span>Make sure MonitoRSS is in the right servers where you have MANAGE CHANNEL permissions</span>
           </NoServers>)}
 
       <Divider />

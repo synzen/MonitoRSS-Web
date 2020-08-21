@@ -1,5 +1,5 @@
-const DiscordRSS = require('discord.rss')
-const Subscriber = DiscordRSS.Subscriber
+const MonitoRSS = require('monitorss')
+const Subscriber = MonitoRSS.Subscriber
 
 /**
  * @param {string} feedID

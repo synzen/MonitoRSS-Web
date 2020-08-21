@@ -43,7 +43,7 @@ const PosedDiv = posed.div({
 })
 
 function calculateHealth (failRecord, hoursUntilFail) {
-  if (!failRecord) {
+  if (!failRecord || !hoursUntilFail) {
     return 100
   }
   const hours = (new Date().getTime() - new Date(failRecord.failedAt).getTime()) / 36e5
@@ -148,7 +148,7 @@ function SideBar (props) {
                 : <div><span style={{ color: colors.discord.green }}>Normal ({calculateHealth(selectedFailRecord, botConfig.hoursUntilFail)}% health)</span></div>}
           <EditField>
             <SectionSubtitle>Refresh Rate</SectionSubtitle>
-            {hasFailed || disabled ? 'None ' : !selectedFeed ? '\u200b' : !refreshRate ? 'Determining... ' : refreshRate < 1 ? `${refreshRate * 60} seconds      ` : `${refreshRate} minutes      `}{selectedFailRecord ? null : <a href='https://www.patreon.com/discordrss' target='_blank' rel='noopener noreferrer'>－</a>}
+            {hasFailed || disabled ? 'None ' : !selectedFeed ? '\u200b' : !refreshRate ? 'Determining... ' : refreshRate < 1 ? `${refreshRate * 60} seconds      ` : `${refreshRate} minutes      `}{selectedFailRecord ? null : <a href='https://www.patreon.com/monitorss' target='_blank' rel='noopener noreferrer'>－</a>}
           </EditField>
           <EditField>
             <SectionSubtitle>Added At</SectionSubtitle>
