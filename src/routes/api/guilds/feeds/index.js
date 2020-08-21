@@ -63,7 +63,8 @@ guildFeedsAPI.get('/:feedID/schedule', controllers.api.guilds.feeds.getSchedule)
 // Post message
 guildFeedsAPI.post('/:feedID/message', [
   sendArticleRateLimit,
-  validator.body(sendArticleSchema)
+  validator.body(sendArticleSchema),
+  guildHasChannelOptional
 ], controllers.api.guilds.feeds.sendMessage)
 
 // Handle subscribers

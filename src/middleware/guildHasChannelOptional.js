@@ -6,8 +6,8 @@ const guildHasChannel = require('./guildHasChannel.js')
  * @param {import('express').NextFunction} next
  */
 function guildHasChannelOptional (req, res, next) {
-  const channelID = req.body.channelID
-  if (channelID) {
+  const channel = req.body.channel
+  if (channel) {
     return guildHasChannel(req, res, next)
   } else {
     next()

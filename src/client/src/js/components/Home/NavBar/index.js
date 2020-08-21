@@ -210,7 +210,7 @@ function NavBar () {
         <NavButtons>
           <NavItem select={path === '/'}>
             <Link to='/' onClick={e => path === '/' ? e.preventDefault() : null}>
-              <Logo src='https://discordapp.com/assets/d36b33903dafb0107bb067b55bdd9cbc.svg' alt='Website logo' />
+              <Logo src='https://discord.com/assets/d36b33903dafb0107bb067b55bdd9cbc.svg' alt='Website logo' />
               <Title>Discord.RSS</Title>
             </Link>
           </NavItem>
@@ -240,7 +240,7 @@ function NavBar () {
       <MobileNav aria-label='primary mobile'>
         <Button aria-label='Show Menu' basic icon={showMobileNav ? 'caret up' : 'list ul'} onClick={e => setShowMobileNav(!showMobileNav)} />
         <Link to='/'>
-          <Logo src='https://discordapp.com/assets/d36b33903dafb0107bb067b55bdd9cbc.svg' alt='Website logo' />
+          <Logo src='https://discord.com/assets/d36b33903dafb0107bb067b55bdd9cbc.svg' alt='Website logo' />
           <Title>Discord.RSS</Title>
         </Link>
         <Sidebar pose={showMobileNav ? 'enter' : 'exit'}>

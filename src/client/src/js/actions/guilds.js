@@ -2,7 +2,8 @@ import axios from 'axios'
 import {
   GET_GUILDS,
   SET_ACTIVE_GUILD,
-  EDIT_GUILD
+  EDIT_GUILD,
+  GET_GUILD_BACKUP
 } from '../constants/actions/guilds'
 import { fetchGuildChannels } from './channels'
 import { fetchGuildRoles } from './roles'
@@ -23,6 +24,12 @@ export const {
   failure: editGuildFailure
 } = new FetchStatusActions(EDIT_GUILD)
 
+export const {
+  begin: getGuildBackupBegin,
+  success: getGuildBackupSuccess,
+  failure: getGuildBackupFailure
+} = new FetchStatusActions(GET_GUILD_BACKUP)
+
 export function fetchGuilds () {
   return async (dispatch, getState) => {
     const { activeGuildID } = getState()
@@ -37,6 +44,20 @@ export function fetchGuilds () {
       }
     } catch (err) {
       dispatch(setGuildsFailure(err))
+    }
+  }
+}
+
+export function fetchGuildBackup (guildID) {
+  return async dispatch => {
+    try {
+      dispatch(getGuildBackupBegin())
+      const { data } = await axios.get(`/api/guilds/${guildID}/backup`)
+      console.log(data)
+      dispatch(getGuildBackupSuccess(data))
+      return data
+    } catch (err) {
+      dispatch(getGuildBackupFailure(err))
     }
   }
 }
