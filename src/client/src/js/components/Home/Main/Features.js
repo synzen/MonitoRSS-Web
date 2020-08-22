@@ -3,7 +3,7 @@ import colors from '../../../constants/colors'
 import styled from 'styled-components'
 import SectionDescription from './common/SectionDescription'
 import { Icon } from 'semantic-ui-react'
-import GitHubButton from 'react-github-btn'
+// import GitHubButton from 'react-github-btn'
 
 const FeatureBoxes = styled.div`
   display: grid;
@@ -96,14 +96,14 @@ function Features () {
               The source code is openly available for anyone to use and host. Spread the love!
               <br />
               <br />
-              <GitHubButton
+              {/* <GitHubButton
                 href='https://github.com/synzen/MonitoRSS'
                 data-icon='octicon-star'
                 data-show-count='true'
                 aria-label='Star synzen/MonitoRSS on GitHub'
               >
                 Star
-              </GitHubButton>
+              </GitHubButton> */}
             </p>
           </div>
         </Feature>
