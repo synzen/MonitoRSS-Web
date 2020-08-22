@@ -15,6 +15,8 @@ import { fetchFaq } from 'js/actions/faq'
 import { fetchStats } from 'js/actions/stats'
 import Footer from './Footer'
 import { fetchBotUser } from 'js/actions/user'
+import colors from 'js/constants/colors'
+import { Icon } from 'semantic-ui-react'
 
 const Wrapper = styled.div`
   padding: 0 0px;
@@ -23,11 +25,48 @@ const Wrapper = styled.div`
   height: 60px;
 `
 
+const Alert = styled.div`
+  background:  rgba(67,181,129,.9);
+  width: 100vw;
+  /* height: 50px; */
+  color: ${colors.discord.white};
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 20px;
+`
+
+const CloserAlertButton = styled.button`
+  background: none;
+  border: solid 1px transparent;
+  color: ${colors.discord.white};
+  margin-left: 5px;
+  padding: 5px;
+  &:hover {
+    cursor: pointer;
+  }
+  &:focus {
+    border: dashed 1px ${colors.discord.white};
+  }
+`
+
+const today = new Date().getTime()
+const hideRenameAlertTime = new Date('20 September 2020').getTime()
+const showCloseButtonTime = new Date('1 September 2020').getTime()
+
+const alertAcknowledgeStorageKey = 'discordrssRenameAck'
+
 function Home () {
   const dispatch = useDispatch()
   const location = useLocation()
   const [scrollbarRef, setScrollbarRef] = useState()
+  const [showRenameAlert, setShowRenameAlert] = useState(
+    today < showCloseButtonTime || (
+      !localStorage.getItem(alertAcknowledgeStorageKey) &&
+      today < hideRenameAlertTime
+    )
+  )
   const pathname = location.pathname
+
   useEffect(() => {
     dispatch(fetchFaq())
     dispatch(fetchStats())
@@ -41,8 +80,21 @@ function Home () {
     scrollbarRef.scrollToTop()
   }, [pathname, scrollbarRef])
 
+  function closeAlert () {
+    localStorage.setItem(alertAcknowledgeStorageKey, 'true')
+    setShowRenameAlert(false)
+  }
+
   return (
     <Scrollbars style={{ width: '100vw', height: '100vh' }} ref={scrollbar => setScrollbarRef(scrollbar)}>
+      {showRenameAlert &&
+        <Alert>
+          <span>Discord.RSS has been renamed to MonitoRSS</span>
+          {today > showCloseButtonTime && showRenameAlert &&
+            <CloserAlertButton onClick={closeAlert}>
+              <Icon name='close' />
+            </CloserAlertButton>}
+        </Alert>}
       <Wrapper>
         <NavBar />
       </Wrapper>
