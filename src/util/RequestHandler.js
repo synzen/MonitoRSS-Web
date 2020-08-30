@@ -1,49 +1,56 @@
-const { Rest, TokenType } = require('@spectacles/rest')
+const { RESTHandler } = require('@synzen/discord-rest')
 
 class RequestHandler {
   constructor (botToken) {
-    /**
-     * @type {Map<string, import('@spectacles/rest').Rest>}
-     */
-    this.restByTokens = new Map()
+    this.restHandler = new RESTHandler()
     this.botToken = botToken
-    this.createRestClient(botToken, TokenType.BOT)
-  }
-
-  createRestClient (accessToken, tokenType) {
-    const rest = new Rest(accessToken, {
-      tokenType
-    })
-    this.restByTokens.set(accessToken, rest)
-    return rest
-  }
-
-  onAccessTokenRevoked (token) {
-    this.restByTokens.delete(token)
-  }
-
-  getRestClient (token, tokenType) {
-    const existingRest = this.restByTokens.get(token)
-    if (existingRest) {
-      return existingRest
-    } else {
-      return this.createRestClient(token, tokenType)
-    }
   }
 
   async getWithBearer (endpoint, accessToken) {
-    const rest = this.getRestClient(accessToken, TokenType.BEARER)
-    return rest.get(endpoint)
+    const res = await this.restHandler.fetch(`https://discord.com/api${endpoint}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json'
+      }
+    })
+    if (!res.ok) {
+      const error = new Error(`Bad status code (${res.status})`)
+      error.response = res
+      throw error
+    }
+    return res.json()
   }
 
   async getWithBot (endpoint) {
-    const rest = this.getRestClient(this.botToken, TokenType.BOT)
-    return rest.get(endpoint)
+    const res = await this.restHandler.fetch(`https://discord.com/api${endpoint}`, {
+      headers: {
+        Authorization: `Bearer ${this.botToken}`,
+        Accept: 'application/json'
+      }
+    })
+    if (!res.ok) {
+      const error = new Error(`Bad status code (${res.status})`)
+      error.response = res
+      throw error
+    }
+    return res.json()
   }
 
   async postWithBot (endpoint, body) {
-    const rest = this.getRestClient(this.botToken, TokenType.BOT)
-    return rest.post(endpoint, body)
+    const res = await this.restHandler.fetch(`https://discord.com/api${endpoint}`, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        Authorization: `Bot ${this.botToken}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      }
+    })
+    if (!res.ok) {
+      const error = new Error(`Bad status code (${res.status})`)
+      error.response = res
+      throw error
+    }
   }
 }
 
