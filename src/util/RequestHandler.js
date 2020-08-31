@@ -24,7 +24,7 @@ class RequestHandler {
   async getWithBot (endpoint) {
     const res = await this.restHandler.fetch(`https://discord.com/api${endpoint}`, {
       headers: {
-        Authorization: `Bearer ${this.botToken}`,
+        Authorization: `Bot ${this.botToken}`,
         Accept: 'application/json'
       }
     })
