@@ -74,12 +74,18 @@ function getFilterReference (article, type) {
 
 export default function testFilters (filters, article) {
   const filterResults = new FilterResults()
-  let passed = Object.keys(filters).every(type => !!getFilterReference(article, type))
-  filterResults.passed = passed
-  // If not every key in filters exists on the articles, auto-block it
-  if (!passed) {
+  if (Object.keys(filters).length === 0) {
+    filterResults.passed = true
     return filterResults
   }
+  const everyReferenceExists = Object.keys(filters).every(type => !!getFilterReference(article, type))
+  filterResults.passed = everyReferenceExists
+  // If not every key in filters exists on the articles, auto-block it
+  console.log(everyReferenceExists)
+  if (!everyReferenceExists) {
+    return filterResults
+  }
+  let passed = false
   for (const filterTypeName in filters) {
     const userFilters = filters[filterTypeName]
     const reference = getFilterReference(article, filterTypeName)
@@ -96,7 +102,7 @@ export default function testFilters (filters, article) {
     } else {
       results = testRegexFilter(userFilters, reference)
     }
-    passed = results.passed && passed
+    passed = results.passed || passed
     invertedFilters = invertedFilters.concat(results.inverted)
     regularFilters = regularFilters.concat(results.regular)
     if (regularFilters.length > 0) {
@@ -106,6 +112,7 @@ export default function testFilters (filters, article) {
       filterResults.add(filterTypeName, invertedFilters, true)
     }
   }
+  console.log(passed)
   filterResults.passed = passed
   return filterResults
 }
