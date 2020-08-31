@@ -1,5 +1,6 @@
 const fetch = require('node-fetch')
 const { URLSearchParams } = require('url')
+const WebCache = require('../models/WebCache')
 const discordAPIConstants = require('../constants/discordAPI.js')
 const getResponseError = require('../util/getResponseError.js')
 const createLogger = require('../util/logger/create.js')
@@ -9,6 +10,21 @@ const createLogger = require('../util/logger/create.js')
  * @property {Object} token
  * @property {Object} identity
  */
+
+/**
+ * @param {string} id
+ */
+async function deleteCachedUserData (id) {
+  await WebCache.Model.deleteMany({
+    id: id,
+    $or: [{ type: 'user' }, { type: 'guilds' }]
+  }).lean().exec()
+  const log = createLogger({
+    function: 'removedCachedUserData',
+    userID: id
+  })
+  log.trace('Deleted cached user data')
+}
 
 /**
  * @param {Session} session
@@ -177,7 +193,10 @@ async function getAuthToken (token, config) {
  * @param {Object} config
  */
 async function logout (requestHandler, session, config) {
-  await revokeAuthToken(session.token, config)
+  await Promise.all([
+    revokeAuthToken(session.token, config),
+    deleteCachedUserData(session.identity.id)
+  ])
   return new Promise((resolve, reject) => {
     session.destroy(err => {
       if (err) {
@@ -190,6 +209,7 @@ async function logout (requestHandler, session, config) {
 }
 
 module.exports = {
+  deleteCachedUserData,
   isAuthenticated,
   getAuthorizationURL,
   createAuthToken,
