@@ -30,7 +30,9 @@ module.exports = (webClientManager) => {
   }
 
   app.use(compression())
-  app.use(express.json())
+  app.use(express.json({
+    limit: '2mb'
+  }))
 
   // Sessions
   const session = require('express-session')({
