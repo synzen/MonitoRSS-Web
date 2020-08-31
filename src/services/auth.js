@@ -178,7 +178,6 @@ async function getAuthToken (token, config) {
  */
 async function logout (requestHandler, session, config) {
   await revokeAuthToken(session.token, config)
-  requestHandler.onAccessTokenRevoked(session.token)
   return new Promise((resolve, reject) => {
     session.destroy(err => {
       if (err) {
