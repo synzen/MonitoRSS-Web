@@ -202,11 +202,11 @@ function Filters () {
               <FilterExplanation>
                 {!selectedArticleFilterResults.passed
                   ? Object.keys(selectedArticleFilterResults.invertedMatches).length === 0
-                    ? <span>This article would not have been sent to Discord because there were no matching filters, or a category of one or more filters does not exist for the article..</span>
-                    : <span>This article would not have been sent to Discord because the following negated filters blocked it: <FilterTagContainer>{invertedFilterTags}</FilterTagContainer></span>
+                    ? <span>This article would not have been sent to Discord because   there were no matching filters, or a category of one or more filters does not exist for the article..</span>
+                    : <span>This article would not have been sent to Discord because either there were no matching filters, or the following negated filters blocked it: <FilterTagContainer>{invertedFilterTags}</FilterTagContainer></span>
                   : Object.keys(selectedArticleFilterResults.matches).length === 0
                     ? <span>This article would have been sent because there are no filters to negate it.</span>
-                    : <span>This article would have been sent because the following filters were matched, with no negated filters: <FilterTagContainer>{regularFilterTags}</FilterTagContainer></span>}
+                    : <span>This article would have been sent because some of the following filters were matched, with no negated filters to block it: <FilterTagContainer>{regularFilterTags}</FilterTagContainer></span>}
               </FilterExplanation>
             </FilterDetails>)
       }
