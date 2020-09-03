@@ -81,11 +81,11 @@ export default function testFilters (filters, article) {
   const everyReferenceExists = Object.keys(filters).every(type => !!getFilterReference(article, type))
   filterResults.passed = everyReferenceExists
   // If not every key in filters exists on the articles, auto-block it
-  console.log(everyReferenceExists)
   if (!everyReferenceExists) {
     return filterResults
   }
   let passed = false
+  let hasOneBlock = false
   for (const filterTypeName in filters) {
     const userFilters = filters[filterTypeName]
     const reference = getFilterReference(article, filterTypeName)
@@ -110,9 +110,11 @@ export default function testFilters (filters, article) {
     }
     if (invertedFilters.length > 0) {
       filterResults.add(filterTypeName, invertedFilters, true)
+      if (!results.passed) {
+        hasOneBlock = true
+      }
     }
   }
-  console.log(passed)
-  filterResults.passed = passed
+  filterResults.passed = hasOneBlock ? false : passed
   return filterResults
 }

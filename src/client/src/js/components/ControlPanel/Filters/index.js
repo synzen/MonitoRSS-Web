@@ -125,6 +125,7 @@ function Filters () {
       for (const filterWord of matches[filterType]) {
         words.push(
           <Popup
+            key={filterWord + filterType + 'regular'}
             on='click'
             inverted
             hideOnScroll
@@ -133,7 +134,7 @@ function Filters () {
           />
         )
       }
-      regularFilterTags.push(<div><SectionSubtitle>{filterType}</SectionSubtitle>{words}</div>)
+      regularFilterTags.push(<div key={filterType}><SectionSubtitle>{filterType}</SectionSubtitle>{words}</div>)
     }
     const invertedMatches = selectedArticleFilterResults.invertedMatches
     for (const filterType in invertedMatches) {
@@ -141,6 +142,7 @@ function Filters () {
       for (const filterWord of invertedMatches[filterType]) {
         words.push(
           <Popup
+            key={filterWord + filterType + 'inverted'}
             on='click'
             inverted
             hideOnScroll
@@ -149,7 +151,7 @@ function Filters () {
           />
         )
       }
-      invertedFilterTags.push(<div><SectionSubtitle>{filterType}</SectionSubtitle>{words}</div>)
+      invertedFilterTags.push(<div key={filterType}><SectionSubtitle>{filterType}</SectionSubtitle>{words}</div>)
     }
   }
 
@@ -200,11 +202,11 @@ function Filters () {
               <FilterExplanation>
                 {!selectedArticleFilterResults.passed
                   ? Object.keys(selectedArticleFilterResults.invertedMatches).length === 0
-                    ? <p>This article would not have been sent to Discord because there were no matching filters, or a category of one or more filters does not exist for the article..</p>
-                    : <p>This article would not have been sent to Discord because the following negated filters blocked it: <FilterTagContainer>{invertedFilterTags}</FilterTagContainer></p>
+                    ? <span>This article would not have been sent to Discord because there were no matching filters, or a category of one or more filters does not exist for the article..</span>
+                    : <span>This article would not have been sent to Discord because the following negated filters blocked it: <FilterTagContainer>{invertedFilterTags}</FilterTagContainer></span>
                   : Object.keys(selectedArticleFilterResults.matches).length === 0
-                    ? <p>This article would have been sent because there are no filters to negate it.</p>
-                    : <p>This article would have been sent because the following filters were matched, with no negated filters: <FilterTagContainer>{regularFilterTags}</FilterTagContainer></p>}
+                    ? <span>This article would have been sent because there are no filters to negate it.</span>
+                    : <span>This article would have been sent because the following filters were matched, with no negated filters: <FilterTagContainer>{regularFilterTags}</FilterTagContainer></span>}
               </FilterExplanation>
             </FilterDetails>)
       }
