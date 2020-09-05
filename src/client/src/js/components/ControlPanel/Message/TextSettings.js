@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { Button } from 'semantic-ui-react'
@@ -22,7 +22,7 @@ const ActionButtons = styled.div`
 `
 
 function TextSetting (props) {
-  const { originalMessage } = props
+  const { originalMessage, onUpdate: propsOnUpdate } = props
   const [value, setValue] = useState(null)
   const feed = useSelector(feedSelectors.activeFeed)
   const editing = useSelector(feedSelectors.feedEditing)
@@ -30,9 +30,17 @@ function TextSetting (props) {
   const noChanges = value === originalMessage || value === undefined
   const textAreaVal = value || value === '' ? value : originalMessage
 
+  const onUpdate = useCallback((newValue) => {
+    if (newValue && newValue.length > 1950) {
+      return
+    }
+    setValue(newValue)
+    propsOnUpdate(newValue)
+  }, [propsOnUpdate])
+
   useEffect(() => {
     onUpdate()
-  }, [feed])
+  }, [feed, onUpdate])
 
   const save = () => {
     if (value === null || value === originalMessage) {
@@ -42,14 +50,6 @@ function TextSetting (props) {
       text: value
     }
     dispatch(fetchEditFeed(feed.guild, feed._id, data))
-  }
-
-  const onUpdate = (newValue) => {
-    if (newValue && newValue.length > 1950) {
-      return
-    }
-    setValue(newValue)
-    props.onUpdate(newValue)
   }
 
   return (

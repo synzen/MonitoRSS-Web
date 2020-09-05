@@ -11,7 +11,6 @@ import AlertBox from 'js/components/common/AlertBox'
 import Wrapper from 'js/components/common/Wrapper'
 import MenuButton from 'js/components/ControlPanel/LeftMenu/MenuButton'
 import posed from 'react-pose'
-import colors from 'js/constants/colors'
 import { setActiveGuild } from 'js/actions/guilds'
 const Container = styled.div`
   padding: 20px;

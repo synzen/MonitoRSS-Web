@@ -87,7 +87,7 @@ function SideBar (props) {
       return
     }
     dispatch(fetchGuildFeedSchedule(guildID, selectedFeed._id))
-  }, [selectedFeed, failRecords, schedules, guildID])
+  }, [selectedFeed, failRecords, schedules, guildID, dispatch])
 
   if (!activeGuild || !selectedFeed) {
     return <div />

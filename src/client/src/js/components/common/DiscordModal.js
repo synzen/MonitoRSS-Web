@@ -89,27 +89,27 @@ function DiscordModal () {
   const reduxModalProps = reduxModal.props || {}
   const dispatch = useDispatch()
 
-  const escape = (event) => {
-    if (event.keyCode === 27 && reduxModal.open) {
-      dispatch(hideModal())
-    }
-  }
-
-  function popState (event) {
-    if (reduxModal.open) {
-      event.preventDefault()
-      dispatch(hideModal())
-    }
-  }
-
   useEffect(() => {
+    const escape = (event) => {
+      if (event.keyCode === 27 && reduxModal.open) {
+        dispatch(hideModal())
+      }
+    }
+
+    function popState (event) {
+      if (reduxModal.open) {
+        event.preventDefault()
+        dispatch(hideModal())
+      }
+    }
+
     document.addEventListener('keydown', escape, false)
     window.addEventListener('popstate', popState)
     return () => {
       document.removeEventListener('keydown', escape)
       window.removeEventListener('popstate', popState)
     }
-  }, [reduxModal, escape, popState])
+  }, [reduxModal, dispatch])
 
   return (
     <PoseGroup>
