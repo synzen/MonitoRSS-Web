@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Divider, Button, Form } from 'semantic-ui-react'
+import { Divider, Button } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import DiscordAvatar from 'js/components/ControlPanel/common/DiscordAvatar'
 import { useSelector, useDispatch } from 'react-redux'
@@ -13,9 +13,6 @@ import MenuButton from 'js/components/ControlPanel/LeftMenu/MenuButton'
 import posed from 'react-pose'
 import colors from 'js/constants/colors'
 import { setActiveGuild } from 'js/actions/guilds'
-import feedbackSelector from 'js/selectors/feedback'
-import { fetchCreateFeedback } from 'js/actions/feedback'
-
 const Container = styled.div`
   padding: 20px;
   @media only screen and (min-width: 930px) {
@@ -65,14 +62,6 @@ const ServerButton = styled(MenuButton)`
   }
 `
 
-const FeedbackForm = styled(Form)`
-  > div:last-child {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 1em;
-  }
-`
-
 const NoServers = styled.div`
   text-align: center;
   color: #72767d;
@@ -89,8 +78,6 @@ function Home (props) {
   const [selectedGuildID, setSelectedGuildID] = useState('')
   const guilds = useSelector(state => state.guilds)
   const user = useSelector(state => state.user)
-  const [feedback, setFeedback] = useState('')
-  const savingFeedback = useSelector(feedbackSelector.feedbackSaving)
   const dispatch = useDispatch()
   const { redirect } = props
 
@@ -131,11 +118,6 @@ function Home (props) {
     )
   }
 
-  const submitFeedback = async () => {
-    await dispatch(fetchCreateFeedback(feedback))
-    setFeedback('')
-  }
-
   return (
     <Container>
       <PageHeader heading={`Hi there, ${user ? user.username : '(no name found)'}!`} subheading='Make your life immensely easier by using this web interface! (though excuse my appearance while I am still under construction)' />
@@ -174,26 +156,6 @@ function Home (props) {
       {/* <SectionTitle heading='Rating'/>
       <Rating size='massive' maxRating={5} />
       <Divider /> */}
-      <SectionTitle
-        heading='Feedback' subheading={
-          <span>
-            Help make this a better experience for all and provide some feedback! ;) Any and all comments, suggestions, critiques and opinions are welcome. Bug reports are also welcome.
-            <br />
-            <br />
-            <span style={{ color: colors.discord.red }}>Please note that this is not for submitting requests for support.</span> See the home page for a link to the discord support server.
-          </span>
-        }
-      />
-      <FeedbackForm>
-        <Form.Field>
-          <label>Feedback</label>
-          <textarea onChange={e => setFeedback(e.target.value)} value={feedback} />
-        </Form.Field>
-        <Form.Field>
-          <Button content='Submit' type='submit' disabled={!feedback.trim() || savingFeedback} loading={savingFeedback} onClick={submitFeedback} />
-        </Form.Field>
-      </FeedbackForm>
-      <Divider />
     </Container>
   )
 }

@@ -15,6 +15,7 @@ import { setActiveGuild } from 'js/actions/guilds'
 import { setActiveFeed } from 'js/actions/feeds'
 import { changePage } from 'js/actions/page'
 import feedSelectors from 'js/selectors/feeds'
+import FeedbackForm from './FeedbackForm'
 
 const LeftMenuDiv = styled.div`
   display: flex;
@@ -198,6 +199,33 @@ function LeftMenu (props) {
     modal.show(modalProps, children)
   }
 
+  function feedbackClick () {
+    const modalProps = {
+      title: 'Submit Feedback'
+      // footer: (
+      //   <>
+      //     <Button fluid basic onClick={() => modal.hide()}>
+      //       Close
+      //     </Button>
+      //     <Button>
+      //       Submit
+      //     </Button>
+      //   </>)
+    }
+    const children = (
+      <div style={{ padding: '5px 10px 15px 10px' }}>
+        <p>
+          Help make this a better experience for all and provide some feedback! ;) Any and all comments, suggestions, critiques and opinions are welcome. Bug reports are also welcome.
+          <br />
+          <br />
+          <span style={{ color: colors.discord.red }}>Please note that this is not for submitting requests for support.</span> See the home page for a link to the discord support server.
+        </p>
+        <FeedbackForm />
+      </div>
+    )
+    modal.show(modalProps, children)
+  }
+
   const disableFeedButtons = !feedId || !!feedsFetchError || !!feedsFetching || !!articlesFetching || !!articlesFetchError
 
   return (
@@ -260,6 +288,10 @@ function LeftMenu (props) {
             {/* <MenuButton to={pages.DEBUGGER} disabled={disableFeedButtons} onClick={() => menuButtonClick(pages.DEBUGGER)} selected={page === pages.DEBUGGER}>Debugger</MenuButton> */}
             <Divider />
           </div>
+          {/* <MenuSectionHeader>Feedback</MenuSectionHeader> */}
+          <Button basic fluid onClick={feedbackClick}>
+            Have some feedback?
+          </Button>
           <div />
         </Content>
       </Scrollbars>
