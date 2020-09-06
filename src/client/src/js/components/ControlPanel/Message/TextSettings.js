@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { Button } from 'semantic-ui-react'
@@ -30,17 +30,19 @@ function TextSetting (props) {
   const noChanges = value === originalMessage || value === undefined
   const textAreaVal = value || value === '' ? value : originalMessage
 
-  const onUpdate = useCallback((newValue) => {
+  const onUpdate = (newValue) => {
     if (newValue && newValue.length > 1950) {
       return
     }
     setValue(newValue)
     propsOnUpdate(newValue)
-  }, [propsOnUpdate])
+  }
 
   useEffect(() => {
     onUpdate()
-  }, [feed, onUpdate])
+    // Don't check dependency onUpdate since it depends on propsOnUpdate, which changes on every render
+    // eslint-disable-next-line
+  }, [feed])
 
   const save = () => {
     if (value === null || value === originalMessage) {
