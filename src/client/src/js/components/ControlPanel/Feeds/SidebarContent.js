@@ -176,7 +176,7 @@ function SideBar (props) {
             <PopInButton
               basic inverted content='Reset' disabled={feedEditing || !differentFromDefault || !inputTitle} pose={differentFromDefault ? 'enter' : 'exit'} onClick={resetEdit}
             />
-            <Button content='Save' color='green' disabled={!differentFromDefault} onClick={edit} />
+            <Button content='Save' color='green' disabled={feedEditing || !differentFromDefault} onClick={edit} />
           </ApplyField>
           <Divider />
           <SectionTitle heading='Customize' subheading='So many options!' />
