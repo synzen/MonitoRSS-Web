@@ -18,6 +18,13 @@ class Channel extends Base {
     this.guildID = data.guildID
   }
 
+  /**
+   * @param {import('discord.js').GuildChannel} channel
+   */
+  static isValidChannelType (channel) {
+    return channel.type === 'news' || channel.type === 'text'
+  }
+
   static get utils () {
     return {
       REDIS_KEYS: {
@@ -33,7 +40,7 @@ class Channel extends Base {
       JSON_KEYS: ['name', 'guildID'],
       recognize: async (redisClient, channel) => {
         if (!(channel instanceof Discord.GuildChannel)) throw new TypeError('Channel is not instance of Discord.GuildChannel')
-        if (channel.type !== 'text') return
+        if (!this.isValidChannelType(channel)) return
         const toStore = {}
         this.utils.JSON_KEYS.forEach(key => {
           toStore[key] = key === 'guildID' ? channel.guild.id : channel[key] || '' // MUST be a flat structure
@@ -47,7 +54,7 @@ class Channel extends Base {
       },
       recognizeTransaction: (multi, channel) => {
         if (!(channel instanceof Discord.GuildChannel)) throw new TypeError('Channel is not instance of Discord.GuildChannel')
-        if (channel.type !== 'text' && channel.type !== 'news') return
+        if (!this.isValidChannelType(channel)) return
         const toStore = {}
         this.utils.JSON_KEYS.forEach(key => {
           toStore[key] = key === 'guildID' ? channel.guild.id : channel[key] || '' // MUST be a flat structure
@@ -58,7 +65,7 @@ class Channel extends Base {
       },
       update: async (redisClient, oldChannel, newChannel) => {
         if (!(newChannel instanceof Discord.GuildChannel) || !(oldChannel instanceof Discord.GuildChannel)) throw new TypeError('Channel is not instance of Discord.GuildChannel')
-        if (newChannel.type !== 'text') return
+        if (!this.isValidChannelType(newChannel)) return
         // const exists = await this.utils.isChannelOfGuild(newChannel.id, newChannel.guild.id)
         // if (!exists) return Guild.utils.recognize(newChannel.guild)
         const toStore = {}
