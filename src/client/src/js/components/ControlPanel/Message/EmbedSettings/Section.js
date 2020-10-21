@@ -8,16 +8,17 @@ import { SketchPicker } from 'react-color'
 
 const SettingSectionHead = styled.div`
   align-items: center;
-  padding: 1em;
+  padding: 0.75rem;
   display: flex;
   background: #18191c;
-  cursor: pointer;
+  cursor: pointer !important;
   user-select: none !important;
   margin-bottom: 0.5em;
   margin-top: 0.5em;
   > label {
     margin-left: 1em;
-    use-select: none !important;
+    user-select: none;
+    cursor: pointer;
   }
 `
 
