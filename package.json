@@ -1,6 +1,6 @@
 {
   "name": "monitorss-web",
-  "version": "0.0.82",
+  "version": "0.0.83",
   "description": "Website for MonitoRSS",
   "main": "index.js",
   "repository": {
