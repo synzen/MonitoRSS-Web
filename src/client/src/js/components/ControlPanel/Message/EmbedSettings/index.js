@@ -258,7 +258,7 @@ function EmbedSettings (props) {
       )
     }
   }
-
+  console.log(valuesToUse)
   return (
     <div>
       <SectionTitle
@@ -313,7 +313,7 @@ function EmbedSettings (props) {
         name='Footer'
         inputs={[
           { label: 'Text', variable: embedPropertiesNames.footerText, value: valuesToUse[embedPropertiesNames.footerText] },
-          { label: 'Icon URL', variable: embedPropertiesNames.footerIconURL, values: valuesToUse[embedPropertiesNames.footerIconURL], condition: !!valuesToUse[embedPropertiesNames.footerText] },
+          { label: 'Icon URL', variable: embedPropertiesNames.footerIconURL, value: valuesToUse[embedPropertiesNames.footerIconURL], condition: !!valuesToUse[embedPropertiesNames.footerText] },
           { label: 'Timestamp', variable: embedPropertiesNames.timestamp, dropdown: true, options: [{ text: 'None', value: 'none' }, { text: 'article', value: 'article' }, { text: 'now', value: 'now' }], value: valuesToUse[embedPropertiesNames.timestamp] }
         ]}
         onUpdate={onPropertyUpdate}
