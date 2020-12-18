@@ -2,10 +2,10 @@ import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from '../reducers/index-reducer.js'
 
-const activeFeedID = window.localStorage.getItem('activeFeedID')
+// const activeFeedID = window.localStorage.getItem('activeFeedID')
 const activeGuildID = window.localStorage.getItem('activeGuildID')
 const initialState = {
-  activeFeedID,
+  // activeFeedID,
   activeGuildID
 }
 

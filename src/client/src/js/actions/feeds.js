@@ -66,15 +66,15 @@ export function addGuildFeed (guildID, feedData) {
 export function fetchGuildFeeds (guildID) {
   return async (dispatch, getState) => {
     try {
-      const { activeFeedID } = getState()
+      // const { activeFeedID } = getState()
       dispatch(setFeedsBegin())
       const { data } = await axios.get(`/api/guilds/${guildID}/feeds`)
       dispatch(setFeedsSuccess(data))
-      if (!data.find(feed => feed._id === activeFeedID)) {
-        await dispatch(setActiveFeed(''))
-      } else {
-        await dispatch(setActiveFeed(activeFeedID))
-      }
+      // if (!data.find(feed => feed._id === activeFeedID)) {
+      //   await dispatch(setActiveFeed(''))
+      // } else {
+      //   await dispatch(setActiveFeed(activeFeedID))
+      // }
     } catch (err) {
       dispatch(setFeedsFailure(err))
     }
