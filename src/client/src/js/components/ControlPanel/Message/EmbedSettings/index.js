@@ -257,7 +257,7 @@ function EmbedSettings (props) {
       )
     }
   }
-  console.log(valuesToUse)
+
   return (
     <div>
       <SectionTitle
