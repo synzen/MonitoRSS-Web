@@ -8,10 +8,11 @@ import Message from './Message/index'
 import Filters from './Filters/index'
 import Subscribers from './Subscribers/index'
 import MiscOptions from './MiscOptions/index'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import pages from 'js/constants/pages'
 import { Scrollbars } from 'react-custom-scrollbars'
 import { changePage } from 'js/actions/page'
+import feedSelectors from 'js/selectors/feeds'
 
 const Body = styled.div`
   height: 100%;
@@ -23,6 +24,7 @@ function ContentBody () {
   const history = useHistory()
   const location = useLocation()
   const dispatch = useDispatch()
+  const activeFeedID = useSelector(feedSelectors.activeFeedID)
   const [scrollbarRef, setScrollbarRef] = useState()
 
   useEffect(() => {
@@ -44,10 +46,10 @@ function ContentBody () {
           <Route exact path={pages.DASHBOARD} render={routerProps => <Home redirect={redirect} {...routerProps} />} />
           <Route exact path={pages.FEEDS} render={routerProps => <Feeds redirect={redirect} {...routerProps} />} />
           <Route exact path={pages.SERVER_SETTINGS} render={routerProps => <Settings {...routerProps} />} />
-          <Route exact path={pages.MESSAGE} render={routerProps => <Message {...routerProps} />} />
-          <Route exact path={pages.FILTERS} render={routerProps => <Filters {...routerProps} />} />
-          <Route exact path={pages.SUBSCRIBERS} render={routerProps => <Subscribers {...routerProps} />} />
-          <Route exact path={pages.MISC_OPTIONS} render={routerProps => <MiscOptions {...routerProps} />} />
+          {activeFeedID && <Route exact path={pages.MESSAGE} render={routerProps => <Message {...routerProps} />} />}
+          {activeFeedID && <Route exact path={pages.FILTERS} render={routerProps => <Filters {...routerProps} />} />}
+          {activeFeedID && <Route exact path={pages.SUBSCRIBERS} render={routerProps => <Subscribers {...routerProps} />} />}
+          {activeFeedID && <Route exact path={pages.MISC_OPTIONS} render={routerProps => <MiscOptions {...routerProps} />} />}
           <Route render={routerProps => <Home {...routerProps} />} />
         </Switch>
       </Scrollbars>
