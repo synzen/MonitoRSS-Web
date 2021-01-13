@@ -175,7 +175,6 @@ function EmbedSettings (props) {
   }
 
   const discardChanges = useCallback(() => {
-    setIndex(0)
     embedsDispatch(setEmbeds(feed.embeds))
   }, [feed])
 
