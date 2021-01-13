@@ -282,14 +282,14 @@ function Preview (props) {
     let content = word.replace(/\\u200b/g, '\u200b')
     for (const placeholderName in articlePlaceholders) {
       if (isHiddenProperty(placeholderName)) continue
-      if (placeholderName === 'subscriptions') continue
+      if (placeholderName === 'subscriptions' || placeholderName === 'subscribers') continue
       const sanitizedPlaceholderName = `{${placeholderName.replace('regex:', '')}}`
       // console.log('replacing', sanitizedPlaceholderName, 'with', articlePlaceholders[placeholderName])
       const replacementQuery = new RegExp(sanitizedPlaceholderName, 'g')
       content = content.replace(replacementQuery, articlePlaceholders[placeholderName])
     }
     // Do not replace it with articlePlaceholders.subscriptions since it may be outdated after updating subscriptions from the subscriptions page. It will not be updated until another articlePlaceholders fetch has occurred.
-    if (content.includes('{subscriptions}')) {
+    if (content.includes('{subscriptions}') || content.includes('{subscribers}')) {
       const feedSubscribers = []
       const thisSubscribers = subscribers.filter(s => s.feed === feed._id)
       for (const subscriber of thisSubscribers) {
@@ -301,7 +301,7 @@ function Preview (props) {
           feedSubscribers.push(`<@${id}>`)
         }
       }
-      content = content.replace('{subscriptions}', feedSubscribers.length > 0 ? feedSubscribers.join(' ') : '')
+      content = content.replace(/({subscriptions})|({subscribers})/g, feedSubscribers.length > 0 ? feedSubscribers.join(' ') : '')
     }
     return content
   }
