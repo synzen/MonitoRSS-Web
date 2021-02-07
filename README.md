@@ -1,5 +1,8 @@
-# MonitoRSS Web (Formerly Discord.RSS Web)
+# ATTN: This repo is currenty in a maintenance-only stage
 
+Due to limited resources and time, only critical bug fixes will be worked on until further notice.
+
+# MonitoRSS Web (Formerly Discord.RSS Web)
 
 A web app for https://github.com/synzen/MonitoRSS to manage your feeds.
 
