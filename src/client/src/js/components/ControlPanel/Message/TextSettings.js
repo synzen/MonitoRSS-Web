@@ -27,7 +27,7 @@ function TextSetting (props) {
   const feed = useSelector(feedSelectors.activeFeed)
   const editing = useSelector(feedSelectors.feedEditing)
   const dispatch = useDispatch()
-  const noChanges = value === originalMessage || value === undefined
+  const noChanges = value === originalMessage || value === null
   const textAreaVal = value || value === '' ? value : originalMessage
 
   const onUpdate = (newValue) => {
@@ -37,12 +37,6 @@ function TextSetting (props) {
     setValue(newValue)
     propsOnUpdate(newValue)
   }
-
-  useEffect(() => {
-    onUpdate()
-    // Don't check dependency onUpdate since it depends on propsOnUpdate, which changes on every render
-    // eslint-disable-next-line
-  }, [feed])
 
   const save = () => {
     if (value === null || value === originalMessage) {
