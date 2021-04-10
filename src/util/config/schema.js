@@ -41,7 +41,21 @@ const httpSchema = Joi.object({
   sessionSecret: Joi.string().disallow('').default('keyboard cat')
 })
 
+const pledgeApiSchema = Joi.object({
+  url: Joi.string().allow('').default(''),
+  accessToken: Joi.string().strict().allow('').default('').when('url', {
+    is: Joi.string().strict().min(1),
+    then: Joi.string().strict().required(),
+    otherwise: Joi.string().strict().allow('')
+  })
+})
+
+const apisSchema = Joi.object({
+  pledge: pledgeApiSchema.default(pledgeApiSchema.validate({}).value)
+})
+
 const schema = Joi.object({
+  apis: apisSchema.default(apisSchema.validate({}).value),
   adminIDs: Joi.array().items(Joi.string().strict()).default([]),
   log: logSchema.default(logSchema.validate({}).value),
   bot: botSchema.default(botSchema.validate({}).value),

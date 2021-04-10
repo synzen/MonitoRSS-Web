@@ -10,6 +10,17 @@ function envArray (name) {
 }
 
 exports.set = (override) => {
+  // APIs
+  if (!override.apis) {
+    override.apis = {
+      pledge: {}
+    }
+  }
+  const apis = config.apis
+  const apisOverride = override.apis
+  apis.pledge.url = process.env.DRSS_APIS_PLEDGE_URL || apisOverride.pledge.url || apis.pledge.url
+  apis.pledge.accessToken = process.env.DRSS_APIS_PLEDGE_ACCESSTOKEN || apisOverride.pledge.accessToken || apis.pledge.accessToken
+
   // ADMIN IDS
   config.adminIDs = envArray('DRSSWEB_ADMINIDS') || override.adminIDs || config.adminIDs
 
