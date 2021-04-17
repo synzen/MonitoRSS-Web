@@ -42,8 +42,9 @@ class WebClient {
       this.log.info(`MonitoRSS-Web logged in as ${this.client.user.username}#${this.client.user.discriminator}`)
       this.log = createLogger(this.client.shard.ids[0])
       this.log.debug('Waiting for client to be ready...')
-      if (!this.client.readyAt)
-          await once(this.client, 'ready')
+      if (!this.client.readyAt) {
+        await once(this.client, 'ready')
+      }
       this.client.on('debug', message => this.log.debug(message))
       this.log.debug('Client is ready, registering listeners...')
       this.onReady()
