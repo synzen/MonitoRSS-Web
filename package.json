@@ -31,7 +31,7 @@
     "stemmer": "^1.0.5"
   },
   "peerDependencies": {
-    "monitorss": "^6.12.6"
+    "monitorss": "^6.12.7"
   },
   "devDependencies": {
     "@types/jest": "^25.2.3",
