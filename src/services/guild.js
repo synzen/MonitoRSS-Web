@@ -3,6 +3,7 @@ const RedisGuild = require('../bot/structs/Guild.js')
 const RedisChannel = require('../bot/structs/Channel.js')
 const feedServices = require('./feed.js')
 const GuildData = MonitoRSS.GuildData
+const Guild = MonitoRSS.Guild
 const Profile = MonitoRSS.Profile
 
 async function getAppData (guildID) {
@@ -24,7 +25,8 @@ async function getCachedGuild (guildID, redisClient) {
 }
 
 async function getFeedLimit (guildID) {
-  return Profile.getFeedLimit(guildID)
+  const guild = new Guild(guildID)
+  return guild.getMaxFeeds()
 }
 
 async function getGuildLimitInfo (guildID) {

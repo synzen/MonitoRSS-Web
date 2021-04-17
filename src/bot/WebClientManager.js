@@ -109,6 +109,12 @@ class WebClientManager {
       configServices.getSupporterConfig()
     ])
     MonitoRSS.config.set({
+      apis: {
+        pledge: {
+          url: this.config.apis.pledge.url,
+          accessToken: this.config.apis.pledge.accessToken
+        }
+      },
       feeds: feedConfig,
       [Supporter.keys.ENABLED]: supporterConfig[Supporter.keys.ENABLED],
       [Supporter.keys.REFRESH_RATE]: supporterConfig[Supporter.keys.REFRESH_RATE]
