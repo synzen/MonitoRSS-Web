@@ -43,6 +43,13 @@ function testArrayRegularFilters (userFilters, reference) {
     regular: regularFilters.map(f => f.content)
   }
 
+  if (!reference) {
+    return {
+      ...returnData,
+      passed: false
+    }
+  }
+
   const passed = !!regularFilters.find(filter => filter.passes(reference))
   return {
     ...returnData,
@@ -55,6 +62,13 @@ function testArrayRegularFilters (userFilters, reference) {
  * @param {string} reference
  */
 function testRegexFilter (userFilter, reference) {
+  if (!reference) {
+    return {
+      inverted: [],
+      regular: [userFilter],
+      passed: false
+    }
+  }
   const filter = new FilterRegex(userFilter)
   const filterPassed = filter.passes(reference)
   if (filterPassed) {
@@ -92,21 +106,12 @@ export default function testFilters (filters, article) {
     filterResults.passed = true
     return filterResults
   }
-  const everyReferenceExists = Object.keys(filters).every(type => !!getFilterReference(article, type))
-  filterResults.passed = everyReferenceExists
-  // If not every key in filters exists on the articles, auto-block it
-  if (!everyReferenceExists) {
-    return filterResults
-  }
 
   let hasOneBlock = false
   // First check if any filters block this article
   for (const filterTypeName in filters) {
     const userFilters = filters[filterTypeName]
     const reference = getFilterReference(article, filterTypeName)
-    if (!reference) {
-      continue
-    }
     // Filters can either be an array of words or a string (regex)
     let results
     if (Array.isArray(userFilters)) {
