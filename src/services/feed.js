@@ -76,6 +76,9 @@ async function editFeed (feedID, data) {
   for (const key in data) {
     feed[key] = data[key]
   }
+  if (feed.disabled === Feed.DISABLE_REASONS.BAD_FORMAT) {
+    feed.disabled = false
+  }
   await feed.save()
   return feed.toJSON()
 }
