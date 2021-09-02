@@ -7,6 +7,7 @@ import colors from '../../../constants/colors'
 import posed from 'react-pose'
 import pages from '../../../constants/pages'
 import WhiteButton from '../Main/common/WhiteButton'
+import SiteLogo from '../../../../images/monitorss-logo.svg'
 
 const Title = styled.h2`
   color: ${darken(0.1, 'white')};
@@ -210,7 +211,7 @@ function NavBar () {
         <NavButtons>
           <NavItem select={path === '/'}>
             <Link to='/' onClick={e => path === '/' ? e.preventDefault() : null}>
-              <Logo src='https://discord.com/assets/d36b33903dafb0107bb067b55bdd9cbc.svg' alt='Website logo' />
+              <Logo src={SiteLogo} alt='MonitoRSS logo' />
               <Title>MonitoRSS</Title>
             </Link>
           </NavItem>
@@ -240,7 +241,7 @@ function NavBar () {
       <MobileNav aria-label='primary mobile'>
         <Button aria-label='Show Menu' basic icon={showMobileNav ? 'caret up' : 'list ul'} onClick={e => setShowMobileNav(!showMobileNav)} />
         <Link to='/'>
-          <Logo src='https://discord.com/assets/d36b33903dafb0107bb067b55bdd9cbc.svg' alt='Website logo' />
+          <Logo src={SiteLogo} alt='Monitorss logo' />
           <Title>MonitoRSS</Title>
         </Link>
         <Sidebar pose={showMobileNav ? 'enter' : 'exit'}>

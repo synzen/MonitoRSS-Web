@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { Button } from 'semantic-ui-react'
 import { darken } from 'polished'
+import SiteLogo from '../../../images/monitorss-logo.svg'
 
 const RouterLink = styled(Link)`
   display: flex;
@@ -67,7 +68,7 @@ function TopBar (props) {
     <BrandTitleContainer hideExpandButton={hideExpandButton}>
       <ExpandButton className='expand-left-menu-btn' icon='list' basic onClick={toggleLeftMenu} />
       <RouterLink to='/'>
-        <Logo src='https://discord.com/assets/d36b33903dafb0107bb067b55bdd9cbc.svg' />
+        <Logo src={SiteLogo} />
         <Title>MonitoRSS</Title>
       </RouterLink>
     </BrandTitleContainer>
