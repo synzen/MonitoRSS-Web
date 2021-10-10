@@ -22,12 +22,12 @@ async function getFeed (req, res) {
     }
   }
   try {
-    const res = await fetch(feedUrl)
-    if (res.status !== 200) {
-      const resError = createError(500, `Bad status code (${res.status})`)
+    const feedResponse = await fetch(feedUrl)
+    if (feedResponse.status !== 200) {
+      const resError = createError(500, `Bad status code (${feedResponse.status})`)
       return res.status(500).json(resError)
     }
-    xmlStr = await res.text()
+    xmlStr = await feedResponse.text()
   } catch (err) {
     const resError = createError(500, err.message)
     return res.status(500).json(resError)
