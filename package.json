@@ -21,7 +21,7 @@
     "moment-timezone": "^0.5.32",
     "mongoose": "^5.11.11",
     "morgan": "^1.10.0",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.1.1",
     "pino": "^6.10.0",
     "pino-pretty": "^4.3.0",
     "redis": "^3.1.2",
