@@ -4,6 +4,7 @@ const feedServices = require('../../../../services/feed.js')
 const createError = require('../../../../util/createError.js')
 const FeedParserError = MonitoRSS.errors.FeedParserError
 const RequestError = MonitoRSS.errors.RequestError
+const BannedFeed = MonitoRSS.BannedFeed
 
 /**
  * @param {import('express').Request} req
@@ -19,6 +20,13 @@ async function createFeed (req, res, next) {
     title: req.body.title
   }
   try {
+    const bannedStatus = await BannedFeed.findForUrl(req.body.url, guildID)
+
+    if (bannedStatus) {
+      const createdError = createError(403, `This feed has been banned (reason: ${bannedStatus.reason || 'unknown'})`)
+      return res.status(403).json(createdError)
+    }
+
     const info = await guildServices.getGuildLimitInfo(guildID)
     if (info.exceeded) {
       const createdError = createError(403, `Reached or exceeded feed limit (${info.limit})`)
