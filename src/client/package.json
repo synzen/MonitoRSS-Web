@@ -5,7 +5,7 @@
   "homepage": "/",
   "proxy": "http://localhost:8081",
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "feedparser": "^2.2.9",
     "fomantic-ui": "^2.8.7",
     "highlight.js": "^10.5.0",
