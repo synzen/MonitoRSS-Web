@@ -1,26 +1,25 @@
 {
   "files": {
-    "main.css": "/static/css/main.efdebbf5.chunk.css",
-    "main.js": "/static/js/main.db6e31a7.chunk.js",
-    "main.js.map": "/static/js/main.db6e31a7.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.a6f0c683.js",
-    "runtime-main.js.map": "/static/js/runtime-main.a6f0c683.js.map",
-    "static/css/2.793afd06.chunk.css": "/static/css/2.793afd06.chunk.css",
-    "static/js/2.39d555c4.chunk.js": "/static/js/2.39d555c4.chunk.js",
-    "static/js/2.39d555c4.chunk.js.map": "/static/js/2.39d555c4.chunk.js.map",
+    "main.css": "/static/css/main.409627a8.chunk.css",
+    "main.js": "/static/js/main.5c81d71a.chunk.js",
+    "main.js.map": "/static/js/main.5c81d71a.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.029cc580.js",
+    "runtime-main.js.map": "/static/js/runtime-main.029cc580.js.map",
+    "static/css/2.9721f97a.chunk.css": "/static/css/2.9721f97a.chunk.css",
+    "static/js/2.8e0a85c6.chunk.js": "/static/js/2.8e0a85c6.chunk.js",
+    "static/js/2.8e0a85c6.chunk.js.map": "/static/js/2.8e0a85c6.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.fe28fa1ba30c5eb53e4efd74cbda85fd.js": "/precache-manifest.fe28fa1ba30c5eb53e4efd74cbda85fd.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.793afd06.chunk.css.map": "/static/css/2.793afd06.chunk.css.map",
-    "static/css/main.efdebbf5.chunk.css.map": "/static/css/main.efdebbf5.chunk.css.map",
-    "static/js/2.39d555c4.chunk.js.LICENSE.txt": "/static/js/2.39d555c4.chunk.js.LICENSE.txt",
-    "static/media/semantic.min.css": "/static/media/outline-icons.f89ea91e.woff"
+    "static/css/2.9721f97a.chunk.css.map": "/static/css/2.9721f97a.chunk.css.map",
+    "static/css/main.409627a8.chunk.css.map": "/static/css/main.409627a8.chunk.css.map",
+    "static/js/2.8e0a85c6.chunk.js.LICENSE.txt": "/static/js/2.8e0a85c6.chunk.js.LICENSE.txt",
+    "static/media/semantic.min.css": "/static/media/outline-icons.c5240512.woff2",
+    "static/media/monitorss-logo.ab98090f.svg": "/static/media/monitorss-logo.ab98090f.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.a6f0c683.js",
-    "static/css/2.793afd06.chunk.css",
-    "static/js/2.39d555c4.chunk.js",
-    "static/css/main.efdebbf5.chunk.css",
-    "static/js/main.db6e31a7.chunk.js"
+    "static/js/runtime-main.029cc580.js",
+    "static/css/2.9721f97a.chunk.css",
+    "static/js/2.8e0a85c6.chunk.js",
+    "static/css/main.409627a8.chunk.css",
+    "static/js/main.5c81d71a.chunk.js"
   ]
 }

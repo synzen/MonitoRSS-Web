@@ -3,6 +3,9 @@
   "parser": "babel-eslint",
   "env": {
 	"browser": true,
-	"mocha": true
+	"mocha": true,
+  },
+  "rules": {
+    "react/jsx-no-bind": "off"
   }
 }
