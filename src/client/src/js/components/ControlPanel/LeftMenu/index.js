@@ -16,6 +16,7 @@ import { setActiveFeed } from 'js/actions/feeds'
 import { changePage } from 'js/actions/page'
 import feedSelectors from 'js/selectors/feeds'
 import FeedbackForm from './FeedbackForm'
+import SiteLogo from '../../../../images/monitorss-logo.svg'
 
 const LeftMenuDiv = styled.div`
   display: flex;
@@ -237,7 +238,7 @@ function LeftMenu (props) {
               ? (
                 <Header to='/'>
                   <div>
-                    <img alt='Discord RSS logo' src='https://discord.com/assets/d36b33903dafb0107bb067b55bdd9cbc.svg' width='30px' />
+                    <img alt='MonitoRSS logo' src={SiteLogo} width='30px' />
                     <h3 style={{ margin: '0 10px' }}>MonitoRSS</h3>
                     <h4 style={{ margin: 0 }}>Control Panel</h4>
                   </div>
