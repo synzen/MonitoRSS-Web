@@ -7,12 +7,11 @@
   "dependencies": {
     "axios": "^0.21.2",
     "feedparser": "^2.2.9",
-    "fomantic-ui": "^2.9.0-beta.299",
+    "fomantic-ui": "^2.9.0",
     "highlight.js": "^10.5.0",
     "js-file-download": "^0.4.9",
     "moment": "^2.29.4",
-    "moment-timezone": "^0.5.32",
-    "node-sass": "^7.0.1",
+    "moment-timezone": "^0.5.40",
     "polished": "^3.6.7",
     "postcss": "^8.4.14",
     "prop-types": "^15.7.2",
@@ -34,7 +33,7 @@
     "react-twemoji": "^0.2.3",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "semantic-ui-react": "^0.88.2",
+    "semantic-ui-react": "^2.1.4",
     "simple-markdown": "^0.7.3",
     "styled-components": "^5.2.1",
     "twemoji": "^13.0.1"
@@ -66,7 +65,6 @@
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-standard": "^4.1.0",
-    "gulp-help": "^1.6.1",
-    "node-sass-tilde-importer": "^1.0.2"
+    "gulp-help": "^1.6.1"
   }
 }
