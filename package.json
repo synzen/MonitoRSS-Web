@@ -20,6 +20,7 @@
     "keyword-extractor": "0.0.20",
     "moment-timezone": "^0.5.32",
     "mongoose": "^5.11.11",
+    "monitorss": "^6.14.12",
     "morgan": "^1.10.0",
     "node-fetch": "^2.6.7",
     "pino": "^6.10.0",
@@ -31,7 +32,7 @@
     "stemmer": "^1.0.5"
   },
   "peerDependencies": {
-    "monitorss": "^6.14.6"
+    "monitorss": "^6.14.12"
   },
   "devDependencies": {
     "@types/jest": "^25.2.3",
