@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import pages from 'js/constants/pages'
 import SectionTitle from 'js/components/common/SectionTitle'
 import PageHeader from 'js/components/common/PageHeader'
-import AlertBox from 'js/components/common/AlertBox'
 import Wrapper from 'js/components/common/Wrapper'
 import MenuButton from 'js/components/ControlPanel/LeftMenu/MenuButton'
 import posed from 'react-pose'
@@ -120,9 +119,9 @@ function Home (props) {
   return (
     <Container>
       <PageHeader heading={`Hi there, ${user ? user.username : '(no name found)'}!`} subheading='Make your life immensely easier by using this web interface! (though excuse my appearance while I am still under construction)' />
-      <AlertBox warn>
+      {/* <AlertBox warn>
         This UI is still under development. It is not meant to completely replace regular Discord commands. Occasional issues are expected - please report them if you encounter any!
-      </AlertBox>
+      </AlertBox> */}
       {/* <Divider />
       <h2>What is Discord.RSS?</h2>
       <ParagraphText>

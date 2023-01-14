@@ -8,15 +8,16 @@ import colors from 'js/constants/colors'
 import {
   fetchUser, fetchBotUser
 } from 'js/actions/user'
-import { Loader } from 'semantic-ui-react'
+import { Loader, Icon } from 'semantic-ui-react'
 import TopBar from './TopBar'
 import { fetchAuthentication } from 'js/actions/auth'
 import { fetchGuilds } from 'js/actions/guilds'
 import { fetchBotConfig } from 'js/actions/botConfig'
+import AlertBox from 'js/components/common/AlertBox'
 
 const MainContainer = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 80px);
   max-width: 100%;
   display: flex;
   flex-direction: row;
@@ -128,6 +129,26 @@ function ControlPanel () {
         <h3>My lifeline to the server has been severed! Access will be restored once my connection has been re-established.</h3>
       </EmptyBackgroundTransparent> */}
       <ToastContainer position='top-center' />
+      <AlertBox error style={{
+        margin: 0,
+        height: '80px',
+        justifyContent: 'center',
+        alignItems: 'center',
+        display: 'flex'
+        // overflow: 'auto'
+      }}>
+        <div style={{
+          display: 'flex',
+          gap: '10px',
+          alignItems: 'center'
+        }}>
+          <Icon name='exclamation triangle' color='red' />
+          <span style={{ textAlign: 'center', margin: 0, marginTop: '-7px' }}>
+            This control panel will soon be deprecated. Please begin transitioning to the newer control panel at <a href="https://my.monitorss.xyz" target="_blank" rel="noreferrer noopener">https://my.monitorss.xyz</a>
+          </span>
+          <Icon name='exclamation triangle' color='red' />
+        </div>
+      </AlertBox>
       {sizeInfo.leftMenuNotFull
         ? null
         : (
