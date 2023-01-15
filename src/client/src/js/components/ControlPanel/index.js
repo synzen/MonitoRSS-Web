@@ -129,7 +129,7 @@ function ControlPanel () {
         <h3>My lifeline to the server has been severed! Access will be restored once my connection has been re-established.</h3>
       </EmptyBackgroundTransparent> */}
       <ToastContainer position='top-center' />
-      <AlertBox error style={{
+      <AlertBox warn style={{
         margin: 0,
         height: '80px',
         justifyContent: 'center',
@@ -142,11 +142,11 @@ function ControlPanel () {
           gap: '10px',
           alignItems: 'center'
         }}>
-          <Icon name='exclamation triangle' color='red' />
-          <span style={{ textAlign: 'center', margin: 0, marginTop: '-7px' }}>
-            This control panel will soon be deprecated. Please begin transitioning to the newer control panel at <a href="https://my.monitorss.xyz" target="_blank" rel="noreferrer noopener">https://my.monitorss.xyz</a>
+          <Icon name='exclamation triangle' color='yellow' />
+          <span style={{ textAlign: 'center', margin: 0, marginTop: '-3px' }}>
+            This control panel will eventually be deprecated and be replaced by <a href="https://my.monitorss.xyz" target="_blank" rel="noreferrer noopener">https://my.monitorss.xyz</a>
           </span>
-          <Icon name='exclamation triangle' color='red' />
+          <Icon name='exclamation triangle' color='yellow' />
         </div>
       </AlertBox>
       {sizeInfo.leftMenuNotFull

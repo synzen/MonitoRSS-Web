@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.7c985fc8.css",
-    "main.js": "/static/js/main.ccf32744.js",
+    "main.js": "/static/js/main.25623c43.js",
     "static/media/brand-icons.svg": "/static/media/brand-icons.6729d29753e000c17489.svg",
     "static/media/Lato-Italic.woff": "/static/media/Lato-Italic.62a9c838c99d073c7ba6.woff",
     "static/media/Lato-BoldItalic.woff": "/static/media/Lato-BoldItalic.3e6b99809852a8290c42.woff",
@@ -33,10 +33,10 @@
     "index.html": "/index.html",
     "static/media/monitorss-logo.svg": "/static/media/monitorss-logo.ab98090f1def9186417bd476bb0eda93.svg",
     "main.7c985fc8.css.map": "/static/css/main.7c985fc8.css.map",
-    "main.ccf32744.js.map": "/static/js/main.ccf32744.js.map"
+    "main.25623c43.js.map": "/static/js/main.25623c43.js.map"
   },
   "entrypoints": [
     "static/css/main.7c985fc8.css",
-    "static/js/main.ccf32744.js"
+    "static/js/main.25623c43.js"
   ]
 }
