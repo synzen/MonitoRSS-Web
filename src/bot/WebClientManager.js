@@ -94,13 +94,6 @@ class WebClientManager {
   }
 
   async setupMonitoRSS () {
-    if (process.env.DRSS_CONFIG) {
-      /**
-       * An instance of the bot has been instantiated.
-       * Config was already set.
-       */
-      return
-    }
     const uri = this.config.database.uri
     const options = this.config.database.connection
     await MonitoRSS.setupModels(uri, options)
