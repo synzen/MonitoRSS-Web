@@ -63,7 +63,7 @@ function GetStarted () {
           <Icon name='check' />
           <div>
             <h2>3. Add it!</h2>
-            <p>Use the rss.add command in your desired channel to add the feed, then you're done!</p>
+            <p>Log into the control panel and add the feed to your server, then you&apos;re done!</p>
           </div>
         </Card>
       </Cards>
