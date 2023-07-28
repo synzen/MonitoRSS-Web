@@ -17,6 +17,7 @@ const Container = styled.div`
     font-weight: 500;
     color: ${colors.discord.offwhite};
   }
+  width: 100%;
 `
 
 const Main = styled.div`
@@ -32,7 +33,7 @@ class PageHeader extends React.PureComponent {
     return (
       <Container hasSubheading={!!this.props.subheading}>
         <Main hasSideComponent={!!this.props.sideComponent}>
-          <div>
+          <div style={{ width: '100%' }}>
             {this.props.heading ? <h3>{this.props.heading}</h3> : null}
             {this.props.subheading ? <p>{this.props.subheading}</p> : null}
           </div>

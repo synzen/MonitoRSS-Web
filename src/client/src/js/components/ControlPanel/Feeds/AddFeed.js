@@ -8,7 +8,7 @@ import { Button, Dropdown, Input } from 'semantic-ui-react'
 import { isMobile } from 'react-device-detect'
 import { addGuildFeed } from 'js/actions/feeds'
 import guildSelectors from 'js/selectors/guilds'
-import feedSelectors from 'js/selectors/feeds'
+import AlertBox from 'js/components/common/AlertBox'
 
 const AddFeedInputs = styled.div`
   > div {
@@ -24,7 +24,7 @@ const AddFeedInputs = styled.div`
 
 function AddFeed (props) {
   const guild = useSelector(guildSelectors.activeGuild)
-  const adding = useSelector(feedSelectors.feedAdding)
+
   const [url, setURL] = useState('')
   const [title, setTitle] = useState('')
   const [channel, setChannel] = useState('')
@@ -46,14 +46,21 @@ function AddFeed (props) {
   }
 
   return (
-    <div>
+    <div className="test" style={{
+      width: '100%'
+    }}>
       <SectionTitle
         heading='Add'
         subheading={
           limit !== 0
             ? (
               <>
-                Add a new feed. You may have a maximum of {limit} feeds. Need more? <a href='https://www.patreon.com/monitorss' target='_blank' rel='noopener noreferrer'>Help support MonitoRSS by becoming a supporter!</a>
+                {/* Add a new feed. You may have a maximum of {limit} feeds. Need more? <a href='https://www.patreon.com/monitorss' target='_blank' rel='noopener noreferrer'>Help support MonitoRSS by becoming a supporter!</a> */}
+                <AlertBox warn>
+                  <span style={{ fontSize: '16px' }}>
+        Feeds can no longer be added on this control panel. Please visit the newer control panel at <a href="https://my.monitorss.xyz" target="_blank" rel="noopener noreferrer">https://my.monitorss.xyz</a> instead.
+                  </span>
+                </AlertBox>
               </>
             )
             : ''
@@ -62,18 +69,18 @@ function AddFeed (props) {
       <AddFeedInputs>
         <div>
           <SectionSubtitle>URL</SectionSubtitle>
-          <Input fluid onChange={e => setURL(e.target.value)} value={url} placeholder='Feed URL' onKeyPress={e => e.key === 'Enter' ? add() : null} />
+          <Input disabled fluid onChange={e => setURL(e.target.value)} value={url} placeholder='Feed URL' onKeyPress={e => e.key === 'Enter' ? add() : null} />
         </div>
         <div>
           <SectionSubtitle>Channel</SectionSubtitle>
-          <Dropdown selection fluid options={channelDropdownOptions} search={!isMobile} disabled={channelDropdownOptions.length === 0} onChange={(e, data) => setChannel(data.value)} value={channel} placeholder='Select a channel' onKeyPress={e => e.key === 'Enter' ? add() : null} />
+          <Dropdown selection fluid options={channelDropdownOptions} search={!isMobile} disabled onChange={(e, data) => setChannel(data.value)} value={channel} placeholder='Select a channel' onKeyPress={e => e.key === 'Enter' ? add() : null} />
         </div>
         <div>
           <SectionSubtitle>Title (Optional)</SectionSubtitle>
-          <Input fluid onChange={e => setTitle(e.target.value)} value={title} placeholder='This will be automatically resolved if left blank' onKeyPress={e => e.key === 'Enter' ? add() : null} />
+          <Input disabled fluid onChange={e => setTitle(e.target.value)} value={title} placeholder='This will be automatically resolved if left blank' onKeyPress={e => e.key === 'Enter' ? add() : null} />
         </div>
         <div>
-          <Button content='Add' color='green' disabled={!url || !channel || adding} onClick={add} />
+          <Button content='Add' color='green' disabled onClick={add} />
         </div>
       </AddFeedInputs>
     </div>
