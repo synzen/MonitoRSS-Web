@@ -232,9 +232,9 @@ function NavBar () {
           </NavItem>
 
           <NavItem>
-            <Link to={pages.DASHBOARD}>
+            <a href="https://my.monitorss.xyz" target="_blank" rel="noopener noreferrer">
               <WhiteButton basic>Control Panel</WhiteButton>
-            </Link>
+            </a>
           </NavItem>
         </NavButtons>
       </DesktopNav>

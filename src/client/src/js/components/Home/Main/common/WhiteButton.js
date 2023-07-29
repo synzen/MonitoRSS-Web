@@ -11,6 +11,9 @@ const WhiteButton = styled(Button)`
   &:focus {
     background: rgba(220, 221, 222, .1) !important;
   }
+  width: 100%;
+  height: 100%;
+  /* cursor: pointer; */
 `
 
 export default WhiteButton

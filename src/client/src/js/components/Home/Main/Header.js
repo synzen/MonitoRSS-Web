@@ -43,7 +43,7 @@ const HeaderButtons = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;  
-  > .ui.button {
+  > .ui.button, a {
     width: 200px;
     margin: 10px 20px;
   }
@@ -131,7 +131,9 @@ function Header () {
             With a copious level of customization, you can design it to look just how you want it.
           </SectionDescription>
           <HeaderButtons>
-            <WhiteButton basic onClick={e => history.push(pages.DASHBOARD)}>Control Panel</WhiteButton>
+            <a href="https://my.monitorss.xyz" target="_blank" rel="noreferrer noopener">
+            <WhiteButton basic>Control Panel</WhiteButton>
+            </a>
             <Button size='large' onClick={e => modal.show(modalProps, modalChildren)}>Invite Me!</Button>
           </HeaderButtons>
         </div>
