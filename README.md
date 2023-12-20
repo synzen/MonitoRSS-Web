@@ -1,6 +1,6 @@
-# ATTN: This repo is currenty in a maintenance-only stage
 
-Due to limited resources and time, only critical bug fixes will be worked on until further notice.
+> [!IMPORTANT]  
+> This repo is no longer used for hosting MonitoRSS. Please visit https://github.com/synzen/MonitoRSS instead to either set up MonitoRSS, or to migrate off of this repo.
 
 # MonitoRSS Web (Formerly Discord.RSS Web)
 
